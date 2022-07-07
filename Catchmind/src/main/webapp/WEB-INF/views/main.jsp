@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> CATCHMIND | 캐치마인드 </title>
-    <style>
+ <style>
         /* nav */
         nav{
             height: 788px;

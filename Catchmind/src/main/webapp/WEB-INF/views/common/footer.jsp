@@ -44,7 +44,7 @@
             Copyright ⓒ Cupist Inc. All rights reserved
             <div class="footerinner">
                 <pre style="margin-left: 10px;"><b>캐치마인드</b><br>(주) 캐치마인드 / 사업자 등록 번호 : 590-81-00690</pre>
-                <pre><b>고객센터</b><br>문의전화 : 02-1544-9970 / 이메일 : admin@chtchmind.am</pre>
+                <pre><b>고객센터</b><br>문의전화 : 010-4806-7399 / 이메일 : catchmindofficial@gmail.com</pre>
                 <pre><b>GIT</b><br>GIT주소작성자리</pre>
             </div>
         </div>
