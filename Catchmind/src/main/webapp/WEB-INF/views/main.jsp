@@ -17,7 +17,7 @@
         }
         nav img{
             width:100vw;
-            /* height: 788px; */
+            height: 100vh;
             float:left;
         }
         /* section */
@@ -56,7 +56,6 @@
             font-size: 35px;
             line-height: 50px;
         }
-        
         .line{
             background-color: white !important;
             width:50px;
