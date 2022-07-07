@@ -7,5 +7,5 @@
 		WHERE STATUS = 'Y'
 	</select>
 	
-	<select id="selectInquiryList" resultMap=""></select>
+
 </mapper>
