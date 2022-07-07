@@ -77,10 +77,12 @@
             <input type="text" id="userName" name="userName" placeholder="가입 시 작성한 성함을 입력해주세요." required><br><br>
 
             <label for="email">* EMAIL : </label>
-            <input type="email" id="email" name="email" placeholder="가입 시 작성한 이메일을 입력해주세요." required><br><br>
+            <input type="email" id="email" name="email" style="width:300px;" placeholder="가입 시 작성한 이메일을 입력해주세요." required> &nbsp; 
+            <button type="button" id="clickButton" onclick="getCertificationNum();">메일발송</button><br>
+            <input type="text" name="loginNumber" id="loginNumber" style="width:300px;" disabled placeholder="인증번호 6자리 입력" size="25"> &nbsp;&nbsp;&nbsp;&nbsp; <br><br>
 
             <input type="submit" id="btn-find" class="btn-terms" value=" 회원정보 찾기 ">
-            <br><br><br><br><a href="1:1문의매핑" class="info_font" id="inquiry">등록한 회원정보가 변경되었거나 회원정보를 찾는 데 문제가 있으신가요? · · · · · ▷ click </a> 
+            <br><br><br><a href="enrollForm.in" class="info_font" id="inquiry">등록한 회원정보가 변경되었거나 회원정보를 찾는 데 문제가 있으신가요? · · · · · ▷ click </a> 
             
         </div>
     </form>
@@ -88,5 +90,41 @@
     <%-- footer 영역 --%>
     <jsp:include page="../common/footer.jsp"/>
 
+    <script>
+        var otp;
+        function getCertificationNum() {
+            alert("인증번호가 발송되었습니다.");	
+            var email = $("#email").val();
+            $("#loginNumber").removeAttr("disabled");
+        
+            $.ajax({
+                url : "sendEmail.me",
+                data : {email : email},
+                type : "post",
+                success : function(result) {
+        
+                // result : 컨트롤러에서 발생시킨 otp 코드
+                otp = result;
+                }, 
+                error : function() {
+                        console.log("이메일 인증용 ajax 실패");
+                }
+            });
+        }
+        
+        function invalidateNum() {
+
+            var inputOtp = $("#loginNumber").val();
+                 if(otp == inputOtp) {
+                     alert("인증되었습니다. ");
+                     return true; 
+                } else {
+                      alert("인증번호가 맞지 않습니다.");
+                      $("#loginNumber").val("").attr("disabled", true);
+                    return false;
+            }
+            return false;
+       }    
+    </script>
 </body>
 </html>
