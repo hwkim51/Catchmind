@@ -7,9 +7,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+    .line{
+        background-color: white !important;
+        width:50px;
+        height: 5px;
+        margin: 10px 0px;
+        transition-duration:0.5;
+    }
     /* nav */
     nav{
-        height: 788px;
+        height: 100vh;
         position: absolute;
         top:0px;
         overflow: hidden;
@@ -28,8 +35,8 @@
         text-align: center;
         font-size: larger;
         position: absolute;
-        top: 220px;
-        left: 800px;
+        top: 40vh;
+        left: 50vw;
     }
     #loginForm label, #loginForm .btn-login, #loginForm span{
         font-weight: 700;
@@ -55,15 +62,8 @@
         border-radius:5px;
         color:white;
     }
-    .home{
-        float: left;
-        position: absolute;
-        top:18px;
-        left: 100px;
-        z-index: 4;
-        font-size: 35px;
-        font-weight: 700;
-        color: white;
+    .check_font{
+        font-size: 11px;
     }
 
 </style>
@@ -73,10 +73,9 @@
 
     <%-- header 영역 --%>
     <jsp:include page="../common/header.jsp"/>
-    <div class="home">CATCHMIND 하세요</div>
     
     <%-- main 영역 --%>
-    <nav style="background:skyblue; width:400vw;">
+    <nav>
             <img src='./resources/images/nav5.jpg'>
     </nav>
     
@@ -87,8 +86,9 @@
             <label for="userId">I &nbsp;D : &nbsp;</label>
             <input type="text" id="userId" name="userId" placeholder="Enter ID"><br>
             <label for="userPwd">PW : &nbsp;</label>
-            <input type="password" id="userPwd" name="userPwd" placeholder="Enter Password"><br><br>
-            <span><a href="">아이디 / 비밀번호 찾기</a></span>
+            <input type="password" id="userPwd" name="userPwd" placeholder="Enter Password"><br>
+            <div class="check_font" id="acount_check"> 　</div>
+            <span><a href="findIdPage.me">아이디 </a>/ <a href="findPwdPage.me">비밀번호 찾기</a></span>
             <span><a href="enrollForm.me">회원가입</a></span><br>
             <input type="submit" class="btn-login" value="로그인하기">
         </form>
@@ -97,6 +97,13 @@
 
     <%-- footer 영역 --%>
     <jsp:include page="../common/footer.jsp"/>
+
+    <c:if test="${ not empty alertMsg }">
+        <script>
+            alertify.alert("알람", "${alertMsg}");
+        </script>
     
+    <c:remove var="alertMsg" scope="session"/>
+    </c:if> 
 </body>
 </html>

@@ -7,23 +7,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> CATCHMIND | 캐치마인드 </title>
-    <style>
+ <style>
         /* nav */
         nav{
-            height: 788px;
+            height: 100vh;
             position: absolute;
             top:0px;
             overflow: hidden;
         }
         nav img{
             width:100vw;
-            height: 788px;
+            height: 100vh;
             float:left;
         }
         /* section */
         section{
             position: absolute;
-            top: 788px;
+            top: 100vh;
         }
         .btn-main{
             background-color: orange;
@@ -56,7 +56,6 @@
             font-size: 35px;
             line-height: 50px;
         }
-        
         .line{
             background-color: white !important;
             width:50px;

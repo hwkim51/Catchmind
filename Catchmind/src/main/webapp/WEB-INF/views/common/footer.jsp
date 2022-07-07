@@ -41,7 +41,7 @@
 </head>
 <body>
         <div class="footer">
-            Copyright ⓒ Catchmind Inc. All rights reserved
+            Copyright ⓒ Cupist Inc. All rights reserved
             <div class="footerinner">
                 <pre style="margin-left: 10px;"><b>캐치마인드</b><br>(주) 캐치마인드 / 사업자 등록 번호 : 590-81-00690</pre>
                 <pre><b>고객센터</b><br>문의전화 : 010-4806-7399 / 이메일 : catchmindofficial@gmail.com</pre>

@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
     <title>Document</title>
-
+    <!-- Alertify 라이브러리 -->
     <!-- JavaScript -->
 	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 	<!-- CSS -->
@@ -39,7 +39,7 @@
             position: relative;
         }
         .line{
-            background-color: white;
+            background-color: black;
             width:50px;
             height: 5px;
             margin: 10px 0px;
@@ -55,17 +55,17 @@
         /* header : sidebar*/
         .sidebar{
             width: 100%;
-            height: 1000px;
+            height: 100vh;
             background-color: black;
             opacity: 93%;
             position: fixed;
             top:0;
-            left:-2000px;
+            left:-3000px;
             z-index: 1;
             transition:all 0.7s;
         }
         .sidebar label{
-            height: 600px;
+            height: 30vh;
             text-align: center;
             margin : auto; 
             position : absolute;
@@ -99,6 +99,10 @@
             color:white;
             line-height: 38px;
         }
+        .active+div{
+            display: block;
+            padding-left: 40px;
+        }
         .accodion>a>span:hover {
             background : linear-gradient(to top, orange 50%, transparent 50%);
             display : inline-block;
@@ -108,17 +112,13 @@
             display: inline-block;
             background : linear-gradient(to top, orange 50%, transparent 50%)
         }
-        
-        .active+div{
-            display: block;
-            padding-left: 40px;
-        }
+
     
         #menuicon:checked + label ~ .sidebar{
             left:0;
         }
         #menuicon:checked + label #top{
-            width : 30px;
+            width: 30px;
             transform:translateY(15px) rotate(45deg);
             transform-origin:center;
             position: fixed;
@@ -127,7 +127,7 @@
             opacity: 0;
         }
         #menuicon:checked + label #btm{
-            width : 30px;
+            width: 30px;
             transform: translateY(-10px) rotate(-45deg);
             transform-origin:center;
             position: fixed;
@@ -139,6 +139,15 @@
         #menuicon:checked + label ~ #membericon {
             background:url('./resources/images/people.png') 0px -83px / 40px no-repeat;
             position: fixed;
+        }
+        .homelogo{
+            width: 100vw;
+            text-align: center;
+            position: absolute;
+            font-size: 35px;
+            font-weight: 700;
+            top: 20px;
+            color:orange;
         }
         </style>
 </head>
@@ -152,13 +161,15 @@
         <div class="line" id="btm"></div>
     </label>
 
-
-    <!-- header : 회원아이콘 -->
-    <a href="login.me">
-        <div id="membericon" style="right:0px;">
-            <br clear="both">
-        </div>
+    <a href="">
+        <div class="homelogo">CATCHMIND</div>
     </a>
+    
+    
+    <!-- header : 회원아이콘 -->
+    <div id="membericon" style="right:0px;" onclick="myPage()">
+        <br clear="both">
+    </div>
 
     <!-- header : click 시 sidebar -->
     <div class="sidebar">
@@ -176,12 +187,14 @@
                 <div>
                     <li><a href="">공지사항</a></li>
                     <li><a href="catchTalk.faq">FAQ</a></li>
-                    <li><a href="">1:1문의</a></li>
+                    <li><a href="enrollForm.in">1:1문의</a></li>
                 </div>
          
         </label>
     </div>
+
     <script>
+        // accodion 클릭 시 active 클래스 속성명 추가해주기(효과용)
         var accodion = document.querySelectorAll('.accodion');
         
         for(var i = 0; i< accodion.length; i++){
@@ -193,6 +206,18 @@
 
                 this.classList.add('active');
             });
+        }
+        
+        // membericon 클릭 시 마이페이지로 
+        var membericon = document.querySelector("#membericon");
+        
+        function myPage(){
+            if("${loginUser}" != ""){
+                location.href="mypage.me";
+            }
+            else{
+                location.href="loginPage.me";
+            }
         }
     </script>
 </body>
