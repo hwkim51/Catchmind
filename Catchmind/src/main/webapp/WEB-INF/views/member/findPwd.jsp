@@ -53,6 +53,16 @@
         text-decoration: none;
         color:dimgrey;
    }
+   .btn-email{
+        border:none;
+        font-weight: 600;
+   }
+   .btn-email:active{
+        border:none;
+   }
+   .btn-email::after{
+        border: none;
+   }
 
 
 </style>
@@ -68,7 +78,6 @@
             <div class="enrollTitle">비밀번호 찾기<br>
                 <span class="info_font">가입 시 입력한 회원정보(아이디, 이름, 이메일)로 비밀번호를 찾아 드립니다.</span></div>
                 
-
             
             <label for="userId">* 아이디 : </label>
             <input type="text" id="userId" name="userId" placeholder="가입회원의 아이디를 입력해주세요." required><br><br>
@@ -78,7 +87,7 @@
 
             <label for="email">* EMAIL : </label>
             <input type="email" id="email" name="email" style="width:300px;" placeholder="가입 시 작성한 이메일을 입력해주세요." required> &nbsp; 
-            <button type="button" id="clickButton" onclick="getCertificationNum();">메일발송</button><br>
+            <button type="button" id="clickButton" class="btn-email" onclick="getCertificationNum();">메일발송</button><br>
             <input type="text" name="loginNumber" id="loginNumber" style="width:300px;" disabled placeholder="인증번호 6자리 입력" size="25"> &nbsp;&nbsp;&nbsp;&nbsp; <br><br>
 
             <input type="submit" id="btn-find" class="btn-terms" value=" 회원정보 찾기 ">
@@ -92,24 +101,37 @@
 
     <script>
         var otp;
+        var email = $("#email").val();
+
+        
         function getCertificationNum() {
-            alert("인증번호가 발송되었습니다.");	
-            var email = $("#email").val();
-            $("#loginNumber").removeAttr("disabled");
-        
-            $.ajax({
-                url : "sendEmail.me",
-                data : {email : email},
-                type : "post",
-                success : function(result) {
-        
-                // result : 컨트롤러에서 발생시킨 otp 코드
-                otp = result;
-                }, 
-                error : function() {
-                        console.log("이메일 인증용 ajax 실패");
-                }
-            });
+
+            if($("#email").val() == ''){
+                alert("이메일 항목을 입력해주세요.");
+                setTimeout(function(){
+                    $("#email").css("border","2px solid red");
+                },200)
+            }
+            else{	            
+                $("#loginNumber").removeAttr("disabled");
+                $("#email").css("border","1px solid black");
+                $.ajax({
+                    url : "sendEmail.me",
+                    data : {email : email},
+                    type : "post",
+                    success : function(result) {
+            
+                    // result : 컨트롤러에서 발생시킨 otp 코드
+                    otp = result;
+                    }, 
+                    error : function() {
+                            console.log("이메일 인증용 ajax 실패");
+                    }
+                });
+                setTimeout(function(){
+                    alert("인증번호가 전송되었습니다.");
+                },200);
+            }
         }
         
         function invalidateNum() {

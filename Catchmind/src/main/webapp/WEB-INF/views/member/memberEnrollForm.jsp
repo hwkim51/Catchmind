@@ -75,6 +75,16 @@
     input[name="phone"]{
         width:50px;
     }
+    #upfilePicPreview{
+        background-image:url('https://cdn-icons-png.flaticon.com/512/3525/3525130.png');
+        background-size: contain;
+        background-color: rgba(0, 0, 0, 0.865);
+    }
+    #upfilePicPreview:hover{
+        cursor: pointer;
+        background-image:url('./resources/images/pic2.png');
+        background-color: rgba(0, 0, 0, 0.865);
+    }
 </style>
 </head>
 
@@ -84,7 +94,7 @@
 
     <hr>
     <!-- *ID, *PW, *PW확인, 이름, 생년월일, 성별, *전화번호, *이메일-->
-    <form action="insert.me" method="post" id="enrollForm">
+    <form action="insert.me" method="post" id="enrollForm" enctype="multipart/form-data">
         <div id="enrollStep1">
             <div class="enrollTitle">회원가입 - 이용약관 동의</div>
            
@@ -213,8 +223,8 @@
             <input type="text" id="userName" name="userName" maxlength="15"><br>
                 <div class="check_font"></div>
 
-            <label for="birthday"> 생년월일 : </label>
-            <input type="date" id="birthday" name="birthday" style="padding-left: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;<br>
+            <label for="birthDay"> 생년월일 : </label>
+            <input type="date" id="birthDay" name="birthDay" style="padding-left: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;<br>
                 <div class="check_font"></div>
 
             <label for="phone">* 휴대폰번호 : </label>
@@ -223,7 +233,7 @@
             -<input type="text" id="phone3" name="phone" maxlength="4"><br>
                 <div class="check_font"></div>
 
-            <label for="email">* 이메일 : </label>
+            <label for="email">* EMAIL : </label>
             <input type="email" id="email" name="email"><br>
                 <div class="check_font"></div>
                 <div class="check_font"></div>
@@ -233,15 +243,15 @@
 
         <!-- 닉네임, 주소, 전화번호, 키, MBTI-->
         <div id="enrollStep3">
-            <div class="enrollTitle">회원가입 - 프로필 </div>
-            <br>
-            <label for="pic">프로필사진 : </label>
-            <input type="text" id="pic" name="pic"><br>
+            <div class="enrollTitle">회원가입 - 프로필 만들기</div>
+           
+            <img id="upfilePicPreview" width="170" height="170" style="border:none; border-radius: 70%;"><br><br>
+            <input type="file" id="upfilePic" name="upfilePic" onchange="loadImg(this)">
             <label for="nickname">* 닉네임: </label>
             <input type="text" id="nickname" name="nickname" maxlength="15"><br>
                 <div class="check_font" id="nickname_check">닉네임으로 회원님을 소개해주세요.</div>
             <label for="mbti">MBTI : </label>
-            <input type="text" id="mbti" name="mbti"><br>
+            <input type="text" id="mbti" name="mbti"><br><br>
           
             <input type="submit" id="btn-terms3" class="btn-terms" value="회&nbsp;원&nbsp;가&nbsp;입 ">
         </div><br>
@@ -249,14 +259,30 @@
             <div class="statusBar"></div>
         </div>
     </form>
-   
-    
+       
     <%-- footer 영역 --%>
     <jsp:include page="../common/footer.jsp"/>
 
     <script>
+        function loadImg(inputfile){
+            if(inputfile.files.length == 1){ // 업로드할 프로필사진 선택 O (미리보기)
+                var reader = new FileReader();
+                reader.readAsDataURL(inputfile.files[0]);
+                reader.onload = function(e){
+                    $("#upfilePicPreview").attr("src", e.target.result);
+                }
+            }
+            else{ // 업로드할 프로필사진 선택 X (미리보기 없음)
+                $("#upfilePicPreview").attr("src", null);
+            }
+        }
         $(function(){
 
+            $("#upfilePic").hide();
+
+            $("#upfilePicPreview").click(function(){
+                $("#upfilePic").click();
+            });
             // * 약관 동의시에만 NEXT 버튼 활성화 
             $(function(){agree_terms();})
             
@@ -325,7 +351,7 @@
             var $phone = $("#enrollStep2 input[name=phone]");
             var $nickname = $("#enrollStep3 input[name=nickname]");
 
-            var regExpId = /^[a-z][a-z\d]{3,14}$/; 
+            var regExpId = /^[0-9a-zA-Z]{3,14}$/; 
             var regExpPwd = /^[a-zA-Z0-9`~!@#$%^&*+=_-|₩';:₩"/?]{4,16}$/i;
             var regExpPhone = /^[0-9]{4}$/;
             var regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9A-Za-z])*@[0-9a-zA-Z]([-_.]?[0-9A-Za-z])*.[a-zA-Z]{2,3}$/i;

@@ -63,12 +63,12 @@
     <!-- *ID, *PW, *PW확인, 이름, 생년월일, 성별, *전화번호, *이메일-->
     <form id="findForm">
         <div id="enrollStep">
-            <div class="enrollTitle">회원정보 찾기 결과<br>
-                <span class="info_font">입력한 정보로 찾은 회원 조회 결과 입니다.</span></div>
+            <div class="enrollTitle">회원정보<br>
+                <span class="info_font">${resultMsg}</span></div>
                 <br>
             <c:choose>
                 <c:when test="${not empty findUser}">
-                    <br><label> 회원님의 아이디는 ${findUser.userId} 입니다.</label><br><br><hr>
+                    <br><label style="font-size: 1em;"> 환영합니다. ${findUser.userId} 회원님 :D </label><br><br><hr>
                    
                     <span class="info_font">지금 로그인하고 운명의 상대 찾으러 가기💕</span><br><br>
                     <input type="button" id="btn-find" class="btn-terms" value=" L O G I N " onclick="login()">

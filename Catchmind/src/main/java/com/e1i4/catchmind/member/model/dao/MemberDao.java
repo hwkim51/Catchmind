@@ -34,6 +34,11 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.nicknameCheck", nickname);
 	}
 
+	// 회원가입 서비스(insert)
+	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.insertMember", m);
+	}
+
 	// 비밀번호 찾기 - 변경 서비스(update)
 //	public int changePwd(SqlSessionTemplate sqlSession, Member m) {
 //		

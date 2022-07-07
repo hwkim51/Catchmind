@@ -38,7 +38,7 @@ public class MemberServiceImpl implements MemberService  {
 	// 회원가입서비스(insert)
 	@Override
 	public int insertMember(Member m) {
-		return 0;
+		return memberDao.insertMember(sqlSession, m);
 	}
 
 	// 회원 탈퇴 서비스 (update)

@@ -62,7 +62,7 @@
     
     <hr>
     <!-- *ID, *PW, *PW확인, 이름, 생년월일, 성별, *전화번호, *이메일-->
-    <form action="findId.me" method="post" id="findForm">
+    <form action="result.me" method="post" id="findForm">
         <div id="enrollStep">
             <div class="enrollTitle">아이디 찾기<br>
                 <span class="info_font">가입 시 입력한 회원정보(이름, 이메일)로 아이디를 찾아 드립니다.</span></div>
