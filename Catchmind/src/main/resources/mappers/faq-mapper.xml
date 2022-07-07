@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="faqMapper">
+
+	<resultMap id="faqResultSet" type="faq">
+		<result column="FAQ_NO" property="faqNo"/>
+		<result column="FAQ_TITLE" property="faqTitle"/>
+		<result column="FAQ_CONTENT" property="faqContent"/>
+	</resultMap>
+
+
+
+
+
+	<select id="selectFaq" parameterType="_int" resultMap="faqResultSet">
+		SELECT * 
+		FROM TB_FAQ 
+		WHERE FAQ_NO = #{faqNo}
+	</select>
+
+
+
+
+
+</mapper>

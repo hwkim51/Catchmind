@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.e1i4.catchmind.member.model.vo.Member" alias="member" />
+		<typeAlias type="com.e1i4.catchmind.board.model.vo.Board" alias="board" />
+		<typeAlias type="com.e1i4.catchmind.catchboard.model.vo.CatchBoard" alias="catchboard" />
+		<typeAlias type="com.e1i4.catchmind.inquiry.model.vo.Inquiry" alias="inquiry" />
+		<typeAlias type="com.e1i4.catchmind.notice.model.vo.Notice" alias="notice" />
+		<typeAlias type="com.e1i4.catchmind.faq.model.vo.Faq" alias="faq" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="/mappers/board-mapper.xml" />
+		<mapper resource="/mappers/member-mapper.xml" />
+		<mapper resource="/mappers/catchboard-mapper.xml" />
+		<mapper resource="/mappers/inquiry-mapper.xml" />
+		<mapper resource="/mappers/notice-mapper.xml" />
+		<mapper resource="/mappers/faq-mapper.xml" />
+	</mappers>
+
+</configuration>

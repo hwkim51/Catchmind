@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+
+	<resultMap id="noticeResultSet" type="notice">
+		<result column="NOTICE_NO" property="noticeNo"/>
+		<result column="NOTICE_TITLE" property="noticeTitle"/>
+		<result column="NOTICE_CONTENT" property="noticeContent"/>
+		<result column="NOTICE_DATE" property="noticeDate"/>
+		<result column="NOTICE_COUNT" property="noticeCount"/>
+		<result column="NOTICE_STATUS" property="noticeStatus"/>
+	</resultMap>
+
+  	<select id="selectListCount" parameterType="_int">
+	  	SELECT COUNT(*) 
+	  	FROM TB_NOTICE 
+	  	WHERE NOTICE_STATUS='Y'
+ 	 </select>
+  
+  	<select id="selectList" resultMap="noticeResultSet">
+	  	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_COUNT, NOTICE_DATE 
+	  	FROM TB_NOTICE 
+	  	WHERE NOTICE_STATUS='Y'
+  	</select>
+  
+  	<update id="increaseCount" parameterType="_int">
+  		UPDATE TB_NOTICE 
+  		   SET NOTICE_COUNT = NOTICE_COUNT + 1 
+  		 WHERE NOTICE_NO = #{noticeNo}
+  	</update>
+  
+  	<select id="selectBoard" parameterType="_int" resultMap="noticeResultSet">
+  		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, 
+  			   TO_CHAR(NOTICE_DATE,'YYYY-MM-DD') NOTICE_DATE, NOTICE_COUNT
+  		FROM TB_NOTICE 	 
+  		WHERE NOTICE_NO = #{noticeNo}  
+  	</select>
+  
+</mapper>

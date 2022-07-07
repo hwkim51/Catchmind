@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatMapper">
+	<select id="getRoomNo" parameterType="HashMap">
+		SELECT ROOM_NO
+		FROM CHATROOMS
+		WHERE USER_NO1 = #{userNo1}
+		AND USER_NO2 = #{userNo2}
+	</select>
+	
+	<insert id="createRoomNo" parameterType="HashMap">
+		INSERT INTO CHATROOMS
+		VALUES(SEQ_CRNO, #{userNo1}, #{userNo2})
+	</insert>
+</mapper>
