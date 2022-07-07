@@ -176,7 +176,7 @@
                 <div>
                     <li><a href="">공지사항</a></li>
                     <li><a href="catchTalk.faq">FAQ</a></li>
-                    <li><a href="">1:1문의</a></li>
+                    <li><a href="enrollForm.in">1:1문의</a></li>
                 </div>
          
         </label>
