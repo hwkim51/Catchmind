@@ -16,7 +16,7 @@
     }
     /* nav */
     nav{
-        height: 788px;
+        height: 100vh;
         position: absolute;
         top:0px;
         overflow: hidden;
@@ -35,8 +35,8 @@
         text-align: center;
         font-size: larger;
         position: absolute;
-        top: 220px;
-        left: 800px;
+        top: 40vh;
+        left: 50vw;
     }
     #loginForm label, #loginForm .btn-login, #loginForm span{
         font-weight: 700;
@@ -75,7 +75,7 @@
     <jsp:include page="../common/header.jsp"/>
     
     <%-- main 영역 --%>
-    <nav style="background:skyblue; width:400vw;">
+    <nav>
             <img src='./resources/images/nav5.jpg'>
     </nav>
     

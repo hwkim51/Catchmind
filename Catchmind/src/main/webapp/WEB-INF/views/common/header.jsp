@@ -55,17 +55,17 @@
         /* header : sidebar*/
         .sidebar{
             width: 100%;
-            height: 1000px;
+            height: 100vh;
             background-color: black;
             opacity: 93%;
             position: fixed;
             top:0;
-            left:-2000px;
+            left:-3000px;
             z-index: 1;
             transition:all 0.7s;
         }
         .sidebar label{
-            height: 600px;
+            height: 30vh;
             text-align: center;
             margin : auto; 
             position : absolute;
