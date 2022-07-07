@@ -88,7 +88,7 @@
             <label for="userPwd">PW : &nbsp;</label>
             <input type="password" id="userPwd" name="userPwd" placeholder="Enter Password"><br>
             <div class="check_font" id="acount_check"> 　</div>
-            <span><a href="findIdPage.me">아이디 </a>/<a href="findPwdPage.me">비밀번호 찾기</a></span>
+            <span><a href="findIdPage.me">아이디 </a>/ <a href="findPwdPage.me">비밀번호 찾기</a></span>
             <span><a href="enrollForm.me">회원가입</a></span><br>
             <input type="submit" class="btn-login" value="로그인하기">
         </form>
