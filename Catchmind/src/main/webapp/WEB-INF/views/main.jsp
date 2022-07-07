@@ -10,20 +10,20 @@
  <style>
         /* nav */
         nav{
-            height: 788px;
+            height: 100vh;
             position: absolute;
             top:0px;
             overflow: hidden;
         }
         nav img{
             width:100vw;
-            height: 788px;
+            /* height: 788px; */
             float:left;
         }
         /* section */
         section{
             position: absolute;
-            top: 788px;
+            top: 100vh;
         }
         .btn-main{
             background-color: orange;

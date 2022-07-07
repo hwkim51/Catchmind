@@ -40,7 +40,7 @@
         }
         .line{
             background-color: black;
-            width:50px;
+            width: 50px;
             height: 5px;
             margin: 10px 0px;
             transition-duration:0.5;
