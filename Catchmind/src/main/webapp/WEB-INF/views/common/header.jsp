@@ -163,7 +163,7 @@
     <!-- header : click 시 sidebar -->
     <div class="sidebar">
         <label>
-            <ul class="accodion"><a href=""><span>MBTI 테스트</span></a></ul><br>
+            <ul class="accodion"><a href="mbtiTest.te"><span>MBTI 테스트</span></a></ul><br>
             <ul class="accodion"><a href=""><span>❣ CATCH ❣</span></a></ul><br>
             <ul class="accodion"><a><span>커뮤니티</span></a></ul>
                 <div>

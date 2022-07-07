@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Catch Mind</title>
+<title> CATCHMIND | 캐치마인드 </title>
 <style>
 	.qArea {
 		margin-top: 50px;
@@ -242,7 +242,6 @@
                     <div>지각했을 때 나는</div>
                 </div>
                 <div class="options" align="center">
-                	<input type="hidden" id="test-end" value="end">
                     <div class="option" href="#question" data-slide="pause" value="T">
                     	구구절절 늦은 이유를 설명한다
                     </div>
@@ -251,6 +250,11 @@
                     </div>
                 </div>
             </div>
+            
+            <form name="mbtiResult" action="mbtiResult.te" method="post" align="center">
+            	<input type="hidden" id="mbtiResult" name="mbtiResult">
+            </form>
+            
         </div>
     </div>
     
@@ -322,44 +326,9 @@
             		}
             		
             		console.log(mbti);
-    			}
-    			
-    			if(mbti == "ESTP") {
-    				
-    			} else if(mbti == "ESTJ") {
-    				
-    			} else if(mbti == "ESFP") {
-    				
-    			} else if(mbti == "ESFJ") {
-    				
-    			} else if(mbti == "ENFP") {
-    				
-    			} else if(mbti == "ENFJ") {
-    				
-    			} else if(mbti == "ENFP") {
-    				
-    			} else if(mbti == "ENFJ") {
-    				
-    			} else if(mbti == "ENTP") {
-    				
-    			} else if(mbti == "ENTJ") {
-    				
-    			} else if(mbti == "ISTJ") {
-    				
-    			} else if(mbti == "ISTP") {
-    				
-    			} else if(mbti == "ISFJ") {
-    				
-    			} else if(mbti == "ISFP") {
-    				
-    			} else if(mbti == "INFJ") {
-    				
-    			} else if(mbti == "INFP") {
-    				
-    			} else if(mbti == "INTJ") {
-    				
-    			} else if(mbti == "INTP") {
-    				
+        			$("#mbtiResult").val(mbti);
+        			
+        			document.mbtiResult.submit();
     			}
     		});
     	});
