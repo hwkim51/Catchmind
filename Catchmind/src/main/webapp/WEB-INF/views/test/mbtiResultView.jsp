@@ -46,12 +46,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+	<jsp:include page="../common/header.jsp"/>
+	
     <div class="mbtiResult-area" align="center">
         <img class="mbtiResult-img" src="${ testResult.mbtiImg }">
         <div class="mbtiResult-title">${ testResult.mbtiTitle }</div>
         <div class="mbtiResult-mbti">${ testResult.mbtiResult }</div>
-        <div class="mbtiResult-content">${ testResult.mbtiContent }</div>
+        <div class="mbtiResult-content" align="left">${ testResult.mbtiContent }</div>
         <button class="btn mbtiResult-btn">확인</button>
     </div>
+    
+    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
