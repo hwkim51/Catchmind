@@ -22,9 +22,13 @@ body{
 
 .chat-list li {
     margin-bottom: 10px;
-    overflow: auto;
+    overflow:auto;
     color: #ffffff;
 }
+
+
+
+
 
 .chat-list .chat-img {
     float: left;
@@ -177,8 +181,11 @@ body{
 }
 
 .scroll{
-    height:100%;
-    overflow-y: scroll; 
+    height:590px;
+    display:flex;
+    flex-direction: column-reverse;
+    overflow-y:auto;
+
 }
 
 #btn1{
@@ -228,7 +235,7 @@ body{
                 <div class="card">
                     <div class="card-header">Chat</div>
                     <div class="card-body height3 scroll">
-                        <ul class="chat-list">
+                        <ul class="chat-list" id="chatlist-id" >
                             
                             
                         </ul>
@@ -303,13 +310,11 @@ body{
 		        	
 			location.href="enrollForm.in";
         }
-		
         
-        $(function(){
             // 채팅 스크롤 하단으로 보내기 
-            $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
-        });
-        
+               $("#chatlist-id").scrollTop($("#chatlist-id")[0].scrollHeight);
+         
+          
     </script>
     
     <%-- footer 영역 --%>

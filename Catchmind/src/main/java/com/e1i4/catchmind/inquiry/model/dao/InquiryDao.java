@@ -10,7 +10,7 @@ public class InquiryDao {
 	
 	public int insertInquiry(SqlSessionTemplate sqlSession, Inquiry in) {
 		
-		return sqlSession.insert("InquiryMapper.insertInquiry", in);
+		return sqlSession.insert("inquiryMapper.insertInquiry", in);
 	}
 
 }

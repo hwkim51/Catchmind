@@ -11,16 +11,17 @@
 		<result column="NOTICE_STATUS" property="noticeStatus"/>
 	</resultMap>
 
-  	<select id="selectListCount" parameterType="_int">
+  	<select id="selectListCount" resultType="_int">
 	  	SELECT COUNT(*) 
 	  	FROM TB_NOTICE 
 	  	WHERE NOTICE_STATUS='Y'
  	 </select>
   
   	<select id="selectList" resultMap="noticeResultSet">
-	  	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_COUNT, NOTICE_DATE 
+	  	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_COUNT, TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD') NOTICE_DATE
 	  	FROM TB_NOTICE 
 	  	WHERE NOTICE_STATUS='Y'
+	  	ORDER BY NOTICE_NO DESC
   	</select>
   
   	<update id="increaseCount" parameterType="_int">
@@ -29,7 +30,7 @@
   		 WHERE NOTICE_NO = #{noticeNo}
   	</update>
   
-  	<select id="selectBoard" parameterType="_int" resultMap="noticeResultSet">
+  	<select id="selectNotice" parameterType="_int" resultMap="noticeResultSet">
   		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, 
   			   TO_CHAR(NOTICE_DATE,'YYYY-MM-DD') NOTICE_DATE, NOTICE_COUNT
   		FROM TB_NOTICE 	 

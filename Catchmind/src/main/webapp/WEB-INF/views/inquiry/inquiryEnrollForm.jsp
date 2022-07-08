@@ -7,6 +7,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Catchmind</title>
+        <!-- 부트스트랩에서 제공하고 있는 스타일 -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <style>
         
         body{
@@ -72,7 +76,6 @@
         </style>
         </head>
         <body>
-        
             <%-- header 영역 --%>
             <jsp:include page="../common/header.jsp"/>
 
@@ -80,35 +83,23 @@
             <br>
             <h2>1 : 1문의 </h2>
             <hr><br>
-        
+        	
             <div class="innerContent"> 
               <form action="insert.in" method="post">       
                 
                 <!-- input type="hidden" 으로 작성자 userNo 값 같이 전달-->
-                <input type="hidden" name="userNo" value="${loginUser.userNo}">
-                <table id="inquiryTable" class=".table-borderless" text-align="center">      
-                    <tr>
-                        <th> 작성자</th>      
-                        <td>
-                            <input type="text" value="${loginUser.userId}" size="95" readonly>
-                        </td>               
-                    </tr>
-                    <tr>
-                        <th> 이메일</th>      
-                        <td>
-                            <input type="email" value="${loginUser.email}" size="95" readonly>
-                        </td>               
-                    </tr>
+                <input type="hidden" name="qWriter" value="${loginUser.userNo}">
+                <table id="inquiryTable" class=".table-bordered" text-align="center">     
                     <tr>
                         <th> 제목 </th>      
                         <td>
-                            <input type="text" name="" required placeholder="제목을 입력해 주세요." size="95">
+                            <input type="text" name="qTitle" required placeholder="제목을 입력해 주세요." size="95">
                         </td>               
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td>
-                            <textarea name="" style="resize:none;" cols="97" rows="10" required placeholder="문의 내용을 작성해 주세요."></textarea>
+                            <textarea name="qContent" style="resize:none;" cols="97" rows="10" required placeholder="문의 내용을 작성해 주세요."></textarea>
                         </td>
                     </tr>
                     <!--
@@ -126,17 +117,16 @@
                         <td colspan="2" align="center">
                             <button type="submit" id="btn1">문의하기</button>                          
                         </td>
-                    </tr>   
-                </table>
-              </form>
-            <br><br>
-        
+                     </tr>   
+                   </table>
+                </form>
+              <br><br>
+       	    </div>
             <script>
                    
 
             </script>
         
-            </div>
           </div>
 
           <%-- footer 영역 --%>

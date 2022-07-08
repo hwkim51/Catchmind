@@ -185,7 +185,7 @@
             <br>
             <ul class="accodion"><a><span>고객센터</span></a></ul>
                 <div>
-                    <li><a href="">공지사항</a></li>
+                    <li><a href="list.no">공지사항</a></li>
                     <li><a href="catchTalk.faq">FAQ</a></li>
                     <li><a href="enrollForm.in">1:1문의</a></li>
                 </div>

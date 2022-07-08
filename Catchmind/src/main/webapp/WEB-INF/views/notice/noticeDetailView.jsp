@@ -50,15 +50,15 @@ body{
             <table align="center" id="noticeDetail">
                 <tr>
                     <th>글제목</th>
-                    <td>공지사항입니다.</td>
+                    <td>${n.noticeTitle }</td>
                     <th>작성일자</th>
-                    <td>2022-05-05</td>
+                    <td>${n.noticeDate }</td>
                 </tr>
                 <tr>
                     <th>작성자</th>
                     <td>admin</td>
                     <th>조회수</th>
-                    <td>43</td>
+                    <td>${n.noticeCount }</td>
                 </tr>
                 <tr>
                     <th>내용</th>

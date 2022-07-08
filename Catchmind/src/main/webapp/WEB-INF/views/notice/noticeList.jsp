@@ -77,16 +77,14 @@ body{
                     <th style="width:10%;">
                         글번호
                     </th>
-                    <th style="width:45%;">
+                    <th style="width:50%;">
                         글제목
                     </th>
-                    <th style="width:15%;">
-                        작성자
-                    </th>
+                    
                     <th style="width:10%;">
                         조회수
                     </th>
-                    <th style="width:20%;">
+                    <th style="width:30%;">
                         작성일
                     </th>
                 </tr>
@@ -95,37 +93,19 @@ body{
             	<c:forEach var="no" items="${list }">
             	<!-- 동적으로 구성할 예정 -->
                     <tr>
-                        <td class="nno">1</td>
-                        <td>공지사항</td>
-                        <td>admin</td>
-                        <td>44</td>
-                        <td>2022-06-28</td>
+                        <td class="nno">${no.noticeNo }</td>
+                        <td>${no.noticeTitle }</td>
+                        <td>${no.noticeCount }</td>
+                        <td>${no.noticeDate }</td>
                     </tr>
                 </c:forEach>
-                
-                
-                    <tr>
-                        <td class="nno">2</td>
-                        <td>공지사항2</td>
-                        <td>admin</td>
-                        <td>44</td>
-                        <td>2022-06-28</td>
-                    </tr>
-                    <tr>
-                        <td class="nno">3</td>
-                        <td>공지사항3</td>
-                        <td>admin</td>
-                        <td>44</td>
-                        <td>2022-06-28</td>
-                    </tr>
             </tbody>
-        </table>
-        <br><br>
+          </table>
+          <br><br>
 
         <script>
             $(function(){
-                
-                //동적으로 만들어진 요소는 on 메소드 써서 이벤트를 걸어야 함(주의)
+
                 $("#noticeList>tbody>tr").click(function(){
                     
                     //console.log($(this).children(".nno").text());

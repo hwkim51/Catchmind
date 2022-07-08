@@ -3,9 +3,21 @@
 <mapper namespace="inquiryMapper">
 	<select id="selectInquiryCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM INQUIRY
+		FROM TB_QA
 		WHERE STATUS = 'Y'
 	</select>
 	
+	<insert id="insertInquiry" parameterType="inquiry">
+		INSERT INTO TB_QA(QA_NO, 
+			   			  Q_TITLE, 
+						  Q_CONTENT, 
+						  Q_DATE, 
+						  Q_WRITER) 
+		VALUES(SEQ_QNO.NEXTVAL, 
+			   #{qTitle}, 
+			   #{qContent}, 
+			   SYSDATE, 
+			   #{qWriter})
+	</insert>
 
 </mapper>
