@@ -51,7 +51,11 @@
         .sub_body{
             height: 100%;
         } /* 리스트형 게시판의 영역 설정 */
-        .sub_body *{
+        .sub_body>.table>thead{
+            background-color: #eaeaea;
+            border-spacing: 0px;
+        } /* 리스트형 게시판의 상단부 설정 */
+        .sub_body table{
             border: 1px solid #cccccc;
             border-collapse: collapse;
             text-align: center;
@@ -70,17 +74,44 @@
             width: 150px;
         } /* 작성일 행에 대한 넓이 */
         
-        .sub_body>.table>thead{
-            background-color: #eaeaea;
-            border-spacing: 0px;
-        }
-        
         /* ################### sub_foot 설정 영역 ################### */
-        .sub_foot{
+        .pagination *{
+        	margin: auto;
+        	padding: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        } /* 정렬 */
+        .pagination ul li{
+            list-style: none;
+            line-height: 45px;
             text-align: center;
-            font-size: 30px;
-            border: none;
-        }
+            font-size: 18px;
+            cursor: pointer;
+            height: 35px;
+            width: 35px;
+            transition: all 0.5s ease;
+            padding: 5px 5px 5px 5px;
+            margin: 5px 5px 5px 5px;
+        } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
+
+        .pagination #left{
+            border-radius: 25px 5px 5px 25px;
+            width: 85px;
+        } /* 이전 스타일 */
+
+        .pagination #right{
+            border-radius: 5px 25px 25px 5px;
+            width: 85px;
+        } /* 다음 스타일 */
+
+        .pagination .active,
+        .pagination .page_num:hover,
+        .pagination .signal:hover{
+            background-color: rgb(255, 165,0);
+            border-radius: 50%;
+            color:white;
+        } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
     </style>
 </head>
 <body>
@@ -156,7 +187,22 @@
                     </tbody>
                   </table>
                   <div class="sub_foot">
-                      pagination
+                      <div class="pagination">
+				        <ul>
+				            <li class="signal" id="left">&lt; Prev</li>
+				            <li class="page_num active">1</li>
+				            <li class="page_num">2</li>
+				            <li class="page_num">3</li>
+				            <li class="page_num">4</li>
+				            <li class="page_num">5</li>
+				            <li class="page_num">6</li>
+				            <li class="page_num">7</li>
+				            <li class="page_num">8</li>
+				            <li class="page_num">9</li>
+				            <li class="page_num">10</li>
+				            <li class="signal" id="right">Next &gt;</li>
+				        </ul>
+				    </div>
                   </div>
             </div>
         </div>
