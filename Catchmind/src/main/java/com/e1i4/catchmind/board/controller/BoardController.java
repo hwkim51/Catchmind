@@ -17,7 +17,7 @@ import com.e1i4.catchmind.board.model.service.BoardService;
 @Controller
 public class BoardController {
 	
-	public static final String SERVICEKEY = "EAk/cJd62BzsuJHpbCtIksn5S31hprT9toGxp8xmushfAKYmT9OTzNwrznDBK3YOaflpBbZiPPiGB7pyfIYhew==";
+	public static final String SERVICEKEY = "EAk%2FcJd62BzsuJHpbCtIksn5S31hprT9toGxp8xmushfAKYmT9OTzNwrznDBK3YOaflpBbZiPPiGB7pyfIYhew%3D%3D";
 	
 	@Autowired
 	private BoardService boardService;
@@ -42,17 +42,17 @@ public class BoardController {
 	public String airPollution(String location) throws IOException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon";
 			url += "?ServiceKey=" + SERVICEKEY;
-			url += "&MobileOS=WIN";
-			url += "&MobileApp=CatchMind";
-			url += "&contentId=8006";
-			url += "&numOfRows=6";
-			url += "&defaultYN=Y";
-			url += "&firstImageYN=Y";
-			url += "&areacodeYN=Y";
-			url += "&catcodeYN=Y";
-			url += "&addrinfoYN=Y";
-			url += "&mapinfoYN=Y";
-			url += "&overviewYN=Y";
+			url += "&MobileOS=WIN" + URLEncoder.encode(location, "UTF-8");
+			url += "&MobileApp=CatchMind" + URLEncoder.encode(location, "UTF-8");
+			url += "&contentId=8006" + URLEncoder.encode(location, "UTF-8");
+			url += "&numOfRows=6" + URLEncoder.encode(location, "UTF-8");
+			url += "&defaultYN=Y" + URLEncoder.encode(location, "UTF-8");
+			url += "&firstImageYN=Y" + URLEncoder.encode(location, "UTF-8");
+			url += "&areacodeYN=Y" + URLEncoder.encode(location, "UTF-8");
+			url += "&catcodeYN=Y" + URLEncoder.encode(location, "UTF-8");
+			url += "&addrinfoYN=Y" + URLEncoder.encode(location, "UTF-8");
+			url += "&mapinfoYN=Y" + URLEncoder.encode(location, "UTF-8");
+			url += "&overviewYN=Y" + URLEncoder.encode(location, "UTF-8");
 			
 			// URL값을 저장하는 구문
 			URL requestUrl = new URL(url);
@@ -76,7 +76,6 @@ public class BoardController {
 			br.close();
 			urlConnection.disconnect();
 			
-			System.out.println(responseText);
 			
 			return responseText;
 	}

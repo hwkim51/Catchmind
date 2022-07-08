@@ -40,12 +40,17 @@ public class MemberDao {
 	}
 
 	// 비밀번호 찾기 - 변경 서비스(update)
-//	public int changePwd(SqlSessionTemplate sqlSession, Member m) {
-//		
-//		System.out.println("DAO: " + sqlSession.update("memberMapper.changePwd", m));
-//		
-//		return sqlSession.update("memberMapper.changePwd", m);
-//	}
+	public int changePwd(SqlSessionTemplate sqlSession, Member m) {
+		
+		System.out.println("DAO: " + sqlSession.update("memberMapper.changePwd", m));
+		
+		return sqlSession.update("memberMapper.changePwd", m);
+	}
+
+	// 로그인 시 recentLogin 변경(update)
+	public int updateRecentLogin(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateRecentLogin", m);
+	}
 
 	
 

@@ -56,11 +56,12 @@
         margin: auto;
         margin-top: 50px;
         height: 5px;
-        border-radius: 20px;
+        border-radius: 40px;
         width: 50%;
         background-color: rgba(211, 211, 211);
     }
     .statusBar{
+        border-radius: 40px;
         height: 100%;
         width: 33%;
         background-color: orange;
@@ -83,6 +84,7 @@
     #upfilePicPreview:hover{
         cursor: pointer;
         background-image:url('./resources/images/pic2.png');
+        background-size: contain;
         background-color: rgba(0, 0, 0, 0.865);
     }
 </style>
