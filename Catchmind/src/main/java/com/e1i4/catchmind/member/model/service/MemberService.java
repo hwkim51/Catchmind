@@ -30,5 +30,8 @@ public interface MemberService {
 	
 	// 비밀번호 찾기 - 변경 서비스(update)
 	int changePwd(Member m);
+
+	// 로그인 시 recentLogin 업데이트(update)
+	int updateRecentLogin(Member m);
 	
 }

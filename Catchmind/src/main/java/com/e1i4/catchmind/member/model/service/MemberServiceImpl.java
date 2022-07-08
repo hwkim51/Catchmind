@@ -71,4 +71,10 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.changePwd(sqlSession, m);
 	}
 
+	// 로그인 시 recentLogin 업데이트(update)
+	@Override
+	public int updateRecentLogin(Member m) {
+		return memberDao.updateRecentLogin(sqlSession, m);
+	}
+
 }

@@ -115,4 +115,12 @@
 				#{pic})
 	</insert>
 	
+	<!--  로그인 시 최근 접속 기록 업데이트(udate)-->
+	<update id="updateRecentLogin" parameterType="member">
+		UPDATE TB_MEMBER
+		   SET RECENT_LOGIN = SYSDATE
+		 WHERE USER_ID = #{userId}
+	</update>
+	
+	
 </mapper>

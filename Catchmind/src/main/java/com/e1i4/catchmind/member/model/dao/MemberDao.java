@@ -47,6 +47,11 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.changePwd", m);
 	}
 
+	// 로그인 시 recentLogin 변경(update)
+	public int updateRecentLogin(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateRecentLogin", m);
+	}
+
 	
 
 }

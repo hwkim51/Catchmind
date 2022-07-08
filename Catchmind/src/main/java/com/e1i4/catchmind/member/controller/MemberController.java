@@ -57,12 +57,20 @@ public class MemberController {
 
 		if(loginUser == null) {
 			session.setAttribute("alertMsg", "일치하는 회원정보가 없습니다.");
+			
 			return "redirect:loginPage.me";
 		}
 		else { 
 			session.setAttribute("loginUser", loginUser);
+			int updateRecentLogin = updateRecentLogin(m);
 			return "redirect:/"; 	
 		}
+	}
+	
+	// 로그인 시 recentLogin 업데이트(update)
+	public int updateRecentLogin(Member m) {
+		int updateRecentLogin = memberService.updateRecentLogin(m);
+		return updateRecentLogin;
 	}
 	
 	// 로그아웃 => 마이페이지 생성하면 거기서 로그아웃버튼만들기 ?(수빈)
