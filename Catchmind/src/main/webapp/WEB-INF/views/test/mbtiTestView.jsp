@@ -1,52 +1,77 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title> CATCHMIND | 캐치마인드 </title>
 <style>
-	.qArea {
-		margin-top: 50px;
-	}
-	.qNum {
-        font-weight: bold;
-        font-size: 35px;
-        color: darkblue;
-        width: 450px;
+    .qArea {
+        margin-top: 80px;
     }
+
+    .qNum {
+        font-weight: bold;
+        font-size: 2.3vw;
+        color: darkblue;
+        width: 30vw;
+    }
+
     .qText {
-        font-size: 28px;
+        font-size: 1.8vw;
         font-weight: bold;
         line-height: 1.5;
-        height: 100px;
+        height: 6.6vw;
         margin-top: 10px;
-        width: 450px;
+        width: 30vw;
         color: black;
     }
 
     .options {
-        margin-top: 20px;
-        height: 240px;
+        margin-top: 1.3vw;
+        height: 18vw;
     }
+
     .option {
-        width: 450px;
-        height: 100px;
+        width: 30vw;
+        height: 6.6vw;
         margin-bottom: 12px;
         padding: 0 30px;
-        font-size: 20px;
+        font-size: 1.3vw;
         color: rgba(0, 0, 0, 0.8);
         text-align: left;
-        line-height: 100px;
+        line-height: 6.6vw;
         background-color: rgb(227, 234, 245);
         border-radius: 15px;
-        cursor: pointer; 
+        cursor: pointer;
     }
+
     .option:hover {
         background-color: darkblue !important;
         color: white !important;
     }
-    
+
+    .progressNum {
+        width: 29vw;
+        margin: auto;
+        margin-bottom: 6px;
+        font-size: 1vw;
+        color: rgb(157, 157, 157);
+    }
+
+    .testProgressBar {
+        width: 30vw;
+        height: 0.4vw;
+        border-radius: 7px;
+        margin: auto;
+        background-color: rgb(198, 216, 240);
+    }
+
+    .testProgress {
+        width: 2.5vw;
+        height: 0.4vw;
+        border-radius: 7px;
+        background-color: steelblue;
+    }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -54,11 +79,12 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
-	<div id="question" class="carousel slide" data-ride="carousel" data-interval="0">
-    	
-    	<div class="carousel-inner">
-            
+    <div id="question" class="carousel slide" data-ride="carousel" data-interval="0">
+
+        <div class="carousel-inner">
+
             <div class="carousel-item active qArea" align="center">
                 <div class="qNum" align="left">Q1</div>
                 <div class="qText" align="left">
@@ -99,7 +125,7 @@
                 </div>
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="E">
-                    	"말씀 많이 들었어요" 분위기를 띄운다
+                        "말씀 많이 들었어요" 분위기를 띄운다
                     </div>
                     <div class="option" href="#question" data-slide="next" value="I">
                     	조용한 눈인사를 건넨다
@@ -115,7 +141,7 @@
                 </div>
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="P">
-                    	OK 콜! 얼른 와~
+                        OK 콜! 얼른 와~
                     </div>
                     <div class="option" href="#question" data-slide="next" value="J">
                     	도착시간을 물어보고 집을 치운다
@@ -147,10 +173,10 @@
                 </div>
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="T">
-                    	"왜 화가 났나면..." 이유를 설명한다
+                        "왜 화가 났나면..." 이유를 설명한다
                     </div>
                     <div class="option" href="#question" data-slide="next" value="F">
-                    	"니가 어떻게 나한테.." 감정이 우선이다
+                        "니가 어떻게 나한테.." 감정이 우선이다
                     </div>
                 </div>
             </div>
@@ -166,7 +192,7 @@
                     	우리는 모두 친구! 친구가 된다
                     </div>
                     <div class="option" href="#question" data-slide="next" value="I">
-                    	"안녕하세요 안녕히 가세요..^^;"
+                        "안녕하세요 안녕히 가세요..^^;"
                     </div>
                 </div>
             </div>
@@ -179,10 +205,10 @@
                 </div>
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="T">
-                    	"다음에는 이런 식으로 해보면 어떨까?"
+                        "다음에는 이런 식으로 해보면 어떨까?"
                     </div>
                     <div class="option" href="#question" data-slide="next" value="F">
-                    	"그 사람 이상한 사람이네!!"
+                        "그 사람 이상한 사람이네!!"
                     </div>
                 </div>
             </div>
@@ -211,10 +237,10 @@
                 </div>
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="S">
-                    	"가사보다 멜로디" 멜로디가 좋은 노래
+                        "가사보다 멜로디" 멜로디가 좋은 노래
                     </div>
                     <div class="option" href="#question" data-slide="next" value="N">
-                    	"널 향한 내 마음" 편지같은 가사의 노래
+                        "널 향한 내 마음" 편지같은 가사의 노래
                     </div>
                 </div>
             </div>
@@ -227,7 +253,7 @@
                 </div>
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="P">
-                    	숙소 예약! 계획 끝! 여행 시작    
+                    	숙소 예약! 계획 끝! 여행 시작
                     </div>
                     <div class="option" href="#question" data-slide="next" value="J">
                     	교통, 맛집, 명소, 숙박 꼼꼼하게 계획한다
@@ -246,92 +272,104 @@
                     	구구절절 늦은 이유를 설명한다
                     </div>
                     <div class="option" href="#question" data-slide="pause" value="F">
-                    	"미안미안해진짜미안" 무릎부터 꿇는다
+                        "미안미안해진짜미안" 무릎부터 꿇는다
                     </div>
                 </div>
             </div>
-            
+
             <form name="mbtiResult" action="mbtiResult.te" method="post" align="center">
-            	<input type="hidden" id="mbtiResult" name="mbtiResult">
+                <input type="hidden" id="mbtiResult" name="mbtiResult">
             </form>
-            
         </div>
+
+        <div>
+            <div class="progressNum" align="right">1 / 12</div>
+            <div class="testProgressBar">
+                <div class="testProgress"></div>
+            </div>
+        </div>
+        
     </div>
     
+    <jsp:include page="../common/footer.jsp"/>
+
     <script>
-    	$(function() {
-    		
-    		var E = 0;
-			var I = 0;
-			var S = 0;
-			var N = 0;
-			var T = 0;
-			var F = 0;
-			var P = 0;
-			var J = 0;
-			var mbti = "";
-			
-    		$(".option").click(function() {
-    			
-    			if($(this).attr("value") == "E") {
-    				E += 1;
-    			} else if($(this).attr("value") == "I") {
-    				I += 1;
-    			} else if($(this).attr("value") == "S") {
-    				S += 1;
-    			} else if($(this).attr("value") == "N") {
-    				N += 1;
-    			} else if($(this).attr("value") == "T") {
-    				T += 1;
-    			} else if($(this).attr("value") == "F") {
-    				F += 1;
-    			} else if($(this).attr("value") == "P") {
-    				P += 1;
-    			} else {
-    				J += 1;
-    			}
-    			
-    			console.log(E);
-    			console.log(I);
-    			console.log(S);
-    			console.log(N);
-    			console.log(T);
-    			console.log(F);
-    			console.log(P);
-    			console.log(J);
-    			
-    			if(E + I + S + N + T + F + P + J == 12) {
-    				if(E > I) {
-            			mbti += "E";
-            		} else {
-            			mbti += "I";
-            		}
-            		
-            		if(S > N) {
-            			mbti += "S";
-            		} else {
-            			mbti += "N";
-            		}
-            		
-            		if(T > F) {
-            			mbti += "T";
-            		} else {
-            			mbti += "F";
-            		}
-            		
-            		if(P > J) {
-            			mbti += "P";
-            		} else {
-            			mbti += "J";
-            		}
-            		
-            		console.log(mbti);
-        			$("#mbtiResult").val(mbti);
-        			
-        			document.mbtiResult.submit();
-    			}
-    		});
-    	});
+        $(function () {
+
+            var E = 0;
+            var I = 0;
+            var S = 0;
+            var N = 0;
+            var T = 0;
+            var F = 0;
+            var P = 0;
+            var J = 0;
+            var mbti = "";
+
+            var num = 1;
+            var progress = 2.5;
+            var testProgress = "";
+
+            $(".option").click(function () {
+
+                if ($(this).attr("value") == "E") {
+                    E += 1;
+                } else if ($(this).attr("value") == "I") {
+                    I += 1;
+                } else if ($(this).attr("value") == "S") {
+                    S += 1;
+                } else if ($(this).attr("value") == "N") {
+                    N += 1;
+                } else if ($(this).attr("value") == "T") {
+                    T += 1;
+                } else if ($(this).attr("value") == "F") {
+                    F += 1;
+                } else if ($(this).attr("value") == "P") {
+                    P += 1;
+                } else {
+                    J += 1;
+                }
+
+                if(num < 12) {
+                    num += 1;
+                    progress += 2.5
+                    testProgress += "<div style='width: " + progress + "vw; height: 0.4vw; border-radius: 7px; background-color: steelblue'>"
+
+                    $(".progressNum").text(num + " / 12");
+                    $(".testProgress").html(testProgress);
+                }
+                
+                if (E + I + S + N + T + F + P + J == 12) {
+                    if (E > I) {
+                        mbti += "E";
+                    } else {
+                        mbti += "I";
+                    }
+
+                    if (S > N) {
+                        mbti += "S";
+                    } else {
+                        mbti += "N";
+                    }
+
+                    if (T > F) {
+                        mbti += "T";
+                    } else {
+                        mbti += "F";
+                    }
+
+                    if (P > J) {
+                        mbti += "P";
+                    } else {
+                        mbti += "J";
+                    }
+                    
+                    $("#mbtiResult").val(mbti);
+
+                    document.mbtiResult.submit();
+                }
+            });
+        });
     </script>
 </body>
 </html>
