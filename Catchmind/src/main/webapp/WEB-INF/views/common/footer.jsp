@@ -55,7 +55,7 @@
             <div class="footerinner">
                 <pre style="margin-left: 10px;"><b>캐치마인드</b><br>(주) 캐치마인드 / 사업자 등록 번호 : 590-81-00690</pre>
                 <pre><b>고객센터</b><br>문의전화 : 010-4806-7399 / 이메일 : catchmindofficial@gmail.com</pre>
-                <pre><b>GIT</b><br><a class="GIT_A">https://github.com/hwkim51/Catchmind</a></pre>
+                <pre><b>GIT</b><br><a class="GIT_A" href="https://github.com/hwkim51/Catchmind">https://github.com/hwkim51/Catchmind</a></pre>
             </div>
         </div>
 </body>
