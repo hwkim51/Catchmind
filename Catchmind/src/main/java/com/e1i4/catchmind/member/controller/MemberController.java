@@ -38,7 +38,14 @@ public class MemberController {
 	// 로그인페이지로 이동
 	@RequestMapping(value="loginPage.me")
 	public String loginPage() {		
-		return "member/login"; 	
+		return "member/login";
+	}
+	
+	// 마이페이지로 이동
+	@RequestMapping(value="myPage.me")
+	public String myPage() {
+		
+		return "member/myPage";
 	}
 	
 	// 로그인(select)

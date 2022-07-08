@@ -213,7 +213,7 @@
         
         function myPage(){
             if("${loginUser}" != ""){
-                location.href="mypage.me";
+                location.href="myPage.me";
             }
             else{
                 location.href="loginPage.me";
