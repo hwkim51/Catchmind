@@ -48,7 +48,7 @@
  		   AND EMAIL = #{email}
  	</select>
  	
- 	<!-- 비밀번호찾기 - 일치 회원 찾기 (select) -->
+ 	<!-- 비밀번호찾기 - step2) 일치 회원 찾기 (select) -->
  	<select id="findPwd" parameterType="member" resultMap="memberResultSet">
  		SELECT *
  		  FROM TB_MEMBER
@@ -57,7 +57,7 @@
  		   AND EMAIL = #{email}
  	</select>
  	
- 	<!-- 비밀번호 찾기 - 변경 서비스(update) -->
+ 	<!-- 비밀번호 찾기 - step3) 변경 서비스(update) -->
  	<update id="changePwd" parameterType="member">
  		UPDATE TB_MEMBER
  		   SET USER_PWD = #{userPwd}
@@ -103,7 +103,7 @@
 								STATUS,
 								PIC)
 		VALUES(SEQ_MNO.NEXTVAL,
-				UPPER(#{userId}),
+				LOWER(#{userId}),
 				#{userPwd},
 				#{email},
 				#{nickname},

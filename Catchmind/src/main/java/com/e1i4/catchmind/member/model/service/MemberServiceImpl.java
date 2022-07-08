@@ -66,9 +66,9 @@ public class MemberServiceImpl implements MemberService  {
 	}
 
 	// 비밀번호 찾기 - 변경 서비스(update)
-//	@Override
-//	public int changePwd(Member m) {
-//		return memberDao.changePwd(sqlSession, m);
-//	}
+	@Override
+	public int changePwd(Member m) {
+		return memberDao.changePwd(sqlSession, m);
+	}
 
 }

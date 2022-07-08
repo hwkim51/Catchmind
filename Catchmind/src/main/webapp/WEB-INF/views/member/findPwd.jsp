@@ -63,7 +63,9 @@
    .btn-email::after{
         border: none;
    }
-
+   #btn-find:disabled{
+        background-color: gray;
+    }
 
 </style>
 </head>
@@ -88,7 +90,7 @@
             <label for="email">* EMAIL : </label>
             <input type="email" id="email" name="email" style="width:300px;" placeholder="가입 시 작성한 이메일을 입력해주세요." required> &nbsp; 
             <button type="button" id="clickButton" class="btn-email" onclick="getCertificationNum();">메일발송</button><br>
-            <input type="text" name="loginNumber" id="loginNumber" style="width:300px;" disabled placeholder="인증번호 6자리 입력" size="25"> &nbsp;&nbsp;&nbsp;&nbsp; <br><br>
+            <input type="text" name="loginNumber" id="loginNumber" style="width:300px;" disabled placeholder="인증번호 6자리 입력" size="25" onblur="invalidateNum()"> &nbsp;&nbsp;&nbsp;&nbsp; <br><br>
 
             <input type="submit" id="btn-find" class="btn-terms" value=" 회원정보 찾기 ">
             <br><br><br><a href="enrollForm.in" class="info_font" id="inquiry">등록한 회원정보가 변경되었거나 회원정보를 찾는 데 문제가 있으신가요? · · · · · ▷ click </a> 
@@ -101,10 +103,11 @@
 
     <script>
         var otp;
-        var email = $("#email").val();
-
         
         function getCertificationNum() {
+
+            
+        var email = $("#email").val();
 
             if($("#email").val() == ''){
                 alert("이메일 항목을 입력해주세요.");
@@ -138,11 +141,12 @@
 
             var inputOtp = $("#loginNumber").val();
                  if(otp == inputOtp) {
-                     alert("인증되었습니다. ");
+                     alert("인증되었습니다.");
+                     $("#btn-find").attr("disabled", false);
                      return true; 
                 } else {
-                      alert("인증번호가 맞지 않습니다.");
-                      $("#loginNumber").val("").attr("disabled", true);
+                      alert("인증번호가 일치하지 않습니다.");
+                      $("#btn-find").attr("disabled", true);
                     return false;
             }
             return false;

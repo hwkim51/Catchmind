@@ -28,7 +28,7 @@ public interface MemberService {
 	// 비밀번호 찾기 서비스(select)
 	Member findPwd(Member m);
 	
-//	// 비밀번호 찾기 - 변경 서비스(update)
-//	int changePwd(Member m);
+	// 비밀번호 찾기 - 변경 서비스(update)
+	int changePwd(Member m);
 	
 }
