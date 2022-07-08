@@ -44,7 +44,7 @@
             text-decoration: none;
             text-align: center;
             vertical-align: middle;
-            padding-top: 13px;
+            padding-top: 8px;
         } /* 작성 설정 */
 
         /* ################### sub_body 설정 영역 ################### */
@@ -80,8 +80,6 @@
             text-align: center;
             font-size: 30px;
             border: none;
-            padding-bottom: 100px;
-            padding-top: 20px;
         }
     </style>
 </head>
@@ -152,41 +150,6 @@
                       </tr>
                       <tr>
                         <td>더미제목10</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목11</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목12</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목13</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목14</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목15</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목16</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목17</td>
                         <td>Dooley</td>
                         <td>2022-02-02</td>
                       </tr>
