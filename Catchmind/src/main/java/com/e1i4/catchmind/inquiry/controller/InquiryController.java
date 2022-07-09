@@ -35,8 +35,7 @@ public class InquiryController {
 		if(result > 0) { //1:1 문의 작성에 성공한 경우
 			
 			// 등록 알람 메세지 전달
-			// => header에 alertMsg 코드 없어서 아직 알람창 실행 안됨
-			session.setAttribute("alertMsg", "1:1 문의가 등록되었습니다. ");
+			session.setAttribute("resultMsg", "1:1 문의가 등록되었습니다. ");
 			
 			return "main";
 		}
@@ -45,7 +44,7 @@ public class InquiryController {
 			//오류 메세지 전달
 			model.addAttribute("errorMsg", "1:1 문의 등록에 실패하였습니다. ");
 			
-			// 메인 화면으로 포워딩? or 에러 페이지로 포워딩
+			// 에러 페이지로 포워딩
 			return "common/errorPage";
 		}
 		

@@ -246,7 +246,7 @@ body{
                             <li class="question q1" value="1">캐치마인드는 어떤 사이트인가요?</li>
                             <li class="question q2" value="2">차단 당하면 대화를 할 수 없나요?</li>
                             <li class="question q3" value="3">MBTI가 뭔가요?</li>
-                            <li class="question q4">프로필 사진을 변경할 수 있나요?</li>
+                            <li class="question q4" value="4">프로필 사진을 변경할 수 있나요?</li>
                         </ul>
                     </div>
                 </div>

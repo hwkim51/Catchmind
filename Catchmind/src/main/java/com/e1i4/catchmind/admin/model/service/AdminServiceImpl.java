@@ -81,6 +81,16 @@ public class AdminServiceImpl implements AdminService {
 	public int selectInquiryCount() {
 		return adminDao.selectInquiryCount(sqlSession);
 	}
+
+	@Override
+	public Inquiry selectInquiry(int qaNo) {
+		return adminDao.selectInquiry(sqlSession, qaNo);
+	}
+
+	@Override
+	public int updateInquiryAnswer(Inquiry in) {
+		return adminDao.updateInquiryAnswer(sqlSession, in);
+	}
 	
 	
 

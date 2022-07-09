@@ -11,8 +11,6 @@ import com.e1i4.catchmind.faq.model.vo.Faq;
 public class FaqDao {
 
 	public ArrayList<Faq> selectFaq(SqlSessionTemplate sqlSession, int faqNo) {
-		
-		System.out.println("DAO:"+ (ArrayList)sqlSession.selectList("faqMapper.selectFaq", faqNo));
 		return (ArrayList)sqlSession.selectList("faqMapper.selectFaq", faqNo);
 	}
 }

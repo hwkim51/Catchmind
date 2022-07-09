@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +21,7 @@
         .content{
             width:90%;
             height: 800px;
-            margin:auto;
+            margin: auto;
            /* border: 1px solid blue;*/
         }
         
@@ -88,18 +88,18 @@
               <form action="insert.in" method="post">       
                 
                 <!-- input type="hidden" 으로 작성자 userNo 값 같이 전달-->
-                <input type="hidden" name="qWriter" value="${loginUser.userNo}">
+                <input type="hidden" name="qaWriter" value="${loginUser.userNo}">
                 <table id="inquiryTable" class=".table-bordered" text-align="center">     
                     <tr>
                         <th> 제목 </th>      
                         <td>
-                            <input type="text" name="qTitle" required placeholder="제목을 입력해 주세요." size="95">
+                            <input type="text" name="qaTitle" required placeholder="제목을 입력해 주세요." size="95">
                         </td>               
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td>
-                            <textarea name="qContent" style="resize:none;" cols="97" rows="10" required placeholder="문의 내용을 작성해 주세요."></textarea>
+                            <textarea name="qaContent" style="resize:none;" cols="97" rows="10" required placeholder="문의 내용을 작성해 주세요."></textarea>
                         </td>
                     </tr>
                     <!--

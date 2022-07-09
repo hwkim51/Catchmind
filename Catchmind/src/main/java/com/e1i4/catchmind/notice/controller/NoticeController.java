@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.common.template.Pagination;
@@ -41,7 +42,7 @@ public class NoticeController {
 	
 	// 공지사항 상세 조회 - 유진
 	@RequestMapping(value="detail.no")
-	public String selectNotice(int nno, Model model) {
+	public ModelAndView selectNotice(int nno, ModelAndView mv) {
 		
 		//1. 먼저 조회수 + 1 처리
 		int result = noticeService.increaseCount(nno);
@@ -52,14 +53,14 @@ public class NoticeController {
 		
 				// 코드 진행 중 ,,, 220706
 		
-			model.addAttribute("n", n);
-			return "redirect:detail.no?nno=" + nno;
+			mv.addObject("n", n).setViewName("notice/noticeDetailView");
+			
 		}
 		else { //조회수 증가 실패한 경우
 			
-			model.addAttribute("errorMsg", "공지사항 조회에 실패했습니다.");
-			return ""; //에러 페이지 포워딩
+			mv.addObject("errorMsg", "게시글 상세 조회에 실패하였습니다.").setViewName("common/errorPage");
+			
 		}
-	
+		return mv;
 	}
 }

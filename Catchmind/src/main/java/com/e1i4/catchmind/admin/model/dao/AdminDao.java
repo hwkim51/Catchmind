@@ -107,4 +107,13 @@ public class AdminDao {
 		return sqlSession.selectOne("inquiryMapper.selectInquiryCount");
 	}
 	
+	public Inquiry selectInquiry(SqlSessionTemplate sqlSession, int qaNo) {
+		
+		return sqlSession.selectOne("inquiryMapper.selectInquiry", qaNo);
+	}
+	
+	public int updateInquiryAnswer(SqlSessionTemplate sqlSession, Inquiry in) {
+		return sqlSession.update("inquiryMapper.updateInquiryAnswer", in);
+	}
+	
 }

@@ -34,5 +34,8 @@ public interface AdminService {
 	
 	int selectInquiryCount();
 	
+	Inquiry selectInquiry(int qaNo);
+	
+	int updateInquiryAnswer(Inquiry in);
 	
 }

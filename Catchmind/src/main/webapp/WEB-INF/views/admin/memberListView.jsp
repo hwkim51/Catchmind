@@ -103,6 +103,11 @@
     #btns {
         width : 400px;
     }
+    
+    .admin-menu a{ 
+    	text-decoration: none;
+        color: black;
+    }
 
 </style>
 </head>
@@ -120,7 +125,7 @@
             <ul>
                 <li>공지사항</li>
                 <li>FAQ</li>
-                <li>1:1 문의</li>
+                <li><a href="inquiryList.ad">1:1 문의</a></li>
             </ul>
             <div id="admin-stat">웹사이트 통계</div>
         </div>
