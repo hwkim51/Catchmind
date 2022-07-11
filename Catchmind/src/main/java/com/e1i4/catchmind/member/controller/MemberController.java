@@ -255,14 +255,14 @@ public class MemberController {
 	}
 	
 	// 마이페이지 - 팔로우 리스트 페이지로 이동(유진)
-	@RequestMapping("followList.me")
+	@RequestMapping(value="myFollow.me")
 	public String followList() {
 		
 		return "member/myPage-FollowList";
 	}
 	
 	// 마이페이지 - 차단 리스트 페이지로 이동(유진)
-	@RequestMapping("blockList.me")
+	@RequestMapping(value="myBlock.me")
 	public String blockList() {
 		
 		return "member/myPage-BlockList";
