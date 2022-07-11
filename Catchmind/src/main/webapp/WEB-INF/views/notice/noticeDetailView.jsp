@@ -23,7 +23,7 @@ body{
    /*border: 1px solid red; */
    margin:auto;
    width:80%;
-   background-color: rgb(247, 240, 232);
+   background-color: rgb(250, 243, 235);
 }
 
 #noticeDetail{
@@ -34,6 +34,9 @@ body{
     border-spacing: 0 15px;
 }
 
+#noticeDetail p{
+    margin-top: 15px;
+}
 
 </style>
 </head>
@@ -65,10 +68,9 @@ body{
                 </tr>
                 <tr>
                     <td colspan="4">
-                        <img src="resources/images/tiger.jpg" style="height:500px;">
-                        
-                        <p style="height:200px;"> 
-                            작성한 글 내용
+                        <img src="resources/images/tiger.jpg" style="height:350px;">
+                        <p> 
+                            ${n.noticeContent}
                         </p>
                     </td>
 
@@ -76,7 +78,7 @@ body{
             </table>
             <br><br>
         <div align="center">
-            <button type="button" class="btn btn-light">목록으로 ▶</button>
+             <a class="btn btn-light" href="javascript:history.back()">목록으로 ▶ </a>
         </div>
         <br><br>  
         </div>

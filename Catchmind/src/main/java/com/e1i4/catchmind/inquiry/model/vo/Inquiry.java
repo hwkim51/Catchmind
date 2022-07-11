@@ -12,11 +12,12 @@ import lombok.ToString;
 public class Inquiry {
 
 	private int qaNo;
-	private String qTitle;
-	private String qContent;
-	private String qDate;
-	private String aContent;
-	private String qAnswerDate;
-	private int qWriter;
+	private String qaTitle;
+	private String qaContent;
+	private String qaDate;
+	private String anContent;
+	private String qaAnswerDate;
+	private String qaWriter;
+	private String qaAnswerYn; //답변여부 컬럼이 필요해서 새로 추가함
 	
 }

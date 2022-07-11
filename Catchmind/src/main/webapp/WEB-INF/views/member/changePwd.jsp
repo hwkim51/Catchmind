@@ -71,13 +71,14 @@
     
     <hr>
     <!-- *ID, *PW, *PW확인, 이름, 생년월일, 성별, *전화번호, *이메일-->
-    <form id="findForm">
+    <form id="findForm" action="changePwd.me" method="post">
         <div id="enrollStep">
             <div class="enrollTitle">비밀번호 찾기 및 변경<br>
                 <span class="info_font">입력한 정보로 찾은 회원 조회 결과 입니다.</span></div>
                 <br>
             <c:choose>
                 <c:when test="${not empty findUser}">
+                    <input type="hidden" id="userId" name="userId" value="${findUser.userId}">
                     <label for="userPwd">* 변경 PW 입력: </label>
                     <input type="password" id="userPwd" name="userPwd" maxlength="16" placeholder="변경 할 비밀번호를 입력하세요."><br>
                         <div class="check_font" id="pwd_check">영문자, 숫자, 특수기호 총 4 ~ 16글자</div>
@@ -85,7 +86,7 @@
                     <label for="checkPwd">* 변경 PW 확인 : </label>
                     <input type="password" id="checkPwd" name="checkPwd" maxlength="16" placeholder="변경 할 비밀번호를 입력하세요."><br>
                         <div class="check_font" id="pwd_check2"> 확인을 위해 동일한 비밀번호를 입력하세요.</div>
-                        <br><input type="button" id="changePwd" class="btn-terms" value=" 비밀번호 변경 " disabled="true">
+                        <br><input type="submit" id="changePwd" class="btn-terms" value=" 비밀번호 변경 " disabled="true">
                 </c:when>
                 <c:otherwise>
                     <br><label>일치하는 회원 정보가 없습니다.</label><br><br><hr>
@@ -143,25 +144,6 @@
                         
                     }
                 }) 
-
-                // * 비밀번호 변경 ajax
-                var $changePwd = $("#findForm input[id=changePwd]");
-
-                // $changePwd.click(function(result){
-                //     $.ajax({
-                //         url : 'changePwd.me',
-                //         data : { 
-                //             userId : '${findUser.userId}',
-                //             userPwd : $userPwd.val()
-                //          },
-                //         success : function(result){
-                //             console.log(result);
-                //         },
-                //         error : function(){
-                //             console.log("비밀번호 변경 ajax 통신 실패");
-                //         }
-                //     })
-                // })
         });
     </script>
 </body>

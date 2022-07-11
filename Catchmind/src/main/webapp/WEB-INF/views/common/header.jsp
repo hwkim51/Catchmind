@@ -161,7 +161,7 @@
         <div class="line" id="btm"></div>
     </label>
 
-    <a href="">
+    <a href="/catchmind/">
         <div class="homelogo">CATCHMIND</div>
     </a>
     

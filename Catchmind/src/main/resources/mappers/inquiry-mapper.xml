@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="inquiryMapper">
+
+	<resultMap id="inquiryResultSet" type="inquiry">
+		<result column="QA_NO" property="qaNo"/>
+		<result column="Q_TITLE" property="qaTitle"/>
+		<result column="Q_CONTENT" property="qaContent"/>
+		<result column="Q_DATE" property="qaDate"/>
+		<result column="A_CONTENT" property="anContent"/>
+		<result column="Q_ANSWERDATE" property="qaAnswerDate"/>
+		<result column="NICKNAME" property="qaWriter"/>
+		<result column="Q_ANSWERYN" property="qaAnswerYn"/>	
+	</resultMap>
+
+
+
 	<select id="selectInquiryCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM TB_QA
-		WHERE STATUS = 'Y'
+	</select>
+	
+	<select id="selectInquiryList" resultMap="inquiryResultSet">
+		SELECT QA_NO, Q_TITLE, NICKNAME, Q_ANSWERYN
+		FROM TB_QA 
+		JOIN TB_MEMBER ON (Q_WRITER = USER_NO)
+		ORDER BY QA_NO DESC	
 	</select>
 	
 	<insert id="insertInquiry" parameterType="inquiry">
@@ -14,10 +34,26 @@
 						  Q_DATE, 
 						  Q_WRITER) 
 		VALUES(SEQ_QNO.NEXTVAL, 
-			   #{qTitle}, 
-			   #{qContent}, 
+			   #{qaTitle}, 
+			   #{qaContent}, 
 			   SYSDATE, 
-			   #{qWriter})
+			   #{qaWriter})
 	</insert>
+	
+	<select id="selectInquiry" parameterType="_int" resultMap="inquiryResultSet">
+		SELECT Q_TITLE, TO_CHAR(Q_DATE, 'YYYY-MM-DD') Q_DATE, NICKNAME, Q_CONTENT, 
+			   QA_NO, A_CONTENT, Q_ANSWERYN, TO_CHAR(Q_ANSWERDATE, 'YYYY-MM-DD') Q_ANSWERDATE
+		FROM TB_QA
+		JOIN TB_MEMBER ON (Q_WRITER = USER_NO)
+		WHERE QA_NO = #{qaNo}
+	</select>
+	
+	<update id="updateInquiryAnswer" parameterType="inquiry">
+		UPDATE TB_QA 
+		   SET A_CONTENT = #{anContent},
+		   	   Q_ANSWERDATE = SYSDATE,
+		   	   Q_ANSWERYN = 'Y'
+		 WHERE QA_NO = #{qaNo}
+	</update>
 
 </mapper>

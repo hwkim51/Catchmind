@@ -2,11 +2,14 @@ package com.e1i4.catchmind.admin.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.e1i4.catchmind.admin.model.service.AdminService;
 import com.e1i4.catchmind.board.model.vo.Board;
@@ -145,6 +148,29 @@ public class AdminController {
 		return "admin/inquiryListView";
 	}
 	
+	@RequestMapping("detailInquiry.ad")
+	public ModelAndView selectInquiry(int nno, ModelAndView mv) {
+		
+		Inquiry in = adminService.selectInquiry(nno);
+		
+		mv.addObject("in", in).setViewName("admin/inquiryDetailView");
+		
+		return mv;
+	}
 	
-	
+	@RequestMapping("updateInquiry.ad")
+	public String updateInquiryAnswer(Model model, HttpSession session, Inquiry in) {
+		
+		int result = adminService.updateInquiryAnswer(in);
+		
+		if(result > 0) {
+			session.setAttribute("resultMsg", "성공적으로 답변을 등록하였습니다.");
+			return "redirect:detailInquiry.ad?nno="+in.getQaNo();
+			
+		}
+		else {
+			model.addAttribute("errorMsg", "답변 등록에 실패하였습니다.");
+			return "common/errorMsg";
+		}
+	}
 }

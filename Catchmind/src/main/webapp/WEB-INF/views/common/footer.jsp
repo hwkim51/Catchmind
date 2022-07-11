@@ -37,6 +37,16 @@
             line-height: 20px;
             display: inline-block;
         }
+        .GIT_A{
+        	text-decoration: none;
+        	color:black;
+        	cursor:pointer;
+        }
+        .GIT_A:hover{
+        	text-decoration: none;
+        	color:black;
+        	cursor:pointer;
+        }
     </style>
 </head>
 <body>
@@ -45,7 +55,7 @@
             <div class="footerinner">
                 <pre style="margin-left: 10px;"><b>캐치마인드</b><br>(주) 캐치마인드 / 사업자 등록 번호 : 590-81-00690</pre>
                 <pre><b>고객센터</b><br>문의전화 : 010-4806-7399 / 이메일 : catchmindofficial@gmail.com</pre>
-                <pre><b>GIT</b><br>GIT주소작성자리</pre>
+                <pre><b>GIT</b><br><a class="GIT_A" href="https://github.com/hwkim51/Catchmind">https://github.com/hwkim51/Catchmind</a></pre>
             </div>
         </div>
 </body>
