@@ -24,7 +24,6 @@ public class FaqController {
 	public String selectFaq(int faqNo){
 		
 		ArrayList<Faq> list = faqService.selectFaq(faqNo); 
-		
 		return new Gson().toJson(list);
 	}
 	

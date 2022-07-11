@@ -2,6 +2,7 @@ package com.e1i4.catchmind.member.model.service;
 
 import java.util.ArrayList;
 
+import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Member;
 
 public interface MemberService {
@@ -38,4 +39,14 @@ public interface MemberService {
 	
 	ArrayList<Member> matchList(Member m);
 	
+	// 로그아웃 시 recentLogout 업데이트
+	int updateRecentLogout(String userId);
+	
+	// 마이 페이지 팔로우 리스트 조회 서비스(select)
+	ArrayList<Member> selectFollowList(int userNo);
+	
+	// 마이 페이지 차단 리스트 조회 서비스(select)
+	ArrayList<Member> selectBlockList(int userNo);
+	
+	int deleteBlockMember(Block b);
 }

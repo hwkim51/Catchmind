@@ -126,8 +126,8 @@
 	
     <div class="myPage-nav">
         <div class="myPage-menu"><a href="">회원정보수정</a></div>
-        <div class="myPage-menu"><a href="">팔로우리스트</a></div>
-        <div class="myPage-menu"><a href="">차단리스트</a></div>
+        <div class="myPage-menu"><a href="followlist.me">팔로우리스트</a></div>
+        <div class="myPage-menu"><a href="blocklist.me">차단리스트</a></div>
         <div class="myPage-menu"><a href="">커플관리</a></div>
         <div class="myPage-menu"><a href="">내글관리</a></div>
         <hr>

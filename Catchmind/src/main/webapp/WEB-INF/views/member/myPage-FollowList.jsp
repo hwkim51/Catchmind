@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Catchmind</title>
 <style>
+
     body{
         margin:auto;
         padding: 0%;
@@ -19,22 +20,24 @@
     }
 
     .innerContent{
+        /*border: 1px solid red; */
         margin-top:50px;
     }
 
-    #blockTable{
+    #followTable{
         width:85%;
         margin: auto;
         text-align: center;
+        /*border: 1px solid green;*/
         border-collapse: separate;
         border-spacing: 0 25px;
     }
 
-    #blockTable tr{
+    #followTable tr{
         height:50px;
     }
 
-    #blockTable td{
+    #followTable td{
         background-color: lightgray;
         font-size: medium;
         font-weight: 500;
@@ -44,16 +47,15 @@
         width: 70px;
         height: 70px; 
         overflow: hidden;
-        
-    }
-    .profile {
-        width: 95%;
-        height: 95%;
-        border-radius: 70%;
-        object-fit: cover;
-        filter:brightness(50%);
     }
     
+    .profile {
+        width: 100%;
+        height: 100%;
+        border-radius: 70%;
+        object-fit: cover;
+    }
+
     .myPage-nav {
         width: 1000px;
         margin-left: 150px;
@@ -88,36 +90,29 @@
         <div class="myPage-menu"><a href="">내글관리</a></div>
         <hr>
     </div>
-    
-    <%-- myPage BlockList 영역 --%>
+
+    <%-- myPage followList 영역 --%>
     <div class="content">
         <div class="innerContent">
-            <table align="center" id="blockTable">
-                <tbody>
-                   
-                </tbody>
+            <table align="center" id="followTable">
+            <!-- ajax : 동적으로 구성 예정 -->
+            	<tbody>
+            	
+            	</tbody>
             </table>
         </div>
     </div>
-    
     <script>
     $(function(){
-    	selectBlockList();
+    	selectFollowList();
     	
-    	setInterval(selectBlockList, 2000);
-    	
-    	
-    	$("#blockTable>tbody>tr").on("click", "#button", function(){
-        	
-    		var blockedUser = $("#blockedUser").text();
-    		location.href="deleteBlock.me?blockNo="+blockedUser;	
-    	});
+    	setInterval(selectFollowList, 2000);
     });
     
-    function selectBlockList(){
+    function selectFollowList(){
     	
     	$.ajax({
-    		url: "bList.me",
+    		url: "fList.me",
     		data : {userNo : ${loginUser.userNo}},
     		success : function(result){
     			
@@ -131,22 +126,38 @@
                     		   + 	"</th>"
                     		   +    "<td>"+ result[i].mbti +"</td>"
                     		   +    "<td>"+ result[i].nickname +"</td>"
-                    		   +    "<td>"+ result[i].profile +"</td>"
-                    		   +    "<td><button type='button' id='button' class='btn btn-secondary'>차단해제</button></td>"
-                    		   +    "<td><input type='hidden' value='"+ result[i].userNo +"' id='blockedUser'></td>"
+                    		   +    "<td>";
+			         		   if(result[i].profile != null){
+			         			   resultStr += result[i].profile
+			         		   }
+			         		   else{
+			         			   resultStr += "작성된 소개 글이 없어요!"
+			         		   }
+			        resultStr  +=   "</td>"
+                    		   +    "<td>";
+                    		   if(result[i].recentLogout != null){
+                    		   		// 현재 접속하지 않은 경우
+                    		   		resultStr += "<button type='button' id='chatButton' class='btn btn-secondary'>대화하기</button>";
+                    		   } else {
+                    			    // 현재 접속한 경우
+                    			    resultStr += "<button type='button' id='chatButton' class='btn btn-success'>대화하기</button>";
+                    		   }
+                    		   
+                    resultStr += "</td>"
+                    		   + "<td><button type='button' class='btn btn-secondary'>팔로우 취소</button></td>"
                 			   + "</tr>"
     			}
     			
-    			$("#blockTable>tbody").html(resultStr);
+    			$("#followTable>tbody").html(resultStr);
     		},
     		error : function(){
     			console.log("ajax 통신으로 팔로우 리스트 조회 실패");
     		}
-       });
+        });
     }
     
-    </script>
     
+    </script>
     <%-- footer 영역 --%>
     <jsp:include page="../common/footer.jsp"/>
 

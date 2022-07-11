@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.member.model.dao.MemberDao;
+import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Member;
 
 @Service
@@ -84,4 +85,23 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.matchList(sqlSession, m);
 	}
 	
+	@Override
+	public int updateRecentLogout(String userId) {
+		return memberDao.updateRecentLogout(sqlSession, userId);
+	}
+
+	@Override
+	public ArrayList<Member> selectFollowList(int userNo) {
+		return memberDao.selectFollowList(sqlSession, userNo);
+	}
+	
+	@Override
+	public ArrayList<Member> selectBlockList(int userNo) {
+		return memberDao.selectBlockList(sqlSession, userNo);
+	}
+
+	@Override
+	public int deleteBlockMember(Block b) {
+		return memberDao.deleteBlockMember(sqlSession, b);
+	}
 }

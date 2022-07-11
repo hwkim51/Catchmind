@@ -15,6 +15,8 @@
 		<typeAlias type="com.e1i4.catchmind.faq.model.vo.Faq" alias="faq" />
 		<typeAlias type="com.e1i4.catchmind.test.model.vo.Test" alias="test" />
 		<typeAlias type="com.e1i4.catchmind.common.model.vo.Attach" alias="attach" />
+		<typeAlias type="com.e1i4.catchmind.member.model.vo.Follow" alias="follow" />
+		<typeAlias type="com.e1i4.catchmind.member.model.vo.Block" alias="block" />
 	</typeAliases>
 	
 	<mappers>

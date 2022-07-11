@@ -37,7 +37,7 @@ public class InquiryController {
 			// 등록 알람 메세지 전달
 			session.setAttribute("resultMsg", "1:1 문의가 등록되었습니다. ");
 			
-			return "main";
+			return "redirect:/";
 		}
 		else { //작성 실패한 경우
 			

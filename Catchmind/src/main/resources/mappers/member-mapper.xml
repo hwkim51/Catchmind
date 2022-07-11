@@ -122,9 +122,35 @@
 	<!--  로그인 시 최근 접속 기록 업데이트(udate)-->
 	<update id="updateRecentLogin" parameterType="member">
 		UPDATE TB_MEMBER
-		   SET RECENT_LOGIN = SYSDATE
+		   SET RECENT_LOGIN = SYSDATE,
+		       RECENT_LOGOUT = NULL 
 		 WHERE USER_ID = #{userId}
 	</update>
 	
+	<update id="updateRecentLogout" parameterType="string">
+		UPDATE TB_MEMBER 
+		   SET RECENT_LOGOUT = SYSDATE 
+		 WHERE USER_ID = #{userId}
+	</update>
+	
+	<select id="selectFollowList" parameterType="_int" resultMap="memberResultSet">
+		SELECT USER_NO, USER_ID, NICKNAME, MBTI, PROFILE, PIC, RECENT_LOGOUT 
+		FROM TB_FOLLOW  
+		JOIN TB_MEMBER ON(USER_NO = FOED_USER) 
+		WHERE FO_USER = #{userNo}
+	</select>
+	
+	<select id="selectBlockList" parameterType="_int" resultMap="memberResultSet">
+		SELECT B.USER_NO, USER_ID, NICKNAME, MBTI, PROFILE, PIC 
+		FROM TB_BLOCK B 
+		JOIN TB_MEMBER M ON(M.USER_NO = BLOCKED_USER) 
+		WHERE B.USER_NO = #{userNo}
+	</select>
+	
+	<delete id="deleteBlockMember" parameterType="block">
+		DELETE FROM TB_BLOCK 
+		 WHERE USER_NO = #{userNo} 
+		   AND BLOCKED_USER = #{blockedUser}
+	</delete>
 	
 </mapper>

@@ -28,7 +28,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.e1i4.catchmind.member.model.service.MemberService;
+import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Member;
+import com.google.gson.Gson;
 
 @Controller
 public class MemberController {
@@ -250,6 +252,81 @@ public class MemberController {
 	public String matchList(Member m, Model model) {
 		ArrayList<Member> list = memberService.matchList(m);
 		return "";
+	}
+	
+	// 마이페이지 - 팔로우 리스트 페이지로 이동(유진)
+	@RequestMapping("followList.me")
+	public String followList() {
+		
+		return "member/myPage-FollowList";
+	}
+	
+	// 마이페이지 - 차단 리스트 페이지로 이동(유진)
+	@RequestMapping("blockList.me")
+	public String blockList() {
+		
+		return "member/myPage-BlockList";
+	}
+	
+	// 로그아웃 버튼 누르거나 or 창 닫으면 recent_logout 업데이트 메소드 (유진)
+	public int updateRecentLogout(String userId) {
+		
+		//Member m = (Member)session.getAttribute("loginUser");
+		int updateRecentLogout = memberService.updateRecentLogout(userId);
+		return updateRecentLogout;
+	}
+	
+	// ajax로 팔로우한 유저의 정보 조회 메소드(유진)
+	// 팔로우한 회원의 mbti, 닉네임, 자기소개, 프로필 사진, recent_logout 정보 필요
+	@ResponseBody
+	@RequestMapping(value="fList.me", produces="application/json; charset=UTF-8")
+	public String selectFollowList(int userNo) {
+		
+		ArrayList<Member> list = memberService.selectFollowList(userNo);
+		return new Gson().toJson(list);
+	}
+	
+	// ajax로 차단한 유저의 정보 조회 메소드(유진)
+	@ResponseBody
+	@RequestMapping(value="bList.me", produces="application/json; charset=UTF-8")
+	public String selectBlockList(int userNo) {
+		
+		ArrayList<Member> list = memberService.selectBlockList(userNo);
+		return new Gson().toJson(list);
+	}
+	
+	// 차단된 회원 차단 해제하는 메소드(유진)
+	@RequestMapping("deleteBlock.me")
+	public String deleteBlockMember(HttpSession session,
+									int blockedUser,
+									Model model) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		Block b = new Block();
+		b.setUserNo(userNo);
+		b.setBlockedUser(blockedUser);
+				
+		int result = memberService.deleteBlockMember(b);
+		
+		if(result > 0) {
+			session.setAttribute("resultMsg", "해당 회원 차단을 해제하였습니다.");
+			return "redirect:blockList.me";
+		}
+		else {
+			model.addAttribute("errorMsg", "요청 처리 실패");
+			return "errorPage";
+		}
+	}
+		
+	@ResponseBody
+	@RequestMapping(value="closeSession.me", produces="text/html; charset=UTF-8")
+	public String closeSession(String userId, HttpSession session) {
+		
+		// RECENT_LOGOUT 정보 업데이트
+		int updateRecentLogout = memberService.updateRecentLogout(userId);
+		
+		//session.removeAttribute("loginUser");
+		return (updateRecentLogout>0)? "YYY" : "NNN";
 	}
 	
 	// 회원가입 시 프로필 사진 저장 메소드
