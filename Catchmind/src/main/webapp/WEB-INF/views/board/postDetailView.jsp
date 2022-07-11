@@ -59,11 +59,26 @@
         font-size: 30px;
       } /* 작성일자 설정 */
       .sub_body>.wr_writer{
+        display: inline-block;
         width: 1200px;
         font-weight: 800;
         font-size: 30px;
         margin-bottom: 20px;
       } /* 작성자 설정 */
+      .sub_body>.wr_count{
+        display: inline-block;
+        width: 400px;
+        font-weight: 800;
+        font-size: 30px;
+      } /* 조회수 설정 */
+      .sub_body>.wr_image{
+        width: 1665px;
+        height:100%;
+        overflow:hidden;
+      } /* 이미지영역 설정 */
+      .sub_body>.wr_image>img{
+      	object-fit:none;
+      }
 
       /* ########## 글내용 설정 영역 ########## */
       .sub_body>.wr_content{
@@ -153,10 +168,12 @@
                 <div class="title">에브리타임</div>
             </div>
             <div class="sub_body">
-                <div class="wr_title">글제목 : 얄리얄리얄라셩 얄랼리얄랴</div>
-                <div class="wr_date">작성일자 : 2020-02-02</div> <br>
-                <div class="wr_writer">작성자 : 마법주문</div> <br>
-                <div class="wr_content">내용이 들어갈 자리</div>
+                <div class="wr_title">글제목 : ${ p.postTitle }</div>
+                <div class="wr_date">작성일자 : ${ p.postDate }</div> <br>
+                <div class="wr_writer">작성자 : ${ p.nickName }</div>
+                <div class="wr_count">조회수 : ${ p.postCount }</div> <br>
+                <div class="wr_image"><img src="${ a.attChange }" /> <br></div>
+                <pre class="wr_content">${ p.postContent }</pre>
                 <div class="wr_reply">
                     <form action="">
                         <input type="text" placeholder="댓글을 입력해주세요">
@@ -184,9 +201,11 @@
                     </tr>
                 </table>
                 
+            
+            </div>
+            
             <div class="sub_foot">
                 <a class="btn_list" href="javascript:history.back()">목록으로 ▶ </a>
-            </div>
             </div>
         </div>
     </div>

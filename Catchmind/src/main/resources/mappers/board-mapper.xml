@@ -2,4 +2,76 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
+	<resultMap type="post" id="postResultMap">
+		<result column="POST_NO" property="postNo"/>
+		<result column="POST_TITLE" property="postTitle"/>
+		<result column="POST_CONTENT" property="postContent"/>
+		<result column="POST_DATE" property="postDate"/>
+		<result column="POST_COUNT" property="postCount"/>
+		<result column="POST_STATUS" property="postStatus"/>
+		<result column="POST_WRITER" property="postWriter"/>
+		<result column="NICKNAME" property="nickName"/>
+	</resultMap>
+	<resultMap type="attach" id="attachResultMap">
+		<result column="ATT_NO" property="attNo"/>
+		<result column="ATT_ORIGIN" property="attOrigin"/>
+		<result column="ATT_CHANGE" property="attChange"/>
+		<result column="ATT_NOTICE" property="attNotice"/>
+		<result column="ATT_POST" property="attPost"/>
+		<result column="ATT_CATCH" property="attCatch"/>
+	</resultMap>
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM TB_POST
+		WHERE POST_STATUS='Y'
+	</select>
+	
+	<select id="selectList" resultMap="postResultMap">
+		SELECT POST_NO, POST_TITLE, POST_CONTENT, TO_CHAR(POST_DATE, 'YYYY-MM-DD') "POST_DATE", POST_COUNT, POST_STATUS, NICKNAME
+		FROM TB_POST
+		JOIN TB_MEMBER ON (POST_WRITER=USER_NO)
+		WHERE POST_STATUS = 'Y'
+		ORDER BY POST_DATE DESC, POST_NO DESC
+	</select>
+	
+	<insert id="insertPost" parameterType="post">
+		INSERT INTO TB_POST(POST_NO
+		, POST_TITLE, POST_CONTENT, POST_DATE
+		, POST_COUNT, POST_STATUS, POST_WRITER)
+		VALUES (SEQ_PNO.NEXTVAL
+		, #{postTitle}, #{postContent}, SYSDATE
+		, 0, 'Y', 1
+		)
+	</insert>
+	
+	<insert id="insertFile" parameterType="attach">
+		INSERT INTO TB_ATTACHMENT(ATT_NO, ATT_ORIGIN, ATT_CHANGE, ATT_POST)
+		VALUES (SEQ_ANO.NEXTVAL, #{attOrigin}, #{attChange}, SEQ_PNO.CURRVAL)
+	
+	</insert>
+	
+	
+	<update id="increaseCount" parameterType="_int">
+		UPDATE TB_POST
+		SET POST_COUNT = POST_COUNT + 1
+		WHERE POST_NO = #{postNo}
+		AND POST_STATUS = 'Y'
+	</update>
+	
+	<select id="selectPost" parameterType="_int" resultMap="postResultMap">
+	SELECT POST_NO, POST_TITLE, POST_CONTENT, TO_CHAR(POST_DATE, 'YYYY-MM-DD') "POST_DATE", POST_COUNT, POST_STATUS, NICKNAME
+	FROM TB_POST
+	JOIN TB_MEMBER ON (POST_WRITER=USER_NO)
+	WHERE POST_NO = #{postNo}
+	</select>
+	
+	<select id="selectFile" parameterType="_int" resultMap="attachResultMap">
+	SELECT ATT_NO, ATT_CHANGE, ATT_POST
+	FROM TB_ATTACHMENT
+	WHERE ATT_POST = ${attPost}
+	</select>
+	
+	
+
 </mapper>
