@@ -1,5 +1,7 @@
 package com.e1i4.catchmind.member.model.service;
 
+import java.util.ArrayList;
+
 import com.e1i4.catchmind.member.model.vo.Member;
 
 public interface MemberService {
@@ -30,5 +32,7 @@ public interface MemberService {
 	
 //	// 비밀번호 찾기 - 변경 서비스(update)
 //	int changePwd(Member m);
+	
+	ArrayList<Member> matchList(Member m);
 	
 }

@@ -115,4 +115,9 @@
 				#{pic})
 	</insert>
 	
+	<select id="matchList" parameterType="member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+	</select>
+	
 </mapper>
