@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,6 +123,7 @@
 <body>
 
 	<jsp:include page="../common/header.jsp"/>
+	
     <div class="myPage-nav">
         <div class="myPage-menu"><a href="">회원정보수정</a></div>
         <div class="myPage-menu"><a href="">팔로우리스트</a></div>
@@ -132,32 +135,74 @@
     
     <div class="myPage-area" align="center">
         <div class="profile-area" align="center">
-            <img id="profile-img" src="">
-            <div id="user-mbti">INFP</div>
+            <img id="profile-img" src="${ loginUser.pic }">
+            <div id="user-mbti">${ loginUser.mbti }</div>
             <div id="user-nickname"> 
-            	공주승아 
-                <font id="user-age">(24)</font>
+            	${ loginUser.nickname } 
+                <font id="user-age">
+                	<!-- 현재 년도 - 생년 + 1 -->
+                	<script>
+                		var now = new Date().getFullYear(); // 현재 년도
+                		
+                		var birthDay = "${ loginUser.birthDay }"; 
+                		var birthYear = birthDay.substr(0, 4); // 생년
+                		
+                		var age = (now - birthYear) + 1;
+                		
+                		$("#user-age").text("(" + age + ")");
+                	</script>
+                </font>
             </div>
             <div id="user-feature">번개처럼 빠른</div>
-            <div id="user-message">나를 공주라고 불러줄 사람 구해요fsdkjfaslkjklhsrlkhtlrkfhgdfdsfsdkjthlsuylfsrkjtblnisuhrntlkjh</div>
-            <div id="user-coupleID">💖couple ID💖</div>
+            <div id="user-message">
+            	<c:choose>
+            		<c:when test="${ loginUser.profile eq not null }">
+            			${ loginUser.profile }
+            		</c:when>
+            		<c:otherwise>
+            			나만의 상태메세지를 작성해주세요
+            		</c:otherwise>
+            	</c:choose>
+            </div>
+            <div id="user-coupleID">
+            	<c:choose>
+            		<c:when test="${ loginUser.partner eq null}">
+            			💖CATCH MIND💖
+            		</c:when>
+            		<c:otherwise>
+            			💖${ loginUser.partner }💖
+            		</c:otherwise>
+            	</c:choose>
+            </div>
         </div>
 
         <div class="myPageInfo-area" align="center">
             <table id="myPage-info">
                 <tr>
                     <td width="100px" height="35px">ID</td>
-                    <td width="200px">PrincessJSA</td>
+                    <td width="200px">${ loginUser.userId }</td>
                 </tr>
                 <tr>
                     <td>이름</td>
-                    <td>지승아</td>
+                    <td>${ loginUser.userName }</td>
                 </tr>
                 <tr>
                     <td>성별</td>
                     <td>
-                        <label><input type="radio" name="gender" value="M">남자 &nbsp; &nbsp;</label>
-                        <label><input type="radio" name="gender" value="F">여자</label>
+                    	<c:choose>
+                    		<c:when test="${ loginUser.gender eq null}">
+		            			<label><input type="radio" name="gender" value="M" onclick="return(false);">남자 &nbsp; &nbsp;</label>
+                        		<label><input type="radio" name="gender" value="F" onclick="return(false);">여자</label>
+		            		</c:when>
+		            		<c:when test="${ loginUser.gender eq M}">
+		            			<label><input type="radio" name="gender" value="M" checked onclick="return(false);">남자 &nbsp; &nbsp;</label>
+                        		<label><input type="radio" name="gender" value="F" onclick="return(false);">여자</label>
+		            		</c:when>
+		            		<c:otherwise>
+		            			<label><input type="radio" name="gender" value="M" onclick="return(false);">남자 &nbsp; &nbsp;</label>
+                        		<label><input type="radio" name="gender" value="F" checked onclick="return(false);">여자</label>
+		            		</c:otherwise>
+		            	</c:choose>
                     </td>
                 </tr>
                 <tr>
@@ -169,26 +214,30 @@
                 </tr>
                 <tr>
                     <td>생년월일</td>
-                    <td>1999-01-20</td>
+                    <td>${ loginUser.birthDay }</td>
                 </tr>
                 <tr>
                     <td>전화번호</td>
-                    <td>010-0000-0000</td>
+                    <td>${ loginUser.phone }</td>
                 </tr>
                 <tr>
                     <td>이메일</td>
-                    <td>jsa@naver.com</td>
+                    <td>${ loginUser.email }</td>
                 </tr>
                 <tr>
                     <td>주소</td>
-                    <td>서울시 구로구</td>
+                    <td>주소입니다~</td>
                 </tr>
                 <tr>
                     <td>키</td>
-                    <td>167</td>
+                    <td>${ loginUser.height }</td>
                 </tr>
             </table>
         </div>
     </div>
+    
+    <jsp:include page="../common/footer.jsp"/>
+    console.log(${ loginUser });
+    
 </body>
 </html>
