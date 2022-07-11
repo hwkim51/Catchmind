@@ -1,5 +1,7 @@
 package com.e1i4.catchmind.member.model.service;
 
+import java.util.ArrayList;
+
 import com.e1i4.catchmind.member.model.vo.Member;
 
 public interface MemberService {
@@ -33,5 +35,7 @@ public interface MemberService {
 
 	// 로그인 시 recentLogin 업데이트(update)
 	int updateRecentLogin(Member m);
+	
+	ArrayList<Member> matchList(Member m);
 	
 }

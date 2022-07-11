@@ -1,5 +1,7 @@
 package com.e1i4.catchmind.member.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,4 +79,9 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.updateRecentLogin(sqlSession, m);
 	}
 
+	@Override
+	public ArrayList<Member> matchList(Member m) {
+		return memberDao.matchList(sqlSession, m);
+	}
+	
 }

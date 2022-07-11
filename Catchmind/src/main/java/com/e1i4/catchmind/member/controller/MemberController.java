@@ -4,6 +4,7 @@ package com.e1i4.catchmind.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
@@ -243,6 +244,12 @@ public class MemberController {
 			model.addAttribute("errorMsg","회원가입 실패");
 			return "errorPage";
 		}
+	}
+	
+	@RequestMapping(value="match.me")
+	public String matchList(Member m, Model model) {
+		ArrayList<Member> list = memberService.matchList(m);
+		return "";
 	}
 	
 	// 회원가입 시 프로필 사진 저장 메소드

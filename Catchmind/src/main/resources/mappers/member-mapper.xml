@@ -115,6 +115,10 @@
 				#{pic})
 	</insert>
 	
+	<select id="matchList" parameterType="member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+	</select>
 	<!--  로그인 시 최근 접속 기록 업데이트(udate)-->
 	<update id="updateRecentLogin" parameterType="member">
 		UPDATE TB_MEMBER

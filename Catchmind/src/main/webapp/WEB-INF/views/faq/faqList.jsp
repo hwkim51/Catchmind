@@ -311,8 +311,8 @@ body{
 			location.href="enrollForm.in";
         }
         
-            // 채팅 스크롤 하단으로 보내기 
-               $("#chatlist-id").scrollTop($("#chatlist-id")[0].scrollHeight);
+        // 채팅 스크롤 하단으로 보내기 
+        $("#chatlist-id").scrollTop($("#chatlist-id")[0].scrollHeight);
          
           
     </script>

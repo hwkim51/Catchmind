@@ -1,5 +1,7 @@
 package com.e1i4.catchmind.member.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -52,6 +54,8 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.updateRecentLogin", m);
 	}
 
-	
+	public ArrayList<Member> matchList(SqlSessionTemplate sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("memberMapper.matchList", m);
+	}
 
 }
