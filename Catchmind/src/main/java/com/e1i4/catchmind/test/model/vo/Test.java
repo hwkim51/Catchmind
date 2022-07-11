@@ -17,4 +17,5 @@ public class Test {
 	private String mbtiTitle;
 	private String mbtiResult;
 	private String mbtiContent;
+	private String mbtiUser;
 }

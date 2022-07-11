@@ -153,6 +153,14 @@
 </head>
 
 <body>
+	<!-- 1회성 알람 문구 기능 -->
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alertify.alert("알람", "${ alertMsg }");
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
+	
     <!-- header : 메뉴아이콘 -->
     <input type="checkbox" id="menuicon" hidden>
     <label for="menuicon">

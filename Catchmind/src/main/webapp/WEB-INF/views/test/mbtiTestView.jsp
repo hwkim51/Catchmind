@@ -277,7 +277,7 @@
                 </div>
             </div>
 
-            <form name="mbtiResult" action="mbtiResult.te" method="post" align="center">
+            <form name="mbtiResult" action="mbtiResult.te" method="post">
                 <input type="hidden" id="mbtiResult" name="mbtiResult">
             </form>
         </div>

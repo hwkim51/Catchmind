@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="testMapper">
+
+	<!-- MBTI 테스트 결과 업데이트 -->
+	<update id="updateMbti" parameterType="test">
+		UPDATE TB_MEMBER
+   	 	   SET MBTI = #{mbtiResult}
+         WHERE USER_ID = #{mbtiUser}
+	</update>
+</mapper>
