@@ -60,6 +60,9 @@
             border-collapse: collapse;
             text-align: center;
         } /* 테두리 선에 대한 설정 */
+        .sub_body .table tr{
+        	cursor: pointer;
+        }
         .sub_body tr{
             font-size: 20px;
             height: 50px;
@@ -73,7 +76,6 @@
         .sub_body .table_date{
             width: 150px;
         } /* 작성일 행에 대한 넓이 */
-        
         /* ################### sub_foot 설정 영역 ################### */
         .pagination *{
         	margin: auto;
@@ -91,10 +93,13 @@
             height: 35px;
             width: 35px;
             transition: all 0.5s ease;
+        } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
+        .pagination ul li a{
             padding: 5px 5px 5px 5px;
             margin: 5px 5px 5px 5px;
-        } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
-
+        	text-decoration: none;
+        	color:black;
+        } /* 페이지네이션 a스타일 */
         .pagination #left{
             border-radius: 25px 5px 5px 25px;
             width: 85px;
@@ -122,7 +127,9 @@
         <div class="inner_body">
             <div class="sub_head">
                 <div class="title">에브리타임</div>
-                <a class="btn_write" href="detail.po">작성</a>
+                <%-- <c:if test="${ not empty loginUser }"> --%>
+                <a class="btn_write" href="enrollForm.po">작성</a>
+                <%-- </c:if> --%>
             </div>
             <div class="sub_body">
                 <table class="table">
@@ -134,73 +141,50 @@
                       </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="p" items="${ list }">
                       <tr>
-                        <td>더미제목1</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
+                        <td class="pno" style="visibility: hidden; display:none;">${ p.postNo }</td>
+                        <td>${ p.postTitle }</td>
+                        <td>${ p.nickName }</td>
+                        <td>${ p.postDate }</td>
                       </tr>
-                      <tr>
-                        <td>더미제목2</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목3</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목4</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목5</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목6</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목7</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목8</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목9</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
-                      <tr>
-                        <td>더미제목10</td>
-                        <td>Dooley</td>
-                        <td>2022-02-02</td>
-                      </tr>
+                    </c:forEach>
                     </tbody>
                   </table>
+                  
+                  	<script>
+		           	$(function() {
+		           		$(".table>tbody>tr").click(function() {
+		           			location.href = "detail.po?pno=" + $(this).children(".pno").text();
+		           		});
+		           	});
+		           </script>
+                  
                   <div class="sub_foot">
                       <div class="pagination">
 				        <ul>
-				            <li class="signal" id="left">&lt; Prev</li>
-				            <li class="page_num active">1</li>
-				            <li class="page_num">2</li>
-				            <li class="page_num">3</li>
-				            <li class="page_num">4</li>
-				            <li class="page_num">5</li>
-				            <li class="page_num">6</li>
-				            <li class="page_num">7</li>
-				            <li class="page_num">8</li>
-				            <li class="page_num">9</li>
-				            <li class="page_num">10</li>
-				            <li class="signal" id="right">Next &gt;</li>
+				        	<c:choose>
+	                			<c:when test="${ pi.currentPage eq 1 }">
+					            	<li class="signal disabled" id="left"><a href="#">&lt; Prev</a></li>
+					            </c:when>
+	                    		<c:otherwise>
+	                    			<li class="signal" id="left"><a href="list.po?ppage=${ pi.currentPage -1 }">&lt; Prev</a></li>
+	                    		</c:otherwise>
+                    		</c:choose>
+                    		
+				            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				            <li class="page_num"><a href="list.po?ppage=${ p }">${ p }</a></li>
+				            </c:forEach>
+				            
+				            <c:choose>
+	                    		<c:when test="${ pi.currentPage eq pi.maxPage }">
+					            	<li class="signal disabled" id="right"><a href="#">Next &gt;</a></li>
+					            </c:when>
+	                    		<c:otherwise>
+	                    			<li class="signal" id="right"><a href="list.po?ppage=${ pi.currentPage +1 }">Next &gt;</a></li>
+					            </c:otherwise>
+                    		</c:choose>
+				            
 				        </ul>
 				    </div>
                   </div>

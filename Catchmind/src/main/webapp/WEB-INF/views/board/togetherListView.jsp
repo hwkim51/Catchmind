@@ -52,7 +52,6 @@
             height: 100%;
         } /* 리스트형 게시판의 영역 설정 */
         .sub_body *{
-            border: 1px solid #cccccc;
             border-collapse: collapse;
             text-align: center;
         } /* 테두리 선에 대한 설정 */
@@ -61,21 +60,40 @@
             flex-wrap: wrap;
             justify-content: space-between;
         }
-        .card_items{
+        .card_area .Loding_data{
+        	display:block;
+            font-size: 30px;
+            width: 1700px;
+            height: 620px;
+            margin:auto;
+            padding-top:250px;
+        }
+        .card_items {
             width: 500px;
             height: 300px;
-            border: 1px red solid;
             margin-bottom: 10px;
+        }
+        
+        .card_items * {
+            border: 1px solid #cccccc;
         }
 
         .card_items>.card_img{
-            width: 100%;
+       	 	height: 190px;
+       	 	width: 500px;
+            object-fit: contain;
+        }
+        
+        .card_items>.data_area>.title{
+            overflow: hidden;
+            height: 25px;
+            text-overflow:ellipsis;
+            white-space:nowrap;
         }
 
-        .card_items>.data_area>.info{
+        .card_items>.data_area>.addr{
             overflow: hidden;
-            width: 60px;
-            height: 20px;
+            height: 25px;
             text-overflow:ellipsis;
             white-space:nowrap;
         }
@@ -132,14 +150,10 @@
             </div>
             <div class="sub_body">
                 <div class="card_area" id="result1">
-                    <div class="card_items">
-                        <a class="card_img" href=""><img src="" alt="이미지 박스입니다."></a>
-                        <div class="data_area">
-                            <div class="title">제목자리</div>
-                            <div class="info">설명자리입니다만</div>
-                        </div>
-                    </div>
-                    
+                    <div class="card_area" id="result1">
+                    <div class="Loding_data">데이터를 불러오는 중입니다. <br>
+                    	잠시만 기다려주세요.</div>
+                </div>
                 </div>
                   <div class="sub_foot">
                       <div class="pagination">
@@ -170,18 +184,18 @@
 				success : function(data) {
 					var itemArr = $(data).find("item");
 					var value = "";
-					
 					// 2. 반복문을 이용해서 실제 데이터가 담긴 요소들에 접근해서 동적으로 요소 만들기
 					// -> 제이쿼리 반복문
 					itemArr.each(function(index, item) {
-						
-						value += "<div class="+card_items+">"
-                        + "<a class="+card_img+" href="+">"+이미지자리+"</a>"
-                        + "<div class="+data_area+">"
-                        + "<div class="+title+">"+제목자리+"</div>"
-                        + "<div class="+info+">"+설명자리입니다만+"</div>"
+						value += "<div class="+"card_items"+">"
+                        + "<img class="+"card_img"+" src="+$(item).find("firstimage").text()+">"
+                        + "<div class="+"data_area"+">"
+                        + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
+                        + "<div class="+"addr"+">"+$(item).find("addr1").text()+$(item).find("addr2").text()+"</div>"
+                        + "<div class="+"period"+">"+$(item).find("eventstartdate").text()+"~"+$(item).find("eventenddate").text()+"</div>"
+                        + "<div class="+"contentid"+">"+$(item).find("contentid").text()+"</div>"
                         + "</div>"
-                    	+ "</div>;"
+                    	+ "</div>"
 					});
 						$("#result1").html(value);
 				},
