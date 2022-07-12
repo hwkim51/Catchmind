@@ -7,7 +7,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> CATCHMIND | 캐치마인드 </title>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
  <style>
+        html{
+            font-size: 20px;
+        }
         /* nav */
         nav{
             height: 100vh;
@@ -28,8 +35,8 @@
         .btn-main{
             background-color: orange;
             font-size: 18px;
-            width: 180px;
-            height: 40px;
+            width: 200px;
+            height: 50px;
             border: 0;
             border-radius: 30px;
             font-weight: bolder;
@@ -82,6 +89,9 @@
             line-height: 150px;
             animation: showText 0.9s; 
             animation-delay: 0.1s;
+        }
+        .article-main b{
+            display: block;
         }
 
         @keyframes showText{
@@ -142,7 +152,7 @@
         <article class="article-main">
            <table>
             <tr>
-                <td class="left texteffect">
+                <td class="left texteffect" data-aos="fade-up" data-aos-duration="1000">
                     <b>세상에 없던 새로운 매칭 !</b><br><br>
 
                     <b>MBTI를 기반으로 한</b><br>
@@ -152,7 +162,7 @@
                     
                     <input type="button" class="btn-main" value="MBTI 검사하기" onclick="mbtiGo()">
                 </td>
-                <td class="right"> 
+                <td class="right" data-aos="fade-up" data-aos-duration="1000"> 
                     <video id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0" width="600px;">
                         <source src='./resources/images/mbtivideo.mp4'>
                     </video>  
@@ -167,17 +177,17 @@
         <article class="article-main">
            <table>
             <tr>
-                <td class="left" style="overflow: hidden;">
-                    <img src='./resources/images/nav2.jpg' width="500px;">
+                <td class="left" style="overflow: hidden;" data-aos="flip-left" data-aos-duration="1000">
+                    <img src='./resources/images/nav2.jpg' width="550px;" height="350px;">
                 </td>
-                <td class="right">
+                <td class="right" style="padding-left: 50px;" data-aos="fade-left" data-aos-duration="1000">
                     <br><b>원치않는 상대는 NO ✋</b><br><br>
                 
                     이용에 불편하신 점이 있다면 언제든지 알려주세요!<br>
-                    연락처 연동을 통해 지인들에게 내 정보가 노출되지 않도록 하기<br>
-                    채팅 후 상대와의 만남을 다시 원하지 않는다면 신고/ 차단하기<br>
+                    연락처 연동으로 지인들에게 내 정보가 노출되지 않도록<br>
+                    채팅 후 상대와의 다시 만남을 원치 않는다면 신고/차단<br>
                     쾌적한 이용환경을 만들어 드릴게요<br><br><br><br>
-                <input type="button" class="btn-main" style="margin-left: 10vmin;" value="채팅 상대 둘러보기">
+                <input type="button" class="btn-main" style="margin-left: 120px;" value="채팅 상대 둘러보기">
                 </td>
             </tr>
             </table>
@@ -189,17 +199,18 @@
         <article class="article-main">
             <table>
                 <tr>
-                    <td class="left">
-                        <img src='./resources/images/nav3.jpg' width="500px;">
-                    </td>
-                    <td class="right">
+                    <td class="left" data-aos="fade-right" data-aos-duration="1000">
                         <br>
                         <b>유저들의 이유있는 선택,</b><br>
                         <b>CATCHMIND 캐치마인드</b><br><br>
                         이용에 불편하신 점이 있다면 언제든지 알려주세요!<br>
-                        연락처 연동을 통해 지인들에게 내 정보가 노출되지 않도록 하기<br>
-                        채팅 후 상대와의 만남을 다시 원하지 않는다면 신고/ 차단하기<br>
+                        연락처 연동으로 지인들에게 내 정보가 노출되지 않도록<br>
+                        채팅 후 상대와의 다시 만남을 원치 않는다면 신고/차단<br>
                         쾌적한 이용환경을 만들어 드릴게요<br><br><br><br>
+                        
+                    </td>
+                    <td class="right" data-aos="flip-left" data-aos-duration="1000">
+                        <img src='./resources/images/nav3.jpg' width="550px;" height="350px;">
                     </td>
                 </tr>
             </table>
@@ -211,10 +222,12 @@
     <jsp:include page="common/footer.jsp"/>
 
     <script>
+        
+        AOS.init();
+
         function mbtiGo(){
             location.href = 'mbtiTest.te';
         }
-        
        
     </script>
 </body>

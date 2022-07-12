@@ -60,9 +60,9 @@
             opacity: 93%;
             position: fixed;
             top:0;
-            left:-3000px;
+            left:-200vw;
             z-index: 1;
-            transition:all 0.7s;
+            transition:all 0.9s;
         }
         .sidebar label{
             height: 30vh;
