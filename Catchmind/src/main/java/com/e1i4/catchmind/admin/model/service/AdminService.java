@@ -7,6 +7,7 @@ import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 import com.e1i4.catchmind.member.model.vo.Member;
+import com.e1i4.catchmind.notice.model.vo.Notice;
 
 public interface AdminService {
 
@@ -38,4 +39,11 @@ public interface AdminService {
 	
 	int updateInquiryAnswer(Inquiry in);
 	
+	int selectListCount();
+	
+	ArrayList<Notice> selectList(PageInfo pi);
+	
+	Notice selectNotice(int noticeNo);
+	
+	int insertNotice(Notice n);
 }

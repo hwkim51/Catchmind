@@ -15,7 +15,7 @@ body{
 
 .content{
     width:1200px;
-    height: 800px;
+    height: 1000px;
     margin-left: 13%;
 }
 
@@ -62,36 +62,23 @@ body{
     <hr><br>
 
     <div class="innerContent" align="center">
-    <!--  <h2 align="center">❣ CATCH MIND ❣</h2> -->
-		
-	        <!-- Q. 상단의 이미지 클릭 시 보이는 공지사항만 사진게시판 형태 + 다른 공지사항은 일반 게시판 형태 ? -->
-	        <div id="mainNotice" align="center">
-	        	<!-- 이미지 경로 동적으로 구성 예정 -->
-	            <img src="resources/images/dosomethinggreat.jpeg" id="noticeImg" style="width:100%; height:100%; object-fit:cover;">
-	        </div>
-	        <br><br>
+        <div id="mainNotice" align="center">
+        	<!-- 이미지 경로 동적으로 구성 예정 -->
+            <img src="${pic }" id="noticeImg" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <br><br>
 
         <table id="noticeList" align="center" class="table table-hover">
             <thead>
                 <tr>
-                    <th style="width:10%;">
-                        글번호
-                    </th>
-                    <th style="width:50%;">
-                        글제목
-                    </th>
-                    
-                    <th style="width:10%;">
-                        조회수
-                    </th>
-                    <th style="width:30%;">
-                        작성일
-                    </th>
+                    <th style="width:10%;">글번호</th>
+                    <th style="width:50%;">글제목</th>
+                    <th style="width:10%;">조회수</th>
+                    <th style="width:30%;">작성일</th>
                 </tr>
             </thead>
             <tbody>
             	<c:forEach var="no" items="${list }">
-            	<!-- 동적으로 구성할 예정 -->
                     <tr>
                         <td class="nno">${no.noticeNo }</td>
                         <td>${no.noticeTitle }</td>
@@ -107,28 +94,42 @@ body{
             $(function(){
 
                 $("#noticeList>tbody>tr").click(function(){
-                    
-                    //console.log($(this).children(".nno").text());
                     location.href="detail.no?nno="+$(this).children(".nno").text();
                 });
-                
             });
 
             // 이미지 배너가 노출되는 공지사항 클릭 시 실행 함수
             $(function(){
 
                 $("#noticeImg").click(function(){
-
-                    //console.log($("#noticeList>tbody>tr").eq(0).children(".nno").text());
                     location.href="detail.no?nno="+$("#noticeList>tbody>tr").eq(0).children(".nno").text();
                 });
-
             });
         </script>
 
         <!-- 페이징 바 영역 -->
         <div id="pagingArea">
-           
+        	<ul class="pagination">
+	           	<c:choose>
+               		<c:when test="${pi.currentPage eq 1}">
+                   		<li class="page-item disabled"><a class="page-link" href="#">&lt; Prev</a></li>
+                   	</c:when>
+                   	<c:otherwise>
+                   		<li class="page-item"><a class="page-link" href="list.no?cpage=${pi.currentPage - 1}">&lt; Prev</a></li>
+                   	</c:otherwise>
+                </c:choose>
+                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                  <li class="page-item"><a class="page-link" href="list.no?cpage=${ p }">${ p }</a></li>
+                </c:forEach>     
+                <c:choose>   
+	               	<c:when test="${pi.currentPage eq pi.maxPage}">  
+	                    <li class="page-item disabled"><a class="page-link" href="#">Next &gt;</a></li>
+              		</c:when>
+              		<c:otherwise>
+              			<li class="page-item"><a class="page-link" href="list.no?cpage=${pi.currentPage + 1}">Next &gt;</a></li>
+              		</c:otherwise>
+	            </c:choose>
+              </ul>
         </div>
       </div>
     </div>

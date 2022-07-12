@@ -12,6 +12,7 @@ import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 import com.e1i4.catchmind.member.model.vo.Member;
+import com.e1i4.catchmind.notice.model.vo.Notice;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -91,7 +92,26 @@ public class AdminServiceImpl implements AdminService {
 	public int updateInquiryAnswer(Inquiry in) {
 		return adminDao.updateInquiryAnswer(sqlSession, in);
 	}
+
+	@Override
+	public int selectListCount() {
+		return adminDao.selectListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Notice> selectList(PageInfo pi) {
+		return adminDao.selectList(sqlSession, pi);
+	}
 	
-	
+	@Override
+	public Notice selectNotice(int noticeNo) {
+		return adminDao.selectNotice(sqlSession, noticeNo);
+	}
+
+	@Override
+	public int insertNotice(Notice n) {
+		return adminDao.insertNotice(sqlSession, n);
+	}
+
 
 }

@@ -48,22 +48,64 @@ div{
     padding-right : 20px;
 }
 
-#inquiryTable {
+.btn_area{
+    margin-top: 20px;
+    margin-left : 50px;
+    width: 90%;
+    text-align:right;
+}
+
+.btn_write{
+    padding: 0px 5px 0px 5px;
+    text-decoration:none !important;
+    background-color: black;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 18px;
+    margin-left: 15px;
+}
+
+.btn_write:hover{
+    text-decoration:none !important;
+    color:white;
+}
+
+#noticeTable {
     margin-left : 20px;
     margin-top:20px;
     width:95%;
     text-align:center;
-    border-color: lightgray;
+ 	border-color: lightgray;
 }
 
-#inquiryTable>thead {
+#noticeTable>thead {
     background-color : lightgrey;
 }
 
-#inquiryTable>thead>tr {
+#noticeTable>thead>tr>th {
     padding-left : 15px;
-    text-align: center;
-    height:40px;
+}
+
+#id {
+    width : 50px;
+}
+
+#ntitle {
+    width : 280px;
+}
+
+#ndate {
+    width : 100px;
+}
+
+#status {
+    width : 70px;
+}
+
+.admin-menu a{ 
+    text-decoration: none;
+    color: black;
 }
 
 #btn1{
@@ -78,7 +120,7 @@ div{
     font-size:medium;          
 }
     
-#pagingArea {width:fit-content; margin:auto; margin-top:50px;}
+#pagingArea {width:fit-content; margin:auto; margin-top:50px;}    
 </style>
 </head>
 <body>
@@ -91,35 +133,34 @@ div{
           <div class="body right">
             <br>
                 <!-- 메뉴 별 제목 작성하는 곳! -->
-                <span id="title">1:1 문의 관리</span>
+                <span id="title">공지사항 관리</span>
                 <span id="toMain">CATCHMIND</span>
             <br>
             <div class="body-content">
-            <table id="inquiryTable" border="1">
+                <div class="btn_area"><a class="btn_write" href="noticeEnrollForm.ad">작성하기</a></div>
+            <table id="noticeTable" border="1">
                 <thead>
                     <tr>
-                        <th style="width : 100px;">글번호</th>
-                        <th style="width : 300px;">글제목</th>
-                        <th style="width : 200px;">작성자</th>
-                        <th style="width : 150px;">답변여부</th>
-                        <th style="width : 100px;">상세보기</th>
+                        <th id="id">글번호</th>
+                        <th id="ntitle">글제목</th>
+                        <th id="ndate">작성일</th>
+                        <th id="status">상세보기</th>
                     </tr>
                 </thead>
                 <tbody>
                 
-                    <c:forEach items="${list}" var="iq">
+                    <c:forEach items="${list}" var="n">
 	                    <tr align="center">
-	                        <td class="qno">${iq.qaNo}</td>
-	                        <td class="tt">${iq.qaTitle}</td>
-	                        <td>${iq.qaWriter}</td>
-	                        <td>${iq.qaAnswerYn}</td>
+	                        <td class="nno">${n.noticeNo}</td>
+	                        <td class="tt">${n.noticeTitle}</td>
+	                        <td>${n.noticeDate}</td>
 	                        <td id="detail"><a id="btn1">상세보기</a></td>
 	                    </tr>
                     </c:forEach>
                 </tbody>
             </table>
-          </div>
-          <!-- 페이징 바 영역 -->
+            </div>
+            <!-- 페이징 바 영역 -->
             <div id="pagingArea">
                 <ul class="pagination">
                     <c:choose>
@@ -127,18 +168,18 @@ div{
                             <li class="page-item disabled"><a class="page-link" href="#">&lt; Prev</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="inquiryList.ad?cpage=${pi.currentPage - 1}">&lt; Prev</a></li>
+                            <li class="page-item"><a class="page-link" href="noticeList.ad?cpage=${pi.currentPage - 1}">&lt; Prev</a></li>
                         </c:otherwise>
                     </c:choose>
                     <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                    <li class="page-item"><a class="page-link" href="inquiryList.ad?cpage=${ p }">${ p }</a></li>
+                    <li class="page-item"><a class="page-link" href="noticeList.ad?cpage=${ p }">${ p }</a></li>
                     </c:forEach>     
                     <c:choose>   
                         <c:when test="${pi.currentPage eq pi.maxPage}">  
                             <li class="page-item disabled"><a class="page-link" href="#">Next &gt;</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="inquiryList.ad?cpage=${pi.currentPage + 1}">Next &gt;</a></li>
+                            <li class="page-item"><a class="page-link" href="noticeList.ad?cpage=${pi.currentPage + 1}">Next &gt;</a></li>
                         </c:otherwise>
                     </c:choose>
                 </ul>
@@ -147,8 +188,8 @@ div{
     </div>
     
     <script>
-        $("#inquiryTable>tbody>tr>#detail").click(function(){
-        	location.href="detailInquiry.ad?qno="+$(this).siblings(".qno").text();
+        $("#noticeTable>tbody>tr>#detail").click(function(){
+        	location.href="detailNotice.ad?nno="+$(this).siblings(".nno").text();
        })
     </script>
   </div>

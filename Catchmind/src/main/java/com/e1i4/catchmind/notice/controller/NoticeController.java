@@ -33,9 +33,11 @@ public class NoticeController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		ArrayList<Notice> list = noticeService.selectList(pi);
+		String pic = list.get(0).getChangeName();
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
+		model.addAttribute("pic", pic);
 		
 		return "notice/noticeList";
 	}
@@ -50,16 +52,11 @@ public class NoticeController {
 		if(result > 0) { //조회수가 증가한 경우
 			
 			Notice n = noticeService.selectNotice(nno);
-		
-				// 코드 진행 중 ,,, 220706
-		
 			mv.addObject("n", n).setViewName("notice/noticeDetailView");
-			
 		}
 		else { //조회수 증가 실패한 경우
 			
-			mv.addObject("errorMsg", "게시글 상세 조회에 실패하였습니다.").setViewName("common/errorPage");
-			
+			mv.addObject("errorMsg", "게시글 상세 조회에 실패하였습니다.").setViewName("common/errorPage");			
 		}
 		return mv;
 	}
