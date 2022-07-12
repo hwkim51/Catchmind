@@ -25,7 +25,7 @@
         text-align: center;
         font-size: larger;
         margin: auto;
-        top: 240px;
+        top: 200px;
         left: 0px;
         right: 0px;
         font-size: 16px;
@@ -42,6 +42,7 @@
         font-weight: 600;
         color:white;
         background-color: rgb(63, 63, 63);
+        box-shadow: 1px 3px 4px rgba(0,0,0,0.2);
     }
    .info_font{
 	    text-align: left;

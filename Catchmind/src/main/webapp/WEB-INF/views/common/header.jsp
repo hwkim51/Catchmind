@@ -149,6 +149,11 @@
             top: 20px;
             color:orange;
         }
+        .homelogo:hover{
+            background: linear-gradient( rgb(236, 3, 194) 1%, orange);
+            -webkit-text-fill-color : transparent;
+            -webkit-background-clip: text; 
+        }
         </style>
 </head>
 

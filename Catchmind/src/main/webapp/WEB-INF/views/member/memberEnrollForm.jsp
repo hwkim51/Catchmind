@@ -48,9 +48,11 @@
         font-weight: 600;
         color:white;
         background-color: rgb(63, 63, 63);
+        box-shadow: 1px 3px 4px rgba(0,0,0,0.2);
     }
     .btn-terms:disabled{
         background-color: gray;
+        box-shadow: 1px 3px 4px rgba(0,0,0,0.2);
     }
     .status{
         margin: auto;
