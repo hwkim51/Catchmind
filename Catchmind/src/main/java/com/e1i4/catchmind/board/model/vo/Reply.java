@@ -18,4 +18,5 @@ public class Reply {
 	private String status;
 	private String replyWriter;
 	private String replyPost;
+	private String replyNickName;
 }

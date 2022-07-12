@@ -36,7 +36,7 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 50px;
+            top: 60px;
             width: 130px;
             height: 37px;
             border-radius: 4px;

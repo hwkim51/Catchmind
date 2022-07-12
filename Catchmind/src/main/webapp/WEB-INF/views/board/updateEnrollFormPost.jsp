@@ -52,9 +52,6 @@
           width: 1600px;
           height: 520px;
       }
-      .sub_body .form-file{
-
-      }
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
         margin: auto;
@@ -85,25 +82,30 @@
                 <div class="title">에브리타임</div>
             </div>
             <div class="sub_body">
-                <form id="erollFormPost" method="post" action="insert.po" enctype="multipart/form-data">
+                <form id="erollFormPost" method="post" action="update.po" enctype="multipart/form-data">
                     <table algin="center">
                     <input type="hidden" name="postWriter" value="${ loginUser.userNo }">
                         <tr>
                             <th><label class="form-title" for="title">제목</label></th>
-                            <td><input class="form-title" type="text" id="title" name="postTitle" required></td>
+                            <td><input class="form-title" type="text" id="title" name="postTitle" value="${ p.postTitle }" required></td>
                         </tr>
                         <tr>
                             <th><label class="form-content" for="content">내용</label></th>
-                            <td><textarea class="form-content" id="content" name="postContent" required></textarea></td>
+                            <td><textarea class="form-content" id="content" name="postContent" required>${ p.postContent }</textarea></td>
                         </tr>
                         <tr>
                             <th><label class="form-file" for="upfile">첨부파일</label></th>
-                            <td><input class="form-file" type="file" id="upfile" name="upfile"></td>
+                            <td><input class="form-file" type="file" id="upfile" name="reupfile"></td>
+                            <c:if test="${ not empty a.attOrigin }">
+	                            <input class="form-file" type="hidden" name="attOrigin" value="${ a.attOrigin }"> <!-- 기존파일 검사활용 -->
+	                            <input class="form-file" type="hidden" name="attChange" value="${ a.attChange }"> <!-- 기존파일 삭제활용 -->
+                            </c:if>
                         </tr>
                     </table>
                     
 		            <div class="sub_foot">
 		                <button type="submit" class="btn-primary">작성</button>
+		                <button type="submit" class="btn-primary"></button>
 		            </div>
                 </form>
             </div>
