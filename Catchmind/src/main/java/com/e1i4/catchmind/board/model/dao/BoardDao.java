@@ -59,4 +59,8 @@ public class BoardDao {
 		return sqlSession.delete("boardMapper.deletePost", postNo);
 	}
 
+	public int deleteReply(int replyNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("boardMapper.deleteReply", replyNo);
+	}
+
 }

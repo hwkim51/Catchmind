@@ -262,12 +262,17 @@
                 <script>
 		           	$(function() {
 		           		$(".rep_delete").click(function() {
-		           			console.log($("#rno").val());
 		           			$.ajax({
 		           				url : "delete.rep",
 		           				data : {replyNo : $("#rno").val()},
-		           				success : location.reload(),
-		           				error : console.log("실패")
+		           			 	success : function(result) {
+		            				if(result == "success") {
+		            					location.reload();
+		            					window.alert("댓글이 삭제되었습니다!");
+		            				} else {
+		            					alertify.alert("댓글삭제실패", "댓글삭제에 실패하였습니다.");
+		            				}
+		           			 	}
 		           			});
 		           		});
 		           	});

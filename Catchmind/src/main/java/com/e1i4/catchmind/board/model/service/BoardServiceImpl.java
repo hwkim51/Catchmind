@@ -77,13 +77,15 @@ public class BoardServiceImpl implements BoardService {
 		return 0;
 	}
 
-	
-
-	
 
 	@Override
 	public ArrayList<Post> selectTopPostList() {
 		return null;
+	}
+
+	@Override
+	public int deleteReply(int replyNo) {
+		return boardDao.deleteReply(replyNo, sqlSession);
 	}
 
 	

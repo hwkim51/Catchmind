@@ -101,5 +101,10 @@
 	ORDER BY REPLY_NO DESC
 	</select>
 	
+	<delete id="deleteReply" parameterType="_int">
+		UPDATE TB_REPLY
+		SET STATUS = 'N'
+		WHERE REPLY_NO= #{replyNo}
+	</delete>
 
 </mapper>

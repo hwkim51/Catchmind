@@ -207,8 +207,9 @@ public class BoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="delete.rep", produces="text/html; charset=UTF-8;")
-	public void deleteReply(int rno) {
-		System.out.print(rno);
+	public String deleteReply(int replyNo, HttpSession session) {
+		return (boardService.deleteReply(replyNo)>0) ? "success" : "fail";
+		
 	}
 	
 	

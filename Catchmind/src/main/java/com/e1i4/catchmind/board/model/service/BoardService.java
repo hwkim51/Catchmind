@@ -44,5 +44,7 @@ public interface BoardService {
 
 	ArrayList<Post> selectTopPostList();
 
+	int deleteReply(int replyNo);
+
 	
 }
