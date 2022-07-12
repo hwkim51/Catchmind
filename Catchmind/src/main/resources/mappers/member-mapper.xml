@@ -73,18 +73,18 @@
  	
 	<select id="selectMemberCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM MEMBER
+		FROM TB_MEMBER
 		WHERE STATUS = '0'
 	</select>
 	
 	<select id="selectMemberList" resultMap="memberResultSet">
 		SELECT *
-		FROM MEMBER
+		FROM TB_MEMBER
 		WHERE STATUS = '0'
 	</select>
 	
 	<update id="blackMember" parameterType="string">
-		UPDATE MEMBER
+		UPDATE TB_MEMBER
 		SET STATUS = '3'
 		WHERE USER_ID = #{userId}
 	</update>
@@ -117,7 +117,7 @@
 	
 	<select id="matchList" parameterType="member" resultMap="memberResultSet">
 		SELECT *
-		FROM MEMBER
+		FROM TB_MEMBER
 	</select>
 	<!--  로그인 시 최근 접속 기록 업데이트(udate)-->
 	<update id="updateRecentLogin" parameterType="member">

@@ -54,7 +54,7 @@
     }
     .status{
         margin: auto;
-        margin-top: 50px;
+        margin-top: 1vh;
         height: 5px;
         border-radius: 40px;
         width: 50%;
