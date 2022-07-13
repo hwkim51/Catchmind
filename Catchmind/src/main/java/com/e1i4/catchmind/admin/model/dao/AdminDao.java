@@ -11,6 +11,7 @@ import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 import com.e1i4.catchmind.member.model.vo.Member;
+import com.e1i4.catchmind.notice.model.vo.Notice;
 
 @Repository
 public class AdminDao {
@@ -108,7 +109,6 @@ public class AdminDao {
 	}
 	
 	public Inquiry selectInquiry(SqlSessionTemplate sqlSession, int qaNo) {
-		
 		return sqlSession.selectOne("inquiryMapper.selectInquiry", qaNo);
 	}
 	
@@ -116,4 +116,25 @@ public class AdminDao {
 		return sqlSession.update("inquiryMapper.updateInquiryAnswer", in);
 	}
 	
+	public int selectListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("noticeMapper.selectListCount");
+	}
+	
+	public ArrayList<Notice> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectList", null, rowBounds);
+	}
+	
+	public Notice selectNotice(SqlSessionTemplate sqlSession, int noticeNo) {
+		return sqlSession.selectOne("noticeMapper.selectNotice", noticeNo);
+	}
+	
+	public int insertNotice(SqlSessionTemplate sqlSession, Notice n) {
+		return sqlSession.insert("noticeMapper.insertNotice", n);
+	}
 }

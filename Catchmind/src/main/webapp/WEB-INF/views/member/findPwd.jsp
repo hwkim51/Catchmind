@@ -26,7 +26,7 @@
         font-size: larger;
         position: absolute;
         margin: auto;
-        top: 240px;
+        top: 200px;
         left: 0px;
         right: 0px;
         font-size: 16px;
@@ -42,6 +42,7 @@
         font-weight: 600;
         color:white;
         background-color: rgb(63, 63, 63);
+        box-shadow: 1px 3px 4px rgba(0,0,0,0.2);
     }
     .info_font{
         text-align: left;
@@ -65,6 +66,7 @@
    }
    #btn-find:disabled{
         background-color: gray;
+        box-shadow: 1px 3px 4px rgba(0,0,0,0.2);
     }
 
 </style>
@@ -103,6 +105,13 @@
 
     <script>
         var otp;
+        
+        $("#btn-find").click(function(){
+            if($("#loginNumber").val() == ''){
+                alert("필수 항목을 모두 작성해주세요.");
+                $("#btn-find").attr("disabled", true);
+            }
+        })
         
         function getCertificationNum() {
 

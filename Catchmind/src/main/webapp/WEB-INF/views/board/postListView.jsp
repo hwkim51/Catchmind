@@ -36,11 +36,11 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 50px;
-            width: 130px;
-            height: 37px;
+            top: 60px;
+            width: 120px;
+            height: 40px;
             border-radius: 4px;
-            background-color: black;
+            background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
             vertical-align: middle;
@@ -127,9 +127,9 @@
         <div class="inner_body">
             <div class="sub_head">
                 <div class="title">에브리타임</div>
-                <%-- <c:if test="${ not empty loginUser }"> --%>
+                <c:if test="${ not empty loginUser }">
                 <a class="btn_write" href="enrollForm.po">작성</a>
-                <%-- </c:if> --%>
+                </c:if>
             </div>
             <div class="sub_body">
                 <table class="table">

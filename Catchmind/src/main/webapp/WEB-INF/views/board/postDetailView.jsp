@@ -10,16 +10,10 @@
     <title>Document</title>
 
     <style>
-      /* ################### 임시 ################### header영역 넓이 */
-      .header{
-          width: 100%;
-          height: 100px;
-          background-color: aquamarine;
-      } 
 
       .body{
           margin: auto;
-          width: 1720px;
+          width: 1700px;
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
@@ -36,6 +30,40 @@
           padding-bottom: 9px;
           border-bottom: 1px solid black;
       } /* 게시판 타이틀 설정 */
+      
+      .sub_head>.btn_update{
+            position: absolute;
+            font-size: 15px;
+            cursor: pointer;
+            color: white;
+            right:0px; /* 오른쪽 정렬 */
+            top: 60px;
+            width: 120px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: rgb(17, 199, 231);
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 8px;
+            right:140px;
+        } /* 작성 설정 */
+        .sub_head>.btn_delete{
+            position: absolute;
+            font-size: 15px;
+            cursor: pointer;
+            color: white;
+            right:0px; /* 오른쪽 정렬 */
+            top: 60px;
+            width: 120px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: rgb(17, 199, 231);
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 8px;
+        } /* 작성 설정 */
 
       /* ################### sub_body 설정 영역 ################### */
       .sub_body{
@@ -43,6 +71,7 @@
           background-color: #eaeaea;
           padding: 25px 25px 25px 25px;
       } /* 게시판의 영역 설정 */
+      
 
       /* ########## 글제목, 작성일자, 작성자 설정 영역 ########## */
       .sub_body>.wr_title{
@@ -72,7 +101,7 @@
         font-size: 30px;
       } /* 조회수 설정 */
       .sub_body>.wr_image{
-        width: 1665px;
+        width: 1645px;
         height:100%;
         overflow:hidden;
       } /* 이미지영역 설정 */
@@ -86,6 +115,7 @@
         font-size: 20px;
         border-bottom: 1px solid #cccccc;
         padding-bottom: 20px;
+    	white-space: pre-wrap;
       } /* 글 내용 설정 */
 
       /* ########## 댓글 입력 설정 영역 ##########*/
@@ -93,45 +123,57 @@
         padding-top: 20px;
         text-align: center;
       } /* 글내용과 댓글입력 창 사이 공간 설정 */
-      .sub_body>.wr_reply input{
+      .sub_body>.wr_reply textarea{
         width: 700px;
-        height: 30px;
+        height: 45px;
         border: none;
         outline: none;
         border-radius: 4px;
         padding: 10px 10px 10px 10px;
-        font-size: 17px;
+        font-size: 15px;
+        resize:none;
       } /* 댓글 입력하는 창 설정 */
       .sub_body>.wr_reply button{
-        background-color: black;
         border: none;
         border-radius: 4px;
-        height: 50px;
-        width: 100px;
+        height: 45px;
+        width: 120px;
         color: white;
         font-size: 17px;
-        transform: translateY(2px); /* 입력창과 높이 맞춤 */
+        transform: translateY(-16px); /* 입력창과 높이 맞춤 */
         margin-left: 30px;
+        background-color: rgb(17, 199, 231)
       } /* 댓글 입력 버튼 설정 영역 */
       
       /* ########## 입력된 댓글 설정 영역 ########## */
-      .sub_body table{
-        padding-top: 20px;
-        font-size: 17px;
-      } /* 댓글입력 창과 댓글 리스트 사이 공간 및 댓글 크기 */
-      .sub_body table .rep_count{
-        width: 100px;
-        text-align: left;
-      } /* 댓글 카운트 */
-      .sub_body table .rep_content{
-        width: 1200px;
-        text-align: left;
-      } /* 실제 댓글 내용 */
-      .sub_body table .rep_writer{
-        width: 400px;
-        text-align: left;
-        vertical-align: top; /* 댓글이 길어져도 작성자 상단 고정 */
-      } /* 댓글 작성자 */
+      .sub_body .rep_count{
+      font-size:20px;
+      margin-bottom:2px;
+      }
+      .sub_body .rep_userbox{
+      display:inline-flex;
+      width:100%;
+      background-color: rgb(186,186,186);
+      }
+      .sub_body .rep_userbox, .rep_content{
+      font-size:17px;
+      border: 1px solid black;
+      border-collapse: collapse;
+      white-space: pre-wrap;
+      }
+      .sub_body .rep_userbox *{
+      flex-wrap: wrap;
+      }
+      .sub_body .rep_update, .rep_delete{
+      font-size:10px;
+      display: flex;
+      align-items:center;
+      margin: 0px 0px 0px 10px;
+      cursor:pointer;
+      }
+      .sub_body .rep_count{
+      width:100px;
+      }
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
         text-align: center;
@@ -145,16 +187,6 @@
         color:black;
         text-decoration: none;
       }
-
-      /* ################### 임시 ################### header영역 넓이 */
-      .footer{
-          position: fixed;
-          left: 0px;
-          width: 100%;
-          height: 50px;
-          bottom: 0px;
-          background-color: aquamarine;
-      } 
       
     </style>
 </head>
@@ -166,8 +198,30 @@
         <div class="inner_body">
             <div class="sub_head">
                 <div class="title">에브리타임</div>
+                <c:if test="${ (not empty loginUser) and (loginUser.userNo eq p.postWriter) or (loginUser.userNo eq 1) }">
+                <a class="btn_update" onclick="postFormSubmit(1);">수정</a>
+                <a class="btn_delete" onclick="postFormSubmit(2);">삭제</a>
+            	</c:if>
             </div>
+            <c:if test="${ (not empty loginUser) and (loginUser.userNo eq p.postWriter) or (loginUser.userNo eq 1) }">
+            	<form id="postForm" action="" method="post">
+            		<input type="hidden" name="postNo" value="${ p.postNo}">
+            		<input type="hidden" name="filePath" value="${ a.attChange }">
+            	</form>
+            	
+            	<script>
+            		function postFormSubmit(num) {
+            			if(num == 1) { // 수정 요청으로 action 속성값 바꾸기
+            				$("#postForm").attr("action", "updateEnroll.po").submit();
+            			} else { // 삭제 요청으로 action 속성값 바꾸기
+            				$("#postForm").attr("action", "delete.po").submit();
+            			}
+            		}
+            	</script>
+            	</c:if>
+            	
             <div class="sub_body">
+            	<input type="hidden" name="pno" value="${ p.postNo }">
                 <div class="wr_title">글제목 : ${ p.postTitle }</div>
                 <div class="wr_date">작성일자 : ${ p.postDate }</div> <br>
                 <div class="wr_writer">작성자 : ${ p.nickName }</div>
@@ -175,34 +229,107 @@
                 <div class="wr_image"><img src="${ a.attChange }" /> <br></div>
                 <pre class="wr_content">${ p.postContent }</pre>
                 <div class="wr_reply">
-                    <form action="">
-                        <input type="text" placeholder="댓글을 입력해주세요">
-                        <button type="submit">작성</button>
-                    </form>
+                    <c:choose>
+                    	<c:when test="${ empty loginUser }">
+		                   <textarea id="rep_input" placeholder="로그인 후 이용 가능합니다." readonly></textarea>
+		                   <button type="button" onclick="addReply();" disabled>작성</button>
+                    	</c:when>
+                    	<c:otherwise>
+		                   <textarea id="rep_input" placeholder="댓글을 입력해주세요"></textarea>
+		                   <button type="button" onclick="addReply();">작성</button>
+                    	</c:otherwise>
+                    </c:choose>
                 </div>
-                <table>
-                    <!-- 유동적으로 보여주기 -->
-                    <!-- 댓글없다 -->
-                    <tr class="wrap_rep">
-                        <th class="rep_count">댓글(0)</th>
-                        <td class="rep_content">작성된 댓글이 없습니다.</td>
-                        <td class="rep_writer"></td>
-                    </tr>
-                    <!-- 댓글있다 -->
-                    <tr>
-                        <th class="rep_count">댓글(2)</th>
-                        <td class="rep_content">솰라솰라</td>
-                        <td class="rep_writer">얄라얄라</td>
-                    </tr>
-                    <tr>
-                        <td class="rep_count"></td>
-                        <td class="rep_content">솰라솰라</td>
-                        <td class="rep_writer">얄라얄라</td>
-                    </tr>
-                </table>
                 
-            
+                <div>댓글</div>
+                
+                <div id="reply_Area">
+                
+                	<c:forEach var="r" items="${ rlist }">
+                      <tr>
+                        <div class="rep_userbox">
+                        <input type="hidden" id="rno" name="rno" value="${ r.replyNo }">
+		                <div class="rep_nickname">${ r.replyNickName }</div>
+		                <c:if test="${ (not empty loginUser) and (loginUser.userNo eq r.replyWriter) or (loginUser.userNo eq 1) }">
+		                <div class="rep_delete">(삭제하기)</div>
+		                </c:if>
+		               	</div>
+		               	<pre class="rep_content">${ r.replyContent }</pre>
+                      </tr>
+                    </c:forEach>
+                </div>
+                
+                <script>
+		           	$(function() {
+		           		$(".rep_delete").click(function() {
+		           			$.ajax({
+		           				url : "delete.rep",
+		           				data : {replyNo : $("#rno").val()},
+		           			 	success : function(result) {
+		            				if(result == "success") {
+		            					location.reload();
+		            					window.alert("댓글이 삭제되었습니다!");
+		            				} else {
+		            					alertify.alert("댓글삭제실패", "댓글삭제에 실패하였습니다.");
+		            				}
+		           			 	}
+		           			});
+		           		});
+		           	});
+		           </script>
+                
             </div>
+            
+           <script>
+    	function addReply() {
+    		
+    		if($("#rep_input").val().trim().length != 0) {
+        		$.ajax({
+        			url : "insert.rep",
+        			data : {
+        				replyPost : ${ p.postNo },
+        				replyContent : $("#rep_input").val(),
+        				replyWriter : ${ loginUser.userNo }
+        			},
+        			success : function(result) {
+        				if(result == "success") {
+        					selectReplyList();
+        					$("#rep_input").val("");
+        				} else {
+        					alertify.alert("댓글작성실패", "댓글등록에 실패하였습니다.")
+        				}
+        			},
+        			error : function() {
+        				console.log("댓글작성용 ajax 통신 실패!");
+        			}
+        		});
+    			
+    		} else {
+    			alertify.alert("댓글작성실패", "댓글작성후등록요청을해주세요.")
+    		}
+    	}
+    	function selectReplyList() {
+    		$.ajax({
+    			url : "list.rep",
+    			data : {pno : ${ p.postNo }},
+    			success : function(result) {
+    				var resultStr = "";
+    				for(var i = 0; i < result.length; i++) {
+    					resultStr += "<div class="+"rep_userbox"+">"
+    	                +"<div class="+"rep_nickname"+">"+result[i].replyNickName+"</div>"
+	                    +"</div>"
+	                    +"<pre class="+"rep_content"+">"+result[i].replyContent+"</pre>";
+    				}
+    				
+    				$("#reply_Area").html(resultStr);
+    				location.reload();
+    			},
+    			error : function() {
+    				console.log("댓글리스트 조회 실패")
+    			}
+    		});
+    	}
+    </script>
             
             <div class="sub_foot">
                 <a class="btn_list" href="javascript:history.back()">목록으로 ▶ </a>

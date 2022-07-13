@@ -17,5 +17,7 @@ public class Notice {
 	private String noticeDate;
 	private int noticeCount;
 	private String noticeStatus;
-	
+	// 공지사항 사진 1개 등록 -> Attach vo 클래스 대신 notice vo 클래스에 컬럼 추가하여 사용(7/12)
+	private String originName; 
+	private String changeName;
 }

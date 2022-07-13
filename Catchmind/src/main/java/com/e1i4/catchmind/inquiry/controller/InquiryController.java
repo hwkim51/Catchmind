@@ -35,7 +35,7 @@ public class InquiryController {
 		if(result > 0) { //1:1 문의 작성에 성공한 경우
 			
 			// 등록 알람 메세지 전달
-			session.setAttribute("resultMsg", "1:1 문의가 등록되었습니다. ");
+			session.setAttribute("alertMsg", "1:1 문의가 등록되었습니다. ");
 			
 			return "redirect:/";
 		}

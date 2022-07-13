@@ -28,16 +28,32 @@ body{
 
 #noticeDetail{
     margin:auto;
-    width:80%;
+    width:800px;
     text-align: center;
     border-collapse: separate;
     border-spacing: 0 15px;
 }
 
-#noticeDetail p{
-    margin-top: 15px;
+#noticeDetail thead th{
+    width:15%;
 }
 
+#noticeDetail thead td{
+    width: 35%;
+}
+
+#noticeDetail textarea{
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    height:450px;
+    padding:3%;
+    -webkit-transform:scale(0.9); 
+}
+
+#noticeDetail textarea::-webkit-scrollbar{
+    display: none;
+}
 </style>
 </head>
 <body>
@@ -48,43 +64,49 @@ body{
     <br>
     <h1>공지사항</h1>
     <hr><br>
-
         <div class="innerContent" align="center">
             <table align="center" id="noticeDetail">
-                <tr>
-                    <th>글제목</th>
-                    <td>${n.noticeTitle }</td>
-                    <th>작성일자</th>
-                    <td>${n.noticeDate }</td>
-                </tr>
-                <tr>
-                    <th>작성자</th>
-                    <td>admin</td>
-                    <th>조회수</th>
-                    <td>${n.noticeCount }</td>
-                </tr>
-                <tr>
-                    <th>내용</th>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <img src="resources/images/tiger.jpg" style="height:350px;">
-                        <p> 
-                            ${n.noticeContent}
-                        </p>
-                    </td>
-
-                </tr>
+                <thead>
+                    <tr>
+                        <th>글제목</th>
+                        <td colspan="3">${n.noticeTitle }</td>
+                    </tr>
+                    <tr>
+                        <th>조회수</th>
+                        <td>${n.noticeCount }</td>
+                        <th>작성일자</th>
+                        <td>${n.noticeDate }</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>내용</th>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <c:choose>
+                                <c:when test="${empty n.originName }">
+                                    첨부파일이 없습니다.
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="${n.changeName }" style="height:350px;">
+                                </c:otherwise>
+                            </c:choose>
+                            <textarea style="resize:none;"> 
+                                ${n.noticeContent}
+                            </textarea>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
             <br><br>
-        <div align="center">
-             <a class="btn btn-light" href="javascript:history.back()">목록으로 ▶ </a>
-        </div>
-        <br><br>  
+            <div align="center">
+                <a class="btn btn-light" href="javascript:history.back()">목록으로 ▶ </a>
+            </div>
+            <br><br>  
         </div>
     <%-- footer 영역 --%>
-    <jsp:include page="../common/footer.jsp"/>
-
+    <jsp:include page="../common/footer.jsp"/>   
 </body>
 
 </html>

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e1i4.catchmind.board.model.vo.Post;
+import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 
@@ -44,6 +45,22 @@ public class BoardDao {
 
 	public Attach selectFile(int attPost, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("boardMapper.selectFile", attPost);
+	}
+
+	public int insertReply(Reply r, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("boardMapper.insertReply", r);
+	}
+
+	public ArrayList<Reply> selectReplyList(int postNo, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", postNo);
+	}
+
+	public int deletePost(int postNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("boardMapper.deletePost", postNo);
+	}
+
+	public int deleteReply(int replyNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("boardMapper.deleteReply", replyNo);
 	}
 
 }

@@ -54,30 +54,38 @@ public class BoardServiceImpl implements BoardService {
 	public Attach selectFile(int attPost) {
 		return boardDao.selectFile(attPost, sqlSession);
 	}
-
+	
 	@Override
 	public int deletePost(int postNo) {
-		return 0;
+		return boardDao.deletePost(postNo, sqlSession);
 	}
+	
+	@Override
+	public int insertReply(Reply r) {
+		return boardDao.insertReply(r, sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Reply> selectReplyList(int postNo) {
+		return boardDao.selectReplyList(postNo, sqlSession);
+	}
+
+	
 
 	@Override
 	public int updatePost(Post p) {
 		return 0;
 	}
 
-	@Override
-	public ArrayList<Reply> selectReplyList(int postNo) {
-		return null;
-	}
-
-	@Override
-	public int insertReply(Reply r) {
-		return 0;
-	}
 
 	@Override
 	public ArrayList<Post> selectTopPostList() {
 		return null;
+	}
+
+	@Override
+	public int deleteReply(int replyNo) {
+		return boardDao.deleteReply(replyNo, sqlSession);
 	}
 
 	

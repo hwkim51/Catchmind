@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,9 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.e1i4.catchmind.board.model.service.BoardService;
 import com.e1i4.catchmind.board.model.vo.Post;
+import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.common.template.Pagination;
+import com.google.gson.Gson;
 
 @Controller
 public class BoardController {
@@ -52,6 +55,7 @@ public class BoardController {
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		
+		
 		return "board/postListView";
 	}
 	
@@ -61,7 +65,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping("insert.po")
-	public String insertPost(Post p, Attach a, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertPost(int postWriter,Post p, Attach a, MultipartFile upfile, HttpSession session, Model model) {
+		p.setPostWriter(postWriter);
+		
 		if(!upfile.getOriginalFilename().equals("")) {
 			
 			String changeName = saveFile(upfile, session);
@@ -94,8 +100,10 @@ public class BoardController {
 		if(result>0) {
 			Post p = boardService.selectPost(pno);
 			Attach a = boardService.selectFile(pno);
+			ArrayList<Reply> rlist = boardService.selectReplyList(pno);
 			
 			mv.addObject("a", a);
+			mv.addObject("rlist", rlist);
 			mv.addObject("p", p).setViewName("board/postDetailView");
 			return mv;
 		} else {
@@ -104,6 +112,105 @@ public class BoardController {
 		}
 	}
 	
+	@PostMapping("delete.po")
+	public String deleteBoard(int postNo, Model model, String filePath, HttpSession session) {
+		int result = boardService.deletePost(postNo);
+		
+		if(result>0) {
+			// 첨부파일있었던 게시글 삭제 시 첨부파일 서버에서 삭제
+			if(!filePath.equals("")) {
+				String realPath = session.getServletContext().getRealPath(filePath);
+				new File(realPath).delete();
+			}
+			
+			// url재요청
+			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
+			
+			return "redirect:list.po";
+			
+		} else {
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
+	@PostMapping("updateEnroll.po")
+	public ModelAndView updateEnrollFormPost(int postNo, ModelAndView mv) {
+		int result = boardService.increaseCount(postNo);
+		
+		if(result>0) {
+			Post p = boardService.selectPost(postNo);
+			Attach a = boardService.selectFile(postNo);
+			
+			mv.addObject("a", a);
+			mv.addObject("p", p).setViewName("board/updateEnrollFormPost");
+			return mv;
+		} else {
+			mv.addObject("errorMsg", "상세조회 요청에 실패하였습니다.").setViewName("common/errorPage");
+			return mv;
+		}
+	}
+	@RequestMapping("update.po")
+	public String updateBoard(Post p, Attach a, MultipartFile reupfile, HttpSession session, Model model) {
+	if(!reupfile.getOriginalFilename().equals("")) { // 새로운 첨부파일있는 경우
+				
+				// 4번의 경우. 새롭게 첨부된 파일 O, 기존 첨부파일 O
+				if(a.getAttOrigin() != null) { // 기존 첨부파일의 원본명이 있을 경우
+					
+					// 기존 첨부파일을 서버로부터 삭제 (수정명)
+					String savePath = session.getServletContext().getRealPath(a.getAttChange());
+					new File(savePath).delete();
+				}
+				
+			} else {
+				
+			}
+			// 이 시점에서 서버에 파일 업로드 가능
+			String changeName = saveFile(reupfile, session);
+			
+			// b 에 새로 넘어온 첨부파일에 대한 원본명, 수정명을 필드값으로 수정
+			a.setAttOrigin(reupfile.getOriginalFilename());
+			a.setAttChange("resources/uploadFiles/"+changeName);
+			// 이때 새로운 첨부파일있을 경우 새로운 파일로 변경됨
+			// 첨부파일없을 경우 그대로 남아있을 것.
+			
+			int result = boardService.updatePost(p);
+			
+			if(result > 0) { // 성공
+				session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다.");
+				
+				return "redirect:detail.po?pno=" + p.getPostNo();
+			} else { // 실패
+				model.addAttribute("errorMsg", "게시글 수정 실패");
+				return "common/errorPage";
+		}
+		
+	}
+	
+	/* ============================ Reply ============================ */
+	
+	@ResponseBody
+	@RequestMapping(value="insert.rep", produces="text/html; charset=UTF-8;")
+	public String insertReply(Reply r) {
+		return (boardService.insertReply(r)>0) ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="list.rep", produces="application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(int pno) {
+		ArrayList<Reply> list = boardService.selectReplyList(pno);
+		
+		return new Gson().toJson(list);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="delete.rep", produces="text/html; charset=UTF-8;")
+	public String deleteReply(int replyNo, HttpSession session) {
+		return (boardService.deleteReply(replyNo)>0) ? "success" : "fail";
+		
+	}
 	
 	
 	

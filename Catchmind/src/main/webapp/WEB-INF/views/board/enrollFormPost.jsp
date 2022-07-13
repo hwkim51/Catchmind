@@ -87,7 +87,7 @@
             <div class="sub_body">
                 <form id="erollFormPost" method="post" action="insert.po" enctype="multipart/form-data">
                     <table algin="center">
-                    <input type="hidden" id="postWriter" value="1">
+                    <input type="hidden" name="postWriter" value="${ loginUser.userNo }">
                         <tr>
                             <th><label class="form-title" for="title">제목</label></th>
                             <td><input class="form-title" type="text" id="title" name="postTitle" required></td>

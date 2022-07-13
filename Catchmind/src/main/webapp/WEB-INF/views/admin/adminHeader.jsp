@@ -18,6 +18,22 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 부트스트랩에서 제공하고 있는 스타일 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- 부트스트랩에서 제공하고 있는 스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Alertify 라이브러리 -->
+<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+       
 <style>
 div {
     box-sizing : border-box;
@@ -64,18 +80,25 @@ div {
             <div id="admin-member">회원 관리</div>
             <div id="admin-board">게시글 관리</div>
             <ul>
-                <li>에브리타임</li>
-                <li>연애의 발견</li>
+                <li><a>에브리타임</a></li>
+                <li><a>연애의 발견</a></li>
             </ul>
             <div id="admin-cs">고객센터 관리</div>
             <ul>
-                <li>공지사항</li>
-                <li>FAQ</li>
+                <li><a href="noticeList.ad">공지사항</a></li>
+                <li><a>FAQ</a></li>
                 <li><a href="inquiryList.ad">1:1 문의</a></li>
             </ul>
             <div id="admin-stat">웹사이트 통계</div>
         </div>
-                 
+       
+       <!-- 1회성 알람 문구 기능 -->
+		<c:if test="${ not empty alertMsg }">
+			<script>
+				alertify.alert("알람", "${ alertMsg }");
+			</script>
+			<c:remove var="alertMsg" scope="session" />
+		</c:if>          
 
     </div>
 

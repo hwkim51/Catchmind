@@ -82,24 +82,31 @@
             <div class="content">
             <br>
             <h2>1 : 1문의 </h2>
-            <hr><br>
+            <hr>
         	
             <div class="innerContent"> 
-              <form action="insert.in" method="post">       
-                
-                <!-- input type="hidden" 으로 작성자 userNo 값 같이 전달-->
+              <form action="insert.in" method="post">  
                 <input type="hidden" name="qaWriter" value="${loginUser.userNo}">
-                <table id="inquiryTable" class=".table-bordered" text-align="center">     
+                <table id="inquiryTable" class=".table-bordered" text-align="center"> 
+                    <tr>
+                        <td></td>
+                        <td><b>* 캐치마인드 관리자에게 문의사항이 있을 경우 아래 작성해주시면 친절하게 답변드리겠습니다.</b></td>
+                    </tr>  
+                    <tr>
+                        <td></td>
+                        <td><b>* 문의 내역 및 답변은 마이 페이지 > 내 글 관리에서 확인 가능합니다 :)</b></td>
+                    </tr>  
+                    <tr></tr> 
                     <tr>
                         <th> 제목 </th>      
                         <td>
-                            <input type="text" name="qaTitle" required placeholder="제목을 입력해 주세요." size="95">
+                            <input type="text" name="qaTitle" required placeholder="제목을 입력해 주세요." size="90">
                         </td>               
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td>
-                            <textarea name="qaContent" style="resize:none;" cols="97" rows="10" required placeholder="문의 내용을 작성해 주세요."></textarea>
+                            <textarea name="qaContent" style="resize:none;" cols="92" rows="10" required placeholder="문의 내용을 작성해 주세요."></textarea>
                         </td>
                     </tr>
                     <!--
@@ -122,14 +129,10 @@
                 </form>
               <br><br>
        	    </div>
-            <script>
-                   
-
-            </script>
-        
           </div>
 
           <%-- footer 영역 --%>
           <jsp:include page="../common/footer.jsp"/>
-        </body>
+          
+   </body>
 </html>

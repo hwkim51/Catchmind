@@ -26,7 +26,7 @@
         font-size: larger;
         position: absolute;
         margin: auto;
-        top: 240px;
+        top: 200px;
         left: 0px;
         right: 0px;
         font-size: 16px;
@@ -42,6 +42,7 @@
         font-weight: 600;
         color:white;
         background-color: rgb(63, 63, 63);
+        box-shadow: 1px 3px 4px rgba(0,0,0,0.2);
     }
     .check_font{
         padding: 0px 0px 10px 60px;
@@ -57,10 +58,11 @@
         text-decoration: none;
    }
    input[type="password"]{
-    width: 300px;
+         width: 300px;
    }
    .btn-terms:disabled{
         background-color: gray;
+        box-shadow: 1px 3px 4px rgba(0,0,0,0.2);
     }
 
 </style>

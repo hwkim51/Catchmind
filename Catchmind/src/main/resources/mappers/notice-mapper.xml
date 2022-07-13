@@ -9,6 +9,8 @@
 		<result column="NOTICE_DATE" property="noticeDate"/>
 		<result column="NOTICE_COUNT" property="noticeCount"/>
 		<result column="NOTICE_STATUS" property="noticeStatus"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
 	</resultMap>
 
   	<select id="selectListCount" resultType="_int">
@@ -18,7 +20,8 @@
  	 </select>
   
   	<select id="selectList" resultMap="noticeResultSet">
-	  	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_COUNT, TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD') NOTICE_DATE
+	  	SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_COUNT, TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD') NOTICE_DATE,
+	  		   ORIGIN_NAME, CHANGE_NAME
 	  	FROM TB_NOTICE 
 	  	WHERE NOTICE_STATUS='Y'
 	  	ORDER BY NOTICE_NO DESC
@@ -31,10 +34,23 @@
   	</update>
   
   	<select id="selectNotice" parameterType="_int" resultMap="noticeResultSet">
-  		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, 
-  			   TO_CHAR(NOTICE_DATE,'YYYY-MM-DD') NOTICE_DATE, NOTICE_COUNT
+  		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, TO_CHAR(NOTICE_DATE,'YYYY-MM-DD') NOTICE_DATE, 
+  			   NOTICE_COUNT, ORIGIN_NAME, CHANGE_NAME
   		FROM TB_NOTICE 	 
   		WHERE NOTICE_NO = #{noticeNo}  
   	</select>
+  	
+  	<insert id="insertNotice" parameterType="notice">
+  		INSERT INTO TB_NOTICE(NOTICE_NO,
+  							  NOTICE_TITLE,
+  							  NOTICE_CONTENT,
+  							  ORIGIN_NAME,
+  							  CHANGE_NAME) 
+  		VALUES(SEQ_NNO.NEXTVAL,
+  			   #{noticeTitle},
+  			   #{noticeContent},
+  			   #{originName},
+  			   #{changeName})
+  	</insert>
   
 </mapper>

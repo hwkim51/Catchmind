@@ -49,11 +49,11 @@ div{
 }
 
 #inquiryTable {
-        
-    margin-top : 20px;
-    margin-left : 50px;
-    border-collapse: separate;
-    border-spacing: 0 20px;
+    margin-left : 20px;
+    margin-top:20px;
+    width:95%;
+    text-align:center;
+    border-color: lightgray;
 }
 
 #inquiryTable>thead {
@@ -76,7 +76,9 @@ div{
     border: 1px solid #ebebeb;
     border-bottom-color: #e2e2e2;
     font-size:medium;          
-    }
+}
+    
+#pagingArea {width:fit-content; margin:auto; margin-top:50px;}
 </style>
 </head>
 <body>
@@ -93,7 +95,7 @@ div{
                 <span id="toMain">CATCHMIND</span>
             <br>
             <div class="body-content">
-            <table id="inquiryTable" class=".table-hover">
+            <table id="inquiryTable" border="1">
                 <thead>
                     <tr>
                         <th style="width : 100px;">글번호</th>
@@ -107,22 +109,46 @@ div{
                 
                     <c:forEach items="${list}" var="iq">
 	                    <tr align="center">
-	                        <td class="nno">${iq.qaNo}</td>
+	                        <td class="qno">${iq.qaNo}</td>
 	                        <td class="tt">${iq.qaTitle}</td>
 	                        <td>${iq.qaWriter}</td>
 	                        <td>${iq.qaAnswerYn}</td>
-	                        <td id="btn1">상세보기</td>
+	                        <td id="detail"><a id="btn1">상세보기</a></td>
 	                    </tr>
                     </c:forEach>
                 </tbody>
             </table>
+          </div>
+          <!-- 페이징 바 영역 -->
+            <div id="pagingArea">
+                <ul class="pagination">
+                    <c:choose>
+                        <c:when test="${pi.currentPage eq 1}">
+                            <li class="page-item disabled"><a class="page-link" href="#">&lt; Prev</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" href="inquiryList.ad?cpage=${pi.currentPage - 1}">&lt; Prev</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                    <li class="page-item"><a class="page-link" href="inquiryList.ad?cpage=${ p }">${ p }</a></li>
+                    </c:forEach>     
+                    <c:choose>   
+                        <c:when test="${pi.currentPage eq pi.maxPage}">  
+                            <li class="page-item disabled"><a class="page-link" href="#">Next &gt;</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" href="inquiryList.ad?cpage=${pi.currentPage + 1}">Next &gt;</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
             </div>
         </div>
     </div>
     
     <script>
-        $("#inquiryTable>tbody>tr>#btn1").click(function(){
-        	location.href="detailInquiry.ad?nno="+$(this).siblings(".nno").text();
+        $("#inquiryTable>tbody>tr>#detail").click(function(){
+        	location.href="detailInquiry.ad?qno="+$(this).siblings(".qno").text();
        })
     </script>
   </div>
