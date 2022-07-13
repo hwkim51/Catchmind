@@ -10,10 +10,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Attach {
-	private int attNo;
+	private String attNo;
 	private String attOrigin;
 	private String attChange;
-	private int attNotice;
-	private int attPost;
-	private int attCatch;
+	private String attNotice;
+	private String attPost;
+	private String attCatch;
 }

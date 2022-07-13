@@ -67,4 +67,20 @@ public class BoardDao {
 	public int insertReport(Report r, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("boardMapper.insertReport", r);
 	}
+
+	public int updatePost(Post p, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("boardMapper.updatePost", p);
+	}
+	
+	public int updateFile(Attach a, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("boardMapper.updateFile", a);
+	}
+
+	public int deleteFile(Attach a, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("boardMapper.deleteFile", a);
+	}
+
+	public int addFile(Attach a, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("boardMapper.addFile", a);
+	}
 }

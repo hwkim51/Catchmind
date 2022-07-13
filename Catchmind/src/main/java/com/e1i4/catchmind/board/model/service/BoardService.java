@@ -49,5 +49,11 @@ public interface BoardService {
 
 	int insertReport(Report r);
 
+	int updateFile(Attach a);
+
+	int deleteFile(Attach a);
+
+	int addFile(Attach a);
+
 	
 }

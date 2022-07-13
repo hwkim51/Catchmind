@@ -250,9 +250,11 @@
                 <div class="wr_count">조회수 : ${ p.postCount }</div> <br>
                 <div class="wr_image"><img src="${ a.attChange }" /> <br></div>
                 <pre class="wr_content">${ p.postContent }</pre>
+                <c:if test="${ (not empty loginUser) or (loginUser.userNo eq 1) }">
                 <!-- Trigger/Open the Modal -->
 				<button onclick="document.getElementById('id01').style.display='block'"
 				class="report-box">신고하기</button>
+				</c:if>
                 <div class="wr_reply">
                     <c:choose>
                     	<c:when test="${ empty loginUser }">
@@ -362,7 +364,7 @@
     </script>
             
             <div class="sub_foot">
-                <a class="btn_list" href="javascript:history.back()">목록으로 ▶ </a>
+                <a class="btn_list" href="list.po">목록으로 ▶ </a>
             </div>
         </div>
     </div>

@@ -85,6 +85,9 @@
                 <form id="erollFormPost" method="post" action="update.po" enctype="multipart/form-data">
                     <table algin="center">
                     <input type="hidden" name="postWriter" value="${ loginUser.userNo }">
+                    <input type="hidden" name="postNo" value="${ p.postNo }">
+                    <input type="hidden" name="attPost" value="${ a.attPost }">
+                    <input type="hidden" name="attNo" value="${ a.attNo }">
                         <tr>
                             <th><label class="form-title" for="title">제목</label></th>
                             <td><input class="form-title" type="text" id="title" name="postTitle" value="${ p.postTitle }" required></td>
@@ -101,11 +104,14 @@
 	                            <input class="form-file" type="hidden" name="attChange" value="${ a.attChange }"> <!-- 기존파일 삭제활용 -->
                             </c:if>
                         </tr>
+                        <tr>
+	                        <th class="form-file">기존파일</th>
+		                    <td><a class="form-file" href="${ a.attChange }">${ a.attOrigin }</a></td>
+                        </tr>
                     </table>
                     
 		            <div class="sub_foot">
 		                <button type="submit" class="btn-primary">작성</button>
-		                <button type="submit" class="btn-primary"></button>
 		            </div>
                 </form>
             </div>

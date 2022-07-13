@@ -78,7 +78,6 @@ public class BoardController {
 		}
 		
 		int result1 = boardService.insertPost(p);
-		
 		int result2 = 0;
 		if(!upfile.getOriginalFilename().equals("")) {
 			result2 = boardService.insertFile(a);
@@ -154,39 +153,52 @@ public class BoardController {
 	}
 	@RequestMapping("update.po")
 	public String updateBoard(Post p, Attach a, MultipartFile reupfile, HttpSession session, Model model) {
-	if(!reupfile.getOriginalFilename().equals("")) { // 새로운 첨부파일있는 경우
-				
-				// 4번의 경우. 새롭게 첨부된 파일 O, 기존 첨부파일 O
-				if(a.getAttOrigin() != null) { // 기존 첨부파일의 원본명이 있을 경우
-					
-					// 기존 첨부파일을 서버로부터 삭제 (수정명)
+		int result2 = 0;
+		if(!reupfile.getOriginalFilename().equals("")) { // 새로운 첨부파일있는 경우
+			
+			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있을 경우
 					String savePath = session.getServletContext().getRealPath(a.getAttChange());
+					
 					new File(savePath).delete();
+					
+					String changeName = saveFile(reupfile, session);
+
+					a.setAttOrigin(reupfile.getOriginalFilename());
+					a.setAttChange("resources/images/upfiles"+changeName);
+					
+					result2 = boardService.updateFile(a);
+				} else { // 기존 첨부파일이 없는 경우
+					String changeName = saveFile(reupfile, session);
+					
+					a.setAttOrigin(reupfile.getOriginalFilename());
+					a.setAttChange("resources/images/upfiles"+changeName);
+					a.setAttPost(Integer.toString(p.getPostNo()));
+					result2 = boardService.addFile(a);
 				}
-				
-			} else {
+			
+		} else { // 새로운 첨부파일없는 경우
+			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있는 경우
+			String savePath = session.getServletContext().getRealPath(a.getAttChange());
+			
+			new File(savePath).delete();
+			int result3 = boardService.deleteFile(a);
+			} else { // 기존 첨부파일이 없는 경우
 				
 			}
-			// 이 시점에서 서버에 파일 업로드 가능
-			String changeName = saveFile(reupfile, session);
-			
-			// b 에 새로 넘어온 첨부파일에 대한 원본명, 수정명을 필드값으로 수정
-			a.setAttOrigin(reupfile.getOriginalFilename());
-			a.setAttChange("resources/uploadFiles/"+changeName);
-			// 이때 새로운 첨부파일있을 경우 새로운 파일로 변경됨
-			// 첨부파일없을 경우 그대로 남아있을 것.
-			
-			int result = boardService.updatePost(p);
-			
-			if(result > 0) { // 성공
-				session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다.");
-				
-				return "redirect:detail.po?pno=" + p.getPostNo();
-			} else { // 실패
-				model.addAttribute("errorMsg", "게시글 수정 실패");
-				return "common/errorPage";
 		}
 		
+
+		int result1 = boardService.updatePost(p);
+		
+		if(result1+result2 > 0) { // 성공
+		session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다.");
+		
+		return "redirect:detail.po?pno=" + p.getPostNo();
+		} else { // 실패
+		model.addAttribute("errorMsg", "게시글 수정 실패");
+		return "common/errorPage";
+		}
+
 	}
 	
 	/* ============================ Reply ============================ */
@@ -216,12 +228,10 @@ public class BoardController {
 	/* ============================ Report ============================ */
 	@ResponseBody
 	@RequestMapping(value="report.all", produces="text/html; charset=UTF-8;")
-	public String insertReport(Report r, int postNo) {
-		int pno = postNo;
+	public String insertReport(Report r) {
 		int result1 = boardService.insertReport(r);
-		int result2 = boardService.increaseCount(pno);
 		
-		return (result1+result2>0)? "success" : "faul";
+		return (result1>0)? "success" : "faul";
 		
 	}
 	
