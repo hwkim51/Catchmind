@@ -46,7 +46,11 @@ public class MemberController {
 	
 	// 마이페이지로 이동
 	@RequestMapping(value="myPage.me")
-	public String myPage() {
+	public String myPage(String userId, String userPwd, Member m, HttpSession session) {
+		
+		Member updateMem = memberService.loginMember(m);
+		
+		session.setAttribute("loginUser", updateMem);
 		
 		return "member/myPage";
 	}
@@ -344,6 +348,14 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		return changeName;
+	}
+	
+	
+	
+	// 마이페이지 - 프로필 수정 메소드
+	@RequestMapping("updateProfile.me")
+	public void updateProfile(Member m) {
+		System.out.println("Controller" + m);
 	}
 	
 }

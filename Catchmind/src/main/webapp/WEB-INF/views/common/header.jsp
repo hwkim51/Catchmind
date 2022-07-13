@@ -173,7 +173,6 @@
         <div class="homelogo">CATCHMIND</div>
     </a>
     
-    
     <!-- header : 회원아이콘 -->
     <div id="membericon" style="right:0px;" onclick="myPage()">
         <br clear="both">
@@ -200,7 +199,7 @@
          
         </label>
     </div>
-
+	
     <script>
         // accodion 클릭 시 active 클래스 속성명 추가해주기(효과용)
         var accodion = document.querySelectorAll('.accodion');
@@ -221,7 +220,27 @@
         
         function myPage(){
             if("${loginUser}" != ""){
-                location.href="myPage.me";
+            	/* myPage 이동 시 회원의 userId, userPwd 데이터 전달 */
+            	var form = document.createElement('form');
+            	
+            	var userId;
+            	userId = document.createElement('input');
+            	userId.setAttribute('type', 'hidden');
+            	userId.setAttribute('name', 'userId');
+            	userId.setAttribute('value', '${ loginUser.userId }');
+                
+            	var userPwd;
+            	userPwd = document.createElement('input');
+            	userPwd.setAttribute('type', 'hidden');
+            	userPwd.setAttribute('name', 'userPwd');
+            	userPwd.setAttribute('value', '${ loginUser.userPwd }');
+            	
+            	form.appendChild(userId);
+            	form.appendChild(userPwd);
+            	form.setAttribute('method', 'post');
+            	form.setAttribute('action', 'myPage.me');
+            	document.body.appendChild(form);
+            	form.submit();
             }
             else{
                 location.href="loginPage.me";
