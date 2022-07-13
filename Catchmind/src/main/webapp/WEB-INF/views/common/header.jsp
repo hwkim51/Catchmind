@@ -154,6 +154,7 @@
             -webkit-text-fill-color : transparent;
             -webkit-background-clip: text; 
         }
+      
         </style>
 </head>
 
@@ -178,6 +179,8 @@
         <div class="homelogo">CATCHMIND</div>
     </a>
     
+    <input type="checkbox" id="loginchk"><label for="loginchk"><span>로그인</span></label>
+
     <!-- header : 회원아이콘 -->
     <div id="membericon" style="right:0px;" onclick="myPage()">
         <br clear="both">

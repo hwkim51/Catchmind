@@ -31,6 +31,29 @@
             width: 100vw;
             height: 100vh;
         }
+        .text-wrap{
+            position:absolute;
+            top:50%;
+            left: 0;
+            right: 0;
+            width: 600px;
+            opacity: 0;
+            margin: auto;
+            text-align: center;
+            transition : 0.5s;
+            z-index: 1;
+        }
+        .text-wrap h2{
+            color: pink;
+            font-size: 48px;
+            line-height: 1.25;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+        .text-wrap p{
+            color: #fff;
+        }
+
         .swiper-pagination-bullet{
             width: 40px;
             height: 4px;
@@ -162,6 +185,10 @@
             </div>
             <div class="swiper-slide">
                 <img src='./resources/images/nav2.jpg'>
+                <div class="text-wrap">
+                    <h2>CATCHMIND</h2>
+                    <p>당신의 인연을 캐치하세요</p>
+                </div>
             </div>
             <div class="swiper-slide">
                 <img src='./resources/images/nav3.jpg'>
