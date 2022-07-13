@@ -67,6 +67,9 @@ public class MemberController {
 			
 			return "redirect:loginPage.me";
 		}
+		else if(loginUser.getUserId().equals("admin")) {
+			return "redirect:memberList.ad";
+		}
 		else { 
 			session.setAttribute("loginUser", loginUser);
 			int updateRecentLogin = updateRecentLogin(m);

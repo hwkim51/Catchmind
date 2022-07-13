@@ -82,6 +82,7 @@ public class AdminController {
 	
 	@RequestMapping("recoverMember.ad")
 	public String recoverMember(String userId, Model model) {
+		
 		int result = adminService.recoverMember(userId);
 		
 		if(result > 0) {

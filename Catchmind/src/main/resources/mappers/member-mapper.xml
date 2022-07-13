@@ -80,12 +80,28 @@
 	<select id="selectMemberList" resultMap="memberResultSet">
 		SELECT *
 		FROM TB_MEMBER
-		WHERE STATUS = '0'
+		<!-- 일반/블랙/탈퇴회원 모두 조회할 수 있도록
+			 WHERE STATUS='0' 구문 삭제했습니다 : 수빈 -->
 	</select>
 	
 	<update id="blackMember" parameterType="string">
 		UPDATE TB_MEMBER
-		SET STATUS = '3'
+		SET STATUS = '2'
+		WHERE USER_ID = #{userId}
+		<!-- SET STATUS='3' 구문 변경했습니다 : 수빈 -->
+	</update>
+	
+	<!-- 회원상태 복구 (update) -->
+	<update id="recoverMember" parameterType="string">
+		UPDATE TB_MEMBER
+		SET STATUS = '0'
+		WHERE USER_ID = #{userId}
+	</update>
+	
+	<!-- 회원상태 탈퇴 (update) -->
+	<update id="deleteMember" parameterType="string">
+		UPDATE TB_MEMBER
+		SET STATUS = '1'
 		WHERE USER_ID = #{userId}
 	</update>
 	

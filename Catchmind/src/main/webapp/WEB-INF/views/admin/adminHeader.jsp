@@ -61,6 +61,7 @@ div {
     line-height : 50px;
     font-size : 20px;
     font-weight : bold;
+    cursor: pointer;
 }
 
 .admin-menu>ul {
