@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.e1i4.catchmind.board.model.dao.BoardDao;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
+import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 
@@ -88,7 +89,11 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deleteReply(replyNo, sqlSession);
 	}
 
-	
+	@Override
+	public int insertReport(Report r) {
+		return boardDao.insertReport(r, sqlSession);
+	}
+
 
 	
 

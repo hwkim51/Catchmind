@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.e1i4.catchmind.board.model.service.BoardService;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
+import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.common.template.Pagination;
@@ -209,6 +210,18 @@ public class BoardController {
 	@RequestMapping(value="delete.rep", produces="text/html; charset=UTF-8;")
 	public String deleteReply(int replyNo, HttpSession session) {
 		return (boardService.deleteReply(replyNo)>0) ? "success" : "fail";
+		
+	}
+	
+	/* ============================ Report ============================ */
+	@ResponseBody
+	@RequestMapping(value="report.all", produces="text/html; charset=UTF-8;")
+	public String insertReport(Report r, int postNo) {
+		int pno = postNo;
+		int result1 = boardService.insertReport(r);
+		int result2 = boardService.increaseCount(pno);
+		
+		return (result1+result2>0)? "success" : "faul";
 		
 	}
 	

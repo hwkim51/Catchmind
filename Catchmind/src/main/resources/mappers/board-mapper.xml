@@ -29,6 +29,12 @@
 		<result column="REPLY_POST" property="replyPost"/>
 		<result column="NICKNAME" property="replyNickName"/>
 	</resultMap>
+	<resultMap type="report" id="reportResultMap">
+		<result column="REP_CONTENT" property="repContent"/>
+		<result column="CATCH_NO" property="catchNo"/>
+		<result column="POST_NO" property="postNo"/>
+		<result column="REPLY_NO" property="replyNo"/>
+	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -78,7 +84,7 @@
 	<select id="selectFile" parameterType="_int" resultMap="attachResultMap">
 	SELECT ATT_NO, ATT_CHANGE, ATT_POST, ATT_ORIGIN
 	FROM TB_ATTACHMENT
-	WHERE ATT_POST = ${attPost}
+	WHERE ATT_POST = #{attPost}
 	</select>
 	
 	<delete id="deletePost" parameterType="_int">
@@ -106,5 +112,12 @@
 		SET STATUS = 'N'
 		WHERE REPLY_NO= #{replyNo}
 	</delete>
+	
+	<insert id="insertReport" parameterType="report">
+		INSERT INTO TB_REPORT (REP_CONTENT, CATCH_NO, POST_NO, REPLY_NO)
+		VALUES (#{repContent}, #{catchNo}, #{postNo}, #{replyNo})
+	</insert>
+	
+	
 
 </mapper>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
+import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 
@@ -45,6 +46,8 @@ public interface BoardService {
 	ArrayList<Post> selectTopPostList();
 
 	int deleteReply(int replyNo);
+
+	int insertReport(Report r);
 
 	
 }
