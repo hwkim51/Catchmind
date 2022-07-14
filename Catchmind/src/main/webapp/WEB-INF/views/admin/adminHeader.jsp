@@ -72,6 +72,12 @@ div {
     text-decoration: none;
     color: black;
 }
+
+#toMain:hover{
+    background: linear-gradient( rgb(236, 3, 194) 1%, orange);
+    -webkit-text-fill-color : transparent;
+    -webkit-background-clip: text; 
+}
 </style>
 </head>
 <body>
@@ -87,7 +93,7 @@ div {
             <div id="admin-cs">고객센터 관리</div>
             <ul>
                 <li><a href="noticeList.ad">공지사항</a></li>
-                <li><a>FAQ</a></li>
+                <li><a href="faqList.ad">FAQ</a></li>
                 <li><a href="inquiryList.ad">1:1 문의</a></li>
             </ul>
             <div id="admin-stat">웹사이트 통계</div>

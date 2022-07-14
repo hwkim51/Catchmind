@@ -120,22 +120,24 @@ div{
           <div class="body right">
             <br>
             <!-- 메뉴 별 제목 작성하는 곳! -->
-            <span id="title">공지사항 작성</span>
+            <span id="title">공지사항 수정</span>
             <a href="/catchmind/"><span id="toMain">CATCHMIND</span></a>
             <br>
                 <div class="body-content">
-                    <form action="insertNotice.ad" method="post" enctype="multipart/form-data">
+                    <form action="updateNo.ad" method="post" enctype="multipart/form-data">
                         <table id="noticeTable" class=".table-hover">
                             <tr>
                                 <th> 제목 </th>      
                                 <td>
-                                    <input type="text" name="noticeTitle" required placeholder="제목을 입력해 주세요." size="95">
+                                    <input type="text" value="${n.noticeTitle}" name="noticeTitle" required size="95">
                                 </td>               
                             </tr>
                             <tr>
                                 <th>내용</th>
                                 <td>
-                                    <textarea name="noticeContent" style="resize:none;" cols="97" rows="10" required placeholder="문의 내용을 작성해 주세요."></textarea>
+                                    <textarea name="noticeContent" style="resize:none;" cols="97" rows="10" required>
+                                    	${n.noticeContent}
+                                    </textarea>
                                 </td>
                             </tr>
                                 <tr>
@@ -143,13 +145,18 @@ div{
                                     <td>
                                         <div class="filebox">
                                             <label for="ex_file">업로드</label>
-                                            <input type="file" id="ex_file" name="upfile" required>
+                                            <input type="file" id="ex_file" name="reUpfile">
+                                            <span><b>현재 업로드된 파일 :</b></b></span>
+                                            <a href="${n.changeName}">${n.originName}</a> 
+                                            <input type="hidden" name="originName" value="${n.originName}">
+                                            <input type="hidden" name="changeName" value="${n.changeName}">
+                                            <input type="hidden" name="noticeNo" value="${n.noticeNo}">
                                         </div>
                                     </td>
                                 </tr>
                             <tr>
                                 <td colspan="2" align="center">
-                                    <button type="submit" id="btn1">작성하기</button>   
+                                    <button type="submit" id="btn1">수정하기</button>   
                                     <button type="reset" class="btn btn btn-secondary">취소하기</button>                       
                                 </td>
                             </tr>  
@@ -160,9 +167,9 @@ div{
         </div>
     
     <script>
-        $("#inquiryTable>tbody>tr>#detail").click(function(){
-        	location.href="detailNotice.ad?nno="+$(this).siblings(".nno").text();
-       })
+       
+
+       
     </script>
   </div>
 </body>

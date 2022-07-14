@@ -128,7 +128,7 @@ div{
              <br>
                  <!-- 메뉴 별 제목 작성하는 곳! -->
                  <span id="title">회원관리</span>
-                 <a href="/catchmind/"><span id="toMain">CATCHMIND</span><a/>
+                 <a href="/catchmind/"><span id="toMain">CATCHMIND</span></a>
              <br>
              <div class="body-content">
              <table id="memberTable">

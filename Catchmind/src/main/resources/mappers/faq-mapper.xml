@@ -8,18 +8,31 @@
 		<result column="FAQ_CONTENT" property="faqContent"/>
 	</resultMap>
 
-
-
-
-
 	<select id="selectFaq" parameterType="_int" resultMap="faqResultSet">
 		SELECT * 
 		FROM TB_FAQ 
 		WHERE FAQ_NO = #{faqNo}
 	</select>
 
+	<select id="selectFaqList" resultMap="faqResultSet">
+		SELECT * 
+		FROM TB_FAQ 
+		ORDER BY FAQ_NO ASC
+	</select>
 
+	<select id="selectFaqCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM TB_FAQ 
+	</select>
 
-
+	<insert id="insertFaq" parameterType="faq">
+		INSERT INTO TB_FAQ(FAQ_NO, FAQ_TITLE, FAQ_CONTENT) 
+		VALUES(SEQ_FNO.NEXTVAL, #{faqTitle}, #{faqContent})
+	</insert>
+	
+	<delete id="deleteFaq" parameterType="_int">
+		DELETE FROM TB_FAQ 
+		 WHERE FAQ_NO=#{faqNo}
+	</delete>
 
 </mapper>
