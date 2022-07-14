@@ -49,4 +49,7 @@ public interface MemberService {
 	ArrayList<Member> selectBlockList(int userNo);
 	
 	int deleteBlockMember(Block b);
+	
+	// 마이페이지 - 프로필 수정 서비스(update)
+	int updateProfile(Member m);
 }

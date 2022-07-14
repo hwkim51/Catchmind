@@ -77,4 +77,10 @@ public class MemberDao {
 	public int deleteBlockMember(SqlSessionTemplate sqlSession, Block b) {
 		return sqlSession.delete("memberMapper.deleteBlockMember", b);
 	}
+	
+	// 마이페이지 - 프로필 수정 서비스(update)
+	public int updateProfile(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.updateProfile", m);
+	}
 }

@@ -350,12 +350,35 @@ public class MemberController {
 		return changeName;
 	}
 	
-	
-	
 	// 마이페이지 - 프로필 수정 메소드
 	@RequestMapping("updateProfile.me")
-	public void updateProfile(Member m) {
+	public String updateProfile(Member m, MultipartFile profileImg, HttpSession session, Model model) {
+		System.out.println(profileImg);
 		System.out.println("Controller" + m);
+		
+		if(!profileImg.getOriginalFilename().equals("")) { // 프로필 이미지를 업데이트 한 경우
+			
+			// 기존 프로필 이미지를 서버로부터 삭제
+			String originImg = session.getServletContext().getRealPath(m.getPic());
+			new File(originImg).delete();
+			
+			// 새로운 프로필 이미지 업로드
+			String changeName = saveFile(profileImg, session);
+			m.setPic("resources/picUploadFiles/" + changeName);
+		}
+		
+		int result = memberService.updateProfile(m);
+		
+		if(result > 0) { // 프로필 수정 성공
+			
+			session.setAttribute("alertMsg", "프로필이 성공적으로 수정되었습니다.");
+			return "redirect:myPage.me"; // 마이페이지로 url 재요청
+			
+		} else { // 프로필 수정 실패
+			
+			model.addAttribute("errorMsg", "프로필 수정 실패");
+			return "common/errorPage";
+		}
 	}
 	
 }

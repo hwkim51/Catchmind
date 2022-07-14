@@ -153,4 +153,13 @@
 		   AND BLOCKED_USER = #{blockedUser}
 	</delete>
 	
+	<update id="updateProfile">
+		UPDATE TB_MEMBER
+		   SET PIC = #{pic},
+		       MBTI = #{mbti},
+		       NICKNAME = #{nickname},
+		       PROFILE = #{profile}
+		 WHERE USER_ID = #{userId}
+	</update>
+	
 </mapper>

@@ -104,4 +104,10 @@ public class MemberServiceImpl implements MemberService  {
 	public int deleteBlockMember(Block b) {
 		return memberDao.deleteBlockMember(sqlSession, b);
 	}
+
+	@Override
+	public int updateProfile(Member m) {
+		
+		return memberDao.updateProfile(sqlSession, m);
+	}
 }

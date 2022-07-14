@@ -47,6 +47,10 @@
     #myPage-info {
         margin-top: 70px;
     }
+    
+    .profile-modalHeader {
+        border-bottom: none !important;
+    }
 
     .profile-img {
         width: 200px;
@@ -54,6 +58,19 @@
         border-radius: 70%;
         margin-top: 80px;
         object-fit: cover;
+    }
+
+    .update-profileImg {
+        margin-top: 20px !important;
+    }
+    
+    .update-profileImg:hover {
+    	cursor: pointer;
+    	opacity: 0.8;
+    }
+    
+    #updateProfileImg {
+    	display: none;
     }
 
     .user-mbti {
@@ -64,6 +81,24 @@
     .user-nickname {
         font-weight: bold;
         font-size: 25px;
+        display: inline-block;
+    }
+    
+    .update-nickname {
+    	outline: 0;
+    	border: none;
+    	width: 250px;
+    	font-size: 28px !important;
+    	text-align: center;
+        display: block !important;
+    }
+
+    .bi-pencil-fill {
+        margin-left: 5px;
+    }
+    
+    .bi-pencil-fill:hover {
+        cursor: pointer;
     }
 
     #user-age {
@@ -83,7 +118,7 @@
         font-size: 15px;
         overflow-y: scroll;
     }
-
+    
     .user-message::-webkit-scrollbar {
         width: 5px;
     }
@@ -96,6 +131,14 @@
 
     .user-message::-webkit-scrollbar-track {
         background: rgb(254, 235, 200);
+    }
+
+    .update-message {
+        outline: 0;
+        border: none;
+        resize: none;
+        display: block;
+        margin-bottom: 40px;
     }
 
     #user-coupleID {
@@ -121,16 +164,18 @@
 
     .modal-body select {
         width: 20px;
-        float: left;
-        outline: 0; border-width: 0px;
+        outline: 0;
+        border-width: 0px;
         appearance: none;
         text-align: center;
     }
 
-    .modify-message {
-        outline: 0; border-width: 0px;
+    .profile-updateBtn {
+        background-color: orange !important;
+        color: white !important;
+        margin: auto;
+        margin-bottom: 30px;
     }
-
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 </head>
@@ -148,26 +193,28 @@
     </div>
     
     <div class="myPage-area" align="center">
-        <div class="profile-area" align="center">
+        <div class="profile-area">
             <img class="profile-img" src="${ loginUser.pic }">
             <div class="user-mbti">${ loginUser.mbti }</div>
-            <div class="user-nickname"> 
+            <div class="user-nickname">
             	${ loginUser.nickname } 
                 <font id="user-age">
                 	<!-- 현재 년도 - 생년 + 1 -->
                 	<script>
-                		var now = new Date().getFullYear(); // 현재 년도
-                		
-                		var birthDay = "${ loginUser.birthDay }"; 
-                		var birthYear = birthDay.substr(0, 4); // 생년
-                		
-                		var age = (now - birthYear) + 1;
-                		
-                		$("#user-age").text("(" + age + ")");
+                		$(function() {
+                			var now = new Date().getFullYear(); // 현재 년도
+                			
+                			var birthDay = "${ loginUser.birthDay }"; 
+                    		var birthYear = birthDay.substr(0, 4); // 생년
+                    		
+                    		var age = (now - birthYear) + 1;
+                    		
+                    		$("#user-age").text("(" + age + ")");
+                		});
                 	</script>
                 </font>
             </div>
-            <i class="bi bi-pencil-fill" data-toggle="modal" data-target="#profileModal"></i>                    
+            <i class="bi bi-pencil-fill" data-toggle="modal" data-target="#profileModal"></i>
             <div id="user-feature">번개처럼 빠른</div>
             <div class="user-message">
             	<c:choose>
@@ -190,137 +237,172 @@
             	</c:choose>
             </div>
         </div>
-
+		
 		<!-- 프로필 수정 모달 -->
-		<div class="modal" id="profileModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-				
-				<!-- Modal Header -->
-				<div class="modal-header" style="border-bottom: none">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-                
-				<!-- Modal body -->
-				<div class="modal-body">
-                    <form id="profileModify" method="post" action="updateProfile.me">
-                        <img class="profile-img" src="${ loginUser.pic }" style="margin: 10px" onclick="document.getElementById('modifyProfileImg').click();">
-                        <input type="file" id="modifyProfileImg" style="display: none;">
-                        <div class="user-mbti" style="width: 80px; height: 50px;">
-                        	<c:set var="userMBTI" value="${ loginUser.mbti }" />
+        <div class="modal" id="profileModal"> 
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- 프로필 수정 모달 헤더 -->
+                    <div class="modal-header profile-modalHeader">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- 프로필 수정 모달 바디 -->
+                    <div class="modal-body">
+
+                        <form action="updateProfile.me" method="post" enctype="multipart/form-data">
+                        	<input type="hidden" name="userId" value="${ loginUser.userId }">
+                        	<input type="hidden" name="userPwd" value="${ loginUser.userPwd }">
                         	
+                            <!-- 프로필 수정 - 이미지 -->
+                            <img class="profile-img update-profileImg" src="${ loginUser.pic }" onclick="document.getElementById('updateProfileImg').click();">
+                            <input type="file" id="updateProfileImg" name="profileImg" accept="image/*" onchange="setProfileImg(event)">
+                            <input type="hidden" name="pic" value="${ loginUser.pic }">
+                            
+                            <script>
+                            	function setProfileImg(event) {
+                            		var reader = new FileReader();
+                            		
+                            		reader.onload = function(event) {
+                            			$(".update-profileImg").attr("src", event.target.result);
+                            		};
+                            		
+                            		reader.readAsDataURL(event.target.files[0]);
+                            	}
+                            </script>
+                            
+                            <!-- 프로필 수정 - MBTI -->
+                            <div class="user-mbti" style="background-color: aqua;">
+                            <c:set var="userMBTI" value="${ loginUser.mbti }" />
                             <select id="EI">
                                 <c:choose>
+                                    <c:when test="${ fn:contains(userMBTI, 'E') }">
+                                        <option value="E" selected>E</option>
+                                        <option value="I">I</option>
+                                    </c:when>
                                     <c:when test="${ fn:contains(userMBTI, 'I') }">
                                         <option value="E">E</option>
                                         <option value="I" selected>I</option>
                                     </c:when>
                                     <c:otherwise>
-                                        <option value="E" selected>E</option>
+                                        <option value="" disabled selected>M</option>
+                                        <option value="E">E</option>
                                         <option value="I">I</option>
                                     </c:otherwise>
                                 </c:choose>
                             </select>
                             <select id="SN">
                                 <c:choose>
+                                    <c:when test="${ fn:contains(userMBTI, 'S') }">
+                                        <option value="S" selected>S</option>
+                                        <option value="N">N</option>
+                                    </c:when>
                                     <c:when test="${ fn:contains(userMBTI, 'N') }">
                                         <option value="S">S</option>
                                         <option value="N" selected>N</option>
                                     </c:when>
                                     <c:otherwise>
-                                        <option value="S" selected>S</option>
+                                        <option value="" disabled selected>B</option>
+                                        <option value="S">S</option>
                                         <option value="N">N</option>
                                     </c:otherwise>
                                 </c:choose>
                             </select>
                             <select id="TF">
                                 <c:choose>
+                                    <c:when test="${ fn:contains(userMBTI, 'T') }">
+                                        <option value="T" selected>T</option>
+                                        <option value="F">F</option>
+                                    </c:when>
                                     <c:when test="${ fn:contains(userMBTI, 'F') }">
                                         <option value="T">T</option>
                                         <option value="F" selected>F</option>
                                     </c:when>
                                     <c:otherwise>
-                                        <option value="T" selected>T</option>
+                                        <option value="" disabled selected>T</option>
+                                        <option value="T">T</option>
                                         <option value="F">F</option>
                                     </c:otherwise>
                                 </c:choose>
                             </select>
-                            <select id="PJ">
+                            <select id="JP">
                                 <c:choose>
                                     <c:when test="${ fn:contains(userMBTI, 'J') }">
-                                        <option value="P">P</option>
                                         <option value="J" selected>J</option>
+                                        <option value="P">P</option>
+                                    </c:when>
+                                    <c:when test="${ fn:contains(userMBTI, 'P') }">
+                                        <option value="J">J</option>
+                                        <option value="P" selected>P</option>
                                     </c:when>
                                     <c:otherwise>
-                                        <option value="P" selected>P</option>
+                                        <option value="" disabled selected>I</option>
                                         <option value="J">J</option>
+                                        <option value="P">P</option>
                                     </c:otherwise>
                                 </c:choose>
                             </select>
-                        </div>
-                        <script>
-                        	var EI = "";
-                        	var SN = "";
-                        	var TF = "";
-                        	var PJ = "";
-                        	
-                        	$("#EI").click(function() {
-                        		EI = $("#EI").val();
-                        		console.log(EI);
-                        	});
-                        	
-                        	$("#SN").click(function() {
-                        		SN = $("#SN").val();
-                        		console.log(SN);
-                        	});
-                        	
-                        	$("#TF").click(function() {
-                        		TF = $("#TF").val();
-                        		console.log(TF);
-                        	});
-                        	
-                        	$("#PJ").click(function() {
-                        		PJ = $("#PJ").val();
-                        		console.log(PJ);
-                        	});
-                        	
-                        	var updateMBTI = EI + SN + TF + PJ;
-                        
-                        </script>
-
-                        <input name="nickname" class="user-nickname" type="text" style="outline: 0; border-width: 0px; width: 250px; text-align: center;" value="${ loginUser.nickname }">             
-                        <textarea name="profile" class="user-message modify-message">
-                            <c:choose>
-                                <c:when test="${ loginUser.profile eq not null }">
-                                    ${ loginUser.profile }
-                                </c:when>
-                                <c:otherwise>
-                                	나만의 상태메세지를 작성해주세요
-                                </c:otherwise>
-                            </c:choose>
-                        </textarea>
-                        <br>
-                        <br>
-
-                        <script>
-                            var message = $(".modify-message").text();
-                            var modifyMessage = $.trim(message);
+                            <input type="hidden" name="mbti" id="updateMbti">
+                            </div>
+                            <script>
+                                /* 변경된 MBTI 추출 */
+                                $(function() {
+                                    /* 사용자가 MBTI를 변경하지 않는 경우 */
+                                    var m = $("#EI").val();
+                                    var b = $("#SN").val();
+                                    var t = $("#TF").val();
+                                    var i = $("#JP").val();
+                                    var mbti = m + b + t + i;
+                                    
+                                    $("#updateMbti").val(mbti);
+                                    
+                                    /* 사용자가 MBTI를 변경할 경우 */
+                                    $("select").click(function() {
+                                        
+                                        m = $("#EI").val();
+                                        b = $("#SN").val();
+                                        t = $("#TF").val();
+                                        i = $("#JP").val();
+                                        
+                                        mbti = m + b + t + i;                                	
+                                        
+                                        $("#updateMbti").val(mbti);
+                                    });
+                                });
+                            </script>
                             
-                            $(".modify-message").text(modifyMessage);
-                        </script>
+                            <!-- 프로필 수정 - 닉네임 -->
+                            <input type="text" class="user-nickname update-nickname" name="nickname" value="${ loginUser.nickname }">
+                            
+                            <!-- 프로필 수정 - 상태메세지 -->
+                            <textarea class="user-message update-message" name="profile">
+                                <c:choose>
+                                    <c:when test="${ loginUser.profile eq not null }">
+                                        ${ loginUser.profile }
+                                    </c:when>
+                                    <c:otherwise>
+                                    	나만의 상태메세지를 작성해주세요
+                                    </c:otherwise>
+                                </c:choose>
+                            </textarea>
+                            <script>
+                                /* 사용자 상태메세지 공백 제거 */
+                                $(function() {
+                                    var m = $(".update-message").text();
+                                    
+                                    $(".update-message").text($.trim(m));
+                                });
+                            </script>
+                            
+                            <!-- 프로필 수정 버튼 -->
+                            <input type="submit" class="btn profile-updateBtn" value="수정하기">
+                        </form>
 
-                        <input type="submit" class="btn" style="background-color: orange; color: white; margin: auto;" value="수정하기">
-                    </form>
-				</div>
-				
-				<!-- Modal footer -->
-				<div class="modal-footer" style="border-top: none; margin: auto;">
-					
-				</div>
-				
-				</div>
-			</div>
-		</div>
+                    </div>
+                </div>
+        	</div>
+        </div>
 		
         <div class="myPageInfo-area" align="center">
             <table id="myPage-info">
