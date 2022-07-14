@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.e1i4.catchmind.board.model.vo.Board;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
+import com.e1i4.catchmind.faq.model.vo.Faq;
 import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.e1i4.catchmind.notice.model.vo.Notice;
@@ -45,5 +46,23 @@ public interface AdminService {
 	
 	Notice selectNotice(int noticeNo);
 	
+	ArrayList<Notice> selectNoticeList(PageInfo pi);
+	
 	int insertNotice(Notice n);
+	
+	Notice updateFormNotice(int noticeNo);
+	
+	int updateNotice(Notice n);
+	
+	int deleteNotice(int noticeNo);
+	
+	int recoverNotice(int noticeNo);
+	
+	ArrayList<Faq> selectFaqList(PageInfo pi);
+	
+	int selectFaqCount();
+	
+	int insertFaq(Faq f);
+	
+	int deleteFaq(int faqNo);
 }

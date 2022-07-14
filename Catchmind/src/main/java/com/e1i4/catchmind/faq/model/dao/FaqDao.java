@@ -13,4 +13,8 @@ public class FaqDao {
 	public ArrayList<Faq> selectFaq(SqlSessionTemplate sqlSession, int faqNo) {
 		return (ArrayList)sqlSession.selectList("faqMapper.selectFaq", faqNo);
 	}
+	
+	public ArrayList<Faq> selectFaqList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("faqMapper.selectFaqList");
+	}
 }

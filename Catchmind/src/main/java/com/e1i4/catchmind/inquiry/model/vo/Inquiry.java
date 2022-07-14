@@ -11,7 +11,8 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Inquiry {
 
-	private int qaNo;
+	//private int qaNo;
+	private String qaNo;
 	private String qaTitle;
 	private String qaContent;
 	private String qaDate;

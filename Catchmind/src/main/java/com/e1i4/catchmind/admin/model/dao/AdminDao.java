@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.e1i4.catchmind.board.model.vo.Board;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
+import com.e1i4.catchmind.faq.model.vo.Faq;
 import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.e1i4.catchmind.notice.model.vo.Notice;
@@ -134,7 +135,53 @@ public class AdminDao {
 		return sqlSession.selectOne("noticeMapper.selectNotice", noticeNo);
 	}
 	
+	public ArrayList<Notice> selectNoticeList(SqlSessionTemplate sqlSession, PageInfo pi){
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectNoticeList", null, rowBounds);
+	}
+
 	public int insertNotice(SqlSessionTemplate sqlSession, Notice n) {
 		return sqlSession.insert("noticeMapper.insertNotice", n);
+	}
+	
+	public Notice updateFormNotice(SqlSessionTemplate sqlSession, int noticeNo) {
+		return sqlSession.selectOne("noticeMapper.selectNotice", noticeNo);
+	}
+	
+	public int updateNotice(SqlSessionTemplate sqlSession, Notice n) {
+		return sqlSession.update("noticeMapper.updateNotice", n);
+	}
+	
+	public int deleteNotice(SqlSessionTemplate sqlSession ,int noticeNo) {
+		return sqlSession.update("noticeMapper.deleteNotice", noticeNo);
+	}
+	
+	public int recoverNotice(SqlSessionTemplate sqlSession ,int noticeNo) {
+		return sqlSession.update("noticeMapper.recoverNotice", noticeNo);
+	}
+	
+	public ArrayList<Faq> selectFaqList(SqlSessionTemplate sqlSession, PageInfo pi){
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("faqMapper.selectFaqList", null, rowBounds);
+	}
+	
+	public int selectFaqCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("faqMapper.selectFaqCount");
+	}
+	
+	public int insertFaq(SqlSessionTemplate sqlSession, Faq f) {
+		return sqlSession.insert("faqMapper.insertFaq", f);
+	}
+	
+	public int deleteFaq(SqlSessionTemplate sqlSession, int faqNo) {
+		return sqlSession.delete("faqMapper.deleteFaq", faqNo);
 	}
 }

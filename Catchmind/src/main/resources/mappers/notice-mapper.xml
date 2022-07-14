@@ -37,7 +37,14 @@
   		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, TO_CHAR(NOTICE_DATE,'YYYY-MM-DD') NOTICE_DATE, 
   			   NOTICE_COUNT, ORIGIN_NAME, CHANGE_NAME
   		FROM TB_NOTICE 	 
-  		WHERE NOTICE_NO = #{noticeNo}  
+  		WHERE NOTICE_NO = #{noticeNo}
+  	</select>
+  	
+  	<select id="selectNoticeList" resultMap="noticeResultSet">
+  		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_COUNT, TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD') NOTICE_DATE,
+	  		   ORIGIN_NAME, CHANGE_NAME, NOTICE_STATUS
+	  	FROM TB_NOTICE 
+	  	ORDER BY NOTICE_NO DESC
   	</select>
   	
   	<insert id="insertNotice" parameterType="notice">
@@ -52,5 +59,26 @@
   			   #{originName},
   			   #{changeName})
   	</insert>
+  	
+  	<update id="updateNotice" parameterType="notice">
+  		UPDATE TB_NOTICE 
+  		   SET NOTICE_TITLE=#{noticeTitle},
+  		   	   NOTICE_CONTENT=#{noticeContent},
+  		   	   ORIGIN_NAME=#{originName},
+  		   	   CHANGE_NAME=#{changeName}
+  		 WHERE NOTICE_NO = #{noticeNo}
+  	</update>
+  	
+  	<update id="deleteNotice" parameterType="_int">
+  		UPDATE TB_NOTICE 
+  		   SET NOTICE_STATUS='N' 
+  		 WHERE NOTICE_NO = #{noticeNo}
+  	</update>
+  	
+  	<update id="recoverNotice" parameterType="_int">
+  		UPDATE TB_NOTICE 
+  		   SET NOTICE_STATUS='Y' 
+  		 WHERE NOTICE_NO = #{noticeNo}
+  	</update>
   
 </mapper>
