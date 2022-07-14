@@ -95,7 +95,7 @@
             <input type="text" name="loginNumber" id="loginNumber" style="width:300px;" disabled placeholder="인증번호 6자리 입력" size="25" onblur="invalidateNum()"> &nbsp;&nbsp;&nbsp;&nbsp; <br><br>
 
             <input type="submit" id="btn-find" class="btn-terms" value=" 회원정보 찾기 ">
-            <br><br><br><a href="enrollForm.in" class="info_font" id="inquiry">등록한 회원정보가 변경되었거나 회원정보를 찾는 데 문제가 있으신가요? · · · · · ▷ click </a> 
+            <br><br><br><a href="mailto: catchmindofficialacount@gmail.com" title="관리자에게 이메일 보내기" class="info_font">등록한 회원정보가 변경되었거나 회원정보를 찾는 데 문제가 있으신가요? · · · · · ▷ click </a> 
             
         </div>
     </form>

@@ -29,6 +29,12 @@
 		<result column="REPLY_POST" property="replyPost"/>
 		<result column="NICKNAME" property="replyNickName"/>
 	</resultMap>
+	<resultMap type="report" id="reportResultMap">
+		<result column="REP_CONTENT" property="repContent"/>
+		<result column="CATCH_NO" property="catchNo"/>
+		<result column="POST_NO" property="postNo"/>
+		<result column="REPLY_NO" property="replyNo"/>
+	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -57,7 +63,6 @@
 	<insert id="insertFile" parameterType="attach">
 		INSERT INTO TB_ATTACHMENT(ATT_NO, ATT_ORIGIN, ATT_CHANGE, ATT_POST)
 		VALUES (SEQ_ANO.NEXTVAL, #{attOrigin}, #{attChange}, SEQ_PNO.CURRVAL)
-	
 	</insert>
 	
 	
@@ -78,7 +83,7 @@
 	<select id="selectFile" parameterType="_int" resultMap="attachResultMap">
 	SELECT ATT_NO, ATT_CHANGE, ATT_POST, ATT_ORIGIN
 	FROM TB_ATTACHMENT
-	WHERE ATT_POST = ${attPost}
+	WHERE ATT_POST = #{attPost}
 	</select>
 	
 	<delete id="deletePost" parameterType="_int">
@@ -106,5 +111,37 @@
 		SET STATUS = 'N'
 		WHERE REPLY_NO= #{replyNo}
 	</delete>
-
+	
+	<insert id="insertReport" parameterType="report">
+		INSERT INTO TB_REPORT (REP_CONTENT, CATCH_NO, POST_NO, REPLY_NO)
+		VALUES (#{repContent}, #{catchNo}, #{postNo}, #{replyNo})
+	</insert>
+	
+	<update id="updatePost" parameterType="post">
+		UPDATE TB_POST
+		SET POST_TITLE= #{postTitle}
+		, POST_CONTENT= #{postContent}
+		WHERE POST_NO= #{postNo}
+	</update>
+	
+	<update id="updateFile" parameterType="attach">
+		UPDATE TB_ATTACHMENT
+		SET ATT_ORIGIN = #{attOrigin}
+		, ATT_CHANGE = #{attChange}
+		, ATT_NOTICE = #{attNotice}
+		, ATT_POST = #{attPost}
+		, ATT_CATCH = #{attCatch}
+		WHERE ATT_NO = #{attNo}
+	</update>
+	
+	<delete id="deleteFile" parameterType="attach">
+		DELETE TB_ATTACHMENT
+		WHERE ATT_NO = #{attNo}
+	</delete>
+	
+	<insert id="addFile" parameterType="attach">
+		INSERT INTO TB_ATTACHMENT(ATT_NO, ATT_ORIGIN, ATT_CHANGE, ATT_POST)
+		VALUES (SEQ_ANO.NEXTVAL, #{attOrigin}, #{attChange}, #{attPost})
+	</insert>
+	
 </mapper>

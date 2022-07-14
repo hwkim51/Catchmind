@@ -19,6 +19,7 @@
         html{
             font-size: 20px;
         }
+         /* swiper */
         #mainSwiper{
             position: absolute;
             z-index: 0;
@@ -36,22 +37,30 @@
             top:50%;
             left: 0;
             right: 0;
-            width: 600px;
+            width: 900px;
             opacity: 0;
             margin: auto;
             text-align: center;
-            transition : 0.5s;
-            z-index: 1;
+            transition : 0.9s;
+        }
+        .swiper-slide-active .text-wrap{
+            transition-delay: 0.3s;
+            opacity: 1;
+            top: 20%;
+            transition: 0.9;
         }
         .text-wrap h2{
-            color: pink;
-            font-size: 48px;
-            line-height: 1.25;
+            color: white;
+            font-size: 160px;
+            line-height: 1;
             font-weight: bold;
             margin-bottom: 16px;
         }
         .text-wrap p{
-            color: #fff;
+            color:white;
+            font-weight: 500;
+            font-size: 45px;
+            margin-bottom: 0px;
         }
 
         .swiper-pagination-bullet{
@@ -108,41 +117,10 @@
             margin: 10px 0px;
             transition-duration:0.5;
         }
-        .script_font{
-            position:absolute;
-            color:white;
-            font-weight: 500;
-            font-size: 45px;
-            top: 210px;
-            left: 330px;
-            line-height: 5px;
-            animation: showText 0.9s; 
-        }
-        .logo_font{
-            position: absolute;
-            color:white;
-            font-weight: 700;
-            font-size: 155px;
-            top: 240px;
-            left: 400px;
-            line-height: 150px;
-            animation: showText 0.9s; 
-            animation-delay: 0.1s;
-        }
         .article-main b{
             display: block;
         }
 
-        @keyframes showText{
-            from{
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to{
-                transform: translateY(0px);
-                opacity: 1;
-            }
-        }
         /* 미디어쿼리 (반응형 웹)
          @media screen and (max-width:780px),(max-height:500px) {
             nav img{
@@ -180,18 +158,26 @@
             <!-- Slides -->
             <div class="swiper-slide">
                 <img src='./resources/images/nav1.jpg'>
-                <div class="script_font">딱 나만큼 괜찮은 사람과의 만남</div>
-                <div class="logo_font">CATCH<br>MIND</div>
+                <div class="text-wrap"><br>
+                    <p>딱 나만큼 괜찮은 사람과의 만남</p>
+                </div>
+                <div class="text-wrap" style="transition-delay: 0.6s;"><br><br><br>
+                    <h2>CATCH&nbsp;&nbsp;&nbsp;<br>MIND&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+                </div>
             </div>
             <div class="swiper-slide">
                 <img src='./resources/images/nav2.jpg'>
                 <div class="text-wrap">
-                    <h2>CATCHMIND</h2>
+                    <h2><br>CATCHMIND</h2>
                     <p>당신의 인연을 캐치하세요</p>
                 </div>
             </div>
             <div class="swiper-slide">
-                <img src='./resources/images/nav3.jpg'>
+                <img src='./resources/images/nav4.jpg'>
+                <div class="text-wrap" style="text-align: left;"><br>
+                    <p style="color:rgb(246, 255, 0);">딱 나만큼 괜찮은 사람과의 만남</p>
+                    <h2 style="color:rgb(246, 255, 0);">CATCH<br>&nbsp;MIND</h2>
+                </div>
             </div>
         </div>
         <!-- pagination -->
@@ -206,14 +192,17 @@
 
     <script>
         const swiper = new Swiper('.swiper', {
+        speed: 1000,
         loop:true,
             autoplay: {
-            delay: 3000
+            disableOnInteraction: false,
+            delay: 5000
         },
 
         // If we need pagination
         pagination: {
             el: '.swiper-pagination',
+            clickable: true,
         },
 
         // Navigation arrows

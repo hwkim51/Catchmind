@@ -84,9 +84,9 @@
         <hr>
         <form action="login.me" method="post" id="loginForm">
             <label for="userId">I &nbsp;D : &nbsp;</label>
-            <input type="text" id="userId" name="userId" placeholder="Enter ID"><br>
+            <input type="text" id="userId" name="userId" placeholder="Enter ID" required><br>
             <label for="userPwd">PW : &nbsp;</label>
-            <input type="password" id="userPwd" name="userPwd" placeholder="Enter Password"><br>
+            <input type="password" id="userPwd" name="userPwd" placeholder="Enter Password" required><br>
             <div class="check_font" id="acount_check"> 　</div>
             <span><a href="findIdPage.me">아이디 </a>/ <a href="findPwdPage.me">비밀번호 찾기</a></span>
             <span><a href="enrollForm.me">회원가입</a></span><br>

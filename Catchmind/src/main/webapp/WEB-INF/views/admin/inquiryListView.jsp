@@ -54,6 +54,7 @@ div{
     width:95%;
     text-align:center;
     border-color: lightgray;
+    font-size:14px;
 }
 
 #inquiryTable>thead {
@@ -92,10 +93,10 @@ div{
             <br>
                 <!-- 메뉴 별 제목 작성하는 곳! -->
                 <span id="title">1:1 문의 관리</span>
-                <span id="toMain">CATCHMIND</span>
+                <a href="/catchmind/"><span id="toMain">CATCHMIND</span></a>
             <br>
             <div class="body-content">
-            <table id="inquiryTable" border="1">
+            <table id="inquiryTable">
                 <thead>
                     <tr>
                         <th style="width : 100px;">글번호</th>

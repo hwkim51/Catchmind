@@ -10,6 +10,7 @@ import com.e1i4.catchmind.admin.model.dao.AdminDao;
 import com.e1i4.catchmind.board.model.vo.Board;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
+import com.e1i4.catchmind.faq.model.vo.Faq;
 import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.e1i4.catchmind.notice.model.vo.Notice;
@@ -109,9 +110,52 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public ArrayList<Notice> selectNoticeList(PageInfo pi) {
+		return adminDao.selectNoticeList(sqlSession, pi);
+	}
+	
+	@Override
 	public int insertNotice(Notice n) {
 		return adminDao.insertNotice(sqlSession, n);
 	}
 
+	@Override
+	public Notice updateFormNotice(int noticeNo) {
+		return adminDao.updateFormNotice(sqlSession, noticeNo);
+	}
 
+	@Override
+	public int updateNotice(Notice n) {
+		return adminDao.updateNotice(sqlSession, n);
+	}
+
+	@Override
+	public int deleteNotice(int noticeNo) {
+		return adminDao.deleteNotice(sqlSession, noticeNo);
+	}
+
+	@Override
+	public int recoverNotice(int noticeNo) {
+		return adminDao.recoverNotice(sqlSession, noticeNo);
+	}
+
+	@Override
+	public ArrayList<Faq> selectFaqList(PageInfo pi) {
+		return adminDao.selectFaqList(sqlSession, pi);
+	}
+
+	@Override
+	public int selectFaqCount() {
+		return adminDao.selectFaqCount(sqlSession);
+	}
+
+	@Override
+	public int insertFaq(Faq f) {
+		return adminDao.insertFaq(sqlSession, f);
+	}
+
+	@Override
+	public int deleteFaq(int faqNo) {
+		return adminDao.deleteFaq(sqlSession, faqNo);
+	}
 }

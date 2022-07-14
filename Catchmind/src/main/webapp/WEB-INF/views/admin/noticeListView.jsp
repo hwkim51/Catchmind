@@ -77,6 +77,7 @@ div{
     width:95%;
     text-align:center;
  	border-color: lightgray;
+    font-size:14px;
 }
 
 #noticeTable>thead {
@@ -85,6 +86,7 @@ div{
 
 #noticeTable>thead>tr>th {
     padding-left : 15px;
+    height:40px;
 }
 
 #id {
@@ -96,11 +98,15 @@ div{
 }
 
 #ndate {
-    width : 100px;
+    width : 70px;
 }
 
-#status {
-    width : 70px;
+#status{
+    width:50px;
+}
+
+#detail {
+    width : 50px;
 }
 
 .admin-menu a{ 
@@ -134,17 +140,18 @@ div{
             <br>
                 <!-- 메뉴 별 제목 작성하는 곳! -->
                 <span id="title">공지사항 관리</span>
-                <span id="toMain">CATCHMIND</span>
+                <a href="/catchmind/"><span id="toMain">CATCHMIND</span></a>
             <br>
             <div class="body-content">
-                <div class="btn_area"><a class="btn_write" href="noticeEnrollForm.ad">작성하기</a></div>
-            <table id="noticeTable" border="1">
+                
+            <table id="noticeTable">
                 <thead>
                     <tr>
                         <th id="id">글번호</th>
                         <th id="ntitle">글제목</th>
                         <th id="ndate">작성일</th>
-                        <th id="status">상세보기</th>
+                        <th id="status">상태</th>
+                        <th id="detail">상세보기</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -154,11 +161,13 @@ div{
 	                        <td class="nno">${n.noticeNo}</td>
 	                        <td class="tt">${n.noticeTitle}</td>
 	                        <td>${n.noticeDate}</td>
+                            <td>${n.noticeStatus}</td>
 	                        <td id="detail"><a id="btn1">상세보기</a></td>
 	                    </tr>
                     </c:forEach>
                 </tbody>
             </table>
+            <div class="btn_area"><a class="btn_write" href="noticeEnrollForm.ad">작성하기</a></div>
             </div>
             <!-- 페이징 바 영역 -->
             <div id="pagingArea">

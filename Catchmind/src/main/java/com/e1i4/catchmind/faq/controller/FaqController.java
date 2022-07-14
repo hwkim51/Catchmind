@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,9 +37,11 @@ public class FaqController {
 	
 	// faqList 페이지 조회 - 유진
 	@RequestMapping(value="catchTalkChat.faq")
-	public String catchTalkChat() {
+	public String selectFaqList(Model model) {
 		
-		return "faq/faqList"; //단순히 faqList 페이지를 보여주는 코드
+		ArrayList<Faq> list = faqService.selectFaqList();
+		model.addAttribute("list", list);
+		return "faq/faqList"; 
 	}
 	
 	

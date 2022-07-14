@@ -129,57 +129,57 @@ div{
        
         <div class="body right">
         <br>
-                <!-- 메뉴 별 제목 작성하는 곳! -->
-                <span id="title">1:1 문의 상세 조회</span>
-                <span id="toMain">CATCHMIND</span>
-            <div class="body-content">
-                <table align="center" id="inquiryDetail">
-                  <tr>
-                      <th>글제목</th>
-                      <td>${in.qaTitle }</td>
-                      <th>글번호</th>
-                      <td>${in.qaNo }</td>
-                  </tr>
-                  <tr>
-                      <th>작성자</th>
-                      <td>${in.qaWriter }</td>
-                      <th>작성일자</th>
-                      <td>${in.qaDate }</td>
-                  </tr>
-                  <tr>
-                      <th>내용</th>
-                  </tr>
-                  <tr>
-                      <td colspan="4">
-                         <p>${in.qaContent}</p>
-                      </td>
-                  </tr>
-                </table>
-                <!-- 답변 영역 -->
-                <div class="reply">
-                    <form action="updateInquiry.ad" method="post">
-                    	<input type="hidden" value="${in.qaNo }" name="qaNo">
-                        <input type="text" placeholder="답변을 입력해주세요" name="anContent">
-                        <button type="submit">작성</button>
-                    </form>
-                    <table class="rep">
-                        <c:choose>
-                            <c:when test="${not empty in.anContent}">
-                                 <tr>
-                                    <td class="rep_date">${in.qaAnswerDate }</td>
-                                    <td class="rep_content">${in.anContent }</td>
-                                </tr>
-                            </c:when>
-                            <c:otherwise>
-	                               <tr class="wrap_rep">
-	                                    <th class="rep_count">답변(0)</th>
-	                                    <td class="rep_content">작성된 댓글이 없습니다.</td>
-	                                </tr>
-                            </c:otherwise>
-                         </c:choose>
-                    </table>    
-                    <br><br>
-                </div>
+            <!-- 메뉴 별 제목 작성하는 곳! -->
+            <span id="title">1:1 문의 상세 조회</span>
+            <a href="/catchmind/"><span id="toMain">CATCHMIND</span></a>
+         	<div class="body-content">
+             <table align="center" id="inquiryDetail">
+               <tr>
+                   <th>글제목</th>
+                   <td>${in.qaTitle }</td>
+                   <th>글번호</th>
+                   <td>${in.qaNo }</td>
+               </tr>
+               <tr>
+                   <th>작성자</th>
+                   <td>${in.qaWriter }</td>
+                   <th>작성일자</th>
+                   <td>${in.qaDate }</td>
+               </tr>
+               <tr>
+                   <th>내용</th>
+               </tr>
+               <tr>
+                   <td colspan="4">
+                      <p>${in.qaContent}</p>
+                   </td>
+               </tr>
+             </table>
+             <!-- 답변 영역 -->
+             <div class="reply">
+                 <form action="updateInquiry.ad" method="post">
+                 	<input type="hidden" value="${in.qaNo }" name="qaNo">
+                    <input type="text" placeholder="답변을 입력해주세요" name="anContent" required>
+                    <button type="submit">작성</button>
+                 </form>
+                 <table class="rep">
+                     <c:choose>
+                         <c:when test="${not empty in.anContent}">
+                              <tr>
+                                 <td class="rep_date">${in.qaAnswerDate }</td>
+                                 <td class="rep_content">${in.anContent }</td>
+                             </tr>
+                         </c:when>
+                         <c:otherwise>
+                             <tr class="wrap_rep">
+                                  <th class="rep_count">답변(0)</th>
+                                  <td class="rep_content">작성된 댓글이 없습니다.</td>
+                              </tr>
+                         </c:otherwise>
+                      </c:choose>
+                  </table>    
+                  <br><br>
+              </div>
             </div>
           </div>
     

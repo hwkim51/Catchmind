@@ -22,6 +22,7 @@ import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.common.template.Pagination;
+import com.e1i4.catchmind.faq.model.vo.Faq;
 import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.e1i4.catchmind.notice.model.vo.Notice;
@@ -82,6 +83,7 @@ public class AdminController {
 	
 	@RequestMapping("recoverMember.ad")
 	public String recoverMember(String userId, Model model) {
+		
 		int result = adminService.recoverMember(userId);
 		
 		if(result > 0) {
@@ -171,7 +173,7 @@ public class AdminController {
 		int result = adminService.updateInquiryAnswer(in);
 		
 		if(result > 0) {
-			return "redirect:detailInquiry.ad?nno="+in.getQaNo();
+			return "redirect:detailInquiry.ad?qno="+in.getQaNo();
 			
 		}
 		else {
@@ -189,7 +191,7 @@ public class AdminController {
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
-		ArrayList<Notice> list = adminService.selectList(pi);
+		ArrayList<Notice> list = adminService.selectNoticeList(pi);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -199,7 +201,7 @@ public class AdminController {
 	
 	@RequestMapping("detailNotice.ad")
 	public ModelAndView selectNotice(int nno, ModelAndView mv) {
-		System.out.println(nno);
+		
 		Notice n = adminService.selectNotice(nno);
 		
 		mv.addObject("n", n).setViewName("admin/noticeDetailAdmin");
@@ -236,6 +238,119 @@ public class AdminController {
 			return "common/errorPage";
 		}
 	}
+	
+	@RequestMapping("updateFormNo.ad")
+	public String updateFormNotice(int noticeNo, Model model) {
+		
+		Notice n = adminService.updateFormNotice(noticeNo);
+		model.addAttribute("n", n);
+		return "admin/updateFormNotice";
+		
+	}
+	
+	@RequestMapping("updateNo.ad")
+	public String updateNotice(Notice n,
+							   MultipartFile reUpfile,
+							   Model model,
+							   HttpSession session) {
+		
+		if(!reUpfile.getOriginalFilename().equals("")) { //새로 첨부된 파일명이 있을 경우
+			
+			if(n.getOriginName() != null) { //기존 첨부 파일의 원본명이 있을 경우
+				
+				//기존 첨부파일을 서버로부터 삭제(수정명으로 진행)
+				String savePath = session.getServletContext().getRealPath(n.getChangeName());
+				new File(savePath).delete();
+			}
+
+			String changeName = saveFile(reUpfile, session);
+			n.setChangeName("resources/noticeUploadFiles/"+changeName);
+			n.setOriginName(reUpfile.getOriginalFilename());
+		}	
+		int result = adminService.updateNotice(n);
+		if(result>0) {
+			
+			session.setAttribute("alertMsg", "공지사항을 수정하였습니다.");
+			return "redirect:noticeList.ad";
+		}else {
+			
+			model.addAttribute("errorMsg", "공지사항 수정에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("deleteNo.ad")
+	public String deleteNotice(int noticeNo, Model model, HttpSession session) {
+		
+		int result = adminService.deleteNotice(noticeNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "공지사항을 삭제하였습니다.");
+			return "redirect:noticeList.ad";
+		}
+		else {
+			model.addAttribute("errorMsg", "공지사항 삭제에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("recoverNo.ad")
+	public String recoverNotice(int noticeNo, Model model, HttpSession session) {
+		
+int result = adminService.recoverNotice(noticeNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "공지사항을 복구하였습니다.");
+			return "redirect:noticeList.ad";
+		}
+		else {
+			model.addAttribute("errorMsg", "공지사항 복구에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("faqList.ad")
+	public String selectFaqList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.selectFaqCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Faq> list = adminService.selectFaqList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		return "admin/faqListView";
+	}
+	
+	@RequestMapping("insertFaq.ad")
+	public String insertFaq(Faq f, Model model, HttpSession session) {
+		
+		int result = adminService.insertFaq(f);
+		if(result > 0) {
+			session.setAttribute("alertMsg", "faq를 등록하였습니다.");
+			return "redirect:faqList.ad";
+		}else {
+			model.addAttribute("errorMsg", "faq 등록에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("deleteFaq.ad")
+	public String deleteFaq(int fno, Model model, HttpSession session) {
+		
+		int result = adminService.deleteFaq(fno);
+		if(result > 0) {
+			session.setAttribute("alertMsg", "FAQ를 삭제하였습니다.");
+			return "redirect:faqList.ad";
+		}else {
+			model.addAttribute("errorMsg", "faq 삭제에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
 	
 	// 사진 첨부 관련 메소드
 	public String saveFile(MultipartFile upfile, HttpSession session) {

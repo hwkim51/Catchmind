@@ -89,6 +89,7 @@
     <jsp:include page="../common/footer.jsp"/>
 
     <script>
+
         function login(){
             location.href="loginPage.me";
         }

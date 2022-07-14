@@ -259,15 +259,9 @@ body{
                     </div>
                     <div id="chatButton">
                         <ul id="chatQuestion">
-                            <li class="question q1" value="1">캐치마인드는 어떤 사이트인가요?</li>
-                            <li class="question q2" value="2">어떤 방식으로 매칭이 진행되나요?</li>
-                            <li class="question q3" value="3">MBTI가 뭔가요?</li>
-                            <li class="question q4" value="4">선택한 조건과 다른 유저가 매칭됩니다.</li>
-                            <li class="question q5" value="5">프로필 정보를 변경할 수 있나요?</li>
-                            <li class="question q6" value="6">아이디, 비밀번호를 잊어버렸어요?</li>
-                            <li class="question q7" value="7">대화 중 불쾌한 언행을 한 상대를 차단할 수 있나요?</li>
-                            <li class="question q8" value="8">차단 당하면 대화를 할 수 없나요?</li>
-                            <li class="question q9" value="9">회원 탈퇴는 어떻게 하나요?</li>
+                            <c:forEach var="f" items="${list}">
+                                <li class="question" value="${f.faqNo}">${f.faqTitle}</li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>

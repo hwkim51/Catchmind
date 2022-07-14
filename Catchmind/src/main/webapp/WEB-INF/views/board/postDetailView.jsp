@@ -117,7 +117,7 @@
         padding-bottom: 20px;
     	white-space: pre-wrap;
       } /* 글 내용 설정 */
-
+      
       /* ########## 댓글 입력 설정 영역 ##########*/
       .sub_body>.wr_reply{
         padding-top: 20px;
@@ -147,33 +147,29 @@
       
       /* ########## 입력된 댓글 설정 영역 ########## */
       .sub_body .rep_count{
+      width:100px;
       font-size:20px;
       margin-bottom:2px;
-      }
+      } /* 댓글 개수 */
       .sub_body .rep_userbox{
       display:inline-flex;
       width:100%;
       background-color: rgb(186,186,186);
-      }
+      } /* 댓글 작성자에 대한 정보 */
       .sub_body .rep_userbox, .rep_content{
       font-size:17px;
       border: 1px solid black;
       border-collapse: collapse;
       white-space: pre-wrap;
-      }
-      .sub_body .rep_userbox *{
-      flex-wrap: wrap;
-      }
+      } /* 댓글 내용 */
       .sub_body .rep_update, .rep_delete{
+      flex-wrap: wrap;
       font-size:10px;
       display: flex;
       align-items:center;
       margin: 0px 0px 0px 10px;
       cursor:pointer;
-      }
-      .sub_body .rep_count{
-      width:100px;
-      }
+      } /* 수정하기 삭제하기 스타일 적용 */
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
         text-align: center;
@@ -181,14 +177,40 @@
         border: none;
         padding-bottom: 100px;
         padding-top: 20px;
-      }
+      } /* 목록으로 구역 설정 및 스타일 적용 */
       .sub_foot>.btn_list{
         cursor:pointer;
         color:black;
         text-decoration: none;
-      }
+      } /* 목록으로 스타일 적용 */
       
+      /* ################### MODAL 설정 영역 ################### */
+      .report-box{
+      outline:none !important;
+      border:none;
+      background:none;
+      } /* 신고하기 스타일 적용*/
+      .w3-container>span:hover{
+      background-color: transparent !important;
+      } /* 모달창 내에 취소박스 배경색 적용 */
+      .w3-container>textarea{
+      margin-top:5px;
+      width:100%;
+      height:600px;
+      resize:none;
+      outline:none;
+      } /* 모달창 내에 사유 입력 스타일 */
+      .w3-container>button{
+      border:none;
+      margin-bottom: 10px;
+      background-color:orange;
+      } /* 모달창 내에 제출 스타일 */
+      #reply_Area .report-box{
+      font-size: 7px;
+      } /* 댓글의 신고하기 크기설정 */
     </style>
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
 
@@ -228,6 +250,11 @@
                 <div class="wr_count">조회수 : ${ p.postCount }</div> <br>
                 <div class="wr_image"><img src="${ a.attChange }" /> <br></div>
                 <pre class="wr_content">${ p.postContent }</pre>
+                <c:if test="${ (not empty loginUser) or (loginUser.userNo eq 1) }">
+                <!-- Trigger/Open the Modal -->
+				<button onclick="document.getElementById('id01').style.display='block'"
+				class="report-box">신고하기</button>
+				</c:if>
                 <div class="wr_reply">
                     <c:choose>
                     	<c:when test="${ empty loginUser }">
@@ -235,6 +262,7 @@
 		                   <button type="button" onclick="addReply();" disabled>작성</button>
                     	</c:when>
                     	<c:otherwise>
+                    	
 		                   <textarea id="rep_input" placeholder="댓글을 입력해주세요"></textarea>
 		                   <button type="button" onclick="addReply();">작성</button>
                     	</c:otherwise>
@@ -244,18 +272,17 @@
                 <div>댓글</div>
                 
                 <div id="reply_Area">
-                
                 	<c:forEach var="r" items="${ rlist }">
-                      <tr>
                         <div class="rep_userbox">
-                        <input type="hidden" id="rno" name="rno" value="${ r.replyNo }">
+                        <input type="hidden" class="rno" name="rno" value="${ r.replyNo }">
 		                <div class="rep_nickname">${ r.replyNickName }</div>
-		                <c:if test="${ (not empty loginUser) and (loginUser.userNo eq r.replyWriter) or (loginUser.userNo eq 1) }">
-		                <div class="rep_delete">(삭제하기)</div>
-		                </c:if>
+			                <c:if test="${ (not empty loginUser) and (loginUser.userNo eq r.replyWriter) or (loginUser.userNo eq 1) }">
+				                <div class="rep_delete">(삭제하기)</div>
+				                <button onclick="document.getElementById('id01').style.display='block'"
+				class="report-box">신고하기</button>
+			                </c:if>
 		               	</div>
 		               	<pre class="rep_content">${ r.replyContent }</pre>
-                      </tr>
                     </c:forEach>
                 </div>
                 
@@ -264,9 +291,11 @@
 		           		$(".rep_delete").click(function() {
 		           			$.ajax({
 		           				url : "delete.rep",
-		           				data : {replyNo : $("#rno").val()},
+		           				data : {replyNo : $(this).prev().prev().val()},
 		           			 	success : function(result) {
 		            				if(result == "success") {
+
+		            					console.log($("#rno").val());
 		            					location.reload();
 		            					window.alert("댓글이 삭제되었습니다!");
 		            				} else {
@@ -274,6 +303,9 @@
 		            				}
 		           			 	}
 		           			});
+		           		});
+		           		$(".report-box").click(function() {
+		           			$('#replyNo').val($(this).prev().prev().prev().val());
 		           		});
 		           	});
 		           </script>
@@ -332,10 +364,55 @@
     </script>
             
             <div class="sub_foot">
-                <a class="btn_list" href="javascript:history.back()">목록으로 ▶ </a>
+                <a class="btn_list" href="list.po">목록으로 ▶ </a>
             </div>
         </div>
     </div>
+    
+    
+    <!-- The Modal -->
+	<div id="id01" class="w3-modal">
+	    <div class="w3-modal-content w3-animate-zoom">
+	        <header class="w3-container w3-orange">
+	            <span onclick="document.getElementById('id01').style.display='none'"
+	            class="w3-button w3-display-topright">&times;</span>
+	            <h2>신고하기</h2>
+	        </header>
+	    <div class="w3-container">
+	      <span onclick="document.getElementById('id01').style.display='none'"
+	      class="w3-button w3-display-topright">&times;</span>
+            <input type="hidden" name="postNo" value="${ p.postNo }">
+            <input type="hidden" id="replyNo" name="replyNo" value="">
+            <textarea id="repContent" name="repContent" placeholder="신고사유를 작성해주세요" required></textarea>
+            <button onclick="reportRep();">신고</button>
+	    </div>
+	  </div>
+	  </div>
+	  
+	  
+	  <script>
+	  function reportRep() {
+      		$.ajax({
+      			url : "report.all",
+      			data : {
+      				repContent : $("#repContent").val(),
+      				postNo : ${ p.postNo },
+      				replyNo : $("#replyNo").val(),
+      			},
+      			success : function(result) {
+      				if(result == "success") {
+      					location.reload();
+    					window.alert("신고가 접수되었습니다.!");
+      				} else {
+      					alertify.alert("댓글작성실패", "댓글등록에 실패하였습니다.")
+      				}
+      			},
+      			error : function() {
+      				console.log("댓글작성용 ajax 통신 실패!");
+      			}
+      		});
+  	}
+	  </script>
 
     <jsp:include page="../common/footer.jsp" />
 </body>

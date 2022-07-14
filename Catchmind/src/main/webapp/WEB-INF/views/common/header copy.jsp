@@ -29,7 +29,7 @@
             box-sizing: border-box;
         }
         /* header : icon */
-        label[for="menuicon"], #membericon, #loginchk+label{
+        label[for="menuicon"], #membericon{
             width:80px;
             height:80px;
             padding: 15px;
@@ -46,15 +46,10 @@
             transition-duration:0.5;
         }
         #membericon{
+            position: relative;
             top:20px;
             float: right;
             background:url('./resources/images/people.png') 0px 0 / 40px no-repeat;
-        }
-        #loginchk+label{
-            position: relative;
-            top: -60px;
-            float: right;
-            right: 90px;
         }
     
         /* header : sidebar*/
@@ -159,42 +154,7 @@
             -webkit-text-fill-color : transparent;
             -webkit-background-clip: text; 
         }
-        #loginchk{
-            position:absolute; 
-            left: -1000%;
-        }
-        #loginchk+label{
-            display:inline-block;
-            width:60px;
-            height:25px;
-            background:#d3d3d3;
-            border-radius:60px;
-            position:relative;
-            transition: background .4s;
-        }
-        #loginchk+label:after{
-            content:""; 
-            position:absolute; 
-            left:4px;
-            top:50%;
-            width:17px;
-            height:17px;
-            border-radius:100%;
-            background:#fff;
-            box-shadow: 1px 1px 2px rgba(0,0,0, 0.3);
-            transform:translateY(-50%);
-            transition: all .4s;
-        }
-        #loginchk+label span{
-            display:none;
-        }
-        #loginchk:checked+label{
-            background-color: #2dac5e;
-        }
-        #loginchk:checked+label:after{
-            left: 65%;
-        }
-       
+      
         </style>
 </head>
 
@@ -218,24 +178,11 @@
     <a href="/catchmind/">
         <div class="homelogo">CATCHMIND</div>
     </a>
-    
-
-     
 
     <!-- header : 회원아이콘 -->
     <div id="membericon" style="right:0px;" onclick="myPage()">
         <br clear="both">
     </div>
-    <br clear="both">
-
-    <c:choose>
-        <c:when test="${not empty loginUser}">
-            <input type="checkbox" id="loginchk" checked><label for="loginchk"><span>로그인</span></label>
-        </c:when>
-        <c:otherwise>
-            <input type="checkbox" id="loginchk"><label for="loginchk"><span>로그아웃</span></label>
-        </c:otherwise>
-    </c:choose>
 
     <!-- header : click 시 sidebar -->
     <div class="sidebar">

@@ -61,11 +61,16 @@ public class MemberController {
 								Member m,
 								HttpSession session) {		
 		Member loginUser = memberService.loginMember(m);
-
+		
 		if(loginUser == null) {
 			session.setAttribute("alertMsg", "일치하는 회원정보가 없습니다.");
 			
 			return "redirect:loginPage.me";
+		}
+		else if(loginUser.getUserId().equals("admin")) {
+			session.setAttribute("loginUser", loginUser);
+			int updateRecentLogin = updateRecentLogin(m);
+			return "redirect:memberList.ad";
 		}
 		else { 
 			session.setAttribute("loginUser", loginUser);
@@ -77,12 +82,14 @@ public class MemberController {
 	// 로그인 시 recentLogin 업데이트(update)
 	public int updateRecentLogin(Member m) {
 		int updateRecentLogin = memberService.updateRecentLogin(m);
+		
 		return updateRecentLogin;
 	}
 	
-	// 로그아웃 => 마이페이지 생성하면 거기서 로그아웃버튼만들기 ?(수빈)
+	// 로그아웃 
 	@RequestMapping(value="logout.me")
 	public String logoutMember() {
+		
 		return ""; 
 	}
 	

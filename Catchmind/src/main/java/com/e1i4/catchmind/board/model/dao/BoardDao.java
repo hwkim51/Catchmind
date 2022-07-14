@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
+import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 
@@ -63,4 +64,23 @@ public class BoardDao {
 		return sqlSession.delete("boardMapper.deleteReply", replyNo);
 	}
 
+	public int insertReport(Report r, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("boardMapper.insertReport", r);
+	}
+
+	public int updatePost(Post p, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("boardMapper.updatePost", p);
+	}
+	
+	public int updateFile(Attach a, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("boardMapper.updateFile", a);
+	}
+
+	public int deleteFile(Attach a, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("boardMapper.deleteFile", a);
+	}
+
+	public int addFile(Attach a, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("boardMapper.addFile", a);
+	}
 }

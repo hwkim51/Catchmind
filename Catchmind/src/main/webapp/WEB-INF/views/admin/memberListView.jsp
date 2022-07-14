@@ -19,156 +19,212 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <style>
-    div {
-        box-sizing : border-box;
-        margin : 0px;
-        border : 1px solid red;
-        padding : 0px;   
-    }
+div{
+	box-sizing : border-box;
+    margin : 0px;
+    padding : 0px;  
+}
 
-    .admin-outer {
-        width : 1200px;
-        height : 1000px;
-        margin-left : 80px;
-        margin-right : 80px;
-    }
+.wrap{
+    width:1200px;
+    height:1000px;
+    margin-left:80px;
+}
 
-    .admin-menu {
-        width : 12.5%;
-        height : 100%;
-        float : left;
-    }
+.body{
+    width:100%;
+}
+.left{
+    width:12.5%;
+    height:100%;
+    float:left;
+}
 
-    .admin-menu>div{
-        height : 50px;
-        padding-left : 10px;
-        line-height : 50px;
-        font-size : 20px;
-        font-weight : bold;
-    }
+.right {
+    width : 87.5%;
+    height : 100%;
+    float:left;
+}
 
-    .admin-menu>ul {
-        margin-top : -10px;
-    }
+#title {
+    font-size : 30px;
+    font-weight : bolder;
+    padding-left : 20px;
+}
 
-    .admin-content {
-        width : 87.5%;
-        height : 100%;
-        float : left;
-    }
+#toMain {
+    font-size : 35px;
+    font-weight : bolder;
+    color : orange;
+    float : right;
+    padding-right : 20px;
+}
 
-    #title {
-        font-size : 30px;
-        font-weight : bolder;
-        padding-left : 20px;
-    }
+#memberTable {
+    margin-left : 20px;
+    margin-top:20px;
+    width:95%;
+    text-align:center;
+    border-color: lightgray;
+}
 
-    #toMain {
-        font-size : 35px;
-        font-weight : bolder;
-        color : orange;
-        float : right;
-        padding-right : 20px;
-    }
+#memberTable>thead {
+    background-color : lightgrey;
+}
 
-    #memberTable {
-        border : 1px solid black;
-        margin-left : 20px;
-    }
+#memberTable>thead>tr {
+    padding-left : 15px;
+    text-align: center;
+    height:40px;
+}
 
-    #memberTable>thead {
-        background-color : lightgrey;
-    }
+#btn1{
+    background-color: orange;
+    color: white;
+    width:5px;
+    height:20px;
+    border-radius: .25em;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    font-size:medium;          
+}
 
-    #memberTable>thead>tr>th {
-        padding-left : 15px;
-    }
+#pagingArea {width:fit-content; margin:auto; margin-top:50px;}
 
-    #id {
-        width : 150px;
-    }
+#toMain:hover{
+    background: linear-gradient( rgb(236, 3, 194) 1%, orange);
+    -webkit-text-fill-color : transparent;
+    -webkit-background-clip: text; 
+}
 
-    #nickname {
-        width : 150px;
-    }
-
-    #name {
-        width : 150px;
-    }
-
-    #status {
-        width : 150px;
-    }
-
-    #btns {
-        width : 400px;
-    }
-    
-    .admin-menu a{ 
-    	text-decoration: none;
-        color: black;
-    }
-
+.btn-member{
+    margin: 5px 0px;
+    width: 80px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    color: white;
+    background-color: rgb(65, 65, 65);
+}
+.btn-member:hover{
+    opacity: 0.7;
+}
+.userId{
+    padding-left: 20px;
+    text-align: left;
+}
 </style>
 </head>
 <body>
-    <div class="admin-outer">
+    <div class="wrap">
+        <div class="body left">
+         <!-- adminHeader.jsp 파일 include 하는 공간-->
+             <jsp:include page="../admin/adminHeader.jsp"/>
+         </div>
+        
+           <div class="body right">
+             <br>
+                 <!-- 메뉴 별 제목 작성하는 곳! -->
+                 <span id="title">회원관리</span>
+                 <a href="/catchmind/"><span id="toMain">CATCHMIND</span></a>
+             <br>
+             <div class="body-content">
+             <table id="memberTable">
+                 <thead>
+                     <tr>
+                         <th class="userId" style="width : 150px;">ID</th>
+                         <th style="width : 200px;">닉네임</th>
+                         <th style="width : 150px;">이름</th>
+                         <th style="width : 150px;">상태</th>
+                         <th style="width : 200px;"></th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                    
+                        <c:forEach items="${list}" var="m">
+                            <tr>
+                                <th class="userId">${m.userId}</th>
+                                <th class="nickname">${m.nickname}</th>
+                                <th class="userName">${m.userName}</th>
+                                <th class="status">
+                                    <c:choose>
+                                        <c:when test="${m.status eq 0}">일반</c:when>
+                                        <c:when test="${m.status eq 1}">탈퇴</c:when>
+                                        <c:otherwise>블랙</c:otherwise>
+                                    </c:choose>
+                                </th>
+                                <th class="statusBtn">
+                                    <c:choose>
+                                        <c:when test="${m.status eq 2}"> <!-- 0:일반(디폴트) / 1:탈퇴 / 2:블랙-->
+                                            <input type="button" id="btn-recover" class="btn-member" value="복구" style="background-color: rgb(51, 143, 51);">&nbsp;&nbsp;
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <input type="button" id="btn-black" class="btn-member" value="블랙">&nbsp;&nbsp;
+                                        </c:otherwise>
+                                    </c:choose>
 
-        <div class="admin-menu">
-            <div id="admin-member">회원 관리</div>
-            <div id="admin-board">게시글 관리</div>
-            <ul>
-                <li>에브리타임</li>
-                <li>연애의 발견</li>
-            </ul>
-            <div id="admin-cs">고객센터 관리</div>
-            <ul>
-                <li>공지사항</li>
-                <li>FAQ</li>
-                <li><a href="inquiryList.ad">1:1 문의</a></li>
-            </ul>
-            <div id="admin-stat">웹사이트 통계</div>
-        </div>
-        <div class="admin-content">
-            <br>
-            <span id="title">회원 관리</span>
-            <span id="toMain">CATCHMIND</span>
-            <br><br>
-            <table id="memberTable">
-                <thead>
-                    <tr>
-                        <th id="id">ID</th>
-                        <th id="nickname">닉네임</th>
-                        <th id="name">이름</th>
-                        <th id="status">상태</th>
-                        <th colspan="2" id="btns"></th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>        
+                                    <c:choose>
+                                        <c:when test="${m.status eq 1}">
+                                            <input type="button" id="btn-recover" class="btn-member" value="복구" style="background-color: rgb(51, 143, 51);">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="button" id="btn-delete" class="btn-member" value="탈퇴" style="background-color: rgb(181, 40, 40);">
+                                        </c:otherwise>
+                                    </c:choose>
+                                    
+                                </th>
+                            </tr>
+                        </c:forEach>
+                 </tbody>
+             </table>
+           </div>
+           <!-- 페이징 바 영역 -->
+             <div id="pagingArea">
+                 <ul class="pagination">
+                    <c:choose>
+                        <c:when test="${pi.currentPage eq 1}">
+                            <li class="page-item disabled"><a class="page-link" href="#">&lt; Prev</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" href="memberList.ad?cpage=${pi.currentPage - 1}">&lt; Prev</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                    <li class="page-item"><a class="page-link" href="memberList.ad?cpage=${ p }">${ p }</a></li>
+                    </c:forEach>     
+                    <c:choose>   
+                        <c:when test="${pi.currentPage eq pi.maxPage}">  
+                            <li class="page-item disabled"><a class="page-link" href="#">Next &gt;</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" href="memberList.ad?cpage=${pi.currentPage + 1}">Next &gt;</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                 </ul>
+             </div>
+         </div>
+     </div>
 
-    </div>
+     <script>
+        $(function(){
+            $("#btn-recover").click(function(){
+                var userId = $(this).parent().siblings(".userId").text();
+                
+                location.href="recoverMember.ad?userId="+ userId;
+            })
+            $("#btn-black").click(function(){
+                var userId = $(this).parent().siblings(".userId").text();
 
-    <script>
+                location.href="blackMember.ad?userId="+ userId;
+            })
+            $("#btn-delete").click(function(){
+                var userId = $(this).parent().siblings(".userId").text();
 
-        $("#admin-member").click(function() {
-            location.href = "memberList.ad";
-        });
-
-        $("#admin-board").click(function() {
-            location.href = "boardList.ad";
-        });
-    
-        $("#admin-cs").click(function() {
-            location.href = "inquiryList.ad";
-        });
-
-        $("admin-stat").click(function() {
-            location.href = "websiteStat.ad";
-        });
-
-    </script>
-
+                location.href="deleteMember.ad?userId="+ userId;
+            })
+        })
+     </script>
 </body>
 </html>

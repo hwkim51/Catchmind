@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import com.e1i4.catchmind.board.model.dao.BoardDao;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
+import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
+
+import oracle.net.aso.r;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -74,7 +77,16 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int updatePost(Post p) {
-		return 0;
+		return boardDao.updatePost(p, sqlSession);
+	}
+	
+	@Override
+	public int updateFile(Attach a) {
+		return boardDao.updateFile(a, sqlSession);
+	}
+	@Override
+	public int deleteFile(Attach a) {
+		return boardDao.deleteFile(a, sqlSession);
 	}
 
 
@@ -88,7 +100,18 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deleteReply(replyNo, sqlSession);
 	}
 
+	@Override
+	public int insertReport(Report r) {
+		return boardDao.insertReport(r, sqlSession);
+	}
+
+	@Override
+	public int addFile(Attach a) {
+		return boardDao.addFile(a, sqlSession);
+	}
+
 	
+
 
 	
 
