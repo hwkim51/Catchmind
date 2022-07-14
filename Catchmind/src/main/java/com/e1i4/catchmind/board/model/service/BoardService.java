@@ -2,6 +2,7 @@ package com.e1i4.catchmind.board.model.service;
 
 import java.util.ArrayList;
 
+import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
@@ -54,6 +55,33 @@ public interface BoardService {
 	int deleteFile(Attach a);
 
 	int addFile(Attach a);
+
+	ArrayList<Post> selectMyList(PageInfo pi, int userNo);
+
+	int selectMyListCount(int userNo);
+
+	int selectCatchListCount();
+
+	ArrayList<Catch> selectCatchList(PageInfo pi);
+
+	Catch selectCatch(int catchNo);
+
+	ArrayList<Attach> selectFiles(int catchNo);
+
+	int insertCatch(Catch c);
+
+	int insertFiles(Attach a);
+
+	int deleteCatch(int catchNo);
+
+	int increaseCatchCount(int catchNo);
+
+	int deleteFiles(Attach a);
+
+	int addFiles(Attach a);
+
+	int updateCatch(Catch c);
+
 
 	
 }

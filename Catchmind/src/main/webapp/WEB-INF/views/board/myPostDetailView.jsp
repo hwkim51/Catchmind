@@ -100,14 +100,13 @@
         font-weight: 800;
         font-size: 30px;
       } /* 조회수 설정 */
-      .sub_body .wr_image{
-        width: 100%;
-        height:535px;
-      }
-      .sub_body .wr_image>img{
-	    width:100%;
-	    height: 100%;
-      	object-fit:contain;
+      .sub_body>.wr_image{
+        width: 1645px;
+        height:100%;
+        overflow:hidden;
+      } /* 이미지영역 설정 */
+      .sub_body>.wr_image>img{
+      	object-fit:none;
       }
 
       /* ########## 글내용 설정 영역 ########## */
@@ -230,15 +229,14 @@
             	<form id="postForm" action="" method="post">
             		<input type="hidden" name="postNo" value="${ p.postNo}">
             		<input type="hidden" name="filePath" value="${ a.attChange }">
-            		<input type="hidden" name="attNo" value="${ a.attNo}">
             	</form>
             	
             	<script>
             		function postFormSubmit(num) {
             			if(num == 1) { // 수정 요청으로 action 속성값 바꾸기
-            				$("#postForm").attr("action", "updateEnroll.po").submit();
+            				$("#postForm").attr("action", "myUpdateEnroll.po").submit();
             			} else { // 삭제 요청으로 action 속성값 바꾸기
-            				$("#postForm").attr("action", "delete.po").submit();
+            				$("#postForm").attr("action", "myDelete.po").submit();
             			}
             		}
             	</script>
@@ -250,9 +248,7 @@
                 <div class="wr_date">작성일자 : ${ p.postDate }</div> <br>
                 <div class="wr_writer">작성자 : ${ p.nickName }</div>
                 <div class="wr_count">조회수 : ${ p.postCount }</div> <br>
-                <c:if test= "${ !empty a }">
-                	<div class="wr_image"><img src="${ a.attChange }"> <br></div>
-                </c:if>
+                <div class="wr_image"><img src="${ a.attChange }" /> <br></div>
                 <pre class="wr_content">${ p.postContent }</pre>
                 <c:if test="${ (not empty loginUser) or (loginUser.userNo eq 1) }">
                 <!-- Trigger/Open the Modal -->
@@ -368,7 +364,7 @@
     </script>
             
             <div class="sub_foot">
-                <a class="btn_list" href="list.po">목록으로 ▶ </a>
+                <a class="btn_list" href="myBoard.po">목록으로 ▶ </a>
             </div>
         </div>
     </div>

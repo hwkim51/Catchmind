@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.board.model.dao.BoardDao;
+import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
@@ -23,6 +24,7 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	/* ============================ Post ============================ */
 	@Override
 	public int selectListCount() {
 		return boardDao.selectListCount(sqlSession);
@@ -89,7 +91,6 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deleteFile(a, sqlSession);
 	}
 
-
 	@Override
 	public ArrayList<Post> selectTopPostList() {
 		return null;
@@ -108,6 +109,76 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int addFile(Attach a) {
 		return boardDao.addFile(a, sqlSession);
+	}
+
+	
+	
+	/* ============================ 내 글 관리 ============================ */
+	@Override
+	public ArrayList<Post> selectMyList(PageInfo pi, int userNo) {
+		return boardDao.selectMyList(pi, userNo, sqlSession);
+	}
+
+	@Override
+	public int selectMyListCount(int userNo) {
+		return boardDao.selectMyListCount(userNo, sqlSession);
+	}
+
+	
+	/* ============================ Catch ============================ */
+	@Override
+	public int selectCatchListCount() {
+		return boardDao.selectCatchListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Catch> selectCatchList(PageInfo pi) {
+		return boardDao.selectCatchList(pi, sqlSession);
+	}
+
+	@Override
+	public Catch selectCatch(int catchNo) {
+		return boardDao.selectCatch(catchNo, sqlSession);
+	}
+
+	@Override
+	public ArrayList<Attach> selectFiles(int catchNo) {
+		return boardDao.selectFiles(catchNo, sqlSession);
+	}
+
+	@Override
+	public int insertCatch(Catch c) {
+		return boardDao.insertCatch(c, sqlSession);
+	}
+
+	@Override
+	public int insertFiles(Attach a) {
+		return boardDao.insertFiles(a, sqlSession);
+	}
+
+	@Override
+	public int deleteCatch(int catchNo) {
+		return boardDao.deleteCatch(catchNo, sqlSession);
+	}
+
+	@Override
+	public int increaseCatchCount(int catchNo) {
+		return boardDao.increaseCatchCount(catchNo, sqlSession);
+	}
+
+	@Override
+	public int deleteFiles(Attach a) {
+		return boardDao.deleteFiles(a, sqlSession);
+	}
+
+	@Override
+	public int addFiles(Attach a) {
+		return boardDao.addFiles(a, sqlSession);
+	}
+
+	@Override
+	public int updateCatch(Catch c) {
+		return boardDao.updateCatch(c, sqlSession);
 	}
 
 	

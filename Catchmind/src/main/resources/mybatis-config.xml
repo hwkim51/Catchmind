@@ -19,6 +19,7 @@
 		<typeAlias type="com.e1i4.catchmind.member.model.vo.Block" alias="block" />
 		<typeAlias type="com.e1i4.catchmind.board.model.vo.Reply" alias="reply"/>
 		<typeAlias type="com.e1i4.catchmind.board.model.vo.Report" alias="report"/>
+		<typeAlias type="com.e1i4.catchmind.board.model.vo.Catch" alias="catch"/>
 	</typeAliases>
 	
 	<mappers>

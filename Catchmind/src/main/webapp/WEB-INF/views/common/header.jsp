@@ -246,7 +246,7 @@
                 <div>
                     <li><a href="list.to"> 함께 놀러가요 💑</a></li>
                     <li><a href="list.po">에브리타임</a></li>
-                    <li><a href="list.lo">연애의 발견</a></li>
+                    <li><a href="list.ca">연애의 발견</a></li>
                 </div>
             <br>
             <ul class="accodion"><a><span>고객센터</span></a></ul>
