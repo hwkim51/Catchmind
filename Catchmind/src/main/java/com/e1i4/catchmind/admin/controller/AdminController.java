@@ -200,7 +200,7 @@ public class AdminController {
 	
 	@RequestMapping("detailNotice.ad")
 	public ModelAndView selectNotice(int nno, ModelAndView mv) {
-		System.out.println(nno);
+		
 		Notice n = adminService.selectNotice(nno);
 		
 		mv.addObject("n", n).setViewName("admin/noticeDetailAdmin");

@@ -68,6 +68,8 @@ public class MemberController {
 			return "redirect:loginPage.me";
 		}
 		else if(loginUser.getUserId().equals("admin")) {
+			session.setAttribute("loginUser", loginUser);
+			int updateRecentLogin = updateRecentLogin(m);
 			return "redirect:memberList.ad";
 		}
 		else { 
@@ -84,9 +86,10 @@ public class MemberController {
 		return updateRecentLogin;
 	}
 	
-	// 로그아웃 => 마이페이지 생성하면 거기서 로그아웃버튼만들기 ?(수빈)
+	// 로그아웃 
 	@RequestMapping(value="logout.me")
 	public String logoutMember() {
+		
 		return ""; 
 	}
 	

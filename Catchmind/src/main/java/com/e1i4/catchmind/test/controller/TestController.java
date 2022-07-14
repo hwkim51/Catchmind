@@ -28,8 +28,6 @@ public class TestController {
 		
 		Test testResult = new Test();
 		
-		System.out.println("mbti 결과" + mbtiResult);
-		
 		if(mbtiResult.equals("ESTP")) {
 			
 			testResult = new Test("./resources/images/mbtiResult/ESTP_ResultImg.png", 
@@ -178,7 +176,6 @@ public class TestController {
 						 "당신은 자신의 삶이 배움과 성장을 추구하며 보내기를 원하는데 사랑하는 사람이 이 사명을 공유할 뿐만 아니라 적극적으로 격려하기를 바랍니다.", "");
 		}
 		
-		System.out.println(testResult);
 		session.setAttribute("testResult", testResult);
 		
 		return "test/mbtiResultView";

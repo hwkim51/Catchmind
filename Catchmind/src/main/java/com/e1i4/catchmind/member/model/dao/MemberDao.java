@@ -14,11 +14,7 @@ public class MemberDao {
 	// 로그인(select)
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
 
-		Member result = sqlSession.selectOne("memberMapper.loginMember", m);
-		
-		System.out.println("최근로그인 시분초 결과알려줘 :" + result);
-		return result;
-		
+		return sqlSession.selectOne("memberMapper.loginMember", m);
 		
 	}
 	
