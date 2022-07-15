@@ -266,6 +266,12 @@ public class MemberController {
 		return "";
 	}
 	
+	// 마이페이지 - 커플관리 페이지로 이동 : 수빈
+	@RequestMapping(value="myPartner.me")
+	public String partnerUpdate() {
+		return "member/myPage-Partner";
+	}
+	
 	// 마이페이지 - 팔로우 리스트 페이지로 이동(유진)
 	@RequestMapping(value="myFollow.me")
 	public String followList() {
