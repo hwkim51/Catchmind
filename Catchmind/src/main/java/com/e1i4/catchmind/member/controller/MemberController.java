@@ -88,9 +88,9 @@ public class MemberController {
 	
 	// 로그아웃 
 	@RequestMapping(value="logout.me")
-	public String logoutMember() {
-		
-		return ""; 
+	public String logoutMember(HttpSession session) {
+		session.invalidate();
+		return "redirect:/"; 
 	}
 	
 	// 아이디 중복체크(select)

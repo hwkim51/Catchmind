@@ -158,19 +158,19 @@ div{
                                 <th class="statusBtn">
                                     <c:choose>
                                         <c:when test="${m.status eq 2}"> <!-- 0:일반(디폴트) / 1:탈퇴 / 2:블랙-->
-                                            <input type="button" id="btn-recover" class="btn-member" value="복구" style="background-color: rgb(51, 143, 51);">&nbsp;&nbsp;
+                                            <input type="button" class="btn-member btn-recover" value="복구" style="background-color: rgb(51, 143, 51);">&nbsp;&nbsp;
                                         </c:when> 
                                         <c:otherwise>
-                                            <input type="button" id="btn-black" class="btn-member" value="블랙">&nbsp;&nbsp;
+                                            <input type="button" class="btn-member btn-black" value="블랙">&nbsp;&nbsp;
                                         </c:otherwise>
                                     </c:choose>
 
                                     <c:choose>
                                         <c:when test="${m.status eq 1}">
-                                            <input type="button" id="btn-recover" class="btn-member" value="복구" style="background-color: rgb(51, 143, 51);">
+                                            <input type="button" class="btn-member btn-recover" value="복구" style="background-color: rgb(51, 143, 51);">
                                         </c:when>
                                         <c:otherwise>
-                                            <input type="button" id="btn-delete" class="btn-member" value="탈퇴" style="background-color: rgb(181, 40, 40);">
+                                            <input type="button" class="btn-member btn-delete" value="탈퇴" style="background-color: rgb(181, 40, 40);">
                                         </c:otherwise>
                                     </c:choose>
                                     
@@ -209,19 +209,16 @@ div{
 
      <script>
         $(function(){
-            $("#btn-recover").click(function(){
+            $(".btn-recover").click(function(){
                 var userId = $(this).parent().siblings(".userId").text();
-                
                 location.href="recoverMember.ad?userId="+ userId;
             })
-            $("#btn-black").click(function(){
+            $(".btn-black").click(function(){
                 var userId = $(this).parent().siblings(".userId").text();
-
                 location.href="blackMember.ad?userId="+ userId;
             })
-            $("#btn-delete").click(function(){
+            $(".btn-delete").click(function(){
                 var userId = $(this).parent().siblings(".userId").text();
-
                 location.href="deleteMember.ad?userId="+ userId;
             })
         })

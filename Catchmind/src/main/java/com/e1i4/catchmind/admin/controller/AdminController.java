@@ -52,47 +52,47 @@ public class AdminController {
 	}
 	
 	@RequestMapping("blackMember.ad")
-	public String blackMemeber(String userId, Model model) {
+	public String blackMemeber(String userId, HttpSession session) {
 		
 		int result = adminService.blackMember(userId);
 		
 		if(result > 0) {
-			model.addAttribute("alertMsg", "black성공!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"'는 블랙리스트 처리되었습니다.");
+			return "redirect:memberList.ad";
 		}
 		else {
-			model.addAttribute("alertMsg", "black실패!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"' 블랙리스트 처리가 실패되었습니다.");
+			return "common/errorPage";
 		}
 	}
 	
 	@RequestMapping("deleteMember.ad")
-	public String deleteMember(String userId, Model model) {
+	public String deleteMember(String userId, HttpSession session) {
 		
 		int result = adminService.deleteMember(userId);
 		
 		if(result > 0) {
-			model.addAttribute("alertMsg", "탈퇴 성공!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"'는 탈퇴 처리되었습니다.");
+			return "redirect:memberList.ad";
 		}
 		else {
-			model.addAttribute("alertMsg", "탈퇴 실패!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"' 탈퇴 처리가 실패되었습니다.");
+			return "common/errorPage";
 		}
 	}
 	
 	@RequestMapping("recoverMember.ad")
-	public String recoverMember(String userId, Model model) {
+	public String recoverMember(String userId, HttpSession session) {
 		
 		int result = adminService.recoverMember(userId);
 		
 		if(result > 0) {
-			model.addAttribute("alertMsg", "복구 성공!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"' 계정이 복구 처리되었습니다.");
+			return "redirect:memberList.ad";
 		}
 		else {
-			model.addAttribute("alertMsg", "복구 실패!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"' 계정 복구 처리가 실패되었습니다.");
+			return "common/errorPage";
 		}
 	}
 	

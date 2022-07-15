@@ -220,7 +220,6 @@
     </a>
     
 
-     
 
     <!-- header : 회원아이콘 -->
     <div id="membericon" style="right:0px;" onclick="myPage()">
@@ -228,14 +227,17 @@
     </div>
     <br clear="both">
 
+    
+    <!-- header : 로그인/로그아웃 토글-->
     <c:choose>
         <c:when test="${not empty loginUser}">
-            <input type="checkbox" id="loginchk" checked><label for="loginchk"><span>로그인</span></label>
+            <input type="checkbox" id="loginchk" checked><label for="loginchk"><span>로그인상태</span></label>
         </c:when>
         <c:otherwise>
-            <input type="checkbox" id="loginchk"><label for="loginchk"><span>로그아웃</span></label>
+            <input type="checkbox" id="loginchk"><label for="loginchk"><span>로그아웃상태</span></label>
         </c:otherwise>
     </c:choose>
+
 
     <!-- header : click 시 sidebar -->
     <div class="sidebar">
@@ -305,6 +307,36 @@
                 location.href="loginPage.me";
             }
         }
+        $(function(){
+            
+            $("#loginchk").click(function(){
+                if("${loginUser}" == ""){ // 로그아웃상태일 때
+                    var loginAnswer = confirm("로그인 하시겠습니까?"); 
+                   
+                    if(loginAnswer == true){
+                        //로그인페이지로 넘겨주기
+                        location.href="loginPage.me";
+                    }
+                    else{
+                        $(this).prop("checked",false); 
+                    }
+                    
+                }
+                else{ // 로그인 상태일 때(초록색)
+                   var logoutAnswer = confirm("로그아웃 하시겠습니까?");
+
+                    if(logoutAnswer == true){
+                        location.href="logout.me";
+                    }
+                    else {
+                        $(this).prop("checked",true); 
+                    }
+                }
+
+            });
+        
+        })
+
     </script>
 </body>
 </html>
