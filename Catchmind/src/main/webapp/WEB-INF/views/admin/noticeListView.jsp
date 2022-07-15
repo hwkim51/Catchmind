@@ -105,7 +105,7 @@ div{
     width:50px;
 }
 
-#detail {
+#detailmenu {
     width : 50px;
 }
 
@@ -151,7 +151,7 @@ div{
                         <th id="ntitle">글제목</th>
                         <th id="ndate">작성일</th>
                         <th id="status">상태</th>
-                        <th id="detail">상세보기</th>
+                        <th id="detailmenu">상세보기</th>
                     </tr>
                 </thead>
                 <tbody>

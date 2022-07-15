@@ -255,7 +255,9 @@
                 <div>
                     <li><a href="list.no">공지사항</a></li>
                     <li><a href="catchTalk.faq">FAQ</a></li>
-                    <li><a href="enrollForm.in">1:1문의</a></li>
+                  <c:if test="${not empty loginUser }">
+               		<li><a href="enrollForm.in">1:1문의</a></li>
+               	  </c:if>
                 </div>
          
         </label>
