@@ -86,8 +86,12 @@
                     <table algin="center">
                     <input type="hidden" name="catchWriter" value="${ loginUser.userNo }">
                     <input type="hidden" name="catchNo" value="${ c.catchNo }">
+                    <c:if test="${ !empty alist }">
+                    	<c:forEach var="a" items="${ alist }">
                     <input type="hidden" name="attCatch" value="${ a.attCatch }">
                     <input type="hidden" name="attNo" value="${ a.attNo }">
+                    	</c:forEach>
+                    </c:if>
                         <tr>
                             <th><label class="form-title" for="title">제목</label></th>
                             <td><input class="form-title" type="text" id="title" name="catchTitle" value="${ c.catchTitle }" required></td>
@@ -114,6 +118,7 @@
 			                    	<c:forEach var="a" items="${ alist }">
 			                    	<a class="form-file" href="${ a.attChange }">${ a.attOrigin }</a>
 				                    </c:forEach>
+				                   <br> 기존의 파일은 무조건 삭제되니 주의해주시기 바랍니다.
 				                    </td>
 		                    </c:if>
                         </tr>

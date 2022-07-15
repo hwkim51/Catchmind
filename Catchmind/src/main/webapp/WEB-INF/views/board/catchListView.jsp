@@ -62,17 +62,26 @@
         .card_items{
             width: 500px;
             height: 300px;
-            border: 1px red solid;
             margin: 0px 10px 20px 60px;
+        }
+        .card_items>*{
+        border: 1px solid #eaeaeaea;
         }
 
         .card_items>.card_img{
-            width: 100%;
+            width: 500px;
+            height: 250px;
         }
-
+        .card_items>.card_img img{
+            width:100%;
+            height:100%;
+        }
+		.card_items>.data_area>.title{
+			border-bottom: 1px solid #eaeaeaea;
+		}
         .card_items>.data_area>.info{
             overflow: hidden;
-            width: 60px;
+            width: 100%;
             height: 20px;
             text-overflow:ellipsis;
             white-space:nowrap;
@@ -119,6 +128,8 @@
             border-radius: 50%;
             color:white;
         } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
+        
+        
     </style>
 </head>
 <body>
@@ -129,13 +140,24 @@
         <div class="inner_body">
             <div class="sub_head">
                 <div class="title">연애의발견</div>
+                <c:if test="${ not empty loginUser }">
                 <a class="btn_write" href="enrollForm.ca">작성</a>
+                </c:if>
             </div>
             <div class="sub_body">
                 <div class="card_area">
                 	<c:forEach var="c" items="${ list }">
                     <div class="card_items">
-                        <a class="card_img" href=""><img src="" alt="이미지 박스입니다."></a>
+                        <div class="card_img">
+	                        <c:choose>
+	                        <c:when  test="${ a[c.catchNo] ne null}">
+	                        <img src="${ a[c.catchNo].attChange }">
+	                        </c:when>
+	                        <c:otherwise>
+	                        <img src="https://dilavr.com.ua/image/catalog/empty-img.png">
+	                        </c:otherwise>
+	                        </c:choose>
+                        </div>
                         <div class="cno" style="visibility: hidden; display:none;">${ c.catchNo }</div>
                         <div class="data_area">
                             <div class="title">${ c.catchTitle }</div>

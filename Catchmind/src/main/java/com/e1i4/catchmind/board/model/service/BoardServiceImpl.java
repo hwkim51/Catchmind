@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.board.model.dao.BoardDao;
 import com.e1i4.catchmind.board.model.vo.Catch;
+import com.e1i4.catchmind.board.model.vo.Like;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
@@ -179,6 +180,31 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int updateCatch(Catch c) {
 		return boardDao.updateCatch(c, sqlSession);
+	}
+
+	@Override
+	public int insertLike(Like l) {
+		return boardDao.insertLike(l, sqlSession);
+	}
+
+	@Override
+	public int selectLike(Like like) {
+		return boardDao.selectLike(like, sqlSession);
+	}
+
+	@Override
+	public int likeCount(int catchNo) {
+		return boardDao.likeCount(catchNo, sqlSession);
+	}
+
+	@Override
+	public Attach selectFileTop(int catchNo) {
+		return boardDao.selectFileTop(catchNo, sqlSession);
+	}
+
+	@Override
+	public int getCatchNo() {
+		return boardDao.getCatchNo(sqlSession);
 	}
 
 	
