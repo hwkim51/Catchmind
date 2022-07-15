@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.member.model.dao.MemberDao;
 import com.e1i4.catchmind.member.model.vo.Block;
+import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
 
 @Service
@@ -110,10 +111,15 @@ public class MemberServiceImpl implements MemberService  {
 	public int updateProfile(Member m) {
 		return memberDao.updateProfile(sqlSession, m);
 	}
-
+	
 	// 마이페이지 - 회원 정보 수정 서비스(update)
 	@Override
 	public int updateInfo(Member m) {
 		return memberDao.updateInfo(sqlSession, m);
+	
+	@Override
+	public int unfollowMember(Follow f) {
+		return memberDao.unfollowMember(sqlSession, f);
 	}
+	
 }

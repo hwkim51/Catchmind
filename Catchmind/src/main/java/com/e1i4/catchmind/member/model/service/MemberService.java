@@ -3,6 +3,7 @@ package com.e1i4.catchmind.member.model.service;
 import java.util.ArrayList;
 
 import com.e1i4.catchmind.member.model.vo.Block;
+import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
 
 public interface MemberService {
@@ -53,6 +54,10 @@ public interface MemberService {
 	// 마이페이지 - 프로필 수정 서비스(update)
 	int updateProfile(Member m);
 	
+	
 	// 마이페이지 - 회원 정보 수정 서비스(update)
 	int updateInfo(Member m);
+
+	int unfollowMember(Follow f);
+	
 }

@@ -220,7 +220,6 @@
     </a>
     
 
-     
 
     <!-- header : 회원아이콘 -->
     <div id="membericon" style="right:0px;" onclick="myPage()">
@@ -228,14 +227,17 @@
     </div>
     <br clear="both">
 
+    
+    <!-- header : 로그인/로그아웃 토글-->
     <c:choose>
         <c:when test="${not empty loginUser}">
-            <input type="checkbox" id="loginchk" checked><label for="loginchk"><span>로그인</span></label>
+            <input type="checkbox" id="loginchk" checked><label for="loginchk"><span>로그인상태</span></label>
         </c:when>
         <c:otherwise>
-            <input type="checkbox" id="loginchk"><label for="loginchk"><span>로그아웃</span></label>
+            <input type="checkbox" id="loginchk"><label for="loginchk"><span>로그아웃상태</span></label>
         </c:otherwise>
     </c:choose>
+
 
     <!-- header : click 시 sidebar -->
     <div class="sidebar">
@@ -246,14 +248,16 @@
                 <div>
                     <li><a href="list.to"> 함께 놀러가요 💑</a></li>
                     <li><a href="list.po">에브리타임</a></li>
-                    <li><a href="list.lo">연애의 발견</a></li>
+                    <li><a href="list.ca">연애의 발견</a></li>
                 </div>
             <br>
             <ul class="accodion"><a><span>고객센터</span></a></ul>
                 <div>
                     <li><a href="list.no">공지사항</a></li>
                     <li><a href="catchTalk.faq">FAQ</a></li>
-                    <li><a href="enrollForm.in">1:1문의</a></li>
+                  <c:if test="${not empty loginUser }">
+               		<li><a href="enrollForm.in">1:1문의</a></li>
+               	  </c:if>
                 </div>
          
         </label>
@@ -305,6 +309,36 @@
                 location.href="loginPage.me";
             }
         }
+        $(function(){
+            
+            $("#loginchk").click(function(){
+                if("${loginUser}" == ""){ // 로그아웃상태일 때
+                    var loginAnswer = confirm("로그인 하시겠습니까?"); 
+                   
+                    if(loginAnswer == true){
+                        //로그인페이지로 넘겨주기
+                        location.href="loginPage.me";
+                    }
+                    else{
+                        $(this).prop("checked",false); 
+                    }
+                    
+                }
+                else{ // 로그인 상태일 때(초록색)
+                   var logoutAnswer = confirm("로그아웃 하시겠습니까?");
+
+                    if(logoutAnswer == true){
+                        location.href="logout.me";
+                    }
+                    else {
+                        $(this).prop("checked",true); 
+                    }
+                }
+
+            });
+        
+        })
+
     </script>
 </body>
 </html>

@@ -37,10 +37,10 @@
             color: white;
             right:0px; /* 오른쪽 정렬 */
             top: 60px;
-            width: 130px;
-            height: 37px;
+            width: 120px;
+            height: 40px;
             border-radius: 4px;
-            background-color: black;
+            background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
             vertical-align: middle;
@@ -50,31 +50,38 @@
         /* ################### sub_body 설정 영역 ################### */
         .sub_body{
             height: 100%;
-        } /* 리스트형 게시판의 영역 설정 */
-        .sub_body .list_area{
-            border: 1px solid #cccccc;
+        } /* 게시판의 영역 설정 */
+        .sub_body .card_area{
             border-collapse: collapse;
             text-align: center;
         } /* 테두리 선에 대한 설정 */
-        .list_area {
+        .card_area {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
         }
-        .list_items{
+        .card_items{
             width: 500px;
             height: 300px;
-            border: 1px red solid;
-            margin-bottom: 10px;
+            margin: 0px 10px 20px 60px;
+        }
+        .card_items>*{
+        border: 1px solid #eaeaeaea;
         }
 
-        .list_items>.list_img{
-            width: 100%;
+        .card_items>.card_img{
+            width: 500px;
+            height: 250px;
         }
-
-        .list_items>.data_area>.info{
+        .card_items>.card_img img{
+            width:100%;
+            height:100%;
+        }
+		.card_items>.data_area>.title{
+			border-bottom: 1px solid #eaeaeaea;
+		}
+        .card_items>.data_area>.info{
             overflow: hidden;
-            width: 60px;
+            width: 100%;
             height: 20px;
             text-overflow:ellipsis;
             white-space:nowrap;
@@ -97,10 +104,13 @@
             height: 35px;
             width: 35px;
             transition: all 0.5s ease;
+        } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
+        .pagination ul li a{
             padding: 5px 5px 5px 5px;
             margin: 5px 5px 5px 5px;
-        } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
-
+        	text-decoration: none;
+        	color:black;
+        } /* 페이지네이션 a스타일 */
         .pagination #left{
             border-radius: 25px 5px 5px 25px;
             width: 85px;
@@ -118,6 +128,8 @@
             border-radius: 50%;
             color:white;
         } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
+        
+        
     </style>
 </head>
 <body>
@@ -127,39 +139,70 @@
     <div class="body">
         <div class="inner_body">
             <div class="sub_head">
-                <div class="title">연애의 발견</div>
-                <a class="btn_write" href="detail.lo">작성</a>
+                <div class="title">연애의발견</div>
+                <c:if test="${ not empty loginUser }">
+                <a class="btn_write" href="enrollForm.ca">작성</a>
+                </c:if>
             </div>
             <div class="sub_body">
-                <div class="list_area">
-                
-                    <div class="list_items">
-                        <a class="list_img" href=""><img src="" alt="이미지 박스입니다."></a>
+                <div class="card_area">
+                	<c:forEach var="c" items="${ list }">
+                    <div class="card_items">
+                        <div class="card_img">
+	                        <c:choose>
+	                        <c:when  test="${ a[c.catchNo] ne null}">
+	                        <img src="${ a[c.catchNo].attChange }">
+	                        </c:when>
+	                        <c:otherwise>
+	                        <img src="https://dilavr.com.ua/image/catalog/empty-img.png">
+	                        </c:otherwise>
+	                        </c:choose>
+                        </div>
+                        <div class="cno" style="visibility: hidden; display:none;">${ c.catchNo }</div>
                         <div class="data_area">
-                            <div class="title">제목자리</div>
-                            <div class="info">설명자리입니다만</div>
+                            <div class="title">${ c.catchTitle }</div>
+                            <div class="info">${ c.nickName }</div>
                         </div>
                     </div>
-                    
+                    </c:forEach>
                 </div>
+                
+                <script>
+		           	$(function() {
+		           		$(".sub_body>.card_area>.card_items").click(function() {
+		           			location.href = "detail.ca?cno=" + $(this).children(".cno").text();
+		           		});
+		           	});
+		           </script>
                   <div class="sub_foot">
                       <div class="pagination">
 				        <ul>
-				            <li class="signal" id="left">&lt; Prev</li>
-				            <li class="page_num active">1</li>
-				            <li class="page_num">2</li>
-				            <li class="page_num">3</li>
-				            <li class="page_num">4</li>
-				            <li class="page_num">5</li>
-				            <li class="page_num">6</li>
-				            <li class="page_num">7</li>
-				            <li class="page_num">8</li>
-				            <li class="page_num">9</li>
-				            <li class="page_num">10</li>
-				            <li class="signal" id="right">Next &gt;</li>
+				        	<c:choose>
+	                			<c:when test="${ pi.currentPage eq 1 }">
+					            	<li class="signal disabled" id="left"><a href="#">&lt; Prev</a></li>
+					            </c:when>
+	                    		<c:otherwise>
+	                    			<li class="signal" id="left"><a href="list.ca?cpage=${ pi.currentPage -1 }">&lt; Prev</a></li>
+	                    		</c:otherwise>
+                    		</c:choose>
+                    		
+				            <c:forEach var="c" begin="${ pi.startPage }" end="${ pi.endPage }">
+				            <li class="page_num"><a href="list.ca?cpage=${ c }">${ c }</a></li>
+				            </c:forEach>
+				            
+				            <c:choose>
+	                    		<c:when test="${ pi.currentPage eq pi.maxPage }">
+					            	<li class="signal disabled" id="right"><a href="#">Next &gt;</a></li>
+					            </c:when>
+	                    		<c:otherwise>
+	                    			<li class="signal" id="right"><a href="list.ca?cpage=${ pi.currentPage +1 }">Next &gt;</a></li>
+					            </c:otherwise>
+                    		</c:choose>
+				            
 				        </ul>
 				    </div>
                   </div>
+                  
             </div>
         </div>
     </div>
