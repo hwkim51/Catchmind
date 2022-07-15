@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
@@ -15,6 +16,8 @@ import com.e1i4.catchmind.common.model.vo.PageInfo;
 @Repository
 public class BoardDao {
 
+	
+	/* ============================ Post ============================ */
 	public int selectListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("boardMapper.selectListCount");
 	}
@@ -47,27 +50,11 @@ public class BoardDao {
 	public Attach selectFile(int attPost, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("boardMapper.selectFile", attPost);
 	}
-
-	public int insertReply(Reply r, SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("boardMapper.insertReply", r);
-	}
-
-	public ArrayList<Reply> selectReplyList(int postNo, SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", postNo);
-	}
-
+	
 	public int deletePost(int postNo, SqlSessionTemplate sqlSession) {
-		return sqlSession.delete("boardMapper.deletePost", postNo);
+		return sqlSession.update("boardMapper.deletePost", postNo);
 	}
-
-	public int deleteReply(int replyNo, SqlSessionTemplate sqlSession) {
-		return sqlSession.delete("boardMapper.deleteReply", replyNo);
-	}
-
-	public int insertReport(Report r, SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("boardMapper.insertReport", r);
-	}
-
+	
 	public int updatePost(Post p, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("boardMapper.updatePost", p);
 	}
@@ -82,5 +69,84 @@ public class BoardDao {
 
 	public int addFile(Attach a, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("boardMapper.addFile", a);
+	}
+
+	public ArrayList<Post> selectMyList(PageInfo pi, int userNo, SqlSessionTemplate sqlSession) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMyList", userNo, rowBounds);
+	}
+	public int selectMyListCount(int userNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectMyListCount", userNo);
+	}
+	/* ============================ Report ============================ */
+	public int insertReport(Report r, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("boardMapper.insertReport", r);
+	}
+	
+	/* ============================ Reply ============================ */
+	public int insertReply(Reply r, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("boardMapper.insertReply", r);
+	}
+
+	public ArrayList<Reply> selectReplyList(int postNo, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", postNo);
+	}
+	
+	public int deleteReply(int replyNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("boardMapper.deleteReply", replyNo);
+	}
+
+	/* ============================ Catch ============================ */
+	public int selectCatchListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectCatchListCount");
+	}
+
+	public ArrayList<Catch> selectCatchList(PageInfo pi, SqlSessionTemplate sqlSession) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectCatchList", null, rowBounds);
+	}
+
+	public Catch selectCatch(int catchNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectCatch", catchNo);
+	}
+
+	public ArrayList<Attach> selectFiles(int catchNo, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectFiles", catchNo);
+	}
+
+	public int insertCatch(Catch c, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("boardMapper.insertCatch", c);
+	}
+
+	public int insertFiles(Attach a, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("boardMapper.insertFiles", a);
+	}
+
+	public int deleteCatch(int catchNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("boardMapper.deleteCatch", catchNo);
+	}
+
+	public int increaseCatchCount(int catchNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("boardMapper.increaseCatchCount", catchNo);
+	}
+
+	public int deleteFiles(Attach a, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("boardMapper.deleteFiles", a);
+	}
+
+	public int addFiles(Attach a, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("boardMapper.addFiles", a);
+	}
+
+	public int updateCatch(Catch c, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("boardMapper.updateCatch", c);
 	}
 }
