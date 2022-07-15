@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e1i4.catchmind.board.model.vo.Catch;
+import com.e1i4.catchmind.board.model.vo.Like;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
@@ -148,5 +149,25 @@ public class BoardDao {
 
 	public int updateCatch(Catch c, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("boardMapper.updateCatch", c);
+	}
+
+	public int insertLike(Like l, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("boardMapper.insertLike", l);
+	}
+
+	public int selectLike(Like like, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectLike", like);
+	}
+
+	public int likeCount(int catchNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.likeCount", catchNo);
+	}
+
+	public Attach selectFileTop(int catchNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectFileTop", catchNo);
+	}
+
+	public int getCatchNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.getCatchNo");
 	}
 }

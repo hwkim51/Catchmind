@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.e1i4.catchmind.board.model.service.BoardService;
 import com.e1i4.catchmind.board.model.vo.Catch;
+import com.e1i4.catchmind.board.model.vo.Like;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
@@ -257,12 +258,18 @@ public class BoardController {
 		int listCount = boardService.selectCatchListCount();
 		
 		int pageLimit = 10;
-		int boardLimit = 10;
+		int boardLimit = 6;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		ArrayList<Catch> list = boardService.selectCatchList(pi);
+		ArrayList<Attach> a = new ArrayList<Attach>();
+		for(int i=0; i<=listCount+1;i++) {
+			int catchNo = i;
+			a.add(boardService.selectFileTop(catchNo));
+		}
 		
+		model.addAttribute("a", a);
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		
@@ -272,14 +279,21 @@ public class BoardController {
 
 	/* CATCH 상세조회 */
 	@RequestMapping("detail.ca")
-	public ModelAndView detailCatch(int cno, ModelAndView mv) {
-		
+	public ModelAndView detailCatch(int cno, ModelAndView mv, HttpSession session) {
 		int result = boardService.increaseCatchCount(cno);
-		
+		if((session.getAttribute("loginUser"))!=null) {
+			Like like = new Like();
+			like.setLikeUser(((Member)session.getAttribute("loginUser")).getUserNo());
+			like.setCatchNo(cno);
+			int llist = boardService.selectLike(like);
+			mv.addObject("llist", llist);
+		}
 		if(result>0) {
 			Catch c = boardService.selectCatch(cno);
 			ArrayList<Attach> alist = boardService.selectFiles(cno);
+			int l = boardService.likeCount(cno);
 			
+			mv.addObject("l", l);
 			mv.addObject("alist", alist);
 			mv.addObject("c", c).setViewName("board/catchDetailView");
 			return mv;
@@ -303,9 +317,7 @@ public class BoardController {
 		
 		c.setCatchWriter(Integer.toString(catchWriter));
 		int result1 = boardService.insertCatch(c);
-		
-		System.out.println(upfile);
-		
+		int result3 = boardService.getCatchNo();
 		if(!(upfile.get(0).getOriginalFilename().equals(""))) {
 			for(int i=0;i<upfile.size();i++) {
 				String originName = upfile.get(i).getOriginalFilename();
@@ -313,6 +325,7 @@ public class BoardController {
 				
 				a.setAttOrigin(upfile.get(i).getOriginalFilename());
 				a.setAttChange("resources/images/upfiles"+changeName);
+				a.setAttCatch(Integer.toString(result3));
 				
 				result2 = boardService.insertFiles(a);
 			}
@@ -330,15 +343,22 @@ public class BoardController {
 	
 	/* CATCH 삭제 */
 	@PostMapping("delete.ca")
-	public String deleteCatch(int catchNo, Model model, String filePath, HttpSession session) {
+	public String deleteCatch(int catchNo, Model model, HttpSession session) {
 		int result = boardService.deleteCatch(catchNo);
 		
-		if(result>0) {
+		Attach a = new Attach();
+		a.setAttCatch(Integer.toString(catchNo));
+		
+		ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+		
+		if(!path.equals(null)) {
 			// 첨부파일있었던 게시글 삭제 시 첨부파일 서버에서 삭제
-			if(!filePath.equals("")) {
-				String realPath = session.getServletContext().getRealPath(filePath);
+			for(int i = 0; i<path.size();i++) {
+				String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
 				new File(realPath).delete();
 			}
+
+			int result2 = boardService.deleteFiles(a);
 			
 			// url재요청
 			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
@@ -375,9 +395,17 @@ public class BoardController {
 	public String updateCatch(Catch c, Attach a, ArrayList<MultipartFile> reupfile, HttpSession session, Model model) {
 		int result2 = 0;
 		a.setAttCatch(Integer.toString(c.getCatchNo()));
-		if(!reupfile.equals(null)) { // 새로운 첨부파일있는 경우
+		if(reupfile.get(0).getSize()>0) { // 새로운 첨부파일있는 경우
 			
-			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있을 경우
+			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있는 경우
+				ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+				for(int i = 0; i<path.size();i++) {
+					String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
+					new File(realPath).delete();
+				}
+
+				int result3 = boardService.deleteFiles(a);
+			
 					for(int i=0;i<reupfile.size();i++) {
 						String originName = reupfile.get(i).getOriginalFilename();
 						String changeName = saveFile(reupfile.get(i), session);
@@ -385,12 +413,7 @@ public class BoardController {
 						a.setAttOrigin(reupfile.get(i).getOriginalFilename());
 						a.setAttChange("resources/images/upfiles"+changeName);
 						
-						System.out.println(a.getAttOrigin());
-						System.out.println(a.getAttCatch());
-						
-						result2 = boardService.updateFile(a);
-						
-						System.out.println(result2);
+						result2 = boardService.insertFiles(a);
 					}
 				} else { // 기존 첨부파일이 없는 경우
 					for(int i=0;i<reupfile.size();i++) {
@@ -406,10 +429,13 @@ public class BoardController {
 			
 		} else { // 새로운 첨부파일없는 경우
 			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있는 경우
-			String savePath = session.getServletContext().getRealPath(a.getAttChange());
-			
-			new File(savePath).delete();
-			int result3 = boardService.deleteFiles(a);
+				ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+				for(int i = 0; i<path.size();i++) {
+					String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
+					new File(realPath).delete();
+				}
+
+				int result3 = boardService.deleteFiles(a);
 			} else { // 기존 첨부파일이 없는 경우
 				
 			}
@@ -427,6 +453,22 @@ public class BoardController {
 		return "common/errorPage";
 		}
 
+	}
+	
+	/* ============================ Like ============================ */
+	@ResponseBody
+	@RequestMapping("like.ca")
+	public String insertLike(int catchNo, int likeUser) {
+		Like l = new Like();
+		l.setCatchNo(catchNo);
+		l.setLikeUser(likeUser);
+		
+		return (boardService.insertLike(l)>0)? "success":"fail";
+	}
+	@ResponseBody
+	@RequestMapping("countLike.ca")
+	public int selectLike(int catchNo) {
+		return boardService.likeCount(catchNo);
 	}
 	
 	

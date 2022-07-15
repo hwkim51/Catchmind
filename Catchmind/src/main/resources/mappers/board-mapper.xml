@@ -45,6 +45,10 @@
 		<result column="CATCH_WRITER" property="catchWriter"/>
 		<result column="NICKNAME" property="nickName"/>
 	</resultMap>
+	<resultMap type="like" id="likeResultMap">
+		<result column="CATCH_NO" property="catchNo"/>
+		<result column="LIKE_USER" property="likeUser"/>
+	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -198,6 +202,13 @@
 	WHERE ATT_CATCH = #{attCatch}
 	</select>
 	
+	<select id="selectFileTop" parameterType="_int" resultMap="attachResultMap">
+	SELECT ATT_NO, ATT_CHANGE, ATT_CATCH, ATT_ORIGIN
+	FROM TB_ATTACHMENT
+	WHERE ATT_CATCH = #{attCatch} AND ROWNUM=1
+	ORDER BY ATT_NO DESC
+	</select>
+	
 	<insert id="insertCatch" parameterType="catch">
 		INSERT INTO TB_CATCH(CATCH_NO
 		, CATCH_TITLE, CATCH_CONTENT, CATCH_DATE
@@ -208,9 +219,14 @@
 		)
 	</insert>
 	
+	<select id="getCatchNo" resultType="int">
+		SELECT SEQ_CNO.CURRVAL
+		FROM DUAL
+	</select>
+	
 	<insert id="insertFiles" parameterType="attach">
 		INSERT INTO TB_ATTACHMENT(ATT_NO, ATT_ORIGIN, ATT_CHANGE, ATT_CATCH)
-		VALUES (SEQ_ANO.NEXTVAL, #{attOrigin}, #{attChange}, SEQ_CNO.CURRVAL)
+		VALUES (SEQ_ANO.NEXTVAL, #{attOrigin}, #{attChange}, #{attCatch})
 	</insert>
 	
 	<update id="deleteCatch" parameterType="_int">
@@ -228,7 +244,7 @@
 	
 	<delete id="deleteFiles" parameterType="attach">
 		DELETE TB_ATTACHMENT
-		WHERE ATT_NO = #{attNo}
+		WHERE ATT_CATCH = #{attCatch}
 	</delete>
 	
 	<insert id="addFiles" parameterType="attach">
@@ -252,4 +268,20 @@
 		, ATT_CATCH = #{attCatch}
 		WHERE ATT_NO = #{attNo}
 	</update>
+	
+	<insert id="insertLike" parameterType="like">
+		INSERT INTO TB_LIKE(CATCH_NO, LIKE_USER)
+		VALUES(#{catchNo},#{likeUser})
+	</insert>
+	<select id="selectLike" parameterType="like" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_LIKE
+		WHERE CATCH_NO = #{catchNo} AND LIKE_USER = #{likeUser}
+	</select>
+	
+	<select id="likeCount" parameterType="_int" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_LIKE
+		WHERE CATCH_NO = #{catchNo}
+	</select>
 </mapper>

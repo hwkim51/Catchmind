@@ -96,10 +96,37 @@
       } /* 작성자 설정 */
       .sub_body>.wr_count{
         display: inline-block;
-        width: 400px;
+        width: 200px;
         font-weight: 800;
         font-size: 30px;
       } /* 조회수 설정 */
+      .sub_body>.wr_count>#countLike{
+        display: inline-block;
+      }
+      
+      .sub_body>.btn_like{
+        display: inline-block;
+        width: 200px;
+        font-weight: 800;
+        font-size: 30px;
+      	float:right;
+      	cursor:pointer;
+      	border: none;
+      	font-weight:300;
+      	color:white;
+        border-radius: 4px;
+        background-color: rgb(17, 199, 231);
+        text-decoration: none;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .sub_body>.btn_like_disabled{
+        display: inline-block;
+        width: 200px;
+        font-weight: 800;
+        font-size: 30px;
+      	float:right;
+      }
       
       .swiper {
 		  width: 100%;
@@ -182,7 +209,6 @@
             <c:if test="${ (not empty loginUser) and (loginUser.userNo eq c.catchWriter) or (loginUser.userNo eq 1) }">
             	<form id="catchForm" action="" method="post">
             		<input type="hidden" name="catchNo" value="${ c.catchNo}">
-            		<input type="hidden" name="filePath" value="${ a.attChange }">
             	</form>
             	
             	<script>
@@ -201,7 +227,15 @@
                 <div class="wr_title">글제목 : ${ c.catchTitle }</div>
                 <div class="wr_date">작성일자 : ${ c.catchDate }</div> <br>
                 <div class="wr_writer">작성자 : ${ c.nickName }</div>
-                <div class="wr_count">조회수 : ${ c.catchCount }</div> <br>
+                <div class="wr_count">조회수 : ${ c.catchCount }</div>
+                <c:choose>
+                <c:when test="${ not empty loginUser and llist eq 0 }">
+                <button class="btn_like" onclick="like();">좋아요 : ${ l }</button><br>
+                </c:when>
+                <c:otherwise>
+                <div class="btn_like_disabled">좋아요 : ${ l }</div><br>
+                </c:otherwise>
+                </c:choose>
                 <c:if test="${ !empty alist }">
                 	<div class=swiper>
                			<div class=swiper-wrapper>
@@ -270,7 +304,40 @@
       				console.log("댓글작성용 ajax 통신 실패!");
       			}
       		});
-  	}
+  		}
+	  function like() {
+		  $.ajax({
+			  url : "like.ca",
+			  data : {
+				  catchNo : ${ c.catchNo},
+				  likeUser : ${ loginUser.userNo }
+			  },
+			  success : function(result) {
+					  if(result=="success") {
+						  selectLike();
+					  } else {
+						  console.log("좋아요 반영 실패")
+					  }
+				  },
+			  error : function() {
+				  console.log("좋아요 ajax 통신 실패!");
+			  }
+			  
+		  });
+	  }
+	  
+	  function selectLike() {
+		  $.ajax({
+			  url : "countLike.ca",
+			  data : {catchNo : ${ c.catchNo }},
+			  success : function(result) {
+				  location.reload();
+			  },
+			  error : function() {
+				  console.log("좋아요 선택 통신 실패!")
+			  }
+		  });
+	  }
 	  </script>
 	  <script>
 	  const swiper = new Swiper('.swiper', {

@@ -3,6 +3,7 @@ package com.e1i4.catchmind.board.model.service;
 import java.util.ArrayList;
 
 import com.e1i4.catchmind.board.model.vo.Catch;
+import com.e1i4.catchmind.board.model.vo.Like;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
@@ -82,6 +83,14 @@ public interface BoardService {
 
 	int updateCatch(Catch c);
 
+	int selectLike(Like like);
 
+	int insertLike(Like l);
+
+	int likeCount(int catchNo);
+
+	Attach selectFileTop(int catchNo);
+
+	int getCatchNo();
 	
 }
