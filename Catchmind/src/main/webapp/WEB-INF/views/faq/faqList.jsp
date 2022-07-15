@@ -239,8 +239,16 @@ body{
                             <div><h4>catchmindofficial@gmail.com</h4></div>
                             <hr><br>
                             <div>
-                                <span><b>관리자에게 1:1 문의하기</b></span>
-                                <span><button id="btn1" onclick="inquiryClick();">문의하기</button></span>
+                            <c:choose>
+                            	<c:when test="${not empty loginUser }">
+	                                <span><b>관리자에게 1:1 문의하기</b></span>
+	                                <span><button id="btn1" onclick="inquiryClick();">문의하기</button></span>
+                                </c:when>
+                                <c:otherwise>
+                                	 <span><b>로그인 후 1:1 문의 가능합니다.</b></span>
+	                                <span><button id="btn1" onclick="login();">로그인하기</button></span>
+                                </c:otherwise>
+                            </c:choose>
                             </div>
                         </div>
                     </div>
@@ -329,7 +337,9 @@ body{
         // 채팅 스크롤 하단으로 보내기 
         $("#chatlist-id").scrollTop($("#chatlist-id")[0].scrollHeight);
          
-          
+        function login(){
+        	location.href="login.me";
+        }  
     </script>
     
     <%-- footer 영역 --%>

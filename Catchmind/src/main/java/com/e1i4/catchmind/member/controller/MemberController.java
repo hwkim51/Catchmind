@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.e1i4.catchmind.member.model.service.MemberService;
 import com.e1i4.catchmind.member.model.vo.Block;
+import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -272,13 +273,6 @@ public class MemberController {
 		return "member/myPage-FollowList";
 	}
 	
-	// 마이페이지 - 차단 리스트 페이지로 이동(유진)
-	@RequestMapping(value="myBlock.me")
-	public String blockList() {
-		
-		return "member/myPage-BlockList";
-	}
-	
 	// 로그아웃 버튼 누르거나 or 창 닫으면 recent_logout 업데이트 메소드 (유진)
 	public int updateRecentLogout(String userId) {
 		
@@ -297,31 +291,34 @@ public class MemberController {
 		return new Gson().toJson(list);
 	}
 	
-	// ajax로 차단한 유저의 정보 조회 메소드(유진)
-	@ResponseBody
-	@RequestMapping(value="bList.me", produces="application/json; charset=UTF-8")
-	public String selectBlockList(int userNo) {
+	// 차단한 유저의 정보 조회 메소드(유진)
+	@RequestMapping("myBlock.me")
+	public String selectBlockList(Model model, HttpSession session) {
 		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		ArrayList<Member> list = memberService.selectBlockList(userNo);
-		return new Gson().toJson(list);
+		
+		model.addAttribute("list", list);
+		return "member/myPage-BlockList";
 	}
 	
 	// 차단된 회원 차단 해제하는 메소드(유진)
 	@RequestMapping("deleteBlock.me")
 	public String deleteBlockMember(HttpSession session,
-									int blockedUser,
+									int blno,
 									Model model) {
 		
 		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		
 		Block b = new Block();
 		b.setUserNo(userNo);
-		b.setBlockedUser(blockedUser);
-				
+		b.setBlockedUser(blno);
+		
 		int result = memberService.deleteBlockMember(b);
 		
 		if(result > 0) {
-			session.setAttribute("resultMsg", "해당 회원 차단을 해제하였습니다.");
-			return "redirect:blockList.me";
+			session.setAttribute("alertMsg", "해당 회원 차단을 해제하였습니다.");
+			return "redirect:myBlock.me";
 		}
 		else {
 			model.addAttribute("errorMsg", "요청 처리 실패");
@@ -331,13 +328,19 @@ public class MemberController {
 		
 	@ResponseBody
 	@RequestMapping(value="closeSession.me", produces="text/html; charset=UTF-8")
-	public String closeSession(String userId, HttpSession session) {
+	public String closeSession(String userId, HttpSession session) { //현재 진행 중
 		
-		// RECENT_LOGOUT 정보 업데이트
-		int updateRecentLogout = memberService.updateRecentLogout(userId);
+		System.out.println(userId);
+		int updateRecentLogout = 0;
 		
-		//session.removeAttribute("loginUser");
-		return (updateRecentLogout>0)? "YYY" : "NNN";
+		if(userId!=null) {
+			// RECENT_LOGOUT 정보 업데이트
+			updateRecentLogout = memberService.updateRecentLogout(userId);
+			
+			//session.removeAttribute("loginUser");
+		    session.invalidate();
+		}
+		return (updateRecentLogout>0)?"YYY":"NNN";
 	}
 	
 	// 회원가입 시 프로필 사진 저장 메소드
@@ -388,4 +391,26 @@ public class MemberController {
 		}
 	}
 	
+	// 팔로우 취소하는 메소드 (유진)
+	@RequestMapping(value="unfollow.me")
+	public String unfollowMember(HttpSession session,
+								int foedUser,
+								Model model) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		
+		Follow f = new Follow();
+		f.setFoUser(userNo);
+		f.setFoedUser(foedUser);
+		int result = memberService.unfollowMember(f);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "팔로우를 취소하였습니다.");
+			return "redirect:myFollow.me";
+		}
+		else {
+			model.addAttribute("errorMsg", "요청 처리 실패");
+			return "errorPage";
+		}
+	}
 }

@@ -158,9 +158,9 @@
 	</select>
 	
 	<select id="selectBlockList" parameterType="_int" resultMap="memberResultSet">
-		SELECT B.USER_NO, USER_ID, NICKNAME, MBTI, PROFILE, PIC 
+		SELECT M.USER_NO, USER_ID, NICKNAME, MBTI, PROFILE, PIC 
 		FROM TB_BLOCK B 
-		JOIN TB_MEMBER M ON(M.USER_NO = BLOCKED_USER) 
+		JOIN TB_MEMBER M ON(M.USER_NO=BLOCKED_USER) 
 		WHERE B.USER_NO = #{userNo}
 	</select>
 	
@@ -178,5 +178,11 @@
 		       PROFILE = #{profile}
 		 WHERE USER_ID = #{userId}
 	</update>
+	
+	<delete id="unfollowMember" parameterType="follow">
+		DELETE FROM TB_FOLLOW 
+		 WHERE FO_USER = #{foUser} 
+		   AND FOED_USER = #{foedUser}
+	</delete>
 	
 </mapper>
