@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.e1i4.catchmind.board.model.service.BoardService;
 import com.e1i4.catchmind.board.model.vo.Catch;
@@ -473,6 +479,9 @@ public class BoardController {
 	
 	
 	/* ============================ OpenData ============================ */
+	
+
+	
 	@RequestMapping("list.to")
 	public String listViewTogether() {
 		return "board/togetherListView";
@@ -480,7 +489,7 @@ public class BoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="data.to", produces="text/xml; charset=UTF-8")
-	public String airPollution(String location) throws IOException {
+	public String together(int areaCode) throws IOException {
 		
 		// 현재 날짜 구하는 식
 		LocalDate now = LocalDate.now();
@@ -492,6 +501,7 @@ public class BoardController {
 			url += "&MobileOS=WIN";
 			url += "&MobileApp=CatchMind";
 			url += "&numOfRows=10000";
+			url += "&areaCode="+areaCode;
 			url += "&arrange=C";
 			url += "&listYN=Y";
 			url += "&eventStartDate="+formatedNow;
