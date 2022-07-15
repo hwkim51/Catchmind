@@ -116,6 +116,7 @@ public class MemberServiceImpl implements MemberService  {
 	@Override
 	public int updateInfo(Member m) {
 		return memberDao.updateInfo(sqlSession, m);
+	}
 	
 	@Override
 	public int unfollowMember(Follow f) {
