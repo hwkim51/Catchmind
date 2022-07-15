@@ -5,9 +5,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.e1i4.catchmind.member.model.service.MemberService;
+import com.e1i4.catchmind.member.model.vo.Member;
 import com.e1i4.catchmind.test.model.service.TestService;
 import com.e1i4.catchmind.test.model.vo.Test;
 
@@ -16,6 +17,9 @@ public class TestController {
 	
 	@Autowired
 	private TestService testService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@RequestMapping("mbtiTest.te")
 	public String mbtiTest() {
@@ -200,6 +204,9 @@ public class TestController {
 			if(result > 0) { // MBTI 테스트 결과 업데이트 성공
 				
 				// alert "MBTI가 성공적으로 업데이트 되었습니다."
+				Member updateMem = memberService.loginMember((Member)session.getAttribute("loginUser"));
+				session.setAttribute("loginUser", updateMem);
+				
 				// 메인페이지로 이동
 				session.setAttribute("alertMsg", "MBTI가 성공적으로 업데이트 되었습니다.");
 				

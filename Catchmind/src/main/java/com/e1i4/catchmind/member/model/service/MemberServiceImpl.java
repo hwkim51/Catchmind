@@ -105,9 +105,15 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.deleteBlockMember(sqlSession, b);
 	}
 
+	// 마이페이지 - 프로필 수정 서비스(update)
 	@Override
 	public int updateProfile(Member m) {
-		
 		return memberDao.updateProfile(sqlSession, m);
+	}
+
+	// 마이페이지 - 회원 정보 수정 서비스(update)
+	@Override
+	public int updateInfo(Member m) {
+		return memberDao.updateInfo(sqlSession, m);
 	}
 }

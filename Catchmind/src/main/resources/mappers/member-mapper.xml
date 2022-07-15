@@ -178,4 +178,14 @@
 		 WHERE USER_ID = #{userId}
 	</update>
 	
+	<update id="updateInfo">
+		UPDATE TB_MEMBER
+		   SET GENDER = #{gender},
+		       BIRTHDAY = #{birthDay},
+		       PHONE = #{phone},
+		       EMAIL = #{email},
+		       HEIGHT = #{height}
+		 WHERE USER_ID = #{userId}
+	</update>
+	
 </mapper>

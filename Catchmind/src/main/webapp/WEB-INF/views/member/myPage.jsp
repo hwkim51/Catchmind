@@ -48,7 +48,7 @@
         margin-top: 70px;
     }
     
-    .profile-modalHeader {
+    #profileModal .modal-header, #addressModal .modal-header {
         border-bottom: none !important;
     }
 
@@ -152,14 +152,14 @@
         float: left;
     }
 
-    #pwdmod-btn {
-        background-color: orange;
-        color: white;
+    .pwdmod-btn, .findAddress-btn {
+        background-color: orange !important;
+        color: white !important;
         width: 100px;
-        font-size: 13px;
-        font-weight: bold;
-        border: none;
-        border-radius: 15px;
+        height: 30px;
+        font-size: 12px !important;
+        border-radius: 15px !important;
+        padding: 0px !important;
     }
 
     .modal-body select {
@@ -170,14 +170,24 @@
         text-align: center;
     }
 
-    .profile-updateBtn {
+    .profile-updateBtn, .searchAddress-btn, .info-updateBtn {
         background-color: orange !important;
         color: white !important;
         margin: auto;
-        margin-bottom: 30px;
+    }
+    
+    .profile-updateBtn {
+    	margin-bottom: 30px;
+    }
+    
+    .info-updateBtn {
+        margin-top: 20px;
     }
 </style>
+<!-- 아이콘 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<!-- 카카오 지도 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=956802711dedb458183bf488112a9357&libraries=services"></script>
 </head>
 <body>
 
@@ -187,7 +197,7 @@
         <div class="myPage-menu"><a href="myPage.me">회원정보수정</a></div>
         <div class="myPage-menu"><a href="myFollow.me">팔로우리스트</a></div>
         <div class="myPage-menu"><a href="myBlock.me">차단리스트</a></div>
-        <div class="myPage-menu"><a href="">커플관리</a></div>
+        <div class="myPage-menu"><a href="myCouple.me">커플관리</a></div>
         <div class="myPage-menu"><a href="">내글관리</a></div>
         <hr>
     </div>
@@ -216,16 +226,24 @@
             </div>
             <i class="bi bi-pencil-fill" data-toggle="modal" data-target="#profileModal"></i>
             <div id="user-feature">번개처럼 빠른</div>
-            <div class="user-message">
+            <div class="user-message" id="user-message" align="left">
             	<c:choose>
-            		<c:when test="${ loginUser.profile eq not null }">
-            			${ loginUser.profile }
+            		<c:when test="${ loginUser.profile eq null }">
+            			나만의 상태메세지를 작성해주세요
             		</c:when>
             		<c:otherwise>
-            			나만의 상태메세지를 작성해주세요
+            			${ loginUser.profile }
             		</c:otherwise>
             	</c:choose>
             </div>
+            <script>
+                /* 사용자 상태메세지 공백 제거 */
+                $(function() {
+                    var m = $("#user-message").text();
+                    
+                    $("#user-message").text($.trim(m));
+                });
+            </script>
             <div id="user-coupleID">
             	<c:choose>
             		<c:when test="${ loginUser.partner eq null}">
@@ -244,7 +262,7 @@
                 <div class="modal-content">
 
                     <!-- 프로필 수정 모달 헤더 -->
-                    <div class="modal-header profile-modalHeader">
+                    <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
@@ -273,7 +291,7 @@
                             </script>
                             
                             <!-- 프로필 수정 - MBTI -->
-                            <div class="user-mbti" style="background-color: aqua;">
+                            <div class="user-mbti">
                             <c:set var="userMBTI" value="${ loginUser.mbti }" />
                             <select id="EI">
                                 <c:choose>
@@ -377,12 +395,12 @@
                             
                             <!-- 프로필 수정 - 상태메세지 -->
                             <textarea class="user-message update-message" name="profile">
-                                <c:choose>
-                                    <c:when test="${ loginUser.profile eq not null }">
-                                        ${ loginUser.profile }
+                            	<c:choose>
+                                    <c:when test="${ loginUser.profile eq null }">
+                                    	나만의 상태메세지를 작성해주세요
                                     </c:when>
                                     <c:otherwise>
-                                    	나만의 상태메세지를 작성해주세요
+                                    	${ loginUser.profile }
                                     </c:otherwise>
                                 </c:choose>
                             </textarea>
@@ -405,66 +423,224 @@
         </div>
 		
         <div class="myPageInfo-area" align="center">
-            <table id="myPage-info">
-                <tr>
-                    <td width="100px" height="35px">ID</td>
-                    <td width="200px">${ loginUser.userId }</td>
-                </tr>
-                <tr>
-                    <td>이름</td>
-                    <td>${ loginUser.userName }</td>
-                </tr>
-                <tr>
-                    <td>성별</td>
-                    <td>
-                    	<c:choose>
-                    		<c:when test="${ loginUser.gender eq null}">
-		            			<label><input type="radio" name="gender" value="M" onclick="return(false);">남자 &nbsp; &nbsp;</label>
-                        		<label><input type="radio" name="gender" value="F" onclick="return(false);">여자</label>
-		            		</c:when>
-		            		<c:when test="${ loginUser.gender eq M}">
-		            			<label><input type="radio" name="gender" value="M" checked onclick="return(false);">남자 &nbsp; &nbsp;</label>
-                        		<label><input type="radio" name="gender" value="F" onclick="return(false);">여자</label>
-		            		</c:when>
-		            		<c:otherwise>
-		            			<label><input type="radio" name="gender" value="M" onclick="return(false);">남자 &nbsp; &nbsp;</label>
-                        		<label><input type="radio" name="gender" value="F" checked onclick="return(false);">여자</label>
-		            		</c:otherwise>
-		            	</c:choose>
-                    </td>
-                </tr>
-                <tr>
-                    <td>비밀번호</td>
-                    <td>*********</td>
-                    <td width="100px">
-                        <button id="pwdmod-btn">비밀번호 수정</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>생년월일</td>
-                    <td>${ loginUser.birthDay }</td>
-                </tr>
-                <tr>
-                    <td>전화번호</td>
-                    <td>${ loginUser.phone }</td>
-                </tr>
-                <tr>
-                    <td>이메일</td>
-                    <td>${ loginUser.email }</td>
-                </tr>
-                <tr>
-                    <td>주소</td>
-                    <td>주소입니다~</td>
-                </tr>
-                <tr>
-                    <td>키</td>
-                    <td>${ loginUser.height }</td>
-                </tr>
-            </table>
+        	<form action="updateInfo.me" method="post">
+	            <table id="myPage-info">
+	                <tr>
+	                    <td width="100px">ID</td>
+	                    <td width="220px">
+	                    	<input type="text" class="form-control" value="${ loginUser.userId }" name="userId" readonly>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>이름</td>
+	                    <td>
+	                    	<input type="text" class="form-control" value="${ loginUser.userName }" name="userName" readonly>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>비밀번호</td>
+	                    <td>
+	                    	<input type="password" class="form-control" value="${ loginUser.userPwd }" name="userPwd" readonly>
+	                    </td>
+	                    <td width="110px" align="right">
+	                        <button class="btn pwdmod-btn">비밀번호 수정</button>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>성별</td>
+	                    <td>
+	                        <label><input type="radio" name="gender" value="M">&nbsp;남자</label> &nbsp; &nbsp; &nbsp;
+	                        <label><input type="radio" name="gender" value="F">&nbsp;여자</label>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>생년월일</td>
+	                    <td>
+	                    	<input type="date" class="form-control" value="${ loginUser.birthDay }" name="birthDay">
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>전화번호</td>
+	                    <td>
+	                    	<input type="text" class="form-control" value="${ loginUser.phone }" name="phone">
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>이메일</td>
+	                    <td>
+	                    	<input type="text" class="form-control" value="${ loginUser.email }" name="email">
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>주소</td>
+	                    <td>주소입니다~</td>
+	                    <td width="110px" align="right">
+	                        <button type="button" class="btn findAddress-btn" data-toggle="modal" data-target="#addressModal" onclick="resizeMap()">주소 찾기</button>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>키</td>
+	                    <td>
+	                    	<input type="text" class="form-control" value="${ loginUser.height }" name="height">
+	                    </td>
+	                </tr>
+	            </table>
+	            <input type="submit" class="btn info-updateBtn" value="수정하기">
+	    	</form>
         </div>
+        
+        <!-- 주소 찾기 모달 -->
+        <div class="modal" id="addressModal">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+        			
+        			<!-- 주소 찾기 모달 헤더 -->
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal">&times;</button>
+        			</div>
+        			
+        			<!-- 주소 찾기 모달 바디 -->
+        			<div class="modal-body">
+        				
+                        <form onsubmit="searchAddress(); return false;">
+                            <div class="input-group mb-3" style="width: 400px;">
+                                <input type="text" class="form-control" id="keyword" placeholder="주소를 입력하세요">
+                                <div class="input-group-append">
+                                  <button type="submit" class="btn searchAddress-btn">검색</button>
+                                </div>
+                            </div>
+                        </form>
+        				<p id="result"></p>
+        				<div id="map" style="width: 100%; height: 500px; margin-bottom: 20px;"></div>
+
+                        <button class="btn" id="addressConfirm">확인</button>
+
+                        <script>
+
+                            // 마커 클릭 시 장소명을 표출할 인포윈도우
+                            var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+                            
+                            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                                mapOption = {
+                                    center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                                    level: 3 // 지도의 확대 레벨
+                                };
+
+                            // 지도 생성
+                            var map = new kakao.maps.Map(mapContainer, mapOption);
+
+                            function resizeMap() {
+                                var mapContainer = document.getElementById('map');
+                                mapContainer.style.width = '100%';
+                                mapContainer.style.height = '500px';
+
+                                setTimeout(function(){ map.relayout(); }, 0);
+                            }
+
+                            // 장소 검색 객체 생성
+                            var ps = new kakao.maps.services.Places();
+
+                            // 키워드로 주소 검색
+                            searchAddress();
+
+                            // 주소 검색을 요청하는 함수
+                            function searchAddress() {
+
+                                var keyword = document.getElementById('keyword').value;
+
+                                if(!keyword.replace(/^\s+|\s+$/g, '')) {
+                                    alert('주소를 입력해주세요!');
+                                    return false;
+                                }
+
+                                // 장소검색 객체를 통해 키워드로 주소 검색 요청
+                                ps.keywordSearch(keyword, placesSearchCB);
+                            }
+
+                            // 주소 검색 완료 시 호출되는 콜백함수
+                            function placesSearchCB (data, status, pagination) {
+                                if(status == kakao.maps.services.Status.OK) {
+
+                                    // 검색된 장소 위치를 기준으로 지도 범위 재설정
+                                    // => LatLngBounds 객체에 좌표 추가
+                                    var bounds = new kakao.maps.LatLngBounds();
+
+                                    for(var i = 0; i < data.length; i++) {
+                                        displayMarker(data[i]);
+                                        bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                                    }
+
+                                    // 검색된 장소 위치를 기준으로 지도 범위 재설정
+                                    map.setBounds(bounds);
+                                }
+                            }
+
+                            var placeName = "";
+
+                            // 지도에 마커를 표시하는 함수
+                            function displayMarker(place) {
+
+                                // 마커 생성 및 지도에 표시
+                                var marker = new kakao.maps.Marker({
+                                    map: map,
+                                    position: new kakao.maps.LatLng(place.y, place.x)
+                            });
+
+                                // 마커에 클릭 이벤트 등록
+                                kakao.maps.event.addListener(marker, 'click', function() {
+
+                                    // 마커 클릭 시 장소명이 인포윈도우에 표출
+                                    infowindow.setContent('<div style="padding:5px; font-size:12px;">' + place.place_name + '</div>');
+                                    infowindow.open(map, marker);
+                                    
+                                    placeName = place.place_name;
+                                    
+                                    var message = '클릭한 위치의 위도는 ' + marker.getPosition().getLat() + ' 이고, ';
+                                        message += '경도는 ' + marker.getPosition().getLng() + ' 입니다';
+
+                                    var resultDiv = document.getElementById('result');
+                                    resultDiv.innerHTML = message;
+                                });
+                            }
+                                    
+
+                            // 주소 확인 버튼
+                            $(function() {
+
+                                $("#addressConfirm").click(function() {
+                                    if(confirm(placeName + "을 주소로 지정하시겠습니까?")) { // 주소 확정
+
+                                        $("#addressModal").modal('hide');
+
+                                    } else { // 주소 비확정
+                                        
+                                        $("#addressModal").modal('show');
+                                    }
+                                });
+                            });
+                        </script>
+        			</div>
+        		</div>
+            </div>
+        </div>
+        
+        <script>
+        	$(function() {
+        		if("${ loginUser.gender }" != "") { // 성별 정보가 있는 경우
+        			$("input[value=${ loginUser.gender }]").attr("checked", true);
+        		}
+        	});
+        </script>
     </div>
     
     <jsp:include page="../common/footer.jsp"/>
+    
+    
+    
+    
+    
+    
+
     
 </body>
 </html>
