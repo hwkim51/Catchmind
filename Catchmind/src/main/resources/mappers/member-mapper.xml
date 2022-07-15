@@ -80,8 +80,10 @@
 	<select id="selectMemberList" resultMap="memberResultSet">
 		SELECT *
 		FROM TB_MEMBER
-		<!-- 일반/블랙/탈퇴회원 모두 조회할 수 있도록
-			 WHERE STATUS='0' 구문 삭제했습니다 : 수빈 -->
+        WHERE USER_ID != 'admin'
+		<!-- (1)일반/블랙/탈퇴회원 모두 조회할 수 있도록
+			 WHERE STATUS='0' 구문 삭제했습니다 
+			 (2)admin 제외하고 뜨도록 수정했습니다: 수빈 -->
 	</select>
 	
 	<update id="blackMember" parameterType="string">
