@@ -51,6 +51,7 @@ public class AdminController {
 		return "admin/memberListView";
 	}
 	
+	// 회원관리 - 블랙리스트 처리  : 수빈
 	@RequestMapping("blackMember.ad")
 	public String blackMemeber(String userId, HttpSession session) {
 		
@@ -66,6 +67,7 @@ public class AdminController {
 		}
 	}
 	
+	// 회원관리 - 회원탈퇴 처리  : 수빈
 	@RequestMapping("deleteMember.ad")
 	public String deleteMember(String userId, HttpSession session) {
 		
@@ -81,6 +83,7 @@ public class AdminController {
 		}
 	}
 	
+	// 회원관리 - 회원계정 복구 처리  : 수빈
 	@RequestMapping("recoverMember.ad")
 	public String recoverMember(String userId, HttpSession session) {
 		

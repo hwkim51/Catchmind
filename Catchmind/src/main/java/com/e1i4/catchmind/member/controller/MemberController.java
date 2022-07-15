@@ -38,13 +38,13 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	// 로그인페이지로 이동
+	// 로그인페이지로 이동 : 수빈
 	@RequestMapping(value="loginPage.me")
 	public String loginPage() {		
 		return "member/login";
 	}
 	
-	// 마이페이지로 이동
+	// 마이페이지로 이동 : 수빈
 	@RequestMapping(value="myPage.me")
 	public String myPage(String userId, String userPwd, Member m, HttpSession session) {
 		
@@ -55,7 +55,7 @@ public class MemberController {
 		return "member/myPage";
 	}
 	
-	// 로그인(select)
+	// 로그인(select) : 수빈
 	@RequestMapping(value="login.me")
 	public String loginMember(
 								Member m,
@@ -79,21 +79,21 @@ public class MemberController {
 		}
 	}
 	
-	// 로그인 시 recentLogin 업데이트(update)
+	// 로그인 시 recentLogin 업데이트(update) : 수빈
 	public int updateRecentLogin(Member m) {
 		int updateRecentLogin = memberService.updateRecentLogin(m);
 		
 		return updateRecentLogin;
 	}
 	
-	// 로그아웃 
+	// 로그아웃  : 수빈
 	@RequestMapping(value="logout.me")
 	public String logoutMember(HttpSession session) {
 		session.invalidate();
 		return "redirect:/"; 
 	}
 	
-	// 아이디 중복체크(select)
+	// 아이디 중복체크(select) : 수빈
 	@ResponseBody
 	@RequestMapping(value="idCheck.me", produces="text/html; charset=UTF-8")
 	public String idCheck(String checkId) {
@@ -101,7 +101,7 @@ public class MemberController {
 		return (count>0)?"NNNNN" : "NNNNY"; 
 	}
 	
-	// 닉네임 중복체크(select)
+	// 닉네임 중복체크(select) : 수빈
 	@ResponseBody
 	@RequestMapping(value="nicknameCheck.me", produces="text/html; charset=UTF-8")
 	public String nicknameCheck(String nickname) {
@@ -109,13 +109,13 @@ public class MemberController {
 		return (count>0)? "NNNNN" : "NNNNY"; 
 	}
 		
-	// 아이디 찾기 페이지로 이동
+	// 아이디 찾기 페이지로 이동 : 수빈
 	@RequestMapping(value="findIdPage.me")
 	public String findIdPage() {	
 		return "member/findId"; 	
 	}
 	
-	// 아이디 찾기 
+	// 아이디 찾기  : 수빈
 	@RequestMapping(value="result.me")
 	public String findId(
 							Member m,
@@ -128,13 +128,13 @@ public class MemberController {
 		return "member/findResult"; 	
 	}
 	
-	// 비밀번호 찾기 페이지로 이동
+	// 비밀번호 찾기 페이지로 이동 : 수빈
 	@RequestMapping(value="findPwdPage.me")
 	public String findPwdPage() {
 		return "member/findPwd"; 	
 	}
 	
-	// 비밀번호 찾기 - step1) ajax로 이메일 인증번호 보내기
+	// 비밀번호 찾기 - step1) ajax로 이메일 인증번호 보내기 : 수빈
 	@ResponseBody
 	@RequestMapping(value="sendEmail.me", produces="text/html; charset=UTF-8")
 	public void getCertificationNum(String email,
@@ -195,7 +195,7 @@ public class MemberController {
 			response.getWriter().print(otp);
 	}
 		
-	// 비밀번호 찾기 - step2) 일치회원 조회
+	// 비밀번호 찾기 - step2) 일치회원 조회 : 수빈
 	@RequestMapping(value="findPwd.me")
 	public String findPwd(
 							Member m,
@@ -207,7 +207,7 @@ public class MemberController {
 		return "member/changePwd"; 	
 	}
 	
-	// 비밀번호 찾기 - step3) 변경 서비스
+	// 비밀번호 찾기 - step3) 변경 서비스 : 수빈
 	@RequestMapping(value="changePwd.me")
 	public String changePwd(
 							Member m,
@@ -227,13 +227,13 @@ public class MemberController {
 		}
 	}
 	
-	// 회원가입 페이지로 이동
+	// 회원가입 페이지로 이동 : 수빈
 		@RequestMapping(value="enrollForm.me")
 		public String enrollForm() {
 			return "member/memberEnrollForm";
 		}
 		
-	// 회원가입(insert)
+	// 회원가입(insert) : 수빈
 	@RequestMapping(value="insert.me")
 	public String insertMember(
 								Member m,
