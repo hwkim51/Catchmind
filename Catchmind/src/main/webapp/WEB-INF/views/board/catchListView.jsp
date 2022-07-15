@@ -128,6 +128,8 @@
             border-radius: 50%;
             color:white;
         } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
+        
+        
     </style>
 </head>
 <body>

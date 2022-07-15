@@ -134,6 +134,7 @@
 		  position:sticky !important;
 		  top:1px !important;
 		  background: #eaeaea;
+		  z-index:0 !important;
 		}
       .swiper img{
 	    width:100%;
@@ -188,6 +189,8 @@
       #reply_Area .report-box{
       font-size: 7px;
       } /* 댓글의 신고하기 크기설정 */
+      
+      
     </style>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
