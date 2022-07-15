@@ -86,7 +86,14 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.updateProfile", m);
 	}
 	
+	// 마이페이지 - 회원 정보 수정 서비스(update)
+	public int updateInfo(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.updateInfo", m);
+	}
+	
 	public int unfollowMember(SqlSessionTemplate sqlSession, Follow f) {
 		return sqlSession.delete("memberMapper.unfollowMember", f);
 	}
+	
 }
