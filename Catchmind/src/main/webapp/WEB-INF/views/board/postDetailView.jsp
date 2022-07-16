@@ -14,7 +14,7 @@
       .body{
           margin: auto;
           width: 1250px;
-          transform: translateY(-30px);
+          transform: translateY(-20px);
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
