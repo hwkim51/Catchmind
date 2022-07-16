@@ -102,7 +102,7 @@
       } /* 조회수 설정 */
       .sub_body .wr_image{
         width: 100%;
-        height:535px;
+        height:300px;
       }
       .sub_body .wr_image>img{
 	    width:100%;
