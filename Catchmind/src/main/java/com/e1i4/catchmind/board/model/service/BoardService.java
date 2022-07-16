@@ -92,5 +92,9 @@ public interface BoardService {
 	Attach selectFileTop(int catchNo);
 
 	int getCatchNo();
+
+	ArrayList<Catch> selectMyCatchList(PageInfo pi, int userNo);
+
+	int selectMyCatchCount(int userNo);
 	
 }

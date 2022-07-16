@@ -138,13 +138,13 @@
         <div id="sub_menubar">
             <a class="menu_content" href="myBoard.po">에브리타임</a>
             <a class="menu_content" href="myBoard.ca">연애의 발견</a>
-            <a class="menu_content" href="myBoard.qa">1:1문의</a>
+            <a style="color:Orange; font-weight: 800;" class="menu_content" href="myBoard.qa">1:1문의</a>
         </div>
         <div id="container">
                 <table class="table">
                     <thead>
                       <tr>
-                        <th class="table_title">글 번호</th>
+                        <th class="table_title">문의 번호</th>
                         <th class="table_writer">제목</th>
                         <th class="table_date">작성일</th>
                       </tr>

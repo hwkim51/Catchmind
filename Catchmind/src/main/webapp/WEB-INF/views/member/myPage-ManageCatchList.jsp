@@ -137,7 +137,7 @@
     <div id="wrap_flex">
         <div id="sub_menubar">
             <a class="menu_content" href="myBoard.po">에브리타임</a>
-            <a class="menu_content" href="myBoard.ca">연애의 발견</a>
+            <a style="color:Orange; font-weight: 800;" class="menu_content" href="myBoard.ca">연애의 발견</a>
             <a class="menu_content" href="myBoard.qa">1:1문의</a>
         </div>
         <div id="container">
@@ -153,9 +153,9 @@
 	                   	<c:if test="${ not empty list }">
 		                    <c:forEach var="c" items="${ list }">
 		                      <tr>
-		                        <td class="cno">${ c.postNo }</td>
-		                        <td>${ c.postTitle }</td>
-		                        <td>${ c.postDate }</td>
+		                        <td class="cno">${ c.catchNo }</td>
+		                        <td>${ c.catchTitle }</td>
+		                        <td>${ c.catchDate }</td>
 		                      </tr>
 		                    </c:forEach>
 	                    </c:if>
@@ -184,12 +184,12 @@
 					            	<li class="signal disabled" id="left"><a href="#">&lt; Prev</a></li>
 					            </c:when>
 	                    		<c:otherwise>
-	                    			<li class="signal" id="left"><a href="list.ca?cpage=${ pi.currentPage -1 }">&lt; Prev</a></li>
+	                    			<li class="signal" id="left"><a href="myBoard.ca?cpage=${ pi.currentPage -1 }">&lt; Prev</a></li>
 	                    		</c:otherwise>
                     		</c:choose>
                     		
-				            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-				            <li class="page_num"><a href="list.ca?cpage=${ c }">${ c }</a></li>
+				            <c:forEach var="c" begin="${ pi.startPage }" end="${ pi.endPage }">
+				            <li class="page_num"><a href="myBoard.ca?cpage=${ c }">${ c }</a></li>
 				            </c:forEach>
 				            
 				            <c:choose>
@@ -197,7 +197,7 @@
 					            	<li class="signal disabled" id="right"><a href="#">Next &gt;</a></li>
 					            </c:when>
 	                    		<c:otherwise>
-	                    			<li class="signal" id="right"><a href="list.ca?cpage=${ pi.currentPage +1 }">Next &gt;</a></li>
+	                    			<li class="signal" id="right"><a href="myBoard.ca?cpage=${ pi.currentPage +1 }">Next &gt;</a></li>
 					            </c:otherwise>
                     		</c:choose>
 				        	</c:when>
