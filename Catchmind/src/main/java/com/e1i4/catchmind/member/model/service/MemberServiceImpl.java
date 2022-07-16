@@ -139,11 +139,17 @@ public class MemberServiceImpl implements MemberService  {
 	public int infoUpdatePwd(Member m) {
 		return memberDao.infoUpdatePwd(sqlSession, m);
 	}
-
-	// 커플관리 > 커플 요청 아이디가 존재하는 아이디인지 체크(select)
+	
+	// 커플관리 > 커플 신청 리스트 서비스(select)
 	@Override
-	public int selectCoupleId(Member m) {
-		return memberDao.selectCoupleId(sqlSession, m);
+	public ArrayList<Member> selectRequestList(int userNo) {
+		return memberDao.selectRequestList(sqlSession, userNo);
+	}
+
+	// 커플관리 > 커플 요청 아이디의 userNo 조회 서비스(select)
+	@Override
+	public String selectCoupleNo(String coupleId) {
+		return memberDao.selectCoupleNo(sqlSession, coupleId);
 	}
 	
 	// 커플관리 > 커플 요청 서비스(update)
@@ -151,6 +157,8 @@ public class MemberServiceImpl implements MemberService  {
 	public int requestCouple(Member m) {
 		return memberDao.requestCouple(sqlSession, m);
 	}
+
+	
 
 	
 	
