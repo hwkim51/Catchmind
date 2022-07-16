@@ -160,7 +160,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
-<body>
+<body style="overflow-x: hidden">
 
 	<jsp:include page="../common/header.jsp"/>
 	

@@ -13,21 +13,22 @@
 
       .body{
           margin: auto;
-          width: 1400px;
+          width: 1250px;
+          transform: translateY(-30px);
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
       .sub_head{
             position: relative;
-            height: 90px;
+            height: 60px;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
         .sub_head>.title{
           position: absolute;
-          font-size: 40px;
+          font-size: 30px;
           width: 380px;
           left:0px; /* 왼쪽 정렬 */
-          padding-bottom: 9px;
+          padding-bottom: 2px;
           border-bottom: 1px solid black;
       } /* 게시판 타이틀 설정 */
       
@@ -38,70 +39,69 @@
             color: white;
             right:0px; /* 오른쪽 정렬 */
             top: 30px;
-            width: 120px;
-            height: 40px;
+            width: 75px;
+            height: 25px;
             border-radius: 4px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
             vertical-align: middle;
-            padding-top: 8px;
-            right:140px;
+            padding-top: 2px;
+            right:90px;
         } /* 작성 설정 */
         .sub_head>.btn_delete{
             position: absolute;
-            font-size: 15px;
+            font-size: 12;
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
             top: 30px;
-            width: 120px;
-            height: 40px;
+            width: 75px;
+            height: 25px;
             border-radius: 4px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
+            padding-top: 2px;
             vertical-align: middle;
-            padding-top: 8px;
         } /* 작성 설정 */
 
       /* ################### sub_body 설정 영역 ################### */
       .sub_body{
           height: 100%;
           background-color: #eaeaea;
-          padding: 25px 25px 25px 25px;
+          padding: 10px 10px 10px 10px;
       } /* 게시판의 영역 설정 */
       
 
       /* ########## 글제목, 작성일자, 작성자 설정 영역 ########## */
       .sub_body>.wr_title{
         display: inline-block;
-        width: 980px;
+        width: 985px;
         font-weight: 800;
-        font-size: 30px;
+        font-size: 20px;
         margin-bottom: 5px;
       } /* 글제목 설정 */
       .sub_body>.wr_date{
         display: inline-block;
-        width: 350px;
+        width: 230px;
         font-weight: 800;
-        font-size: 30px;
+        font-size: 20px;
       } /* 작성일자 설정 */
       .sub_body>.wr_writer{
         display: inline-block;
-        width: 980px;
+        width: 985px;
         font-weight: 800;
-        font-size: 30px;
-        margin-bottom: 20px;
+        font-size: 20px;
+        margin-bottom: 5px;
       } /* 작성자 설정 */
       .sub_body>.wr_count{
         display: inline-block;
-        width: 350px;
+        width: 230px;
         font-weight: 800;
-        font-size: 30px;
+        font-size: 20px;
       } /* 조회수 설정 */
       .sub_body .wr_image{
-        width: 100%;
         height:300px;
       }
       .sub_body .wr_image>img{
@@ -114,34 +114,35 @@
       .sub_body>.wr_content{
         height: 100%;
         font-size: 20px;
-        border-bottom: 1px solid #cccccc;
-        padding-bottom: 20px;
     	white-space: pre-wrap;
+    	margin-bottom:0px;
       } /* 글 내용 설정 */
       
       /* ########## 댓글 입력 설정 영역 ##########*/
       .sub_body>.wr_reply{
-        padding-top: 20px;
+        padding-top: 10px;
         text-align: center;
+        border-top: 1px solid #cccccc;
+        margin-top: 10px;
       } /* 글내용과 댓글입력 창 사이 공간 설정 */
       .sub_body>.wr_reply textarea{
-        width: 700px;
-        height: 45px;
+        width: 500px;
+        height: 25px;
         border: none;
         outline: none;
         border-radius: 4px;
-        padding: 10px 10px 10px 10px;
-        font-size: 15px;
+        font-size: 12px;
         resize:none;
+        margin-left:100px
       } /* 댓글 입력하는 창 설정 */
       .sub_body>.wr_reply button{
         border: none;
         border-radius: 4px;
-        height: 45px;
-        width: 120px;
+        height: 25px;
+        width: 75px;
         color: white;
-        font-size: 17px;
-        transform: translateY(-16px); /* 입력창과 높이 맞춤 */
+        font-size: 15px;
+        transform: translateY(-7px); /* 입력창과 높이 맞춤 */
         margin-left: 30px;
         background-color: rgb(17, 199, 231)
       } /* 댓글 입력 버튼 설정 영역 */
@@ -174,10 +175,10 @@
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
         text-align: center;
-        font-size: 30px;
+        font-size: 20px;
         border: none;
-        padding-bottom: 100px;
-        padding-top: 20px;
+        padding-bottom: 5px;
+        padding-top: 10px;
       } /* 목록으로 구역 설정 및 스타일 적용 */
       .sub_foot>.btn_list{
         cursor:pointer;
@@ -213,10 +214,9 @@
     
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
-<body>
+<body style="overflow-x: hidden">
 
     <jsp:include page="../common/header.jsp" />
-        
     <div class="body">
         <div class="inner_body">
             <div class="sub_head">

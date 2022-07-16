@@ -265,7 +265,7 @@ public class BoardController {
 		int listCount = boardService.selectCatchListCount();
 		
 		int pageLimit = 10;
-		int boardLimit = 6;
+		int boardLimit = 8;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
