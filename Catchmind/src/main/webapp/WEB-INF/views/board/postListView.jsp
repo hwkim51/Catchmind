@@ -12,23 +12,23 @@
     <style>
         .body{
             margin: auto;
-            width: 1720px;
+            width: 1400px;
         } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
         /* ################### sub_head 설정 영역 ################### */
         .sub_head{
             position: relative;
-            height: 130px;
+            height: 90px;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
         .sub_head>.title{
-            position: absolute;
-            font-size: 50px;
-            width: 450px;
-            left:0px; /* 왼쪽 정렬 */
-            padding-bottom: 9px;
-            border-bottom: 1px solid black;
-        } /* 게시판 타이틀 설정 */
+          position: absolute;
+          font-size: 40px;
+          width: 380px;
+          left:0px; /* 왼쪽 정렬 */
+          padding-bottom: 9px;
+          border-bottom: 1px solid black;
+      } /* 게시판 타이틀 설정 */
 
         .sub_head>.btn_write{
             position: absolute;
@@ -36,14 +36,13 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 60px;
+            top: 30px;
             width: 120px;
             height: 40px;
             border-radius: 4px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
-            vertical-align: middle;
             padding-top: 8px;
         } /* 작성 설정 */
 
@@ -60,15 +59,18 @@
             border-collapse: collapse;
             text-align: center;
         } /* 테두리 선에 대한 설정 */
+        .sub_body table *{
+            border-collapse: collapse;
+        }
         .sub_body .table tr{
         	cursor: pointer;
         }
         .sub_body tr{
-            font-size: 20px;
-            height: 50px;
+            font-size: 14px;
+            height: 20px;
         } /* 리스트형 게시판 각 열 넓이 및 폰트 크기 */
         .sub_body .table_title{
-            width: 1300px;
+            width: 1100px;
         } /* 제목 행에 대한 넓이 */
         .sub_body .table_writer{
             width: 300px;
@@ -95,7 +97,7 @@
             transition: all 0.5s ease;
         } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
         .pagination ul li a{
-            padding: 5px 5px 5px 5px;
+            padding: 30px 5px 30px 5px;
             margin: 5px 5px 5px 5px;
         	text-decoration: none;
         	color:black;

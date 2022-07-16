@@ -12,34 +12,32 @@
     <style>
         .body{
             margin: auto;
-            width: 1720px;
+            width: 1400px;
         } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
         /* ################### sub_head 설정 영역 ################### */
         .sub_head{
             position: relative;
-            height: 130px;
+            height: 100px;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
         .sub_head>.title{
             position: absolute;
-            font-size: 50px;
-            width: 450px;
+            font-size: 40px;
+            width: 380px;
             left:0px; /* 왼쪽 정렬 */
             padding-bottom: 9px;
             border-bottom: 1px solid black;
+            margin-left:48px;
         } /* 게시판 타이틀 설정 */
 
         /* ################### sub_body 설정 영역 ################### */
-        .sub_body{
-            height: 100%;
-        } /* 리스트형 게시판의 영역 설정 */
         .sub_body *{
             border-collapse: collapse;
             text-align: center;
         } /* 테두리 선에 대한 설정 */
         .sub_body #areaCode{
-        margin-left: 50px;
+        	margin-left: 50px;
 	        margin-bottom: 10px;
 	        font-size: 20px;
 	        size: 5;
@@ -51,25 +49,26 @@
         .card_area .Loding_data{
         	display:block;
             font-size: 30px;
-            width: 1700px;
+            width: 1400px;
             height: 620px;
             margin:auto;
             padding-top:250px;
         }
         .card_items {
-            width: 500px;
+            width: 400px;
             height: 300px;
             margin: 0px 10px 20px 50px;
-        }
-        
-        .card_items * {
-            border: 1px solid #cccccc;
         }
 
         .card_items .card_img{
        	 	height: 190px;
-       	 	width: 500px;
+       	 	width: 400px;
             object-fit: contain;
+            border: 1px solid #cccccc;
+        }
+        
+        .card_items .data_area{
+            border: 1px solid #cccccc;
         }
         
         .card_items .data_area .title{
@@ -87,6 +86,9 @@
         }
         
     </style>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
 
@@ -128,6 +130,9 @@
     
     <script>
     $(function() {
+    	
+    	AOS.init();
+    	
     	$.ajax({
 			url : "data.to",
 			data : {areaCode : 1 },
@@ -139,20 +144,28 @@
 				// -> 제이쿼리 반복문
 				itemArr.each(function(index, item) {
 					if($(item).find("firstimage").text()) {
-					value += "<div class="+"card_items"+">"
+					var sdate = $(item).find("eventstartdate").text();
+					var edate = $(item).find("eventenddate").text();
+					var aos = " data-aos=\"fade-up\"";
+					var addr = $(item).find("addr1").text()+$(item).find("addr2").text();
+					value += "<div class="+"card_items"+aos+">"
                     + "<img class="+"card_img"+" src="+$(item).find("firstimage").text()+">"
                     + "<div class="+"data_area"+">"
                     + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
-                    + "<div class="+"addr"+">"+$(item).find("addr1").text()+$(item).find("addr2").text()+"</div>"
-                    + "<div class="+"period"+">"+$(item).find("eventstartdate").text()+"~"+$(item).find("eventenddate").text()+"</div>"
+                    + "<div class="+"addr"+">"+addr+"</div>"
+                    + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
                     + "</div>"
                 	+ "</div>"
 					} else {
-					value += "<div class="+"card_items"+">"
+					var sdate = $(item).find("eventstartdate").text();
+					var edate = $(item).find("eventenddate").text();
+					var aos = " data-aos=\"fade-up\"";
+					var addr = $(item).find("addr1").text()+$(item).find("addr2").text();
+					value += "<div class="+"card_items "+aos+">"
                     + "<img class="+"card_img"+" src="+"https://dilavr.com.ua/image/catalog/empty-img.png"+">"
                     + "<div class="+"data_area"+">"
                     + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
-                    + "<div class="+"addr"+">"+$(item).find("addr1").text()+$(item).find("addr2").text()+"</div>"
+                    + "<div class="+"addr"+">"+addr+"</div>"
                     + "<div class="+"period"+">"+$(item).find("eventstartdate").text()+"~"+$(item).find("eventenddate").text()+"</div>"
                     + "</div>"
                 	+ "</div>"
@@ -206,11 +219,8 @@
 			});
     	});
     });
-    
-    
-    	
-    
     </script>
+    
 
     <jsp:include page="../common/footer.jsp"/>
 </body>

@@ -69,50 +69,54 @@
         border-collapse: collapse;
         text-align: center;
     } /* 테두리 선에 대한 설정 */
+    
+    #wrap_flex .table_writer{
+    	width:520px;
+    }
     #alertEmpty{
     text-align: center;
     } /* 작성된 게시글이 없을 경우 나타남 */
     /* ################### sub_foot 설정 영역 ################### */
-	.pagination *{
-		margin: auto;
-		padding: auto;
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;
-	} /* 정렬 */
-	.pagination ul li{
-	    list-style: none;
-	    line-height: 45px;
-	    text-align: center;
-	    font-size: 18px;
-	    cursor: pointer;
-	    height: 35px;
-	    width: 35px;
-	    transition: all 0.5s ease;
-	} /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
-	.pagination ul li a{
-	    padding: 5px 5px 5px 5px;
-	    margin: 5px 5px 5px 5px;
-		text-decoration: none;
-		color:black;
-	} /* 페이지네이션 a스타일 */
-	.pagination #left{
-	    border-radius: 25px 5px 5px 25px;
-	    width: 85px;
-	} /* 이전 스타일 */
-	
-	.pagination #right{
-	    border-radius: 5px 25px 25px 5px;
-	    width: 85px;
-	} /* 다음 스타일 */
-	
-	.pagination .active,
-	.pagination .page_num:hover,
-	.pagination .signal:hover{
-	    background-color: rgb(255, 165,0);
-	    border-radius: 50%;
-	    color:white;
-	} /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
+        .pagination *{
+        	margin: auto;
+        	padding: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        } /* 정렬 */
+        .pagination ul li{
+            list-style: none;
+            line-height: 45px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            height: 35px;
+            width: 35px;
+            transition: all 0.5s ease;
+        } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
+        .pagination ul li a{
+            padding: 30px 5px 30px 5px;
+            margin: 5px 5px 5px 5px;
+        	text-decoration: none;
+        	color:black;
+        } /* 페이지네이션 a스타일 */
+        .pagination #left{
+            border-radius: 25px 5px 5px 25px;
+            width: 85px;
+        } /* 이전 스타일 */
+
+        .pagination #right{
+            border-radius: 5px 25px 25px 5px;
+            width: 85px;
+        } /* 다음 스타일 */
+
+        .pagination .active,
+        .pagination .page_num:hover,
+        .pagination .signal:hover{
+            background-color: rgb(255, 165,0);
+            border-radius: 50%;
+            color:white;
+        } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
     
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
