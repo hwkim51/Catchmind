@@ -23,6 +23,9 @@
         height: 230px;
         background-color: rgb(234, 232, 232);
     }
+    .matchUser:hover{
+        cursor: pointer;
+    }
     .matchUser *{
         position: absolute;
     }
@@ -57,6 +60,16 @@
         top: 180px;
         left: 80px;
     }
+    #profileModal{
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.829)
+    }
+    .profile-img{
+        width: 350px;
+        height: 350px;
+        border-radius: 70%;
+        object-fit: cover;
+    }
 
 </style>
 </head>
@@ -71,7 +84,7 @@
         </nav>
         <br>
         
-        <article class="matchUser">
+        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
             <div class="matchUserPic"></div>
             <div class="matchUserInfo matchUserNickname">조러블메이커(25)</div>
             <div class="matchUserInfo matchUserMbti">ENFP</div>
@@ -81,7 +94,7 @@
             </div>
         </article>
 
-        <article class="matchUser">
+        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
             <div class="matchUserPic"></div>
             <div class="matchUserInfo matchUserNickname">캔디현우(27)</div>
             <div class="matchUserInfo matchUserMbti">ENFP</div>
@@ -91,7 +104,7 @@
             </div>
         </article>
         
-        <article class="matchUser">
+        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
             <div class="matchUserPic"></div>
             <div class="matchUserInfo matchUserNickname">치매정인(22)</div>
             <div class="matchUserInfo matchUserMbti">ISTJ</div>
@@ -101,7 +114,7 @@
             </div>
         </article>
 
-        <article class="matchUser">
+        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
             <div class="matchUserPic"></div>
             <div class="matchUserInfo matchUserNickname">영웅유진(24)</div>
             <div class="matchUserInfo matchUserMbti">ENFP</div>
@@ -111,7 +124,7 @@
             </div>
         </article>
 
-        <article class="matchUser">
+        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
             <div class="matchUserPic"></div>
             <div class="matchUserInfo matchUserNickname">캔디현우(29)</div>
             <div class="matchUserInfo matchUserMbti">ISTJ</div>
@@ -121,7 +134,7 @@
             </div>
         </article>
         
-        <article class="matchUser">
+        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
             <div class="matchUserPic"></div>
             <div class="matchUserInfo matchUserNickname">치매정인(31)</div>
             <div class="matchUserInfo matchUserMbti">ENFP</div>
@@ -130,6 +143,46 @@
                 <input type="button" class="btn-sm btn-danger" value="자세히 보기">
             </div>
         </article>
+
+
+
+        <!-- 프로필 상세보기 모달 -->
+        <div class="modal" id="profileModal"> 
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- 프로필 상세보기 모달 헤더 -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- 프로필 상세보기 모달 바디 -->
+                    <div class="modal-body">
+
+                        <form action="" method="post">
+                        	<input type="hidden" name="userId" value="">
+                        	<input type="hidden" name="userPwd" value="">
+                        	
+                            <!-- 프로필 - 이미지 -->
+                            <img class="profile-img" src='./resources/images/song.jpg'>
+                           
+                            <br><br>
+                            <div class="matchUserInfo matchUserNickname">조러블메이커(25)</div>
+                            <div class="matchUserInfo matchUserMbti">ENFP</div>
+                            <div class="matchUserInfo matchUserWord">진지한 만남 상대 찾아요❣</div>
+                            <hr>                            
+                            <!-- 팔로우 / 차단하기 버튼 -->
+                            <input type="submit" class="btn btn-danger" value=" f o l l o w "> &nbsp;
+                            <input type="button" class="btn btn-secondary" value=" 차 단 하 기 ">
+                            <br>
+                        </form>
+
+                    </div>
+                </div>
+        	</div>
+        </div>
+
+
     </div>
     <%-- footer 영역 --%>
     <jsp:include page="../common/footer.jsp"/>
