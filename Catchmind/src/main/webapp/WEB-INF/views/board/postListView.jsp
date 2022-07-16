@@ -64,13 +64,19 @@
         }
         .sub_body .table tr{
         	cursor: pointer;
-        }
-        .sub_body tr{
             font-size: 14px;
-            height: 20px;
-        } /* 리스트형 게시판 각 열 넓이 및 폰트 크기 */
+            height:15px;
+        	padding: 0px 0px 0px 0px;
+        }
+        .sub_body .table td{
+        	padding-top: 8px;
+        	padding-bottom : 8px;
+        }
+        .sub_body .table_pno{
+        	width:100px;
+        }
         .sub_body .table_title{
-            width: 1100px;
+            width: 1000px;
         } /* 제목 행에 대한 넓이 */
         .sub_body .table_writer{
             width: 300px;
@@ -121,7 +127,7 @@
         } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
     </style>
 </head>
-<body>
+<body style="overflow-x: hidden">
 
     <jsp:include page="../common/header.jsp"/>
     
@@ -137,6 +143,7 @@
                 <table class="table">
                     <thead>
                       <tr>
+                        <th class="table_pno">글 번호</th>
                         <th class="table_title">글 제목</th>
                         <th class="table_writer">작성자</th>
                         <th class="table_date">작성일</th>
@@ -145,7 +152,7 @@
                     <tbody>
                     <c:forEach var="p" items="${ list }">
                       <tr>
-                        <td class="pno" style="visibility: hidden; display:none;">${ p.postNo }</td>
+                        <td class="pno">${ p.postNo }</td>
                         <td>${ p.postTitle }</td>
                         <td>${ p.nickName }</td>
                         <td>${ p.postDate }</td>

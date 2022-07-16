@@ -121,7 +121,7 @@
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 </head>
-<body>
+<body style="overflow-x: hidden">
 
 	<jsp:include page="../common/header.jsp"/>
 	
