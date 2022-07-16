@@ -124,6 +124,16 @@ public class BoardServiceImpl implements BoardService {
 	public int selectMyListCount(int userNo) {
 		return boardDao.selectMyListCount(userNo, sqlSession);
 	}
+	
+	@Override
+	public ArrayList<Catch> selectMyCatchList(PageInfo pi, int userNo) {
+		return boardDao.selectMyCatchList(pi, userNo, sqlSession);
+	}
+	
+	@Override
+	public int selectMyCatchCount(int userNo) {
+		return boardDao.selectMyCatchCount(userNo, sqlSession);
+	}
 
 	
 	/* ============================ Catch ============================ */
@@ -206,6 +216,8 @@ public class BoardServiceImpl implements BoardService {
 	public int getCatchNo() {
 		return boardDao.getCatchNo(sqlSession);
 	}
+
+	
 
 	
 

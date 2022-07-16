@@ -533,14 +533,7 @@ public class BoardController {
 			return responseText;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	/* ============================ 내 글 관리 ============================ */
+	/* ============================ 내 글 관리 - 에브리타임  ============================ */
 	@RequestMapping("myBoard.po")
 	public String listViewMyPost(@RequestParam(value="ppage", defaultValue="1") int currentPage, HttpSession session, Model model) {
 		
@@ -667,6 +660,186 @@ public class BoardController {
 		return "common/errorPage";
 		}
 
+	}
+	
+	/* ============================ 내 글 관리 - 캐치마인드  ============================ */
+	
+	
+	@RequestMapping("myBoard.ca")
+	public String listViewMyCatch(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, Model model) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		
+		int listCount = boardService.selectMyCatchCount(userNo);
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		
+		ArrayList<Catch> list = boardService.selectMyCatchList(pi, userNo);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "member/myPage-ManageCatchList";
+	}
+	
+	@RequestMapping("myDetail.ca")
+	public ModelAndView myDetailCatch(int cno, ModelAndView mv, HttpSession session) {
+		
+		int result = boardService.increaseCatchCount(cno);
+		if((session.getAttribute("loginUser"))!=null) {
+			Like like = new Like();
+			like.setLikeUser(((Member)session.getAttribute("loginUser")).getUserNo());
+			like.setCatchNo(cno);
+			int llist = boardService.selectLike(like);
+			mv.addObject("llist", llist);
+		}
+		if(result>0) {
+			Catch c = boardService.selectCatch(cno);
+			ArrayList<Attach> alist = boardService.selectFiles(cno);
+			int l = boardService.likeCount(cno);
+			
+			mv.addObject("l", l);
+			mv.addObject("alist", alist);
+			mv.addObject("c", c).setViewName("board/myCatchDetailView");
+			return mv;
+		} else {
+			mv.addObject("errorMsg", "상세조회 요청에 실패하였습니다.").setViewName("common/errorPage");
+			return mv;
+		}
+	}
+	@PostMapping("myDelete.ca")
+	public String myDeleteCatch(int catchNo, Model model, String filePath, HttpSession session) {
+		int result = boardService.deleteCatch(catchNo);
+		
+		Attach a = new Attach();
+		a.setAttCatch(Integer.toString(catchNo));
+		
+		ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+		
+		if(!path.equals(null)) {
+			// 첨부파일있었던 게시글 삭제 시 첨부파일 서버에서 삭제
+			for(int i = 0; i<path.size();i++) {
+				String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
+				new File(realPath).delete();
+			}
+
+			int result2 = boardService.deleteFiles(a);
+			
+			// url재요청
+			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
+			
+			return "redirect:myBoard.ca";
+			
+		} else {
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	@PostMapping("myUpdateEnroll.ca")
+	public ModelAndView myUpdateEnrollFormCatch(int catchNo, ModelAndView mv) {
+int result = boardService.increaseCatchCount(catchNo);
+		
+		if(result>0) {
+			Catch c = boardService.selectCatch(catchNo);
+			ArrayList<Attach> alist = boardService.selectFiles(catchNo);
+			
+			mv.addObject("alist", alist);
+			mv.addObject("c", c).setViewName("board/myUpdateEnrollFormCatch");
+			return mv;
+		} else {
+			mv.addObject("errorMsg", "상세조회 요청에 실패하였습니다.").setViewName("common/errorPage");
+			return mv;
+		}
+	}
+	@RequestMapping("myUpdate.ca")
+	public String myUpdateBoard(Catch c, Attach a, ArrayList<MultipartFile> reupfile, HttpSession session, Model model) {
+		int result2 = 0;
+		a.setAttCatch(Integer.toString(c.getCatchNo()));
+		if(reupfile.get(0).getSize()>0) { // 새로운 첨부파일있는 경우
+			
+			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있는 경우
+				ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+				for(int i = 0; i<path.size();i++) {
+					String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
+					new File(realPath).delete();
+				}
+
+				int result3 = boardService.deleteFiles(a);
+			
+					for(int i=0;i<reupfile.size();i++) {
+						String originName = reupfile.get(i).getOriginalFilename();
+						String changeName = saveFile(reupfile.get(i), session);
+						
+						a.setAttOrigin(reupfile.get(i).getOriginalFilename());
+						a.setAttChange("resources/images/upfiles"+changeName);
+						
+						result2 = boardService.insertFiles(a);
+					}
+				} else { // 기존 첨부파일이 없는 경우
+					for(int i=0;i<reupfile.size();i++) {
+						String originName = reupfile.get(i).getOriginalFilename();
+						String changeName = saveFile(reupfile.get(i), session);
+						
+						a.setAttOrigin(reupfile.get(i).getOriginalFilename());
+						a.setAttChange("resources/images/upfiles"+changeName);
+						
+						result2 = boardService.addFiles(a);
+					}
+				}
+			
+		} else { // 새로운 첨부파일없는 경우
+			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있는 경우
+				ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+				for(int i = 0; i<path.size();i++) {
+					String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
+					new File(realPath).delete();
+				}
+
+				int result3 = boardService.deleteFiles(a);
+			} else { // 기존 첨부파일이 없는 경우
+				
+			}
+		}
+		
+
+		int result1 = boardService.updateCatch(c);
+		
+		if(result1+result2 > 0) { // 성공
+		session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다.");
+		
+		return "redirect:myDetail.ca?cno=" + c.getCatchNo();
+		} else { // 실패
+		model.addAttribute("errorMsg", "게시글 수정 실패");
+		return "common/errorPage";
+		}
+
+	}
+	
+	/* ============================ 내 글 관리 - QA  ============================ */
+	@RequestMapping("myBoard.qa")
+	public String listViewMyQA(@RequestParam(value="ppage", defaultValue="1") int currentPage, HttpSession session, Model model) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		
+		int listCount = boardService.selectMyListCount(userNo);
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		
+		ArrayList<Post> list = boardService.selectMyList(pi, userNo);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "member/myPage-ManageQAList";
 	}
 	
 	
