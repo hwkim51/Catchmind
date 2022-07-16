@@ -120,6 +120,13 @@
         .article-main b{
             display: block;
         }
+        #catchArea{
+            background-color: rgba(211, 211, 211, 0.171);
+            padding-left: 50px;
+            width: 1000px;
+            height: 500px;
+            
+        }
 
         /* 미디어쿼리 (반응형 웹)
          @media screen and (max-width:780px),(max-height:500px) {
@@ -174,9 +181,12 @@
             </div>
             <div class="swiper-slide">
                 <img src='./resources/images/nav4.jpg'>
-                <div class="text-wrap" style="text-align: left;"><br>
-                    <p style="color:rgb(246, 255, 0);">딱 나만큼 괜찮은 사람과의 만남</p>
-                    <h2 style="color:rgb(246, 255, 0);">CATCH<br>&nbsp;MIND</h2>
+                <div class="text-wrap" id="catchArea" style="text-align: left;"><br>
+                    <p style="color:rgb(255, 242, 0);">지금 바로 나의 운명의 상대를 찾고싶다면?</p>
+                    <h2 style="color:rgb(255, 242, 0);">CATCH
+                        <input type="button" class="btn-main" style="background-color: rgb(255, 242, 0);" value="채팅 상대 둘러보기"><br>&nbsp;MIND 
+                       
+                    </h2>
                 </div>
             </div>
         </div>
