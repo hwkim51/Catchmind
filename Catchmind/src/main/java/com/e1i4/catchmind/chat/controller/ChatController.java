@@ -20,6 +20,12 @@ public class ChatController {
 	@Autowired
 	private ChatService chatService;
 
+	// 매치리스트 페이지로 이동: 수빈
+	@RequestMapping(value="matchList.ch")
+	public String selectMatchList() {
+		return "chat/matchListView";
+	}
+	
 	// 채팅 메세지 전달
     @MessageMapping("/{roomNo}")
     @SendTo("/subscribe/{roomNo}")

@@ -243,7 +243,7 @@
     <div class="sidebar">
         <label>
             <ul class="accodion"><a href="mbtiTest.te"><span>MBTI 테스트</span></a></ul><br>
-            <ul class="accodion"><a href=""><span>❣ CATCH ❣</span></a></ul><br>
+            <ul class="accodion"><a href="matchList.ch"><span>❣ CATCH ❣</span></a></ul><br>
             <ul class="accodion"><a><span>커뮤니티</span></a></ul>
                 <div>
                     <li><a href="list.to"> 함께 놀러가요 💑</a></li>
