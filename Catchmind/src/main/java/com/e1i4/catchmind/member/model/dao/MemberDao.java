@@ -106,4 +106,14 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.infoUpdatePwd", m);
 	}
 	
+	// 커플관리 > 커플 요청 아이디가 존재하는 아이디인지 체크(select)
+	public int selectCoupleId(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.selectCoupleId", m);
+	}
+	
+	// 커플관리 > 커플 요청 서비스(update)
+	public int requestCouple(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.requestCouple", m);
+	}
+	
 }

@@ -62,6 +62,12 @@ public interface MemberService {
 	
 	// 마이페이지 - 회원 정보 수정 서비스(update)
 	int updateInfo(Member m);
+	
+	// 커플관리 > 커플 요청 아이디가 존재하는 아이디인지 체크(select)
+	int selectCoupleId(Member m);
+	
+	// 커플관리 > 커플 요청 서비스(update)
+	int requestCouple(Member m);
 
 	int unfollowMember(Follow f);
 	

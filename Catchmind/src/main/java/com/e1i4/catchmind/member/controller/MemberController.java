@@ -401,6 +401,8 @@ public class MemberController {
 	@RequestMapping("updateInfo.me")
 	public String updateInfo(Member m, String address, HttpSession session, Model model) {
 		
+		System.out.println(m);
+		
 		int result = memberService.updateInfo(m);
 		
 		if(result > 0) { // 회원 정보 수정 성공
@@ -461,6 +463,40 @@ public class MemberController {
 	public String myCouple() {
 		
 		return "member/myPage-myCouplePage";
+	}
+	
+	// 커플을 요청하는 메소드
+	@RequestMapping("requestCouple.me")
+	public String requestCouple(Member m, HttpSession session, Model model) {
+		System.out.println(m);
+		
+		int count = memberService.selectCoupleId(m);
+		
+		if(count > 0) { // 커플 요청한 아이디가 유효한 아이디
+			
+			int result = memberService.requestCouple(m);
+			
+			if(result > 0) { // 커플 아이디 업데이트 성공
+				
+				Member updateMem = memberService.loginMember(m);
+				
+				session.setAttribute("loginUser", updateMem);
+				session.setAttribute("alertMsg", "커플 요청에 성공했습니다.");
+				
+				return "redirect:myCouple.me";
+				
+			} else { // 커플 아이디 업데이트 실패 
+				model.addAttribute("errorMsg", "커플 등록 요청 실패");
+				
+				return "common/errorPage";
+			}
+
+		} else { // 커플 요청한 아이디가 유효하지 않은 아이디
+			
+			session.setAttribute("alertMsg", "존재하지 않는 회원입니다.");
+			
+			return "redirect:myCouple.me";
+		}
 	}
 	
 	// 팔로우 취소하는 메소드 (유진)

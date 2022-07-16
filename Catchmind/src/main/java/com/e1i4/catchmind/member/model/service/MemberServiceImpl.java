@@ -134,5 +134,19 @@ public class MemberServiceImpl implements MemberService  {
 	public int infoUpdatePwd(Member m) {
 		return memberDao.infoUpdatePwd(sqlSession, m);
 	}
+
+	// 커플관리 > 커플 요청 아이디가 존재하는 아이디인지 체크(select)
+	@Override
+	public int selectCoupleId(Member m) {
+		return memberDao.selectCoupleId(sqlSession, m);
+	}
+	
+	// 커플관리 > 커플 요청 서비스(update)
+	@Override
+	public int requestCouple(Member m) {
+		return memberDao.requestCouple(sqlSession, m);
+	}
+
+	
 	
 }
