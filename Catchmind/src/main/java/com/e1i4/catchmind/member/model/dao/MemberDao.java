@@ -96,4 +96,14 @@ public class MemberDao {
 		return sqlSession.delete("memberMapper.unfollowMember", f);
 	}
 	
+	// 마이페이지 - 프로필 수정 > 기존 비밀번호 체크 서비스(select)
+	public int originPwdCheck(SqlSessionTemplate sqlSession, String checkOriginPwd) {
+		return sqlSession.selectOne("memberMapper.originPwdCheck", checkOriginPwd);
+	}
+	
+	// 마이페이지 - 프로필 수정 > 변경된 비밀번호 업데이트 서비스(update)
+	public int infoUpdatePwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.infoUpdatePwd", m);
+	}
+	
 }

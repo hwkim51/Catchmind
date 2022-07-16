@@ -122,5 +122,17 @@ public class MemberServiceImpl implements MemberService  {
 	public int unfollowMember(Follow f) {
 		return memberDao.unfollowMember(sqlSession, f);
 	}
+
+	// 마이페이지 - 프로필 수정 > 기존 비밀번호 체크 서비스(select)
+	@Override
+	public int originPwdCheck(String checkOriginPwd) {
+		return memberDao.originPwdCheck(sqlSession, checkOriginPwd);
+	}
+
+	// 마이페이지 - 프로필 수정 > 변경된 비밀번호 업데이트 서비스(update)
+	@Override
+	public int infoUpdatePwd(Member m) {
+		return memberDao.infoUpdatePwd(sqlSession, m);
+	}
 	
 }

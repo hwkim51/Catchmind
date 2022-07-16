@@ -15,136 +15,134 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     
- <style>
-        html{
-            font-size: 20px;
-        }
-         /* swiper */
-        #mainSwiper{
-            position: absolute;
-            z-index: 0;
-            top:0;
-            width: 100vw;
-            height: 100vh;
-            transition-duration: 1s;
-        }
-        .swiper-slide img{
-            width: 100vw;
-            height: 100vh;
-        }
-        .text-wrap{
-            position:absolute;
-            top:50%;
-            left: 0;
-            right: 0;
-            width: 900px;
-            opacity: 0;
-            margin: auto;
-            text-align: center;
-            transition : 0.9s;
-        }
-        .swiper-slide-active .text-wrap{
-            transition-delay: 0.3s;
-            opacity: 1;
-            top: 20%;
-            transition: 0.9;
-        }
-        .text-wrap h2{
-            color: white;
-            font-size: 160px;
-            line-height: 1;
-            font-weight: bold;
-            margin-bottom: 16px;
-        }
-        .text-wrap p{
-            color:white;
-            font-weight: 500;
-            font-size: 45px;
-            margin-bottom: 0px;
-        }
-
-        .swiper-pagination-bullet{
-            width: 40px;
-            height: 4px;
-            border-radius: 0;
-            background-color: #fff;
-        }
-        .swiper-button-prev,
-        .swiper-button-next{
-            color: white;
-        }
-        /* section */
-        section{
-            position: absolute;
-            top: 100vh;
-        }
-        .btn-main{
-            margin-left: 100px;
-            background-color: orange;
-            font-size: 18px;
-            width: 200px;
-            height: 50px;
-            border: 0;
-            border-radius: 30px;
-            font-weight: bolder;
-            box-shadow: 1px 3px 4px rgba(0,0,0,0.3);
-        }
-        .btn-main:hover{
-            color: white;
-            background: linear-gradient(to right, rgb(236, 3, 194) 10%, orange);
-        }
-        /* article */
-        .article-main {
-            width: 100vw;
-            height: 550px;
-        }
-        .article-main table{
-            width: 1100px;
-            height: 500px;
-            margin: auto;
-        }
-        .left{
-            width: 550px;
-        }
-        .article-main b{
-            font-size: 35px;
-            line-height: 30px;
-        }
-        .line{
-            background-color: white !important;
-            width: 50px;
-            height: 5px;
-            margin: 10px 0px;
-            transition-duration:0.5;
-        }
-        .article-main b{
-            display: block;
-        }
-
-        /* 미디어쿼리 (반응형 웹)
-         @media screen and (max-width:780px),(max-height:500px) {
-            nav img{
-                width:780px;
-                height: 100vh;
-                float:left;
-            }
-            .script_font{
-                font-size: 30px;
-                top: 200px;
-                left: 70px;
-                line-height: 10px;
-            }
-            .logo_font{
-                font-size: 120px;
-                top: 240px;
-                left: 70px;
-                line-height: 100px;
-            } 
-        }*/
-    
-    </style>
+<style>
+	html{
+	    font-size: 20px;
+	}
+	 /* swiper */
+	#mainSwiper{
+	    position: absolute;
+	    z-index: 0;
+	    top:0;
+	    width: 100vw;
+	    height: 100vh;
+	    transition-duration: 1s;
+	}
+	.swiper-slide img{
+	    width: 100vw;
+	    height: 100vh;
+	}
+	.text-wrap{
+	    position:absolute;
+	    top:50%;
+	    left: 0;
+	    right: 0;
+	    width: 900px;
+	    opacity: 0;
+	    margin: auto;
+	    text-align: center;
+	    transition : 0.9s;
+	}
+	.swiper-slide-active .text-wrap{
+	    transition-delay: 0.3s;
+	    opacity: 1;
+	    top: 20%;
+	    transition: 0.9;
+	}
+	.text-wrap h2{
+	    color: white;
+	    font-size: 160px;
+	    line-height: 1;
+	    font-weight: bold;
+	    margin-bottom: 16px;
+	}
+	.text-wrap p{
+	    color:white;
+	    font-weight: 500;
+	    font-size: 45px;
+	    margin-bottom: 0px;
+	}
+	
+	.swiper-pagination-bullet{
+	    width: 40px;
+	    height: 4px;
+	    border-radius: 0;
+	    background-color: #fff;
+	}
+	.swiper-button-prev,
+	.swiper-button-next{
+	    color: white;
+	}
+	/* section */
+	section{
+	    position: absolute;
+	    top: 100vh;
+	}
+	.btn-main{
+	    margin-left: 100px;
+	    background-color: orange;
+	    font-size: 18px;
+	    width: 200px;
+	    height: 50px;
+	    border: 0;
+	    border-radius: 30px;
+	    font-weight: bolder;
+	    box-shadow: 1px 3px 4px rgba(0,0,0,0.3);
+	}
+	.btn-main:hover{
+	    color: white;
+	    background: linear-gradient(to right, rgb(236, 3, 194) 10%, orange);
+	}
+	/* article */
+	.article-main {
+	    width: 100vw;
+	    height: 550px;
+	}
+	.article-main table{
+	    width: 1100px;
+	    height: 500px;
+	    margin: auto;
+	}
+	.left{
+	    width: 550px;
+	}
+	.article-main b{
+	    font-size: 35px;
+	    line-height: 30px;
+	}
+	.line{
+	    background-color: white !important;
+	    width: 50px;
+	    height: 5px;
+	    margin: 10px 0px;
+	    transition-duration:0.5;
+	}
+	.article-main b{
+	    display: block;
+	}
+	
+	/* 미디어쿼리 (반응형 웹)
+	 @media screen and (max-width:780px),(max-height:500px) {
+	    nav img{
+	        width:780px;
+	        height: 100vh;
+	        float:left;
+	    }
+	    .script_font{
+	        font-size: 30px;
+	        top: 200px;
+	        left: 70px;
+	        line-height: 10px;
+	    }
+	    .logo_font{
+	        font-size: 120px;
+	        top: 240px;
+	        left: 70px;
+	        line-height: 100px;
+	    } 
+	}*/
+</style>
 </head>
-
 <body>
     
     <%-- header 영역 --%>
