@@ -56,9 +56,20 @@ public interface MemberService {
 	// 마이페이지 - 프로필 수정 서비스(update)
 	int updateProfile(Member m);
 	
+	// 마이페이지 - 프로필 수정 > 기존 비밀번호 체크 서비스(select)
+	int originPwdCheck(String checkOriginPwd);
+	
+	// 마이페이지 - 프로필 수정 > 변경된 비밀번호 업데이트 서비스(update)
+	int infoUpdatePwd(Member m);
 	
 	// 마이페이지 - 회원 정보 수정 서비스(update)
 	int updateInfo(Member m);
+	
+	// 커플관리 > 커플 요청 아이디가 존재하는 아이디인지 체크(select)
+	int selectCoupleId(Member m);
+	
+	// 커플관리 > 커플 요청 서비스(update)
+	int requestCouple(Member m);
 
 	int unfollowMember(Follow f);
 	

@@ -81,11 +81,11 @@
 
     <%-- myPage header 영역 --%>
     <div class="myPage-nav">
-        <div class="myPage-menu"><a href="">회원정보수정</a></div>
+        <div class="myPage-menu"><a href="myPage.me">회원정보수정</a></div>
         <div class="myPage-menu"><a href="myFollow.me">팔로우리스트</a></div>
         <div class="myPage-menu"><a href="myBlock.me">차단리스트</a></div>
         <div class="myPage-menu"><a href="myCouple.me">커플관리</a></div>
-        <div class="myPage-menu"><a href="">내글관리</a></div>
+        <div class="myPage-menu"><a href="myBoard.po">내글관리</a></div>
         <hr>
     </div>
     
@@ -116,8 +116,8 @@
 		                    	<td>${bl.profile }</td>
 		                    </c:otherwise>
 	                    </c:choose>
-                    	<td id="blButton"><a class="btn btn-dark">차단 취소</a></td>
-                    	<td class="blno" style="visibility: hidden; display:none;">${bl.userNo }</td>
+                    	<td><button type="button" class="btn btn-secondary" onclick="deleteBlock();">차단 취소</button></td>
+                    	<td><input type='hidden' value="${bl.userNo }" id='blockedUser'></td>
                 	</tr>
                 </c:forEach>
                 </tbody>
@@ -126,11 +126,15 @@
     </div>
     
     <script>
-    	
-    	$("#blockTable>tbody>tr>#blButton").click(function(){
-    		//console.log($(this).siblings(".bno").text()); 
-    		location.href="deleteBlock.me?blno="+$(this).siblings(".blno").text();
-    	})
+    	function deleteBlock(){
+    		var blockedUser = $("#blockedUser").val();
+    		console.log(blockedUser);
+    		//location.href="deleteBlock.me?blockedUser="+blockedUser;
+    	}
+
+        $("#blockTable>tbody>tr>#detail").click(function(){
+        	location.href="detailNotice.ad?nno="+$(this).siblings(".nno").text();
+       })
     </script>
     
     <%-- footer 영역 --%>

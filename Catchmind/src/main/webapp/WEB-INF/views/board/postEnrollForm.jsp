@@ -8,28 +8,21 @@
 <title>Insert title here</title>
 
 	<style>
-		/* ################### 임시 ################### header영역 넓이 */
-      .header{
-          width: 100%;
-          height: 100px;
-          background-color: aquamarine;
-      } 
-
       .body{
           margin: auto;
-          width: 1720px;
+          width: 1300px;
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
       .sub_head{
           position: relative;
-          height: 130px;
+          height: 100px;
       } /* 게시판 타이틀 및 작성 영역 설정 */
 
       .sub_head>.title{
           position: absolute;
-          font-size: 50px;
-          width: 450px;
+          font-size: 40px;
+          width: 380px;
           left:0px; /* 왼쪽 정렬 */
           padding-bottom: 9px;
           border-bottom: 1px solid black;
@@ -45,15 +38,12 @@
       }
       
       .sub_body #title{
-      	width: 1600px;
+      	width: 1180px;
     	}
 
       .sub_body #content{
-          width: 1600px;
+          width: 1180px;
           height: 520px;
-      }
-      .sub_body .form-file{
-
       }
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
@@ -69,7 +59,7 @@
         border-radius: 3px;
         width: 100px;
         height: 33px;
-        margin-left: 800px;
+        margin-left: 650px;
         margin-top:10px;
         margin-bottom : 34px;
       }

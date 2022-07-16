@@ -116,15 +116,18 @@
         <div class="myPage-menu"><a href="myFollow.me">팔로우리스트</a></div>
         <div class="myPage-menu"><a href="myBlock.me">차단리스트</a></div>
         <div class="myPage-menu"><a href="myCouple.me">커플관리</a></div>
-        <div class="myPage-menu"><a href="">내글관리</a></div>
+        <div class="myPage-menu"><a href="myBoard.po">내글관리</a></div>
         <hr>
     </div>
     
     <div class="myCouple-area" align="center">
         <div class="inputCoupleID-area">
             <div class="coupleID-text" align="left">커플 아이디 입력</div>
-            <input id="input-coupleID" type="text" class="form-control">
-            <button id="coupleRequest-btn" class="btn">요청</button>
+            <form action="requestCouple.me" method="post">
+            	<input type="hidden" name="userId" value="${ loginUser.userId }">
+            	<input id="input-coupleID" type="text" class="form-control" name="partner">
+            	<button type="submit" id="coupleRequest-btn" class="btn">요청</button>
+            </form>
         </div>
         
         <div class="coupleRequest-area">

@@ -75,7 +75,7 @@
                 <div class="title">연애의발견</div>
             </div>
             <div class="sub_body">
-                <form id="erollFormPost" method="post" action="update.ca" enctype="multipart/form-data">
+                <form id="erollFormPost" method="post" action="myUpdate.ca" enctype="multipart/form-data">
                     <table algin="center">
                     <input type="hidden" name="catchWriter" value="${ loginUser.userNo }">
                     <input type="hidden" name="catchNo" value="${ c.catchNo }">

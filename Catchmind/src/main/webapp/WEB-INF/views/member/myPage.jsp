@@ -170,7 +170,7 @@
         text-align: center;
     }
 
-    .profile-updateBtn, .searchAddress-btn, .info-updateBtn {
+    .profile-updateBtn, .searchAddress-btn, .info-updateBtn, #addressConfirm {
         background-color: orange !important;
         color: white !important;
         margin: auto;
@@ -182,6 +182,10 @@
     
     .info-updateBtn {
         margin-top: 20px;
+    }
+    
+    input[name=address] {
+    	background-color: white !important;
     }
 </style>
 <!-- 아이콘 -->
@@ -443,7 +447,7 @@
 	                    	<input type="password" class="form-control" value="${ loginUser.userPwd }" name="userPwd" readonly>
 	                    </td>
 	                    <td width="110px" align="right">
-	                        <button class="btn pwdmod-btn">비밀번호 수정</button>
+	                        <button type="button" class="btn pwdmod-btn" data-toggle="modal" data-target="#updatePwdModal">비밀번호 수정</button>
 	                    </td>
 	                </tr>
 	                <tr>
@@ -473,7 +477,11 @@
 	                </tr>
 	                <tr>
 	                    <td>주소</td>
-	                    <td>주소입니다~</td>
+	                    <td>
+	                    	<input type="text" class="form-control" name="address" value="${ address }" readonly>
+	                    	<input type="hidden" class="form-control" name="latitude" value="${ loginUser.latitude }">
+	                    	<input type="hidden" class="form-control" name="longitude" value="${ loginUser.longitude }">
+	                    </td>
 	                    <td width="110px" align="right">
 	                        <button type="button" class="btn findAddress-btn" data-toggle="modal" data-target="#addressModal" onclick="resizeMap()">주소 찾기</button>
 	                    </td>
@@ -487,6 +495,103 @@
 	            </table>
 	            <input type="submit" class="btn info-updateBtn" value="수정하기">
 	    	</form>
+        </div>
+        
+        <!-- 비밀번호 수정 모달 -->
+        <div class="modal" id="updatePwdModal">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+        			
+        			<!-- 비밀번호 수정 모달 헤더 -->
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal">&times;</button>
+        			</div>			
+        			
+        			<!-- 비밀번호 수정 모달 바디 -->
+        			<div class="modal-body">
+        				<form action="infoUpdatePwd.me" method="post" id="infoChangePwdForm">
+	        				<input type="hidden" class="form-control" name="userId" value="${ loginUser.userId }">
+	        				<!-- 기존 비밀번호 입력 -->
+	        				<input type="text" class="form-control" name="originPwd">
+	        				<div id="checkOriginPwd" style="font-size:0.8em; display:none;"></div>
+	        				
+	        				<!-- 변경할 비밀번호 입력 -->
+	        				<input type="text" class="form-control" id="userPwd" name="userPwd" readonly>
+	        				<div id="checkUpdatePwd" style="font-size:0.8em; display:none;"></div>
+	        				<input type="submit" class="btn" value="비밀번호 변경">
+        				</form>
+        			</div>
+        			<script>
+        				// 기존 비밀번호 확인
+			        	$(function() {
+			        		
+			        		// 기존 비밀번호를 입력하는 input 요소 객체 자체를 변수에 담아두기
+			        		var originPwd = $("input[name=originPwd]");
+                            var changePwd = $("#infoChangePwdForm input[name=userPwd]");
+                            var regExpPwd = /^[a-zA-Z0-9`~!@#$%^&*+=_-|₩';:₩"/?]{4,16}$/i;
+			        		
+			        		originPwd.keyup(function() {
+			        			
+			        			if(originPwd.val().length >= 4) {
+			        				
+			        				$.ajax({
+			        					url : "originPwdCheck.me",
+			        					data : {checkOriginPwd : originPwd.val()},
+			        					success : function(result) {
+			        						
+			        						if(result == "NNNNY") { // 기존 비밀번호 일치
+			        							
+			        							// 비밀번호 변경 허용 메세지 출력
+			        							$("#checkOriginPwd").show();
+			        							$("#checkOriginPwd").css("color", "blue").text("기존 비밀번호와 일치합니다. 변경할 비밀번호를 아래에 입력해 주세요.");
+			        							
+			        							// 수정할 비밀번호 입력칸 활성화
+			        							changePwd.attr("readonly", false);
+			        							
+			        						}
+			        						else { // 기존 비밀번호 불일치
+			        							
+			        							// 비밀번호 변경 비허용 메세지 출력
+			        							$("#checkOriginPwd").show();
+			        							$("#checkOriginPwd").css("color", "red").text("기존 비밀번호와 일치하지 않습니다. 비밀번호를 확인해주세요");
+			        							
+			        							// 비밀번호 변경 버튼 비활성
+			        							$("#infoChangePwdForm :submit").attr("disabled", true);
+			        						}
+			        					},
+			        					error : function() {
+			        						
+			        						console.log("기존 비밀번호 체크용 ajax 통신 실패!");
+			        					}
+			        				});
+			        			}
+			        		});
+
+                            changePwd.keyup(function() {
+
+                                console.log(changePwd.val());
+
+                                if(changePwd.val().length >= 1 && !regExpPwd.test(changePwd.val())) {
+
+                                    $("#checkUpdatePwd").show();
+                                    $("#checkUpdatePwd").css("color", "red").text("영문자, 숫자, 특수기호 4 ~ 16자로 입력해주세요.");
+
+                                    // 비밀번호 변경 버튼 비활성
+        							$("#infoChangePwdForm :submit").attr("disabled", true);
+
+                                } else if(changePwd.val().length >= 4 && regExpPwd.test(changePwd.val())) {
+
+                                    $("#checkUpdatePwd").show();
+                                    $("#checkUpdatePwd").css("color", "blue").text("사용 가능한 비밀번호입니다.");
+			        				
+			        				// 비밀번호 변경 버튼 활성
+        							$("#infoChangePwdForm :submit").attr("disabled", false);
+                                }
+                            });
+			        	});
+			        </script>
+        		</div>
+        	</div>
         </div>
         
         <!-- 주소 찾기 모달 -->
@@ -516,7 +621,6 @@
                         <button class="btn" id="addressConfirm">확인</button>
 
                         <script>
-
                             // 마커 클릭 시 장소명을 표출할 인포윈도우
                             var infowindow = new kakao.maps.InfoWindow({zIndex:1});
                             
@@ -529,6 +633,7 @@
                             // 지도 생성
                             var map = new kakao.maps.Map(mapContainer, mapOption);
 
+                            // 모달 사용을 위한 지도 사이즈 재설정
                             function resizeMap() {
                                 var mapContainer = document.getElementById('map');
                                 mapContainer.style.width = '100%';
@@ -549,10 +654,9 @@
                                 var keyword = document.getElementById('keyword').value;
 
                                 if(!keyword.replace(/^\s+|\s+$/g, '')) {
-                                    alert('주소를 입력해주세요!');
                                     return false;
                                 }
-
+                                
                                 // 장소검색 객체를 통해 키워드로 주소 검색 요청
                                 ps.keywordSearch(keyword, placesSearchCB);
                             }
@@ -576,6 +680,8 @@
                             }
 
                             var placeName = "";
+                            var addressLat = 0;
+                            var addressLng = 0;
 
                             // 지도에 마커를 표시하는 함수
                             function displayMarker(place) {
@@ -593,11 +699,14 @@
                                     infowindow.setContent('<div style="padding:5px; font-size:12px;">' + place.place_name + '</div>');
                                     infowindow.open(map, marker);
                                     
-                                    placeName = place.place_name;
+                                    placeName = place.place_name; 				// 클릭한 마커의 장소명
                                     
-                                    var message = '클릭한 위치의 위도는 ' + marker.getPosition().getLat() + ' 이고, ';
-                                        message += '경도는 ' + marker.getPosition().getLng() + ' 입니다';
-
+                                    addressLat = marker.getPosition().getLat(); // 클릭한 마커의 위도
+                                    addressLng = marker.getPosition().getLng(); // 클릭한 마커의 경도
+                                    
+                                    var message = '클릭한 위치의 위도는 ' + addressLat + ' 이고, ';
+                                        message += '경도는 ' + addressLng + ' 입니다';
+                                        
                                     var resultDiv = document.getElementById('result');
                                     resultDiv.innerHTML = message;
                                 });
@@ -608,11 +717,13 @@
                             $(function() {
 
                                 $("#addressConfirm").click(function() {
-                                    if(confirm(placeName + "을 주소로 지정하시겠습니까?")) { // 주소 확정
-
+                                    if(confirm(placeName + "을 주소로 지정하시겠습니까?")) { // 주소 확인
                                         $("#addressModal").modal('hide');
+                                    	$("input[name=address]").val(placeName);
+                                    	$("input[name=latitude]").val(addressLat);
+                                    	$("input[name=longitude]").val(addressLng);
 
-                                    } else { // 주소 비확정
+                                    } else { // 주소 확인 취소
                                         
                                         $("#addressModal").modal('show');
                                     }
@@ -634,13 +745,6 @@
     </div>
     
     <jsp:include page="../common/footer.jsp"/>
-    
-    
-    
-    
-    
-    
-
     
 </body>
 </html>

@@ -57,8 +57,7 @@ body{
 
 
     <div class="content">
-    <br>
-    <h1>공지사항</h1>
+   
     <hr><br>
 
     <div class="innerContent" align="center">
@@ -107,6 +106,16 @@ body{
 
             // 이미지 배너가 노출되는 공지사항 클릭 시 실행 함수
             $(function(){
+                
+                // 이벤트 배너 추가 : 수빈 
+                $("#noticeImg").hover(function(){
+                    $(this).attr("src", './resources/images/notice2.jpg');
+                    $(this).css("opacity","0.8");
+                });
+                $("#noticeImg").mouseout(function(){
+                    $(this).attr("src", './resources/images/notice.jpg');
+                    $(this).css("opacity","1");
+                });// 여기까지 작성 
 
                 $("#noticeImg").click(function(){
                     location.href="detail.no?nno="+$("#noticeList>tbody>tr").eq(0).children(".nno").text();

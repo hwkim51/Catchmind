@@ -170,4 +170,17 @@ public class BoardDao {
 	public int getCatchNo(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("boardMapper.getCatchNo");
 	}
+
+	public ArrayList<Catch> selectMyCatchList(PageInfo pi, int userNo, SqlSessionTemplate sqlSession) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMyCatchList", userNo, rowBounds);
+	}
+
+	public int selectMyCatchCount(int userNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectMyCatchCount", userNo);
+	}
 }

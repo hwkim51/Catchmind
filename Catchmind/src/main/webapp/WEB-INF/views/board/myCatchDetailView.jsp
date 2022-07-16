@@ -216,9 +216,9 @@
             	<script>
             		function catchFormSubmit(num) {
             			if(num == 1) { // 수정 요청으로 action 속성값 바꾸기
-            				$("#catchForm").attr("action", "updateEnroll.ca").submit();
+            				$("#catchForm").attr("action", "myUpdateEnroll.ca").submit();
             			} else { // 삭제 요청으로 action 속성값 바꾸기
-            				$("#catchForm").attr("action", "delete.ca").submit();
+            				$("#catchForm").attr("action", "myDelete.ca").submit();
             			}
             		}
             	</script>
@@ -261,7 +261,7 @@
            
             
             <div class="sub_foot">
-                <a class="btn_list" href="list.ca">목록으로 ▶ </a>
+                <a class="btn_list" href="myBoard.ca">목록으로 ▶ </a>
             </div>
         </div>
     </div>
