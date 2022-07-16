@@ -39,6 +39,7 @@ import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.common.template.Pagination;
+import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -822,11 +823,11 @@ int result = boardService.increaseCatchCount(catchNo);
 	
 	/* ============================ 내 글 관리 - QA  ============================ */
 	@RequestMapping("myBoard.qa")
-	public String listViewMyQA(@RequestParam(value="ppage", defaultValue="1") int currentPage, HttpSession session, Model model) {
+	public String listViewMyQA(@RequestParam(value="qpage", defaultValue="1") int currentPage, HttpSession session, Model model) {
 		
 		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		
-		int listCount = boardService.selectMyListCount(userNo);
+		int listCount = boardService.selectMyQACount(userNo);
 		
 		int pageLimit = 10;
 		int boardLimit = 10;
@@ -834,12 +835,37 @@ int result = boardService.increaseCatchCount(catchNo);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		
-		ArrayList<Post> list = boardService.selectMyList(pi, userNo);
+		ArrayList<Inquiry> list = boardService.selectMyQAList(pi, userNo);
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		
 		return "member/myPage-ManageQAList";
+	}
+	@ResponseBody
+	@RequestMapping(value="update.qa", produces="text/html; charset=UTF-8;")
+	public String updateQA(String qaNo, String qaContent, String qaTitle, HttpSession session, Model model) {
+		
+		Inquiry i = new Inquiry();
+		
+		i.setQaNo(qaNo);
+		i.setQaContent(qaContent);
+		i.setQaTitle(qaTitle);
+		
+		int result = boardService.updateQA(i);
+		
+		return (result>0)? "success" : "fail";
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="delete.qa", produces="text/html; charset=UTF-8;")
+	public String deleteQA(int qaNo, HttpSession session, Model model) {
+		
+		int result = boardService.deleteQA(qaNo);
+		
+		return (result>0)? "success" : "fail";
+		
 	}
 	
 	

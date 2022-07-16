@@ -49,6 +49,16 @@
 		<result column="CATCH_NO" property="catchNo"/>
 		<result column="LIKE_USER" property="likeUser"/>
 	</resultMap>
+		<resultMap type="inquiry" id="inquiryResultMap">
+		<result column="QA_NO" property="qaNo"/>
+		<result column="Q_TITLE" property="qaTitle"/>
+		<result column="Q_CONTENT" property="qaContent"/>
+		<result column="Q_DATE" property="qaDate"/>
+		<result column="A_CONTENT" property="anContent"/>
+		<result column="Q_ANSWERDATE" property="qaAnswerDate"/>
+		<result column="Q_WRITER" property="qaWriter"/>
+		<result column="Q_ANSWERYN" property="qaAnswerYn"/>
+	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -188,6 +198,19 @@
 		WHERE CATCH_STATUS='Y' AND CATCH_WRITER = #{userNo}
 	</select>
 	
+	<select id="selectMyQAList" parameterType="_int" resultMap="inquiryResultMap">
+		SELECT QA_NO, Q_TITLE, Q_CONTENT, TO_CHAR(Q_DATE, 'YYYY-MM-DD') "Q_DATE", A_CONTENT, TO_CHAR(Q_ANSWERDATE, 'YYYY-MM-DD') Q_ANSWERDATE, Q_WRITER, Q_ANSWERYN
+		FROM TB_QA
+		WHERE Q_WRITER = #{userNo}
+		ORDER BY Q_ANSWERDATE DESC, QA_NO DESC
+	</select>
+	
+	<select id="selectMyQACount" resultType="_int">
+		SELECT COUNT(*)
+		FROM TB_QA
+		WHERE Q_WRITER = #{userNo}
+	</select>
+	
 	<!-- CATCH -->
 	<select id="selectCatchListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -298,4 +321,15 @@
 		FROM TB_LIKE
 		WHERE CATCH_NO = #{catchNo}
 	</select>
+	
+	<update id="updateQA" parameterType="inquiry">
+		UPDATE TB_QA
+		SET Q_TITLE = #{qaTitle}, Q_CONTENT = #{qaContent}
+		WHERE QA_NO = #{qaNo}
+	</update>
+	
+	<delete id="deleteQA" parameterType="_int">
+		DELETE FROM TB_QA
+		WHERE QA_NO = #{qaNo}
+	</delete>
 </mapper>

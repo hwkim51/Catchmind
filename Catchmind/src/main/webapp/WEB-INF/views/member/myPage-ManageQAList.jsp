@@ -117,9 +117,48 @@
             border-radius: 50%;
             color:white;
         } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
+        
+        .w3-modal {
+	        position: absolute;
+	        displaty:none;
+        }
+        .w3-container>span:hover{
+		    background-color: transparent !important;
+		    } /* 모달창 내에 취소박스 배경색 적용 */
+	    .w3-container textarea{
+		    margin-top:5px;
+		    width:100%;
+		    resize:none;
+		    outline:none;
+		    } /* 모달창 내에 사유 입력 스타일 */
+		#id01 .qtis{
+			height:30px;
+		}
+    	#id01 .qac{
+    		height:200px;
+    	}
+    	#id01 .anc{
+    		height:200px;
+    	}
+		#id01 textarea {
+		    border: none;
+		}
+		
+		#id02 .qtif{
+			height:30px;
+		}
+    	#id02 .qac{
+    		height:200px;
+    	}
+	    .w3-container>button{
+		    border:none;
+		    margin-bottom: 10px;
+		    background-color:orange;
+		    } /* 모달창 내에 제출 스타일 */
     
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
 
@@ -147,32 +186,55 @@
                         <th class="table_title">문의 번호</th>
                         <th class="table_writer">제목</th>
                         <th class="table_date">작성일</th>
+                        <th style="width:0px;"></th>
                       </tr>
                     </thead>
                     <tbody>
 	                   	<c:if test="${ not empty list }">
-		                    <c:forEach var="p" items="${ list }">
+		                    <c:forEach var="q" items="${ list }">
 		                      <tr>
-		                        <td class="pno">${ p.postNo }</td>
-		                        <td>${ p.postTitle }</td>
-		                        <td>${ p.postDate }</td>
+		                        <td class="qno">${ q.qaNo }</td>
+		                        <c:choose>
+		                        <c:when test="${ q.qaAnswerYn == 'Y' }">
+		                        <td class="qaTitles">(답변완료)${ q.qaTitle }</td>
+		                        </c:when>
+		                        <c:otherwise>
+		                        <td class="qaTitlef">${ q.qaTitle }</td>
+		                        </c:otherwise>
+		                        </c:choose>
+		                        <td class="qaDate">${ q.qaDate }</td>
+		                        <td style="display:none;" class="qaContent">${ q.qaContent }</td>
+		                        <td style="display:none;" class="anContent">${ q.anContent }</td>
 		                      </tr>
 		                    </c:forEach>
 	                    </c:if>
                     </tbody>
                   </table>
                   <c:if test="${ empty list }">
-                  <div id="alertEmpty">현재 작성된 게시글이 없습니다. <br>
-	              <a href="list.po">게시글 작성하러 가기</a></div>
+                  <div id="alertEmpty">현재 작성된 문의가 없습니다. <br>
 	              </c:if>
+	              <script>
+				           	$(function() {
+				           		$(".table>tbody>tr").click(function() {
+				           			var qaNo = $(this).children(".qno").html();
+				           			var qaTitles = $(this).children(".qaTitles").html();
+				           			var qaTitlef = $(this).children(".qaTitlef").html();
+				           			var qaContent = $(this).children(".qaContent").html();
+				           			var anContent = $(this).children(".anContent").html();
+				           			$(".qan").val(qaNo);
+				           			$(".qtis").val(qaTitles);
+				           			$(".qtif").val(qaTitlef);
+				           			$(".qac").val(qaContent);
+				           			$(".anc").val(anContent);
+				           			if(anContent!="") {
+				           			$("#id01").fadeIn();
+				           			} else {
+					           		$("#id02").fadeIn();
+				           			}
+				           		});
+				           	});
+				           </script>
                   
-                  	<script>
-		           	$(function() {
-		           		$(".table>tbody>tr").click(function() {
-		           			location.href = "myDetail.po?pno=" + $(this).children(".pno").text();
-		           		});
-		           	});
-		           </script>
                   
                   <div class="sub_foot">
                       <div class="pagination">
@@ -184,12 +246,14 @@
 					            	<li class="signal disabled" id="left"><a href="#">&lt; Prev</a></li>
 					            </c:when>
 	                    		<c:otherwise>
-	                    			<li class="signal" id="left"><a href="list.po?ppage=${ pi.currentPage -1 }">&lt; Prev</a></li>
+	                    			<li class="signal" id="left"><a href="myBoard.qa?qpage=${ pi.currentPage -1 }">&lt; Prev</a></li>
 	                    		</c:otherwise>
                     		</c:choose>
                     		
-				            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-				            <li class="page_num"><a href="list.po?ppage=${ p }">${ p }</a></li>
+                    		
+                    		
+				            <c:forEach var="q" begin="${ pi.startPage }" end="${ pi.endPage }">
+				            <li class="page_num"><a href="myBoard.qa?qpage=${ q }">${ q }</a></li>
 				            </c:forEach>
 				            
 				            <c:choose>
@@ -197,7 +261,7 @@
 					            	<li class="signal disabled" id="right"><a href="#">Next &gt;</a></li>
 					            </c:when>
 	                    		<c:otherwise>
-	                    			<li class="signal" id="right"><a href="list.po?ppage=${ pi.currentPage +1 }">Next &gt;</a></li>
+	                    			<li class="signal" id="right"><a href="myBoard.qa?qpage=${ pi.currentPage +1 }">Next &gt;</a></li>
 					            </c:otherwise>
                     		</c:choose>
 				        	</c:when>
@@ -209,6 +273,87 @@
                   </div>
             </div>
            </div>
+           
+           <!-- The Modal -->
+		<div id="id01" class="w3-modal">
+	    <div class="w3-modal-content w3-animate-zoom">
+	        <header class="w3-container w3-orange">
+	            <span onclick="document.getElementById('id01').style.display='none'"
+	            class="w3-button w3-display-topright">&times;</span>
+	            <h2>내 문의</h2>
+	        </header>
+	    <div class="w3-container">
+	      <span onclick="document.getElementById('id01').style.display='none'"
+	      class="w3-button w3-display-topright">&times;</span>
+	      	<div class="qtis_div">문의 제목 : </div>
+	      	<textarea type="text" class="qtis" readonly></textarea>
+	      	<div class="qac_div">문의 내용 : </div>
+            <textarea type="text" class="qac" style="vertical-align: top;" name="qaContent" readonly></textarea>
+	      	<div class="anc_div">답변 내용 : </div>
+            <textarea type="text" class="anc" readonly></textarea>
+	  </div>
+	  </div>
+	  </div>
+	  
+	  <div id="id02" class="w3-modal">
+	    <div class="w3-modal-content w3-animate-zoom">
+	        <header class="w3-container w3-orange">
+	            <span onclick="document.getElementById('id02').style.display='none'"
+	            class="w3-button w3-display-topright">&times;</span>
+	            <h2>내 문의</h2>
+	        </header>
+	    <div class="w3-container">
+	      <span onclick="document.getElementById('id02').style.display='none'"
+	      class="w3-button w3-display-topright">&times;</span>
+	      	<div class="qtis_div">문의 제목 : </div>
+	      	<textarea type="text" class="qtif" id="qtif"></textarea>
+	      	<div class="qac_div">문의 내용 : </div>
+            <textarea type="text" class="qac" id="qac"></textarea>
+            <input type="hidden" class="qan" id="qan">
+           	<button onclick="updateQA();">수정</button>
+            <button onclick="deleteQA();">삭제</button>
+	  </div>
+	  </div>
+	  </div>
+	  
+	  <script>
+	  function updateQA() {
+      		$.ajax({
+      			url : "update.qa",
+      			data : { qaNo:$("#qan").val(),
+      				qaContent: $("#qac").val(),
+      				qaTitle: $("#qtif").val()},
+      			success : function(result) {
+      				if(result == "success") {
+      					location.reload();
+    					window.alert("문의 내용이 수정되었습니다.");
+      				} else {
+      					alertify.alert("문의 수정 실패", "문의 수정에 실패하였습니다.")
+      				}
+      			},
+      			error : function() {
+      				console.log("문의수정용 ajax 통신 실패!");
+      			}
+      		});
+  		}
+	  function deleteQA() {
+    		$.ajax({
+    			url : "delete.qa",
+    			data : { qaNo:$("#qan").val()},
+    			success : function(result) {
+    				if(result == "success") {
+    					location.reload();
+  					window.alert("문의 내용이 삭제되었습니다.");
+    				} else {
+    					alertify.alert("문의 삭제 실패", "문의 삭제에 실패하였습니다.")
+    				}
+    			},
+    			error : function() {
+    				console.log("문의 삭제용 ajax 통신 실패!");
+    			}
+    		});
+		}
+	  </script>
     
     <jsp:include page="../common/footer.jsp"/>
     

@@ -9,6 +9,7 @@ import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
+import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 
 public interface BoardService {
 	// 게시판 리스트 조회 + 페이징 처리
@@ -96,5 +97,13 @@ public interface BoardService {
 	ArrayList<Catch> selectMyCatchList(PageInfo pi, int userNo);
 
 	int selectMyCatchCount(int userNo);
+
+	int selectMyQACount(int userNo);
+
+	ArrayList<Inquiry> selectMyQAList(PageInfo pi, int userNo);
+
+	int updateQA(Inquiry i);
+
+	int deleteQA(int qaNo);
 	
 }

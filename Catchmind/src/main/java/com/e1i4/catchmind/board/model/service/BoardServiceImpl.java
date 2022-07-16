@@ -14,8 +14,7 @@ import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
-
-import oracle.net.aso.r;
+import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -134,6 +133,16 @@ public class BoardServiceImpl implements BoardService {
 	public int selectMyCatchCount(int userNo) {
 		return boardDao.selectMyCatchCount(userNo, sqlSession);
 	}
+	
+	@Override
+	public int selectMyQACount(int userNo) {
+		return boardDao.selectMyQACount(userNo, sqlSession);
+	}
+
+	@Override
+	public ArrayList<Inquiry> selectMyQAList(PageInfo pi, int userNo) {
+		return boardDao.selectMyQAList(pi, userNo, sqlSession);
+	}
 
 	
 	/* ============================ Catch ============================ */
@@ -217,11 +226,14 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.getCatchNo(sqlSession);
 	}
 
-	
+	@Override
+	public int updateQA(Inquiry i) {
+		return boardDao.updateQA(i,sqlSession);
+	}
 
-	
-
-
-	
+	@Override
+	public int deleteQA(int qaNo) {
+		return boardDao.deleteQA(qaNo, sqlSession);
+	}
 
 }
