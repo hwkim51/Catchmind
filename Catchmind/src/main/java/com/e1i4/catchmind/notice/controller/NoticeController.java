@@ -22,25 +22,27 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	// 공지사항 전체 조회 - 유진
-	@RequestMapping(value="list.no")
-	public String selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
-		
-		// 먼저 페이징 처리를 위해 변수 세팅
-		int listCount = noticeService.selectListCount();
-		int pageLimit = 10;
-		int boardLimit = 5;
-		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-		
-		ArrayList<Notice> list = noticeService.selectList(pi);
-		String pic = list.get(0).getChangeName();
-		
-		model.addAttribute("list", list);
-		model.addAttribute("pi", pi);
-		model.addAttribute("pic", pic);
-		
-		return "notice/noticeList";
-	}
+	   @RequestMapping(value="list.no")
+	   public String selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+	      
+	      // 먼저 페이징 처리를 위해 변수 세팅
+	      int listCount = noticeService.selectListCount();
+	      int pageLimit = 10;
+	      int boardLimit = 5;
+	      
+	      PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+	      
+	      ArrayList<Notice> list = noticeService.selectList(pi);
+	      if(!list.isEmpty()) {
+	         String pic = list.get(0).getChangeName();
+	         model.addAttribute("pic", pic);
+	      }
+	      model.addAttribute("list", list);
+	      model.addAttribute("pi", pi);
+	      
+	      
+	      return "notice/noticeList";
+	   }
 	
 	// 공지사항 상세 조회 - 유진
 	@RequestMapping(value="detail.no")

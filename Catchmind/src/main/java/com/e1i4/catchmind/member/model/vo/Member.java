@@ -1,6 +1,5 @@
 package com.e1i4.catchmind.member.model.vo;
 
-import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +22,7 @@ public class Member {
 	private String email; //EMAIL	VARCHAR2(40 BYTE)
 	private String nickname; //NICKNAME	VARCHAR2(15 BYTE)
 	private String userName; //USER_NAME	VARCHAR2(15 BYTE)
-	private Date birthDay; //BIRTHDAY	DATE
+	private String birthDay; //BIRTHDAY	DATE
 	private String mbti; //MBTI	VARCHAR2(4 BYTE)
 	private String phone; //PHONE	VARCHAR2(20 BYTE)
 	private int height; //HEIGHT	NUMBER

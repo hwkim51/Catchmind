@@ -79,7 +79,7 @@
         width:50px;
     }
     #upfilePicPreview{
-        background-image:url('https://cdn-icons-png.flaticon.com/512/3525/3525130.png');
+        background-image:url('./resources/images/pic.png');
         background-size: contain;
         background-color: rgba(0, 0, 0, 0.865);
     }
@@ -435,7 +435,7 @@
                 else{
                     $("#btn-terms2").prop("disabled",false);
                 }
-            })
+            });
             // * MBTI 유효성 체크 
             $mbti.blur(function(){
                 console.log($mbti.val().length);
@@ -448,7 +448,7 @@
                     $("#mbti_check").css("color","grey").text("캐치마인드가 당신의 인연을 찾아드릴게요:D");
                     $("#btn-terms3").prop("disabled",false);
                 }
-            })
+            });
             // * 닉네임 중복 체크 
             $nickname.blur(function(){ 
                 if($nickname.val().length >= 1){
