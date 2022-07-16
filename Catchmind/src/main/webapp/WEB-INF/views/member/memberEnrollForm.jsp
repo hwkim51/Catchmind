@@ -82,12 +82,14 @@
         background-image:url('./resources/images/pic.png');
         background-size: contain;
         background-color: rgba(0, 0, 0, 0.865);
+        object-fit: cover;
     }
     #upfilePicPreview:hover{
         cursor: pointer;
         background-image:url('./resources/images/pic2.png');
         background-size: contain;
         background-color: rgba(0, 0, 0, 0.865);
+        object-fit: cover;
     }
 </style>
 </head>
