@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,10 +49,6 @@ public class MemberController {
 	// 마이페이지로 이동 : 수빈
 	@RequestMapping(value="myPage.me")
 	public String myPage(String userId, String userPwd, Member m, HttpSession session) {
-		
-		Member updateMem = memberService.loginMember(m);
-		
-		session.setAttribute("loginUser", updateMem);
 		
 		return "member/myPage";
 	}
@@ -266,12 +263,6 @@ public class MemberController {
 		return "";
 	}
 	
-	// 마이페이지 - 커플관리 페이지로 이동 : 수빈
-	@RequestMapping(value="myPartner.me")
-	public String partnerUpdate() {
-		return "member/myPage-Partner";
-	}
-	
 	// 마이페이지 - 팔로우 리스트 페이지로 이동(유진)
 	@RequestMapping(value="myFollow.me")
 	public String followList() {
@@ -369,8 +360,6 @@ public class MemberController {
 	// 마이페이지 - 프로필 수정 메소드
 	@RequestMapping("updateProfile.me")
 	public String updateProfile(Member m, MultipartFile profileImg, HttpSession session, Model model) {
-		System.out.println(profileImg);
-		System.out.println("Controller" + m);
 		
 		if(!profileImg.getOriginalFilename().equals("")) { // 프로필 이미지를 업데이트 한 경우
 			
@@ -385,10 +374,15 @@ public class MemberController {
 		
 		int result = memberService.updateProfile(m);
 		
-		if(result > 0) { // 프로필 수정 성공
+if(result > 0) { // 프로필 수정 성공
 			
+			Member updateMem = memberService.loginMember(m);
+			
+			session.setAttribute("loginUser", updateMem);
 			session.setAttribute("alertMsg", "프로필이 성공적으로 수정되었습니다.");
-			return "redirect:myPage.me"; // 마이페이지로 url 재요청
+			
+			// 마이페이지 url 재요청 (myPage.me)
+			return "redirect:myPage.me";
 			
 		} else { // 프로필 수정 실패
 			
@@ -400,6 +394,7 @@ public class MemberController {
 	// 마이페이지 - 회원 정보 수정 메소드
 	@RequestMapping("updateInfo.me")
 	public String updateInfo(Member m, String address, HttpSession session, Model model) {
+		
 		
 		System.out.println(m);
 		

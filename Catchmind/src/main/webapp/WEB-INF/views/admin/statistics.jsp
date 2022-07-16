@@ -174,14 +174,16 @@ div{
             <article class="statisticsBar">
                 <div id="statisticsTitle" class="statisticsMenu">💻 통계 관리 MENU</div>
                 <hr>
-                <input type="button" class="statisticsMenu" value="🅾 가입유저 통계"></input><br>
-                <input type="button" class="statisticsMenu" value="🚻 성별 통계"></input><br>
-                <input type="button" class="statisticsMenu" value="🟨 연령 통계"></input><br>
-                <input type="button" class="statisticsMenu" value="💹 게시글 통계"></input><br>
-                <input type="button" class="statisticsMenu" value="♏ 문의사항 통계"></input><br>
+                <input type="button" id="stsUser" class="statisticsMenu" value="🅾 가입유저 통계"></input><br>
+                <input type="button" id="stsGender" class="statisticsMenu" value="🚻 성별 통계"></input><br>
+                <input type="button" id="stsAge" class="statisticsMenu" value="🟨 연령 통계"></input><br>
+                <input type="button" id="stsBoard" class="statisticsMenu" value="💹 게시글 통계"></input><br>
+                <input type="button" id="stsQa" class="statisticsMenu" value="♏ 문의사항 통계"></input><br>
             </article>
             <article>
-                
+                <div class="tatisticsGraph" style="background-Color:red;">
+                    
+                </div>
             </article>
            
         </div>

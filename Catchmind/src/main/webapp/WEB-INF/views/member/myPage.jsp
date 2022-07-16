@@ -479,8 +479,8 @@
 	                    <td>주소</td>
 	                    <td>
 	                    	<input type="text" class="form-control" name="address" value="${ address }" readonly>
-	                    	<input type="hidden" class="form-control" name="latitude">
-	                    	<input type="hidden" class="form-control" name="longitude">
+	                    	<input type="hidden" class="form-control" name="latitude" value="${ loginUser.latitude }">
+	                    	<input type="hidden" class="form-control" name="longitude" value="${ loginUser.longitude }">
 	                    </td>
 	                    <td width="110px" align="right">
 	                        <button type="button" class="btn findAddress-btn" data-toggle="modal" data-target="#addressModal" onclick="resizeMap()">주소 찾기</button>
