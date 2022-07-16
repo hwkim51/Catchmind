@@ -397,6 +397,72 @@ public class MemberController {
 		}
 	}
 	
+	// 마이페이지 - 회원 정보 수정 메소드
+	@RequestMapping("updateInfo.me")
+	public String updateInfo(Member m, String address, HttpSession session, Model model) {
+		
+		int result = memberService.updateInfo(m);
+		
+		if(result > 0) { // 회원 정보 수정 성공
+			
+			Member updateMem = memberService.loginMember(m);
+			
+			session.setAttribute("loginUser", updateMem);
+			session.setAttribute("alertMsg", "회원 정보가 성공적으로 수정되었습니다.");
+			session.setAttribute("address", address);
+			
+			return "redirect:myPage.me";
+			
+		} else { // 회원 정보 수정 실패
+			
+			model.addAttribute("errorMsg", "회원 정보 수정 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	// 마이페이지 - 비밀번호 수정 > 기존 비밀번호 체크 메소드
+	@ResponseBody
+	@RequestMapping(value="originPwdCheck.me", produces="text/html; charset=UTF-8")
+	public String originPwdCheck(String checkOriginPwd) {
+		
+		System.out.println(checkOriginPwd);
+		
+		int count = memberService.originPwdCheck(checkOriginPwd);
+		
+		return (count > 0) ? "NNNNY" : "NNNNN";
+	}
+	
+	// 마이페이지 - 비밀번호 수정 > 변경 비밀번호 업데이트 메소드
+	@RequestMapping("infoUpdatePwd.me")
+	public String infoUpdatePwd(Member m, HttpSession session, Model model) {
+		
+		System.out.println("비밀번호 업데이트" + m);
+		
+		int result = memberService.infoUpdatePwd(m);
+		
+		if(result > 0) {
+			
+			Member updateMem = memberService.loginMember(m);
+			
+			session.setAttribute("loginUser", updateMem);
+			session.setAttribute("alertMsg", "비밀번호가 성공적으로 수정되었습니다.");
+			
+			return "redirect:myPage.me";
+		
+		} else {
+			
+			model.addAttribute("errorMsg", "비밀번호 수정 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	// 커플 관리 페이지로 이동
+	@RequestMapping(value="myCouple.me")
+	public String myCouple() {
+		
+		return "member/myPage-myCouplePage";
+	}
+	
 	// 팔로우 취소하는 메소드 (유진)
 	@RequestMapping(value="unfollow.me")
 	public String unfollowMember(HttpSession session,
@@ -419,4 +485,7 @@ public class MemberController {
 			return "errorPage";
 		}
 	}
+	
+	
+	
 }

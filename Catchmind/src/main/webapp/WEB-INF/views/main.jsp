@@ -151,7 +151,6 @@
     
     </style>
 </head>
-
 <body>
     
     <%-- header 영역 --%>

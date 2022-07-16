@@ -187,6 +187,8 @@
 		       BIRTHDAY = #{birthDay},
 		       PHONE = #{phone},
 		       EMAIL = #{email},
+		       LONGITUDE = #{longitude},
+		       LATITUDE = #{latitude},
 		       HEIGHT = #{height}
 		 WHERE USER_ID = #{userId}
 	</update>
@@ -197,4 +199,15 @@
 		   AND FOED_USER = #{foedUser}
 	</delete>
 	
+ 	<select id="originPwdCheck" parameterType="string" resultType="_int">
+ 		SELECT COUNT(*)
+ 		  FROM TB_MEMBER
+ 		 WHERE USER_PWD = #{checkOriginPwd}
+ 	</select>
+	
+	<update id="infoUpdatePwd" parameterType="member">
+		UPDATE TB_MEMBER
+		   SET USER_PWD = #{userPwd}
+		 WHERE USER_ID = #{userId}
+	</update>
 </mapper>
