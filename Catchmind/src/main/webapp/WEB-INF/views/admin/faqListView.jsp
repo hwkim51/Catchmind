@@ -79,12 +79,13 @@ div{
     width:95%;
     text-align:center;
  	border-color: lightgray;
-    font-size:13px;
+     font-size:14px;
 }
 
 #faqTable>thead {
     background-color : lightgrey;
 }
+
 
 #faqTable>thead>tr>th {
     padding-left : 15px;
@@ -132,6 +133,18 @@ div{
 }   
 
 #pagingArea {width:fit-content; margin:auto; margin-top:50px;}
+
+
+#toMain:hover{
+    background: linear-gradient( rgb(236, 3, 194) 1%, orange);
+    -webkit-text-fill-color : transparent;
+    -webkit-background-clip: text; 
+}
+
+.fno{
+    padding-left: 20px;
+    text-align: left;
+}
 </style>
 </head>
 <body>
@@ -152,7 +165,7 @@ div{
             <table id="faqTable">
                 <thead>
                     <tr>
-                        <th id="id">글번호</th>
+                        <th class="fno" id="id">글번호</th>
                         <th id="ftitle">FAQ제목</th>
                         <th id="fContent">FAQ내용</th>
                         <th id="detail"></th>
@@ -161,15 +174,15 @@ div{
                 <tbody>
                 	<c:choose>
                 		<c:when test="${empty list }">
-                			<td colspan="4">등록된 FAQ 리스트가 없습니다.</td>
+                			<th colspan="4">등록된 FAQ 리스트가 없습니다.</th>
                 		</c:when>
               			<c:otherwise>
 		                    <c:forEach items="${list}" var="f">
 			                    <tr align="center">
-			                        <td class="fno">${f.faqNo}</td>
-			                        <td>${f.faqTitle}</td>
-			                        <td>${f.faqContent}</td>
-		                            <td id="detail"><a id="btn1">삭제하기</a></td>
+			                        <th class="fno">${f.faqNo}</th>
+			                        <th>${f.faqTitle}</th>
+			                        <th>${f.faqContent}</th>
+		                            <th id="detail"><a id="btn1">삭제하기</a></th>
 			                    </tr>
 		                    </c:forEach>
                    		</c:otherwise>

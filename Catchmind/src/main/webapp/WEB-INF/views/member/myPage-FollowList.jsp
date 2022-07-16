@@ -86,10 +86,14 @@
         <div class="myPage-menu"><a href="myPage.me">회원정보수정</a></div>
         <div class="myPage-menu"><a href="myFollow.me">팔로우리스트</a></div>
         <div class="myPage-menu"><a href="myBlock.me">차단리스트</a></div>
-        <div class="myPage-menu"><a href="myCouple.me">커플관리</a></div>
+        <div class="myPage-menu"><a href="#" onclick="javascript:document.myCoupleForm.submit();">커플관리</a></div>
         <div class="myPage-menu"><a href="myBoard.po">내글관리</a></div>
         <hr>
     </div>
+    
+    <form name="myCoupleForm" action="myCouple.me" method="post">
+       <input type="hidden" name="userNo" value="${ loginUser.userNo }">
+    </form>
 
     <%-- myPage followList 영역 --%>
     <div class="content">
@@ -155,9 +159,9 @@
                     		   }
                     		   
                     resultStr += "</td>"
-                    		   + "<td><button type='button' id='ufButton' class='btn btn-secondary' onclick='unfollow("+result[i].userNo+");'>팔로우 취소</button></td>"
-                    		   + "<td><input type='hidden' value='"+ result[i].userNo +"' id='unfollowUser'></td>"
-                			   + "</tr>"
+                    		   + "<td id='ufButton'><a class='btn btn-secondary'>팔로우 취소</a></td>"
+                			   + "<td class='ufno' style='visibility: hidden; display:none;'>"+result[i].userNo+"</td>"
+                    		   + "</tr>"
     			}
     			
     			$("#followTable>tbody").html(resultStr);
@@ -169,11 +173,15 @@
         });
     }
     
-    function unfollow(foedUser){
-    	location.href="unfollow.me?foedUser=" + foedUser;
-    }
+    // 팔로우 취소
+    $(document).on("click", "#ufButton", function(event){
+    	console.log($(this).next().text()); //해당 회원 번호
+    	location.href="unfollow.me?foedUser="+$(this).next().text();
+    });
    
+    // 대화하기
     
+   
     </script>
     <%-- footer 영역 --%>
     <jsp:include page="../common/footer.jsp"/>

@@ -80,6 +80,7 @@ div{
 }
     
 #pagingArea {width:fit-content; margin:auto; margin-top:50px;}
+
 </style>
 </head>
 <body>

@@ -134,7 +134,7 @@ div{
                                             첨부파일이 없습니다.
                                         </c:when>
                                         <c:otherwise>
-                                            <img src="${n.changeName }" style="height:350px;"><br><br>
+                                            <img src="${n.changeName }" style="width:100%; height:350px;"><br><br>
                                         </c:otherwise>
                                     </c:choose>
                                     <textarea style="resize:none;"> 

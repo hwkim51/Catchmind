@@ -88,11 +88,12 @@ public class MemberController {
 	@RequestMapping(value="logout.me")
 	public String logoutMember(HttpSession session) {
 		
-		//if((Member)session.getAttribute("loginUser")!=null) {
+	    if((Member)session.getAttribute("loginUser")!=null) {
+	    	
 		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
 	    int updateRecentLogout = memberService.updateRecentLogout(userId);
 	   
-	    if(updateRecentLogout > 0) {
+	    
 	    	session.invalidate();
 			return "redirect:/"; 
 	    } 
@@ -302,11 +303,16 @@ public class MemberController {
 	@RequestMapping("myBlock.me")
 	public String selectBlockList(Model model, HttpSession session) {
 		
+		if((Member)session.getAttribute("loginUser")!=null) {
+		
 		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		ArrayList<Member> list = memberService.selectBlockList(userNo);
 		
 		model.addAttribute("list", list);
 		return "member/myPage-BlockList";
+		} else {
+			return "redirect:/";
+		}
 	}
 	
 	// 차단된 회원 차단 해제하는 메소드(유진)
@@ -315,21 +321,27 @@ public class MemberController {
 									int blno,
 									Model model) {
 		
-		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		if((Member)session.getAttribute("loginUser")!=null) {
+		    
+			int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+			
+			Block b = new Block();
+			b.setUserNo(userNo);
+			b.setBlockedUser(blno);
+			
+			int result = memberService.deleteBlockMember(b);
 		
-		Block b = new Block();
-		b.setUserNo(userNo);
-		b.setBlockedUser(blno);
-		
-		int result = memberService.deleteBlockMember(b);
-		
-		if(result > 0) {
-			session.setAttribute("alertMsg", "해당 회원 차단을 해제하였습니다.");
-			return "redirect:myBlock.me";
+			if(result > 0) {
+				//session.setAttribute("alertMsg", "해당 회원 차단을 해제하였습니다.");
+				return "redirect:myBlock.me";
+			}
+			else {
+				model.addAttribute("errorMsg", "요청 처리 실패");
+				return "errorPage";
+			}
 		}
 		else {
-			model.addAttribute("errorMsg", "요청 처리 실패");
-			return "errorPage";
+			return "redirect:/";
 		}
 	}
 		
@@ -337,7 +349,7 @@ public class MemberController {
 	@RequestMapping(value="closeSession.me", produces="text/html; charset=UTF-8")
 	public String closeSession(String userId, HttpSession session) { //현재 진행 중
 		
-		//System.out.println("close:"+userId);
+		System.out.println("close:"+userId);
 		int updateRecentLogout = 0;
 		
 		if(userId!=null) {
@@ -354,7 +366,7 @@ public class MemberController {
 	@RequestMapping(value="refreshSession.me", produces="text/html; charset=UTF-8")
 	public String refreshSession(String userId, HttpSession session) { 
 		
-		//System.out.println("refresh:"+userId);
+		System.out.println("refresh:"+userId);
 		int updateRecentLogout = 0;
 		
 		if(userId!=null) {
@@ -524,20 +536,23 @@ if(result > 0) { // 프로필 수정 성공
 								int foedUser,
 								Model model) {
 		
-		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		if((Member)session.getAttribute("loginUser")!=null) {
 		
-		Follow f = new Follow();
-		f.setFoUser(userNo);
-		f.setFoedUser(foedUser);
-		int result = memberService.unfollowMember(f);
-		
-		if(result > 0) {
-			session.setAttribute("alertMsg", "팔로우를 취소하였습니다.");
-			return "redirect:myFollow.me";
-		}
-		else {
-			model.addAttribute("errorMsg", "요청 처리 실패");
-			return "errorPage";
+			int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+			Follow f = new Follow();
+			f.setFoUser(userNo);
+			f.setFoedUser(foedUser);
+			int result = memberService.unfollowMember(f);
+			
+			if(result > 0) {
+				return "redirect:myFollow.me";
+			}
+			else {
+				model.addAttribute("errorMsg", "요청 처리 실패");
+				return "errorPage";
+			}
+		} else {
+			return "redirect:/";
 		}
 	}
 	

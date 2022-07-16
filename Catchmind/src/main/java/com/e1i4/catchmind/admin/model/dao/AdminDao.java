@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e1i4.catchmind.board.model.vo.Board;
+import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.faq.model.vo.Faq;
@@ -183,5 +184,19 @@ public class AdminDao {
 	
 	public int deleteFaq(SqlSessionTemplate sqlSession, int faqNo) {
 		return sqlSession.delete("faqMapper.deleteFaq", faqNo);
+	}
+	
+	public int selectPostCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectPostCount");
+	}
+	
+	public ArrayList<Post> selectPostList(SqlSessionTemplate sqlSession, PageInfo pi){
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectPostList", null, rowBounds);
 	}
 }

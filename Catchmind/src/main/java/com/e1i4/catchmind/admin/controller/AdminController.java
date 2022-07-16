@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.e1i4.catchmind.admin.model.service.AdminService;
+import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
@@ -146,7 +147,7 @@ public class AdminController {
 		int listCount = adminService.selectInquiryCount();
 		
 		int pageLimit = 10;
-		int boardLimit = 10;
+		int boardLimit = 5;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
@@ -188,7 +189,7 @@ public class AdminController {
 		int listCount = adminService.selectListCount();
 		
 		int pageLimit = 10;
-		int boardLimit = 10;
+		int boardLimit = 5;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
@@ -316,7 +317,7 @@ public class AdminController {
 		int listCount = adminService.selectFaqCount();
 		
 		int pageLimit = 10;
-		int boardLimit = 10;
+		int boardLimit = 5;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
@@ -378,4 +379,28 @@ public class AdminController {
 	public String statistics() {
 		return "admin/statistics";
 	}
+	
+	//에브리타임 전체 조회 (유진)
+	@RequestMapping("postList.ad")
+	public String selectPostList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.selectPostCount();
+		System.out.println(listCount);
+		
+		int pageLimit = 10;
+		int boardLimit = 5;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Post> list = adminService.selectPostList(pi);
+		System.out.println(list);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "admin/postListViewAdmin";
+	}
+	
+	
+	
+	
 }

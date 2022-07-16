@@ -84,10 +84,14 @@
         <div class="myPage-menu"><a href="myPage.me">회원정보수정</a></div>
         <div class="myPage-menu"><a href="myFollow.me">팔로우리스트</a></div>
         <div class="myPage-menu"><a href="myBlock.me">차단리스트</a></div>
-        <div class="myPage-menu"><a href="myCouple.me">커플관리</a></div>
+        <div class="myPage-menu"><a href="#" onclick="javascript:document.myCoupleForm.submit();">커플관리</a></div>
         <div class="myPage-menu"><a href="myBoard.po">내글관리</a></div>
         <hr>
     </div>
+    
+    <form name="myCoupleForm" action="myCouple.me" method="post">
+       <input type="hidden" name="userNo" value="${ loginUser.userNo }">
+    </form>
     
     <%-- myPage BlockList 영역 --%>
     <div class="content">
@@ -116,8 +120,8 @@
 		                    	<td>${bl.profile }</td>
 		                    </c:otherwise>
 	                    </c:choose>
-                    	<td><button type="button" class="btn btn-secondary" onclick="deleteBlock();">차단 취소</button></td>
-                    	<td><input type='hidden' value="${bl.userNo }" id='blockedUser'></td>
+                    	<td id="blButton"><a class="btn btn-dark">차단 취소</a></td>
+                    	<td class="blno" style="visibility: hidden; display:none;">${bl.userNo }</td>
                 	</tr>
                 </c:forEach>
                 </tbody>
@@ -126,15 +130,11 @@
     </div>
     
     <script>
-    	function deleteBlock(){
-    		var blockedUser = $("#blockedUser").val();
-    		console.log(blockedUser);
-    		//location.href="deleteBlock.me?blockedUser="+blockedUser;
-    	}
-
-        $("#blockTable>tbody>tr>#detail").click(function(){
-        	location.href="detailNotice.ad?nno="+$(this).siblings(".nno").text();
-       })
+		$("#blockTable>tbody>tr>#blButton").click(function(){
+    		console.log($(this).siblings(".blno").text()); 
+    		location.href="deleteBlock.me?blno="+$(this).siblings(".blno").text();
+    	});
+    	
     </script>
     
     <%-- footer 영역 --%>
