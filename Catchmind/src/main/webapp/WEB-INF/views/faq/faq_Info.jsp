@@ -54,7 +54,7 @@ body{
         </p>  
 
         <span>
-            <input type="button" id="btn1" value="캐치톡 START" style="font-size:25px;" onclick="catchTalkClick();">
+            <input type="button" id="btn1" value="캐치톡 START" style="font-size:25px;" onclick="catchTalkClick();"> 
         </span>
         <span>    
             <img src="resources/images/catchTalk.png">

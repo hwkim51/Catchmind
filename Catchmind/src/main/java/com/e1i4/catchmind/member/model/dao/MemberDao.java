@@ -61,11 +61,14 @@ public class MemberDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.matchList", m);
 	}
 
-	// 로그인 시 recentLogout 변경(update)
+	// 로그아웃 시 recentLogout 변경(update)
 	public int updateRecentLogout(SqlSessionTemplate sqlSession, String userId) {
 		return sqlSession.update("memberMapper.updateRecentLogout", userId);
 	}
 	
+	public int updateRefreshSession(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.update("memberMapper.updateRefreshSession", userId);
+	}
 	// 마이 페이지 팔로우 리스트 조회 서비스(select)
 	public ArrayList<Member> selectFollowList(SqlSessionTemplate sqlSession, int userNo){
 		return (ArrayList)sqlSession.selectList("memberMapper.selectFollowList", userNo);

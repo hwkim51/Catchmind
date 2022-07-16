@@ -84,11 +84,21 @@ public class MemberController {
 		return updateRecentLogin;
 	}
 	
-	// 로그아웃  : 수빈
+	// 로그아웃  : 수빈 -세션 만료 전 recent_logout 구문 추가(유진220715)
 	@RequestMapping(value="logout.me")
 	public String logoutMember(HttpSession session) {
-		session.invalidate();
-		return "redirect:/"; 
+		
+		//if((Member)session.getAttribute("loginUser")!=null) {
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+	    int updateRecentLogout = memberService.updateRecentLogout(userId);
+	   
+	    if(updateRecentLogout > 0) {
+	    	session.invalidate();
+			return "redirect:/"; 
+	    } 
+		else {
+	    	return "redirect:/";
+	    }
 	}
 	
 	// 아이디 중복체크(select) : 수빈
@@ -327,7 +337,7 @@ public class MemberController {
 	@RequestMapping(value="closeSession.me", produces="text/html; charset=UTF-8")
 	public String closeSession(String userId, HttpSession session) { //현재 진행 중
 		
-		System.out.println(userId);
+		//System.out.println("close:"+userId);
 		int updateRecentLogout = 0;
 		
 		if(userId!=null) {
@@ -336,6 +346,20 @@ public class MemberController {
 			
 			//session.removeAttribute("loginUser");
 		    session.invalidate();
+		}
+		return (updateRecentLogout>0)?"YYY":"NNN";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="refreshSession.me", produces="text/html; charset=UTF-8")
+	public String refreshSession(String userId, HttpSession session) { 
+		
+		//System.out.println("refresh:"+userId);
+		int updateRecentLogout = 0;
+		
+		if(userId!=null) {
+			updateRecentLogout = memberService.updateRefreshSession(userId);
+			
 		}
 		return (updateRecentLogout>0)?"YYY":"NNN";
 	}

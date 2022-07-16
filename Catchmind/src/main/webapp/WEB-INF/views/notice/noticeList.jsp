@@ -77,14 +77,21 @@ body{
                 </tr>
             </thead>
             <tbody>
-            	<c:forEach var="no" items="${list }">
-                    <tr>
-                        <td class="nno">${no.noticeNo }</td>
-                        <td>${no.noticeTitle }</td>
-                        <td>${no.noticeCount }</td>
-                        <td>${no.noticeDate }</td>
-                    </tr>
-                </c:forEach>
+            <c:choose>
+            	<c:when test="${not empty list }">
+	            	<c:forEach var="no" items="${list }">
+	                    <tr>
+	                        <td class="nno">${no.noticeNo }</td>
+	                        <td>${no.noticeTitle }</td>
+	                        <td>${no.noticeCount }</td>
+	                        <td>${no.noticeDate }</td>
+	                    </tr>
+	                </c:forEach>
+                </c:when>
+                <c:otherwise>
+                			<td colspan="4">등록된 공지사항이 없습니다.</td>
+                </c:otherwise>
+            </c:choose>
             </tbody>
           </table>
           <br><br>

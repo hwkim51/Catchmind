@@ -90,7 +90,12 @@ public class MemberServiceImpl implements MemberService  {
 	public int updateRecentLogout(String userId) {
 		return memberDao.updateRecentLogout(sqlSession, userId);
 	}
-
+	
+	@Override
+	public int updateRefreshSession(String userId) {
+		return memberDao.updateRefreshSession(sqlSession, userId);
+	}
+	
 	@Override
 	public ArrayList<Member> selectFollowList(int userNo) {
 		return memberDao.selectFollowList(sqlSession, userNo);
