@@ -159,14 +159,21 @@ div{
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${list}" var="f">
-	                    <tr align="center">
-	                        <td class="fno">${f.faqNo}</td>
-	                        <td>${f.faqTitle}</td>
-	                        <td>${f.faqContent}</td>
-                            <td id="detail"><a id="btn1">삭제하기</a></td>
-	                    </tr>
-                    </c:forEach>
+                	<c:choose>
+                		<c:when test="${empty list }">
+                			<td colspan="4">등록된 FAQ 리스트가 없습니다.</td>
+                		</c:when>
+              			<c:otherwise>
+		                    <c:forEach items="${list}" var="f">
+			                    <tr align="center">
+			                        <td class="fno">${f.faqNo}</td>
+			                        <td>${f.faqTitle}</td>
+			                        <td>${f.faqContent}</td>
+		                            <td id="detail"><a id="btn1">삭제하기</a></td>
+			                    </tr>
+		                    </c:forEach>
+                   		</c:otherwise>
+                      </c:choose>
                 </tbody>
               </table>
               <div class="btn_area"><a class="btn_write" data-toggle="modal" data-target="#insertFaqModal">작성하기</a></div>

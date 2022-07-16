@@ -45,8 +45,8 @@ body{
 #noticeDetail textarea{
     margin: auto;
     text-align: center;
-    width: 100%;
-    height:450px;
+    width: 84%;
+    height:400px;
     padding:3%;
     -webkit-transform:scale(0.9); 
 }

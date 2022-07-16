@@ -43,6 +43,8 @@ public interface MemberService {
 	// 로그아웃 시 recentLogout 업데이트
 	int updateRecentLogout(String userId);
 	
+	int updateRefreshSession(String userId);
+	
 	// 마이 페이지 팔로우 리스트 조회 서비스(select)
 	ArrayList<Member> selectFollowList(int userNo);
 	

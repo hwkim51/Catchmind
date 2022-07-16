@@ -152,6 +152,12 @@
 		 WHERE USER_ID = #{userId}
 	</update>
 	
+	<update id="updateRefreshSession" parameterType="string">
+		UPDATE TB_MEMBER 
+		   SET RECENT_LOGOUT = NULL 
+		 WHERE USER_ID = #{userId}
+	</update>
+	
 	<select id="selectFollowList" parameterType="_int" resultMap="memberResultSet">
 		SELECT USER_NO, USER_ID, NICKNAME, MBTI, PROFILE, PIC, RECENT_LOGOUT 
 		FROM TB_FOLLOW  

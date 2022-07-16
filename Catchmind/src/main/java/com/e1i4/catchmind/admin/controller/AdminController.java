@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.e1i4.catchmind.admin.model.service.AdminService;
-import com.e1i4.catchmind.board.model.vo.Board;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
@@ -300,7 +298,7 @@ public class AdminController {
 	@RequestMapping("recoverNo.ad")
 	public String recoverNotice(int noticeNo, Model model, HttpSession session) {
 		
-int result = adminService.recoverNotice(noticeNo);
+		int result = adminService.recoverNotice(noticeNo);
 		
 		if(result > 0) {
 			session.setAttribute("alertMsg", "공지사항을 복구하였습니다.");
