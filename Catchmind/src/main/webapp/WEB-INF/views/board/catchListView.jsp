@@ -28,7 +28,7 @@
           left:0px; /* 왼쪽 정렬 */
           padding-bottom: 9px;
           border-bottom: 1px solid black;
-          margin-left: 48px;
+          margin-left: 10px;
       } /* 게시판 타이틀 설정 */
 
         .sub_head>.btn_write{
@@ -60,17 +60,17 @@
             flex-wrap: wrap;
         }
         .card_items{
-            width: 400px;
-            height: 300px;
-            margin: 0px 10px 20px 50px;
+            width: 330px;
+            height: 230px;
+            margin: 0px 10px 0px 10px;
         }
         .card_items>*{
         border: 1px solid #eaeaeaea;
         }
 
         .card_items>.card_img{
-            width: 400px;
-            height: 250px;
+            width: 330px;
+            height: 170px;
         }
         .card_items>.card_img img{
             width:100%;
@@ -82,7 +82,6 @@
         .card_items>.data_area>.info{
             overflow: hidden;
             width: 100%;
-            height: 20px;
             text-overflow:ellipsis;
             white-space:nowrap;
         }
@@ -132,7 +131,7 @@
         
     </style>
 </head>
-<body>
+<body style="overflow-x: hidden">
 
     <jsp:include page="../common/header.jsp"/>
     
@@ -140,7 +139,7 @@
         <div class="inner_body">
             <div class="sub_head">
                 <div class="title">연애의발견</div>
-                <c:if test="${ not empty loginUser }">
+                <c:if test="${ not empty loginUser and not empty loginUser.partner }">
                 <a class="btn_write" href="enrollForm.ca">작성</a>
                 </c:if>
             </div>

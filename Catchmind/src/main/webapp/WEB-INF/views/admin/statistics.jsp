@@ -136,7 +136,12 @@ div{
     text-align: center;
     padding: 50px 30px;
 }
+.statisticsGraph{
+    padding-left: 100px;
+    padding-top: 90px;
+}
 #statisticsTitle{
+    opacity: 1 !important ;
     display: inline-block;
     font-size: 18px;
     font-weight: 600;
@@ -150,6 +155,9 @@ div{
     border: 2px solid #dfdfdf;
     border-radius: 5px;
     text-align: left;
+}
+article{
+    float: left;
 }
 
     
@@ -166,23 +174,24 @@ div{
           <div class="body right">
             <br>
                 <!-- 메뉴 별 제목 작성하는 곳! -->
+                
                 <span id="title">통계 관리</span>
                 <a href="/catchmind/"><span id="toMain">CATCHMIND</span></a><hr>
             
             <div class="body-content">
             
             <article class="statisticsBar">
-                <div id="statisticsTitle" class="statisticsMenu">💻 통계 관리 MENU</div>
-                <hr>
+                <label><div id="statisticsTitle" class="statisticsMenu">💻 통계 관리 MENU</div>
+                <br><br><hr><br>
                 <input type="button" id="stsUser" class="statisticsMenu" value="🅾 가입유저 통계"></input><br>
                 <input type="button" id="stsGender" class="statisticsMenu" value="🚻 성별 통계"></input><br>
                 <input type="button" id="stsAge" class="statisticsMenu" value="🟨 연령 통계"></input><br>
                 <input type="button" id="stsBoard" class="statisticsMenu" value="💹 게시글 통계"></input><br>
-                <input type="button" id="stsQa" class="statisticsMenu" value="♏ 문의사항 통계"></input><br>
+        
             </article>
             <article>
-                <div class="tatisticsGraph" style="background-Color:red;">
-                    
+                <div class="statisticsGraph">
+                    <img id="statisticsImg" src="./resources/images/stsUser.png" style="width: 500px;">;
                 </div>
             </article>
            
@@ -190,7 +199,26 @@ div{
     </div>
     
     <script>
-        
+        $("#stsUser").click(function(){
+            $(this).css("opacity","1");
+            $(this).siblings().css("opacity","0.5");
+            $("#statisticsImg").attr("src","./resources/images/stsUser.png");
+        })
+        $("#stsGender").click(function(){
+            $(this).css("opacity","1");
+            $(this).siblings().css("opacity","0.5");
+            $("#statisticsImg").attr("src","./resources/images/stsGender.png");
+        })
+        $("#stsAge").click(function(){
+            $(this).css("opacity","1");
+            $(this).siblings().css("opacity","0.5");
+            $("#statisticsImg").attr("src","./resources/images/stsAge.png");
+        })
+        $("#stsBoard").click(function(){
+            $(this).css("opacity","1");
+            $(this).siblings().css("opacity","0.5");
+            $("#statisticsImg").attr("src","./resources/images/stsBoard.png");
+        })
     </script>
   </div>
 </body>

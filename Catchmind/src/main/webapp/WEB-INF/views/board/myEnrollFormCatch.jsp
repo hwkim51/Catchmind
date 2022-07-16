@@ -70,7 +70,7 @@
 	</style>
 	
 </head>
-<body>
+<body style="overflow-x: hidden">
 
     <jsp:include page="../common/header.jsp" />
         

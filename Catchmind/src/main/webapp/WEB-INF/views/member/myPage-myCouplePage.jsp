@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,18 +116,18 @@
         <div class="myPage-menu"><a href="myPage.me">회원정보수정</a></div>
         <div class="myPage-menu"><a href="myFollow.me">팔로우리스트</a></div>
         <div class="myPage-menu"><a href="myBlock.me">차단리스트</a></div>
-        <div class="myPage-menu"><a href="myCouple.me">커플관리</a></div>
+        <div class="myPage-menu"><a href="myCouple.me" onclick="javascript:document.myCoupleForm.submit();">커플관리</a></div>
         <div class="myPage-menu"><a href="myBoard.po">내글관리</a></div>
         <hr>
     </div>
     
     <div class="myCouple-area" align="center">
         <div class="inputCoupleID-area">
-            <div class="coupleID-text" align="left">커플 아이디 입력</div>
-            <form action="requestCouple.me" method="post">
-            	<input type="hidden" name="userId" value="${ loginUser.userId }">
-            	<input id="input-coupleID" type="text" class="form-control" name="partner">
-            	<button type="submit" id="coupleRequest-btn" class="btn">요청</button>
+        	<form action="requestCouple.me" method="post">
+	            <div class="coupleID-text" align="left">커플 아이디 입력</div>
+	            <input id="input-coupleID" type="text" class="form-control" name="coupleId">
+	            <input type="hidden" name="userNo" value="${ loginUser.userNo }">
+	            <button type="submit" id="coupleRequest-btn" class="btn">요청</button>
             </form>
         </div>
         
@@ -141,12 +142,7 @@
                     <button class="btn btn-secondary couple-refuseBtn">거절</button>
                 </div>
             </div>
-
         </div>
-
-    
     </div>
-
-    
 </body>
 </html>

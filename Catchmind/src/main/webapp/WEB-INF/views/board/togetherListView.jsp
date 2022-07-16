@@ -18,7 +18,7 @@
         /* ################### sub_head 설정 영역 ################### */
         .sub_head{
             position: relative;
-            height: 100px;
+            height: 80px;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
         .sub_head>.title{
@@ -28,7 +28,7 @@
             left:0px; /* 왼쪽 정렬 */
             padding-bottom: 9px;
             border-bottom: 1px solid black;
-            margin-left:48px;
+            margin-left:10px;
         } /* 게시판 타이틀 설정 */
 
         /* ################### sub_body 설정 영역 ################### */
@@ -55,14 +55,14 @@
             padding-top:250px;
         }
         .card_items {
-            width: 400px;
-            height: 300px;
-            margin: 0px 10px 20px 50px;
+            width: 330px;
+            height: 220px;
+            margin: 0px 10px 20px 10px;
         }
 
         .card_items .card_img{
-       	 	height: 190px;
-       	 	width: 400px;
+       	 	height: 150px;
+       	 	width: 330px;
             object-fit: contain;
             border: 1px solid #cccccc;
         }
@@ -90,7 +90,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-<body>
+<body style="overflow-x: hidden">
 
     <jsp:include page="../common/header.jsp"/>
     
