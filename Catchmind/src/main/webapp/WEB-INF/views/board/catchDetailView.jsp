@@ -13,19 +13,19 @@
 
       .body{
           margin: auto;
-          width: 1700px;
+          width: 1400px;
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
       .sub_head{
-          position: relative;
-          height: 130px;
-      } /* 게시판 타이틀 및 작성 영역 설정 */
+            position: relative;
+            height: 90px;
+        } /* 게시판 타이틀 및 작성 영역 설정 */
 
-      .sub_head>.title{
+        .sub_head>.title{
           position: absolute;
-          font-size: 50px;
-          width: 450px;
+          font-size: 40px;
+          width: 380px;
           left:0px; /* 왼쪽 정렬 */
           padding-bottom: 9px;
           border-bottom: 1px solid black;
@@ -37,7 +37,7 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 60px;
+            top: 30px;
             width: 120px;
             height: 40px;
             border-radius: 4px;
@@ -54,7 +54,7 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 60px;
+            top: 30px;
             width: 120px;
             height: 40px;
             border-radius: 4px;
@@ -76,20 +76,20 @@
       /* ########## 글제목, 작성일자, 작성자 설정 영역 ########## */
       .sub_body>.wr_title{
         display: inline-block;
-        width: 1200px;
+        width: 920px;
         font-weight: 800;
         font-size: 30px;
         margin-bottom: 5px;
       } /* 글제목 설정 */
       .sub_body>.wr_date{
         display: inline-block;
-        width: 400px;
+        width: 350px;
         font-weight: 800;
         font-size: 30px;
       } /* 작성일자 설정 */
       .sub_body>.wr_writer{
         display: inline-block;
-        width: 1200px;
+        width: 920px;
         font-weight: 800;
         font-size: 30px;
         margin-bottom: 20px;
@@ -130,7 +130,7 @@
       
       .swiper {
 		  width: 100%;
-		  height: 535px;
+		  height: 300px;
 		  position:sticky !important;
 		  top:1px !important;
 		  background: #eaeaea;

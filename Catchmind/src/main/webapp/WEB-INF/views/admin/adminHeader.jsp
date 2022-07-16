@@ -87,8 +87,8 @@ div {
             <div id="admin-member">회원 관리</div>
             <div id="admin-board">게시글 관리</div>
             <ul>
-                <li><a>에브리타임</a></li>
-                <li><a>연애의 발견</a></li>
+                <li><a href="">에브리타임</a></li>
+                <li><a href="">연애의 발견</a></li>
             </ul>
             <div id="admin-cs">고객센터 관리</div>
             <ul>
@@ -96,7 +96,7 @@ div {
                 <li><a href="faqList.ad">FAQ</a></li>
                 <li><a href="inquiryList.ad">1:1 문의</a></li>
             </ul>
-            <div id="admin-stat">웹사이트 통계</div>
+            <div id="admin-stat"><a href="statistics.ad">웹사이트 통계</a></div>
         </div>
        
        <!-- 1회성 알람 문구 기능 -->

@@ -374,4 +374,10 @@ int result = adminService.recoverNotice(noticeNo);
 					
 		return changeName;
 	}
+	
+	// 통계 페이지 : 수빈
+	@RequestMapping("statistics.ad")
+	public String statistics() {
+		return "admin/statistics";
+	}
 }

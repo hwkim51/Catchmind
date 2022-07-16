@@ -87,7 +87,7 @@
         <div class="myPage-menu"><a href="myFollow.me">팔로우리스트</a></div>
         <div class="myPage-menu"><a href="myBlock.me">차단리스트</a></div>
         <div class="myPage-menu"><a href="myCouple.me">커플관리</a></div>
-        <div class="myPage-menu"><a href="">내글관리</a></div>
+        <div class="myPage-menu"><a href="myBoard.po">내글관리</a></div>
         <hr>
     </div>
 

@@ -12,23 +12,24 @@
     <style>
         .body{
             margin: auto;
-            width: 1720px;
+            width: 1400px;
         } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
         /* ################### sub_head 설정 영역 ################### */
         .sub_head{
             position: relative;
-            height: 130px;
+            height: 90px;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
         .sub_head>.title{
-            position: absolute;
-            font-size: 50px;
-            width: 450px;
-            left:0px; /* 왼쪽 정렬 */
-            padding-bottom: 9px;
-            border-bottom: 1px solid black;
-        } /* 게시판 타이틀 설정 */
+          position: absolute;
+          font-size: 40px;
+          width: 380px;
+          left:0px; /* 왼쪽 정렬 */
+          padding-bottom: 9px;
+          border-bottom: 1px solid black;
+          margin-left: 48px;
+      } /* 게시판 타이틀 설정 */
 
         .sub_head>.btn_write{
             position: absolute;
@@ -36,14 +37,13 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 60px;
+            top: 30px;
             width: 120px;
             height: 40px;
             border-radius: 4px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
-            vertical-align: middle;
             padding-top: 8px;
         } /* 작성 설정 */
 
@@ -60,16 +60,16 @@
             flex-wrap: wrap;
         }
         .card_items{
-            width: 500px;
+            width: 400px;
             height: 300px;
-            margin: 0px 10px 20px 60px;
+            margin: 0px 10px 20px 50px;
         }
         .card_items>*{
         border: 1px solid #eaeaeaea;
         }
 
         .card_items>.card_img{
-            width: 500px;
+            width: 400px;
             height: 250px;
         }
         .card_items>.card_img img{
@@ -106,7 +106,7 @@
             transition: all 0.5s ease;
         } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
         .pagination ul li a{
-            padding: 5px 5px 5px 5px;
+            padding: 30px 5px 30px 5px;
             margin: 5px 5px 5px 5px;
         	text-decoration: none;
         	color:black;
