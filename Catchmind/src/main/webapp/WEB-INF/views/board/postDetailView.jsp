@@ -220,7 +220,6 @@
     <div class="body">
         <div class="inner_body">
             <div class="sub_head">
-                <div class="title">에브리타임</div>
                 <c:if test="${ (not empty loginUser) and (loginUser.userNo eq p.postWriter) or (loginUser.userNo eq 1) }">
                 <a class="btn_update" onclick="postFormSubmit(1);">수정</a>
                 <a class="btn_delete" onclick="postFormSubmit(2);">삭제</a>

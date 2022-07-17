@@ -201,6 +201,11 @@
         #loginchk:checked+label:after{
             left: 65%;
         }
+        .sessionTitle{
+            font-family: 'IBM Plex Sans KR', sans-serif;
+            margin-left: 50px;
+            width: 300px;
+        }
        
         </style>
 </head>

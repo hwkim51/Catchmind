@@ -138,12 +138,17 @@
     
     <div class="body">
         <div class="inner_body">
+            <nav class="sessionTitle">
+                <h3><b>에브리타임</b></h3>
+                <hr>
+            </nav>
+
             <div class="sub_head">
-                <div class="title">에브리타임</div>
                 <c:if test="${ not empty loginUser }">
                 <a class="btn_write" href="enrollForm.po">작성</a>
                 </c:if>
             </div>
+
             <div class="sub_body">
                 <table class="table">
                     <thead>

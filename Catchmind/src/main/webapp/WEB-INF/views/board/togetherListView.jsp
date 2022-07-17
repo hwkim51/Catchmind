@@ -13,23 +13,6 @@
             margin: auto;
             width: 1400px;
         } /* 전체틀 가운데 정렬 및 넓이 설정 */
-
-        /* ################### sub_head 설정 영역 ################### */
-        .sub_head{
-            position: relative;
-            height: 80px;
-        } /* 게시판 타이틀 및 작성 영역 설정 */
-
-        .sub_head>.title{
-            position: absolute;
-            font-size: 40px;
-            width: 380px;
-            left:0px; /* 왼쪽 정렬 */
-            padding-bottom: 9px;
-            border-bottom: 1px solid black;
-            margin-left:10px;
-        } /* 게시판 타이틀 설정 */
-
         /* ################### sub_body 설정 영역 ################### */
         .sub_body *{
             border-collapse: collapse;
@@ -101,6 +84,11 @@
 		    resize:none;
 		    outline:none;
 		    } /* 모달창 내에 사유 입력 스타일 */
+        .sessionTitle{
+            font-family: 'IBM Plex Sans KR', sans-serif;
+            margin-left: 50px;
+            width: 300px;
+        }
     </style>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
@@ -112,9 +100,10 @@
     
     <div class="body">
         <div class="inner_body">
-            <div class="sub_head">
-                <div class="title">함께 놀러가요</div>
-            </div>
+            <nav class="sessionTitle">
+                <h3><b>함께 놀러가요 💑 </b></h3>
+                <hr>
+            </nav>
             <div class="sub_body">
             <select id="areaCode" name="areaCode">
 			    <option value="1">서울</option>

@@ -19,7 +19,6 @@
         }
         
         .content{
-            font-family: 'IBM Plex Sans KR', sans-serif;
             width:90%;
             height: 800px;
             margin: auto;
@@ -84,11 +83,6 @@
             font-size:13px;
             color:rgb(21, 21, 246);
         }
-        .sessionTitle{
-            font-family: 'IBM Plex Sans KR', sans-serif;
-            margin-left: 50px;
-            width: 300px;
-        }
         </style>
         </head>
         <body>
@@ -96,10 +90,9 @@
             <jsp:include page="../common/header.jsp"/>
 
             <div class="content">
-                <nav class="sessionTitle">
-                    <h3><b>1 : 1 문의</b></h3>
-                    <hr>
-                </nav>
+            <br>
+            <h2>1 : 1문의 </h2>
+            <hr>
         	
             <div class="innerContent"> 
               <form action="insert.in" method="post">  

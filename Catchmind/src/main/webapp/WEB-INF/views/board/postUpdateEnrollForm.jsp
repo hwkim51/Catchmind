@@ -71,9 +71,10 @@
         
     <div class="body">
         <div class="inner_body">
-            <div class="sub_head">
-                <div class="title">에브리타임</div>
-            </div>
+            <nav class="sessionTitle">
+                <h3><b>에브리타임</b></h3>
+                <hr>
+            </nav>
             <div class="sub_body">
                 <form id="erollFormPost" method="post" action="update.po" enctype="multipart/form-data">
                     <table algin="center">
