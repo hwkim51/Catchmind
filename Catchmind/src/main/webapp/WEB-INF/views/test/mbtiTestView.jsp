@@ -5,6 +5,9 @@
 <meta charset="UTF-8">
 <title> CATCHMIND | 캐치마인드 </title>
 <style>
+    /* 폰트 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
     .qArea {
         margin-top: 80px;
     }
@@ -17,6 +20,7 @@
     }
 
     .qText {
+        font-family: 'IBM Plex Sans KR', sans-serif;
         font-size: 1.8vw;
         font-weight: bold;
         line-height: 1.5;
@@ -32,6 +36,7 @@
     }
 
     .option {
+        font-family: 'IBM Plex Sans KR', sans-serif;
         width: 30vw;
         height: 6.6vw;
         margin-bottom: 12px;

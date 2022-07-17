@@ -22,7 +22,14 @@
     <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
+     <!--AOS-->
+     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+     
     <style>
+        /* 폰트 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
         /* 전체 */
         *{
             margin: 0;
@@ -264,6 +271,7 @@
     </div>
 	
     <script>
+
         // accodion 클릭 시 active 클래스 속성명 추가해주기(효과용)
         var accodion = document.querySelectorAll('.accodion');
         

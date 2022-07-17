@@ -7,12 +7,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+    body{
+        font-family: 'IBM Plex Sans KR', sans-serif;
+    }
     .sessionTitle{
-        margin-left: 70px;
+        margin-left: 50px;
         width: 300px;
     }
     .matchList{
-        padding: 30px 220px;
+        padding: 20px 220px;
     }
     .matchUser{
         position: relative;
@@ -79,7 +82,7 @@
     <jsp:include page="../common/header.jsp"/>
     <div class="matchList">
         <nav class="sessionTitle">
-            <h2><b>매칭 리스트</b></h2>
+            <h3><b>매칭 리스트</b></h3>
             <hr>
         </nav>
         <br>

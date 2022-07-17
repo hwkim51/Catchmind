@@ -18,6 +18,8 @@
  <style>
         html{
             font-size: 20px;
+            
+            font-family: 'Noto Sans KR', sans-serif;
         }
          /* swiper */
         #mainSwiper{

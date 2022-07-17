@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title> CATCHMIND | 캐치마인드 </title>
 <style>
+    /* 폰트 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
 	.mbtiResult-area {
         width: 1200px;
         height: 750px;
@@ -20,17 +23,20 @@
     }
 
     .mbtiResult-title {
+        font-family: 'IBM Plex Sans KR', sans-serif;
         font-size: 30px;
         font-weight: bold;
         margin-top: 15px;
     }
 
     .mbtiResult-mbti {
+        font-family: 'IBM Plex Sans KR', sans-serif;
         font-size: 45px;
         font-weight: bold;
     }
 
     .mbtiResult-content {
+        font-family: 'IBM Plex Sans KR', sans-serif;
         width: 500px;
         margin: 25px 0px 35px 0px;
     }
