@@ -245,6 +245,14 @@
             	
             <div class="sub_body">
             	<input type="hidden" name="pno" value="${ p.postNo }">
+            	<c:choose>
+            	<c:when test="${ empty loginUser.userId }">
+            	<input type="hidden" id="loginChecker" value="1">
+            	</c:when>
+            	<c:otherwise>
+            	<input type="hidden" id="loginChecker" value="${ loginUser.userNo }">
+            	</c:otherwise>
+            	</c:choose>
                 <div class="wr_title">글제목 : ${ p.postTitle }</div>
                 <div class="wr_date">작성일자 : ${ p.postDate }</div> <br>
                 <div class="wr_writer">작성자 : ${ p.nickName }</div>
@@ -317,14 +325,13 @@
             
            <script>
     	function addReply() {
-    		
     		if($("#rep_input").val().trim().length != 0) {
         		$.ajax({
         			url : "insert.rep",
         			data : {
         				replyPost : ${ p.postNo },
         				replyContent : $("#rep_input").val(),
-        				replyWriter : ${ loginUser.userNo }
+        				replyWriter : $("#loginChecker").val()
         			},
         			success : function(result) {
         				if(result == "success") {
