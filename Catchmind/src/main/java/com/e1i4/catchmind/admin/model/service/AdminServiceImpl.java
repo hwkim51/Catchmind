@@ -180,4 +180,24 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Catch> selectCatchList(PageInfo pi) {
 		return adminDao.selectCatchList(sqlSession, pi);
 	}
+
+	@Override
+	public int recoverPost(int postNo) {
+		return adminDao.recoverPost(sqlSession, postNo);
+	}
+	
+	@Override
+	public int deletePost(int postNo) {
+		return adminDao.deletePost(sqlSession, postNo);
+	}
+
+	@Override
+	public int recoverCatch(int catchNo) {
+		return adminDao.recoverCatch(sqlSession, catchNo);
+	}
+
+	@Override
+	public int deleteCatch(int catchNo) {
+		return adminDao.deleteCatch(sqlSession, catchNo);
+	}
 }

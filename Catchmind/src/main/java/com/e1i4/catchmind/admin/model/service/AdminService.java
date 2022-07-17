@@ -75,4 +75,12 @@ public interface AdminService {
 	int selectCatchCount();
 
 	ArrayList<Catch> selectCatchList(PageInfo pi);
+
+	int recoverPost(int postNo);
+	
+	int deletePost(int postNo);
+
+	int recoverCatch(int catchNo);
+
+	int deleteCatch(int catchNo);
 }

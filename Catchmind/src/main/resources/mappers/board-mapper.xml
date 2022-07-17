@@ -360,13 +360,25 @@
 		ORDER BY POST_DATE DESC, POST_NO DESC
 	</select>
 	
-	<!-- 관리자: 에브리타임 게시글 개수 조회(인범) -->
+	<update id="recoverfncPost" parameterType="_int">
+		UPDATE TB_POST
+		SET POST_STATUS = 'Y'
+		WHERE POST_NO = #{postNo}
+	</update>
+	
+	<update id="deletefncPost" parameterType="_int">
+		UPDATE TB_POST
+		SET POST_STATUS = 'N'
+		WHERE POST_NO =#{postNo}
+	</update>
+	
+	<!-- 관리자: 캐치마인드 게시글 개수 조회(인범) -->
 	<select id="selectadCatchCount" resultType="int">
 		SELECT COUNT(*) 
 		FROM TB_CATCH
 	</select>
 	
-	<!-- 관리자:에브리타임 전체 조회(인범) -->
+	<!-- 관리자: 캐치마인드 전체 조회(인범) -->
 	<select id="selectadCatchList" parameterType="_int" resultMap="catchResultMap">
 		SELECT CATCH_NO, CATCH_TITLE, CATCH_CONTENT, TO_CHAR(CATCH_DATE, 'YYYY-MM-DD') "CATCH_DATE", CATCH_COUNT, CATCH_STATUS, NICKNAME
 		FROM TB_CATCH
@@ -374,8 +386,17 @@
 		ORDER BY CATCH_DATE DESC, CATCH_NO DESC
 	</select>
 	
+	<update id="recoverfncCatch" parameterType="_int">
+		UPDATE TB_CATCH
+		SET CATCH_STATUS = 'Y'
+		WHERE CATCH_NO = #{catchNo}
+	</update>
 	
-	
+	<update id="deletefncCatch" parameterType="_int">
+		UPDATE TB_CATCH
+		SET CATCH_STATUS = 'N'
+		WHERE CATCH_NO =#{catchNo}
+	</update>
 	
 	
 </mapper>
