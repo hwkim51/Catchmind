@@ -92,6 +92,10 @@
             align-items: center;
             justify-content: center;
         } /* 정렬 */
+        .pagination #clickPage {
+            background-color: rgb(255, 165,0);
+            border-radius: 50%;
+        }
         .pagination ul li{
             list-style: none;
             line-height: 45px;
@@ -101,6 +105,7 @@
             height: 35px;
             width: 35px;
             transition: all 0.5s ease;
+            margin: 3px 3px 3px 3px;
         } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
         .pagination ul li a{
             padding: 30px 5px 30px 5px;
@@ -182,7 +187,14 @@
                     		</c:choose>
                     		
 				            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-				            <li class="page_num"><a href="list.po?ppage=${ p }">${ p }</a></li>
+				            <c:choose>
+				            <c:when test="${ p != pi.currentPage }">
+				            <li class="page_num" ><a href="list.po?ppage=${ p }">${ p }</a></li>
+				            </c:when>
+				            <c:otherwise>
+				            <li id="clickPage"  class="page_num" ><a href="list.po?ppage=${ p }">${ p }</a></li>
+				            </c:otherwise>
+				            </c:choose>
 				            </c:forEach>
 				            
 				            <c:choose>

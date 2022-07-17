@@ -84,6 +84,11 @@
             align-items: center;
             justify-content: center;
         } /* 정렬 */
+        
+        .pagination #clickPage {
+            background-color: rgb(255, 165,0);
+            border-radius: 50%;
+        }
         .pagination ul li{
             list-style: none;
             line-height: 45px;
@@ -189,7 +194,14 @@
                     		</c:choose>
                     		
 				            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-				            <li class="page_num"><a href="myBoard.po?ppage=${ p }">${ p }</a></li>
+				            <c:choose>
+				            <c:when test="${ p != pi.currentPage }">
+				            <li class="page_num" ><a href="myBoard.po?ppage=${ p }">${ p }</a></li>
+				            </c:when>
+				            <c:otherwise>
+				            <li id="clickPage"  class="page_num" ><a href="myBoard.po?ppage=${ p }">${ p }</a></li>
+				            </c:otherwise>
+				            </c:choose>
 				            </c:forEach>
 				            
 				            <c:choose>

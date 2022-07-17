@@ -112,12 +112,16 @@
       	float:right;
       	cursor:pointer;
       	border: none;
-        border-radius: 4px;
-        color: rgb(255,255,255);
-        background: #eaeaeaea;
-        text-decoration: none;
-        text-align: left;
-        vertical-align: middle;
+      	background: none;
+      }.sub_body>.btn_like_cancel{
+        display: inline-block;
+        width: 200px;
+        font-weight: 800;
+        font-size: 30px;
+      	float:right;
+      	cursor:pointer;
+      	border: none;
+      	background: none;
       }
       .sub_body>.btn_like_disabled{
         display: inline-block;
@@ -234,6 +238,9 @@
                 <c:when test="${ not empty loginUser and llist eq 0 }">
                 <button class="btn_like" onclick="like();">좋아요 : ${ l }</button><br>
                 </c:when>
+                <c:when test="${ not empty loginUser and llist eq 1 }">
+                <button class="btn_like_cancel" onclick="cancelLike();">좋아요 : ${ l }</button><br>
+                </c:when>
                 <c:otherwise>
                 <div class="btn_like_disabled">좋아요 : ${ l }</div><br>
                 </c:otherwise>
@@ -310,6 +317,27 @@
 	  function like() {
 		  $.ajax({
 			  url : "like.ca",
+			  data : {
+				  catchNo : ${ c.catchNo},
+				  likeUser : ${ loginUser.userNo }
+			  },
+			  success : function(result) {
+					  if(result=="success") {
+						  selectLike();
+					  } else {
+						  console.log("좋아요 반영 실패")
+					  }
+				  },
+			  error : function() {
+				  console.log("좋아요 ajax 통신 실패!");
+			  }
+			  
+		  });
+	  }
+	  
+	  function cancelLike() {
+		  $.ajax({
+			  url : "cancelLike.ca",
 			  data : {
 				  catchNo : ${ c.catchNo},
 				  likeUser : ${ loginUser.userNo }

@@ -477,7 +477,15 @@ public class BoardController {
 	public int selectLike(int catchNo) {
 		return boardService.likeCount(catchNo);
 	}
-	
+	@ResponseBody
+	@RequestMapping("cancelLike.ca")
+	public String deleteLike(int catchNo, int likeUser) {
+		Like l = new Like();
+		l.setCatchNo(catchNo);
+		l.setLikeUser(likeUser);
+		
+		return (boardService.deleteLike(l)>0)? "success":"fail";
+	}
 	
 	/* ============================ OpenData ============================ */
 	
