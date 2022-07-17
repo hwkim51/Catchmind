@@ -57,6 +57,7 @@
             width: 330px;
             height: 220px;
             margin: 0px 10px 20px 10px;
+            cursor: pointer;
         }
 
         .card_items .card_img{

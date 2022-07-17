@@ -205,6 +205,11 @@ public class BoardServiceImpl implements BoardService {
 	public int insertLike(Like l) {
 		return boardDao.insertLike(l, sqlSession);
 	}
+	
+	@Override
+	public int deleteLike(Like l) {
+		return boardDao.deleteLike(l, sqlSession);
+	}
 
 	@Override
 	public int selectLike(Like like) {
@@ -235,5 +240,7 @@ public class BoardServiceImpl implements BoardService {
 	public int deleteQA(int qaNo) {
 		return boardDao.deleteQA(qaNo, sqlSession);
 	}
+
+	
 
 }

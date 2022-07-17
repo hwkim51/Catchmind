@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.admin.model.dao.AdminDao;
 import com.e1i4.catchmind.board.model.vo.Board;
+import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
@@ -168,5 +169,35 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public ArrayList<Post> selectPostList(PageInfo pi) {
 		return adminDao.selectPostList(sqlSession, pi);
+	}
+
+	@Override
+	public int selectCatchCount() {
+		return adminDao.selectCatchCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Catch> selectCatchList(PageInfo pi) {
+		return adminDao.selectCatchList(sqlSession, pi);
+	}
+
+	@Override
+	public int recoverPost(int postNo) {
+		return adminDao.recoverPost(sqlSession, postNo);
+	}
+	
+	@Override
+	public int deletePost(int postNo) {
+		return adminDao.deletePost(sqlSession, postNo);
+	}
+
+	@Override
+	public int recoverCatch(int catchNo) {
+		return adminDao.recoverCatch(sqlSession, catchNo);
+	}
+
+	@Override
+	public int deleteCatch(int catchNo) {
+		return adminDao.deleteCatch(sqlSession, catchNo);
 	}
 }

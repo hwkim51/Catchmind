@@ -153,7 +153,13 @@ public class BoardDao {
 	}
 
 	public int insertLike(Like l, SqlSessionTemplate sqlSession) {
+		sqlSession.update("boardMapper.decreaseCatchCount", l);
 		return sqlSession.insert("boardMapper.insertLike", l);
+	}
+	
+	public int deleteLike(Like l, SqlSessionTemplate sqlSession) {
+		sqlSession.update("boardMapper.decreaseCatchCount", l);
+		return sqlSession.delete("boardMapper.deleteLike", l);
 	}
 
 	public int selectLike(Like like, SqlSessionTemplate sqlSession) {
@@ -205,4 +211,6 @@ public class BoardDao {
 	public int deleteQA(int qaNo, SqlSessionTemplate sqlSession) {
 		return sqlSession.delete("boardMapper.deleteQA", qaNo);
 	}
+
+	
 }

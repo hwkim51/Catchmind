@@ -127,7 +127,7 @@ div{
            <div class="body right">
              <br>
                  <!-- 메뉴 별 제목 작성하는 곳! -->
-                 <span id="title">에브리타임 관리</span>
+                 <span id="title">연애의 발견 관리</span>
                  <a href="/catchmind/"><span id="toMain">CATCHMIND</span></a>
              <br>
              <div class="body-content">
@@ -151,21 +151,16 @@ div{
                         </c:when>
                         <c:otherwise>
                             
-                                <c:forEach items="${list}" var="p">
+                                <c:forEach items="${list}" var="c">
                                     <tr>
-                                        <th id="postNo" class="userId">${p.postNo}</th>
-                                        <th class="nickname">${p.postTitle}</th>
-                                        <th class="userName">${p.nickName}</th>
-                                        <th class="userName">${p.postDate}</th>
-                                        <th class="status">
-                                            <c:choose>
-                                                <c:when test="${p.postStatus eq 'Y'}">Y</c:when>
-                                                <c:otherwise>N</c:otherwise>
-                                            </c:choose>
-                                        </th>
+                                        <th id="catchNo" class="userId">${c.catchNo}</th>
+                                        <th class="nickname">${c.catchTitle}</th>
+                                        <th class="userName">${c.nickName}</th>
+                                        <th class="userName">${c.catchDate}</th>
+                                        <th class="status">${c.catchStatus }</th>
                                         <th class="statusBtn">
                                             <c:choose>
-                                                <c:when test="${p.postStatus eq 'Y'}"> 
+                                                <c:when test="${c.catchStatus eq 'Y'}"> 
                                                     <input type="button" class="btn-post btn-recover" value="복구" disabled>&nbsp;&nbsp;
                                                     <input type="button" class="btn-post btn-delete" value="삭제" style="background-color: rgb(51, 143, 51);">&nbsp;&nbsp;
                                                 </c:when> 
@@ -190,34 +185,33 @@ div{
                             <li class="page-item disabled"><a class="page-link" href="#">&lt; Prev</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="postList.ad?cpage=${pi.currentPage - 1}">&lt; Prev</a></li>
+                            <li class="page-item"><a class="page-link" href="catchList.ad?cpage=${pi.currentPage - 1}">&lt; Prev</a></li>
                         </c:otherwise>
                     </c:choose>
                     <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                    <li class="page-item"><a class="page-link" href="postList.ad?cpage=${ p }">${ p }</a></li>
+                    <li class="page-item"><a class="page-link" href="catchList.ad?cpage=${ p }">${ p }</a></li>
                     </c:forEach>     
                     <c:choose>   
                         <c:when test="${pi.currentPage eq pi.maxPage}">  
                             <li class="page-item disabled"><a class="page-link" href="#">Next &gt;</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="postList.ad?cpage=${pi.currentPage + 1}">Next &gt;</a></li>
+                            <li class="page-item"><a class="page-link" href="catchList.ad?cpage=${pi.currentPage + 1}">Next &gt;</a></li>
                         </c:otherwise>
                     </c:choose>
                  </ul>
              </div>
          </div>
      </div>
-
-     <script>
+	<script>
      $(function(){
          $(".btn-recover").click(function(){
-             var postNo = $(this).parent().siblings("#postNo").text();
-             location.href="recoverfncPost.ad?postNo="+ postNo;
+             var catchNo = $(this).parent().siblings("#catchNo").text();
+             location.href="recoverfncCatch.ad?catchNo="+ catchNo;
          });
          $(".btn-delete").click(function(){
-             var postNo = $(this).parent().siblings("#postNo").text();
-             location.href="deletefncPost.ad?postNo="+ postNo;
+             var catchNo = $(this).parent().siblings("#catchNo").text();
+             location.href="deletefncCatch.ad?catchNo="+ catchNo;
          });
      });
      </script>
