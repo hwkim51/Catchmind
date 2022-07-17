@@ -153,7 +153,7 @@ div{
                             
                                 <c:forEach items="${list}" var="c">
                                     <tr>
-                                        <th class="userId">${c.catchNo}</th>
+                                        <th id="catchNo" class="userId">${c.catchNo}</th>
                                         <th class="nickname">${c.catchTitle}</th>
                                         <th class="userName">${c.nickName}</th>
                                         <th class="userName">${c.catchDate}</th>
@@ -161,12 +161,12 @@ div{
                                         <th class="statusBtn">
                                             <c:choose>
                                                 <c:when test="${c.catchStatus eq 'Y'}"> 
-                                                    <input type="button" class="btn-post btn-recover" disabled value="복구" style="background-color: rgb(51, 143, 51);">&nbsp;&nbsp;
-                                                    <input type="button" class="btn-post btn-delete" value="삭제">&nbsp;&nbsp;
+                                                    <input type="button" class="btn-post btn-recover" value="복구" disabled>&nbsp;&nbsp;
+                                                    <input type="button" class="btn-post btn-delete" value="삭제" style="background-color: rgb(51, 143, 51);">&nbsp;&nbsp;
                                                 </c:when> 
                                                 <c:otherwise>
                                                     <input type="button" class="btn-post btn-recover" value="복구" style="background-color: rgb(51, 143, 51);">&nbsp;&nbsp;
-                                                    <input type="button" class="btn-post btn-delete" value="삭제">&nbsp;&nbsp;
+                                                    <input type="button" class="btn-post btn-delete" value="삭제" disabled>&nbsp;&nbsp;
                                                 </c:otherwise>
                                             </c:choose>
                                         </th>
@@ -203,22 +203,17 @@ div{
              </div>
          </div>
      </div>
-
-     <script>
-        $(function(){
-            $(".btn-recover").click(function(){
-                var userId = $(this).parent().siblings(".userId").text();
-                location.href="recoverMember.ad?userId="+ userId;
-            })
-            $(".btn-black").click(function(){
-                var userId = $(this).parent().siblings(".userId").text();
-                location.href="blackMember.ad?userId="+ userId;
-            })
-            $(".btn-delete").click(function(){
-                var userId = $(this).parent().siblings(".userId").text();
-                location.href="deleteMember.ad?userId="+ userId;
-            })
-        })
+	<script>
+     $(function(){
+         $(".btn-recover").click(function(){
+             var catchNo = $(this).parent().siblings("#catchNo").text();
+             location.href="recoverfncCatch.ad?catchNo="+ catchNo;
+         });
+         $(".btn-delete").click(function(){
+             var catchNo = $(this).parent().siblings("#catchNo").text();
+             location.href="deletefncCatch.ad?catchNo="+ catchNo;
+         });
+     });
      </script>
 </body>
 </html>

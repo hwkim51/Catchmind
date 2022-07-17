@@ -213,4 +213,20 @@ public class AdminDao {
 		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectadCatchList", null, rowBounds);
 	}
+
+	public int recoverPost(SqlSessionTemplate sqlSession, int postNo) {
+		return sqlSession.update("boardMapper.recoverfncPost", postNo);
+	}
+	
+	public int deletePost(SqlSessionTemplate sqlSession, int postNo) {
+		return sqlSession.update("boardMapper.deletefncPost", postNo);
+	}
+
+	public int recoverCatch(SqlSessionTemplate sqlSession, int catchNo) {
+		return sqlSession.update("boardMapper.recoverfncCatch", catchNo);
+	}
+
+	public int deleteCatch(SqlSessionTemplate sqlSession, int catchNo) {
+		return sqlSession.update("boardMapper.deletefncCatch", catchNo);
+	}
 }

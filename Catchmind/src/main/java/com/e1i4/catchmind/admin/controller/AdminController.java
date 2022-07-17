@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -399,6 +401,39 @@ public class AdminController {
 		return "admin/postListViewAdmin";
 	}
 	
+	// 에브리타임 복구 기능(인범)
+	@RequestMapping(value="recoverfncPost.ad", method=RequestMethod.GET)
+	public String recoverfncPost(int postNo, HttpSession session) {
+	
+		
+		int result = adminService.recoverPost(postNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 "+postNo+"번에 대한 복구 처리되었습니다.");
+			return "redirect:postList.ad";
+		}
+		else {
+			session.setAttribute("alertMsg", "게시글 "+postNo+"번에 대한 복구 처리에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 에브리타임 삭제 기능(인범)
+	@RequestMapping(value="deletefncPost.ad", method=RequestMethod.GET)
+	public String deletefncPost(int postNo, HttpSession session) {
+		
+		int result = adminService.deletePost(postNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 "+postNo+"번에 대한 삭제 처리되었습니다.");
+			return "redirect:postList.ad";
+		}
+		else {
+			session.setAttribute("alertMsg", "게시글 "+postNo+"번에 대한 삭제 처리에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
 	//연애의발견 전체 조회 (인범)
 	@RequestMapping("catchList.ad")
 	public String selectCatchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
@@ -418,7 +453,38 @@ public class AdminController {
 		
 	}
 	
+	// 연애의발견 복구 기능(인범)
+	@RequestMapping(value="recoverfncCatch.ad", method=RequestMethod.GET, produces="application/text;charset=utf-8")
+	public String recoverfncCatch(int catchNo, HttpSession session) {
 	
+		
+		int result = adminService.recoverCatch(catchNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 "+catchNo+"번에 대한 복구 처리되었습니다.");
+			return "redirect:catchList.ad";
+		}
+		else {
+			session.setAttribute("alertMsg", "게시글 "+catchNo+"번에 대한 복구 처리에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 연애의발견 삭제 기능(인범)
+	@RequestMapping(value="deletefncCatch.ad", method=RequestMethod.GET, produces="application/text;charset=utf-8")
+	public String deletefncCatch(int catchNo, HttpSession session) {
+		
+		int result = adminService.deleteCatch(catchNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 "+catchNo+"번에 대한 삭제 처리되었습니다.");
+			return "redirect:catchList.ad";
+		}
+		else {
+			session.setAttribute("alertMsg", "게시글 "+catchNo+"번에 대한 삭제 처리에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
 	
 	
 }
