@@ -92,7 +92,7 @@ body{
                                     첨부파일이 없습니다.
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="${n.changeName }" style="width:100%; height:350px;">
+                                    <img src="${n.changeName }" style="width:100%; height:250px;">
                                 </c:otherwise>
                             </c:choose>
                             <textarea style="resize: none;" readonly> 
