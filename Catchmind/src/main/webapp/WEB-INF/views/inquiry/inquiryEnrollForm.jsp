@@ -73,6 +73,16 @@
             border-bottom-color: #e2e2e2;
             font-size:medium;          
         }
+
+        #btn1:hover{
+            cursor:pointer;
+            opacity: 0.7;
+        }
+
+        #notLogin{
+            font-size:13px;
+            color:rgb(21, 21, 246);
+        }
         </style>
         </head>
         <body>
@@ -100,13 +110,13 @@
                     <tr>
                         <th> 제목 </th>      
                         <td>
-                            <input type="text" name="qaTitle" required placeholder="제목을 입력해 주세요." size="90">
+                            <input type="text" name="qaTitle" class="form-control" required placeholder="제목을 입력해 주세요." size="90">
                         </td>               
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td>
-                            <textarea name="qaContent" style="resize:none;" cols="92" rows="10" required placeholder="문의 내용을 작성해 주세요."></textarea>
+                            <textarea name="qaContent" class="form-control" style="resize:none;" cols="92" rows="10" required placeholder="문의 내용을 작성해 주세요."></textarea>
                         </td>
                     </tr>
                     <!--
@@ -122,7 +132,15 @@
                     -->
                     <tr>
                         <td colspan="2" align="center">
-                            <button type="submit" id="btn1">문의하기</button>                          
+                            <c:choose>
+                                <c:when test="${not empty loginUser}">
+                                    <button type="submit" id="btn1">문의하기</button>  
+                                </c:when>
+                                <c:otherwise>
+                                    <button type="submit" disabled class="btn btn-secondary">문의하기</button><br>
+                                    <div id="notLogin">💡 로그인 후 이용 가능한 서비스입니다. </div>
+                                </c:otherwise>
+                            </c:choose>                        
                         </td>
                      </tr>   
                    </table>

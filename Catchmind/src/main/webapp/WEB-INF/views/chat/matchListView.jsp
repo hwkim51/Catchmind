@@ -159,9 +159,10 @@
                     <!-- 프로필 상세보기 모달 바디 -->
                     <div class="modal-body">
 
-                        <form action="" method="post">
+                        <form action="follow.me" method="post">
                         	<input type="hidden" name="userId" value="">
                         	<input type="hidden" name="userPwd" value="">
+                            <input type="hidden" name="userNo" value=""><!--팔로우 할 상대의 userNo-->
                         	
                             <!-- 프로필 - 이미지 -->
                             <img class="profile-img" src='./resources/images/song.jpg'>
