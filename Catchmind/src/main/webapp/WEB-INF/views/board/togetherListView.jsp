@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <style>
         .body{
             margin: auto;
@@ -84,13 +83,29 @@
             text-overflow:ellipsis;
             white-space:nowrap;
         }
+        .card_items #conid{
+        	display:none;
+        }
         
+        .w3-modal {
+	        position: absolute;
+	        displaty:none;
+        }
+        .w3-container>span:hover{
+		    background-color: transparent !important;
+		    } /* 모달창 내에 취소박스 배경색 적용 */
+	    .w3-container textarea{
+		    margin-top:5px;
+		    width:100%;
+		    resize:none;
+		    outline:none;
+		    } /* 모달창 내에 사유 입력 스타일 */
     </style>
-    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
 </head>
-<body style="overflow-x: hidden">
+<body style="overflow-x: hidden; overflow-y: hidden">
 
     <jsp:include page="../common/header.jsp"/>
     
@@ -119,10 +134,8 @@
 			    <option value="39">제주</option>
 			</select>
                 <div class="card_area" id="result1">
-                    <div class="card_area" id="result1">
                     <div class="Loding_data">데이터를 불러오는 중입니다. <br>
                     	잠시만 기다려주세요.</div>
-                </div>
                 </div>
             </div>
         </div>
@@ -140,8 +153,6 @@
 				var itemArr = $(data).find("item");
 				var itemArrSort = itemArr;
 				var value = "";
-				// 2. 반복문을 이용해서 실제 데이터가 담긴 요소들에 접근해서 동적으로 요소 만들기
-				// -> 제이쿼리 반복문
 				itemArr.each(function(index, item) {
 					if($(item).find("firstimage").text()) {
 					var sdate = $(item).find("eventstartdate").text();
@@ -154,6 +165,7 @@
                     + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
                     + "<div class="+"addr"+">"+addr+"</div>"
                     + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
+                    + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
                     + "</div>"
                 	+ "</div>"
 					} else {
@@ -166,7 +178,8 @@
                     + "<div class="+"data_area"+">"
                     + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
                     + "<div class="+"addr"+">"+addr+"</div>"
-                    + "<div class="+"period"+">"+$(item).find("eventstartdate").text()+"~"+$(item).find("eventenddate").text()+"</div>"
+                    + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
+                    + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
                     + "</div>"
                 	+ "</div>"
 					}
@@ -187,25 +200,29 @@
 					var itemArr = $(data).find("item");
 					var itemArrSort = itemArr;
 					var value = "";
-					// 2. 반복문을 이용해서 실제 데이터가 담긴 요소들에 접근해서 동적으로 요소 만들기
-					// -> 제이쿼리 반복문
 					itemArr.each(function(index, item) {
+						var sdate = $(item).find("eventstartdate").text();
+						var edate = $(item).find("eventenddate").text();
+						var aos = " data-aos=\"fade-up\"";
+						var addr = $(item).find("addr1").text()+$(item).find("addr2").text();
 						if($(item).find("firstimage").text()) {
-						value += "<div class="+"card_items"+">"
+						value += "<div class="+"card_items "+aos+">"
                         + "<img class="+"card_img"+" src="+$(item).find("firstimage").text()+">"
                         + "<div class="+"data_area"+">"
                         + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
                         + "<div class="+"addr"+">"+$(item).find("addr1").text()+$(item).find("addr2").text()+"</div>"
-                        + "<div class="+"period"+">"+$(item).find("eventstartdate").text()+"~"+$(item).find("eventenddate").text()+"</div>"
+                        + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
+                        + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
                         + "</div>"
                     	+ "</div>"
 						} else {
-						value += "<div class="+"card_items"+">"
+						value += "<div class="+"card_items "+aos+">"
                         + "<img class="+"card_img"+" src="+"https://dilavr.com.ua/image/catalog/empty-img.png"+">"
                         + "<div class="+"data_area"+">"
                         + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
                         + "<div class="+"addr"+">"+$(item).find("addr1").text()+$(item).find("addr2").text()+"</div>"
-                        + "<div class="+"period"+">"+$(item).find("eventstartdate").text()+"~"+$(item).find("eventenddate").text()+"</div>"
+                        + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
+                        + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
                         + "</div>"
                     	+ "</div>"
 						}
@@ -219,7 +236,45 @@
 			});
     	});
     });
+
+    $(function() {
+        $('.card_area').on('click','.card_items', function() {
+        	var str = $(this).text();
+        	var conid = (str.substr(str.indexOf('^')+1));
+        	$.ajax({
+        		url:"detail.to",
+        		data: {contentid: conid},
+        		success : function(data) {
+        			var value = "";
+        			var itemArr = $(data).find("item");
+					itemArr.each(function(index, item) {
+						var homepage= $(item).find("homepage").text();
+						var str = (homepage.substr(9,homepage.indexOf("target=",10)-11));
+						window.open(str);
+        		});
+        		}
+        	});
+        });
+        });
+    
     </script>
+    
+      <!-- The Modal -->
+		<div id="id01" class="w3-modal">
+	    <div class="w3-modal-content w3-animate-zoom">
+	        <header class="w3-container w3-orange">
+	            <span onclick="document.getElementById('id01').style.display='none'"
+	            class="w3-button w3-display-topright">&times;</span>
+	            <h2>내 문의</h2>
+	        </header>
+	    <div class="w3-container">
+	      <span onclick="document.getElementById('id01').style.display='none'"
+	      class="w3-button w3-display-topright">&times;</span>
+	      	<div class="qtis_div"></div>
+	      	<div class="qac_div"></div>
+	  </div>
+	  </div>
+	  </div>
     
 
     <jsp:include page="../common/footer.jsp"/>

@@ -534,6 +534,42 @@ public class BoardController {
 			return responseText;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="detail.to", produces="text/xml; charset=UTF-8")
+	public String detailTogether(int contentid) throws IOException {
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon";
+		url += "?ServiceKey=" + SERVICEKEY;
+		url += "&MobileOS=WIN";
+		url += "&MobileApp=CatchMind";
+		url += "&contentId="+contentid;
+		url += "&defaultYN=Y";
+		
+		// URL값을 저장하는 구문
+		URL requestUrl = new URL(url);
+		
+		// URL과 연결하는 구문
+		HttpURLConnection urlConnection = (HttpURLConnection) requestUrl.openConnection();
+		
+		// 연결할 때 접속방식 선택
+		urlConnection.setRequestMethod("GET");
+		
+		// 연결되었으니 값들 읽어오기
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+		
+		String responseText = ""; // 응답데이터 기록용 변수
+		String line; // null => 한줄 한줄 씩 읽어서 대입해주는 용도
+		
+		while((line = br.readLine()) != null) {
+			responseText += line;
+			
+		}
+		
+		br.close();
+		urlConnection.disconnect();
+		
+		return responseText;
+	}
+	
 	/* ============================ 내 글 관리 - 에브리타임  ============================ */
 	@RequestMapping("myBoard.po")
 	public String listViewMyPost(@RequestParam(value="ppage", defaultValue="1") int currentPage, HttpSession session, Model model) {
