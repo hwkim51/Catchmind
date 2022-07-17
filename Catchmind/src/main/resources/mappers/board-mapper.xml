@@ -333,6 +333,19 @@
 		WHERE CATCH_NO = #{catchNo}
 	</select>
 	
+	<update id="updateQA" parameterType="inquiry">
+		UPDATE TB_QA
+		SET Q_TITLE = #{qaTitle}, Q_CONTENT = #{qaContent}
+		WHERE QA_NO = #{qaNo}
+	</update>
+	
+	<delete id="deleteQA" parameterType="_int">
+		DELETE FROM TB_QA
+		WHERE QA_NO = #{qaNo}
+	</delete>
+	
+	
+	<!-- ############################ 관리자 페이지 ############################ -->
 	<!-- 관리자: 에브리타임 게시글 개수 조회(유진) -->
 	<select id="selectPostCount" resultType="int">
 		SELECT COUNT(*) 
@@ -347,14 +360,22 @@
 		ORDER BY POST_DATE DESC, POST_NO DESC
 	</select>
 	
-	<update id="updateQA" parameterType="inquiry">
-		UPDATE TB_QA
-		SET Q_TITLE = #{qaTitle}, Q_CONTENT = #{qaContent}
-		WHERE QA_NO = #{qaNo}
-	</update>
+	<!-- 관리자: 에브리타임 게시글 개수 조회(인범) -->
+	<select id="selectadCatchCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM TB_CATCH
+	</select>
 	
-	<delete id="deleteQA" parameterType="_int">
-		DELETE FROM TB_QA
-		WHERE QA_NO = #{qaNo}
-	</delete>
+	<!-- 관리자:에브리타임 전체 조회(인범) -->
+	<select id="selectadCatchList" parameterType="_int" resultMap="catchResultMap">
+		SELECT CATCH_NO, CATCH_TITLE, CATCH_CONTENT, TO_CHAR(CATCH_DATE, 'YYYY-MM-DD') "CATCH_DATE", CATCH_COUNT, CATCH_STATUS, NICKNAME
+		FROM TB_CATCH
+		JOIN TB_MEMBER ON (CATCH_WRITER=USER_NO)
+		ORDER BY CATCH_DATE DESC, CATCH_NO DESC
+	</select>
+	
+	
+	
+	
+	
 </mapper>

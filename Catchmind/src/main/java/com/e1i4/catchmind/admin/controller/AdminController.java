@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.e1i4.catchmind.admin.model.service.AdminService;
+import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
-import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.common.template.Pagination;
 import com.e1i4.catchmind.faq.model.vo.Faq;
@@ -385,7 +386,6 @@ public class AdminController {
 	public String selectPostList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 		
 		int listCount = adminService.selectPostCount();
-		System.out.println(listCount);
 		
 		int pageLimit = 10;
 		int boardLimit = 5;
@@ -393,11 +393,29 @@ public class AdminController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		ArrayList<Post> list = adminService.selectPostList(pi);
-		System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
 		return "admin/postListViewAdmin";
+	}
+	
+	//연애의발견 전체 조회 (인범)
+	@RequestMapping("catchList.ad")
+	public String selectCatchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.selectCatchCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 5;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Catch> list = adminService.selectCatchList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "admin/catchListViewAdmin";
+		
 	}
 	
 	
