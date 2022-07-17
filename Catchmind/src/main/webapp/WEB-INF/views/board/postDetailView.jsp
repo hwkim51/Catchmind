@@ -8,19 +8,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <style>
-
+       /* 폰트 */
+       @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+       @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
+        
       .body{
           margin: auto;
-          width: 1250px;
+          width: 1200px;
           transform: translateY(-20px);
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
       .sub_head{
             position: relative;
-            height: 60px;
+            height: 50px;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
         .sub_head>.title{
@@ -68,6 +72,7 @@
 
       /* ################### sub_body 설정 영역 ################### */
       .sub_body{
+          font-family: 'IBM Plex Sans KR', sans-serif;
           height: 100%;
           background-color: #eaeaea;
           padding: 10px 10px 10px 10px;
@@ -79,43 +84,40 @@
         display: inline-block;
         width: 985px;
         font-weight: 800;
-        font-size: 20px;
         margin-bottom: 5px;
       } /* 글제목 설정 */
       .sub_body>.wr_date{
         display: inline-block;
         width: 230px;
         font-weight: 800;
-        font-size: 20px;
       } /* 작성일자 설정 */
       .sub_body>.wr_writer{
         display: inline-block;
         width: 985px;
         font-weight: 800;
-        font-size: 20px;
         margin-bottom: 5px;
       } /* 작성자 설정 */
       .sub_body>.wr_count{
         display: inline-block;
         width: 230px;
         font-weight: 800;
-        font-size: 20px;
       } /* 조회수 설정 */
       .sub_body .wr_image{
         height:300px;
       }
       .sub_body .wr_image>img{
-	    width:100%;
-	    height: 100%;
+        width:100%;
+        height: 100%;
       	object-fit:contain;
       }
 
       /* ########## 글내용 설정 영역 ########## */
       .sub_body>.wr_content{
+        font-family: 'IBM Plex Sans KR', sans-serif;
         height: 100%;
         font-size: 20px;
-    	white-space: pre-wrap;
-    	margin-bottom:0px;
+        white-space: pre-wrap;
+        margin-bottom:0px;
       } /* 글 내용 설정 */
       
       /* ########## 댓글 입력 설정 영역 ##########*/
@@ -133,7 +135,7 @@
         border-radius: 4px;
         font-size: 12px;
         resize:none;
-        margin-left:100px
+        margin-left:100px;
       } /* 댓글 입력하는 창 설정 */
       .sub_body>.wr_reply button{
         border: none;
@@ -181,6 +183,7 @@
         padding-top: 10px;
       } /* 목록으로 구역 설정 및 스타일 적용 */
       .sub_foot>.btn_list{
+        font-family: 'IBM Plex Sans KR', sans-serif;
         cursor:pointer;
         color:black;
         text-decoration: none;
@@ -212,12 +215,16 @@
       } /* 댓글의 신고하기 크기설정 */
     </style>
     
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body style="overflow-x: hidden">
-
     <jsp:include page="../common/header.jsp" />
+    
     <div class="body">
+        <br>
+        <nav class="sessionTitle">
+          <h3><b style="font-family: 'IBM Plex Sans KR', sans-serif;">에브리타임</b></h3>
+          <hr>
+        </nav>
         <div class="inner_body">
             <div class="sub_head">
                 <c:if test="${ (not empty loginUser) and (loginUser.userNo eq p.postWriter) or (loginUser.userNo eq 1) }">
@@ -248,7 +255,7 @@
                 <div class="wr_title">글제목 : ${ p.postTitle }</div>
                 <div class="wr_date">작성일자 : ${ p.postDate }</div> <br>
                 <div class="wr_writer">작성자 : ${ p.nickName }</div>
-                <div class="wr_count">조회수 : ${ p.postCount }</div> <br>
+                <div class="wr_count">조회수 : ${ p.postCount }</div> <br><br>
                 <c:if test= "${ !empty a }">
                 	<div class="wr_image"><img src="${ a.attChange }"> <br></div>
                 </c:if>

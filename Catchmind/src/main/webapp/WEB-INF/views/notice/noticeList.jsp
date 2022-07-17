@@ -48,10 +48,6 @@ body{
     width:fit-content; 
     margin:auto;
 }
-.sessionTitle{
-    margin-left: 50px;
-    width: 300px;
-}
 
 </style>
 </head>

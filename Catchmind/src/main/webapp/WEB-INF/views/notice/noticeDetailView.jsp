@@ -11,10 +11,6 @@ body{
     margin:auto;
     padding: 0%;
 }
-.sessionTitle{
-    margin-left: 50px;
-    width: 300px;
-}
 .content{
     font-family: 'IBM Plex Sans KR', sans-serif;
     width:1200px;
