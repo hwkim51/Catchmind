@@ -53,6 +53,7 @@
         background-color: rgb(227, 234, 245);
         border-radius: 15px;
         cursor: pointer;
+        box-shadow: 1px 3px 4px rgba(0,0,0,0.3);
     }
 
     .option:hover {
@@ -83,10 +84,15 @@
         background-color: steelblue;
     }
     .optionA{
-        transition-delay: 1s;
+        transition-delay: 0.9s;
     }
     .optionB{
-        transition-delay: 2s;
+        transition-delay: 1.8s;
+    }
+    .testBackImg{
+        position: absolute;
+        top: 200px;
+        left: 150px;
     }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -103,17 +109,19 @@
 
             <div class="carousel-item active qArea" align="center">
                 <div class="qNum" align="left">Q1</div>
-                <div class="qText" align="left" data-aos="fade-up" data-aos-duration="1000">
+                <div class="qText" align="left" data-aos="fade-left" data-aos-duration="800">
                     <div>데이트가 없는</div>
-                    <div>주말에 나는</div>
+                    <div>주말에 나는
+                    </div>
+                    <img src='./resources/images/mbti1.png' class='testBackImg' width="320px;" height="200px;">
                 </div>
                 <div class="options" align="center">
                     <div class="option optionA" href="#question" data-slide="next" value="E"
-                        data-aos="fade-up" data-aos-duration="600">
+                        data-aos="fade-left" data-aos-duration="600">
                     	모여! 친구들과 약속을 잡는다
                     </div>
                     <div class="option optionB" href="#question" data-slide="next" value="I"
-                        data-aos="fade-up" data-aos-duration="600">
+                        data-aos="fade-left" data-aos-duration="600">
                     	집이 최고야! 이불 밖은 위험해
                     </div>
                 </div>

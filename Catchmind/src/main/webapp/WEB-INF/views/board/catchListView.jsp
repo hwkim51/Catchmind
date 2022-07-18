@@ -19,6 +19,8 @@
         .sub_head{
             position: relative;
             height: 90px;
+            color: rgb(81, 81, 81);
+            font-family: 'IBM Plex Sans KR', sans-serif;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
         .sub_head>.title{
@@ -149,6 +151,7 @@
                 <hr>
             </nav>
             <div class="sub_head">
+                
                 <c:if test="${ not empty loginUser and not empty loginUser.partner }">
                 <a class="btn_write" href="enrollForm.ca">작성</a>
                 </c:if>
