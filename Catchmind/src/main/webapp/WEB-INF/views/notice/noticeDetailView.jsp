@@ -40,12 +40,13 @@ body{
     width: 40%;
 }
 
-#noticeDetail textarea{
+#noticeDetail pre{
     margin: auto;
     text-align: left;
     border: none;
     width: 800px;
-    height:500px;
+    height:100%;
+    margin-top:10px;
 }
 
 #noticeDetail textarea::-webkit-scrollbar{
@@ -91,9 +92,7 @@ body{
                                     <img src="${n.changeName }" style="width:100%; height:250px;">
                                 </c:otherwise>
                             </c:choose>
-                            <textarea style="resize: none;" readonly> 
-                                ${n.noticeContent}
-                            </textarea>
+                            <pre>${n.noticeContent}</pre>
                         </td>
                     </tr>
                 </tbody>

@@ -109,7 +109,7 @@ public class AdminController {
 		return "admin/memberListView";
 	}
 	
-	@RequestMapping("boardList.ad")
+	@RequestMapping("postList.ad")
 	public String selectBoardList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 				
 		int listCount = adminService.selectBoardCount();
@@ -119,7 +119,7 @@ public class AdminController {
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
-		ArrayList<Board> list = adminService.selectBoardList(pi);
+		ArrayList<Post> list = adminService.selectPostList(pi);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);

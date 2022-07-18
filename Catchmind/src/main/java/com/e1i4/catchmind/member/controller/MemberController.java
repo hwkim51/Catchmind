@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.e1i4.catchmind.chat.model.service.ChatService;
 import com.e1i4.catchmind.member.model.service.MemberService;
 import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Follow;
@@ -40,7 +43,10 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	// 로그인페이지로 이동 : 수빈
+	@Autowired
+	private ChatService chatService;
+	
+	// 로그인페이지로 이동
 	@RequestMapping(value="loginPage.me")
 	public String loginPage() {		
 		return "member/login";
@@ -425,6 +431,37 @@ if(result > 0) { // 프로필 수정 성공
 			model.addAttribute("errorMsg", "프로필 수정 실패");
 			return "common/errorPage";
 		}
+	}
+
+	@ResponseBody
+	@RequestMapping("loginSignal.me")
+	public Map<String, Object> loginSignal(String userNo, Model model) {
+		int userNo1 = Integer.parseInt(userNo);
+		int result = memberService.loginSignal(userNo1);
+		int roomNo = 0;
+		if(result > 0) {
+			
+			Member m = memberService.getChatClaim(userNo1);
+			if(m.getUserNo() != 0) {
+				int userNo2 = m.getUserNo();
+				
+				if(userNo1 > userNo2) {
+		    		int temp = userNo2;
+		    		userNo2 = userNo1;
+		    		userNo1 = temp;
+		    	}
+		    	
+		    	roomNo = chatService.getRoomNo(userNo1, userNo2);
+				
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("chatClaimFrom", m);
+				map.put("roomNoWith", roomNo);
+				return map;
+			}
+		}
+		
+		return null;
+		
 	}
 	
 	// 마이페이지 - 회원 정보 수정 메소드

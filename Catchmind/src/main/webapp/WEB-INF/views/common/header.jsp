@@ -280,6 +280,8 @@
         // accodion 클릭 시 active 클래스 속성명 추가해주기(효과용)
         var accodion = document.querySelectorAll('.accodion');
         
+		var chatPage = 0;
+        
         for(var i = 0; i< accodion.length; i++){
             accodion[i].addEventListener('click', function(){
                
@@ -322,6 +324,78 @@
                 location.href="loginPage.me";
             }
         }
+        
+
+        var interval;
+        
+        $(function() {
+        	if(chatPage == 0){
+	        	if("${loginUser.userNo}" != "") {        		
+	        		interval = setInterval(loginSignal, 2000);
+	        	}
+	        	else {				
+					console.log("비로그인");
+	        	}
+        	}
+        });
+                
+    
+        function loginSignal() {
+        	
+        	$.ajax({
+        		url : "loginSignal.me",
+        		data : {
+        			userNo : "${loginUser.userNo}"
+        		},
+        		success : function(result){
+        			if(result != "") {
+        				
+        				clearInterval(interval);
+        				console.log(result.chatClaimFrom.userNo);
+        				console.log(result.roomNoWith);
+        				var answer = confirm(result.chatClaimFrom.nickname + "님으로부터 채팅 요청이 들어왔습니다.\n" + "채팅 요청에 응하시겠습니까?");
+        				
+        					
+        				if(answer == true) {
+        					$.ajax({
+        						url : "chatAgreed.ch",
+        						type : "POST",
+        						data : {
+        							userNo : "${loginUser.userNo}",
+        							userNo2 : result.chatClaimFrom.userNo
+        						},
+        						success : function(data){
+        							location.replace("/catchmind/chat.do?roomNo=" + result.roomNoWith);
+        						},
+        						error : function() {
+        							console.log("header ajax2 problem");
+        						}
+        					});
+        				}
+        				else {
+        					$.ajax({
+        						url : "cancelRequest.ch",
+        						data : {
+        							userNo : "${loginUser.userNo}"
+        						},
+        						success : function(result){
+        							interval = setInterval(loginSignal, 2000);
+        						},
+        						error : function() {
+        							console.log("header ajax2 problem");
+        						}
+        					});
+        				}
+        			}
+        			console.log("다시 인터벌 시작");
+        		},
+        		error : function(){
+        			console.log("header ajax problem");
+        		}
+        	});
+
+        }
+
         $(function(){
             
             $("#loginchk").click(function(){

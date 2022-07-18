@@ -24,6 +24,12 @@
  		<result column="LATITUDE" property="latitude"/>
  	</resultMap>
  	
+ 	<select id="selectMember" parameterType="_int" resultMap="memberResultSet">
+ 		SELECT *
+ 		FROM TB_MEMBER
+ 		WHERE USER_NO = #{result}
+ 	</select>
+ 	
  	<!-- 로그인(select) : 수빈 -->
  	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
  		SELECT *
@@ -186,6 +192,18 @@
 		       PROFILE = #{profile}
 		 WHERE USER_ID = #{userId}
 	</update>
+	
+	<update id="loginSignal" parameterType="_int">
+		UPDATE TB_MEMBER
+		SET RECENT_LOGOUT = NULL
+		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<select id="getChatClaim" parameterType="_int" resultType="_int">
+		SELECT CLAIM_FROM
+		FROM CHATCLAIM
+		WHERE USER_NO = #{userNo}
+	</select>
 	
 	<update id="updateInfo">
 		UPDATE TB_MEMBER

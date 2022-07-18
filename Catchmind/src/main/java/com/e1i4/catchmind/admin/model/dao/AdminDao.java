@@ -66,14 +66,14 @@ public class AdminDao {
 		}
 	}
 	
-	public ArrayList<Board> selectBoardList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Post> selectPostList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("boardMapper.selectBoardList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectPostList", null, rowBounds);
 		
 	}
 	

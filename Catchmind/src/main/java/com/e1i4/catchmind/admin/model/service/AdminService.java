@@ -26,7 +26,7 @@ public interface AdminService {
 	
 	Member updateMember(Member m);
 	
-	ArrayList<Board> selectBoardList(PageInfo pi);
+	ArrayList<Post> selectPostList(PageInfo pi);
 	
 	ArrayList<CatchBoard> selectCatchBoardList(PageInfo pi);
 

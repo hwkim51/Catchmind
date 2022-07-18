@@ -116,6 +116,16 @@ public class MemberServiceImpl implements MemberService  {
 	public int updateProfile(Member m) {
 		return memberDao.updateProfile(sqlSession, m);
 	}
+
+	@Override
+	public int loginSignal(int userNo) {
+		return memberDao.loginSignal(sqlSession, userNo);
+	}
+
+	@Override
+	public Member getChatClaim(int userNo) {
+		return memberDao.getChatClaim(sqlSession, userNo);
+	}
 	
 	// 마이페이지 - 회원 정보 수정 서비스(update)
 	@Override

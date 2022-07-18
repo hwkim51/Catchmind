@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <title>이야기 나누기</title>
 <style>
 	div {
@@ -157,6 +160,28 @@
         height : 600px;
     }
 
+	.recieved-side {
+		-webkit-border-radius: 50px;
+		-moz-border-radius: 50px;
+		border-radius: 50px;
+		background: #5a99ee;
+		display: inline-block;
+		padding: 10px 20px;
+		position: relative;
+		float : left;
+	}
+
+	.writer-side {
+		-webkit-border-radius: 50px;
+		-moz-border-radius: 50px;
+		border-radius: 50px;
+		background: orange;
+		display: inline-block;
+		padding: 10px 20px;
+		position: relative;
+		float : right;
+	}
+
     #chat-attachment {
         height : 50px;
     }
@@ -194,7 +219,20 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
-
+	<script>
+		chatPage = 1;
+		$(function() {
+			if("${loginUser.userNo}"=="") {
+				alert("로그인 후 이용 가능한 서비스입니다.");
+				history.back();
+			}
+			else if(!(("${loginUser.userNo}"=="${users.USER_NO1}") ||("${loginUser.userNo}" == "${users.USER_NO2}"))) {
+				alert("비정상적인 접근입니다.");
+				history.back();
+			}
+		});
+	</script>
+	
 	<div class="chat-outer">
 		<div class="chat-back">
 			<div class="back-icon">
@@ -231,7 +269,7 @@
 		</div>
 		<div class="chat-window">
             <div id="chat-area">
-                <ul>
+                <ul id="chat-text-list">
                     
                 </ul>
             </div>
@@ -248,7 +286,7 @@
 
 	<!-- The Modal -->
 	<div class="modal fade" id="review-Modal">
-		<div class="modal-dialog" style="width:60vw;">
+		<div class="modal-dialog" style="width:840px;">
             <div class="review-profile"></div>
 		</div>
 	</div>
@@ -261,6 +299,72 @@
         });
 
 	</script>
+
+	<script>
+		
+		$(function() {
+			
+			$("#chat-send").click(function() {
+				client.send('/fromServer/' + roomNo, {},
+						JSON.stringify({
+							roomNo : roomNo,
+							chatContent : $("#chat-text").val(),
+							writer : ${ loginUser.userNo }
+						})
+					);
+				$("#chat-text").val("");
+	
+			});
+			
+			var sock = new SockJS("http://localhost:8006/catchmind/chat");
+			var client = Stomp.over(sock);
+			var roomNo = ${roomNo};
+			client.connect({}, function() {
+	
+				client.subscribe('/subscribe/' + roomNo, function(chat) {
+					
+					var content = JSON.parse(chat.body);
+					var chatResult = $("#chat-text-list").html();
+					
+					if(content.writer == "${loginUser.userNo}"){
+						chatResult += "<li class='writer-side'>"
+							+ "<div class='chat-body'>"
+                			+ 		"<div class='chat-message'>"
+                			+			"<h5>" + content.writer + "</h5>"
+                			+			"<p>" + content.chatContent + "</p>"
+                			+		"</div>"
+            				+	"</div>"
+            				+ "</li>";
+					}
+					else {
+						chatResult += "<li class='received-side'>"
+							+ "<div class='chat-body'>"
+                			+ 		"<div class='chat-message'>"
+                			+			"<h5>" + content.writer + "</h5>"
+                			+			"<p>" + content.chatContent + "</p>"
+                			+		"</div>"
+            				+	"</div>"
+            				+ "</li>";
+					}
+					
+					$("#chat-text-list").html(chatResult);
+	
+				});
+				
+				client.send('/fromServer/' + roomNo, {},
+					JSON.stringify({
+						chatContent : $("#chat-text").val(),
+						writer : ${loginUser.userNo}
+					})
+				);
+	
+			});
+	
+		});
+		
+		
+	</script>
+
 
 	<jsp:include page="../common/footer.jsp" />
 </body>
