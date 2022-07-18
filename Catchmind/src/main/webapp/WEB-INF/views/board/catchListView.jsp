@@ -31,8 +31,8 @@
             font-size: 15px;
             cursor: pointer;
             color: white;
-            right:0px; /* 오른쪽 정렬 */
-            top: 30px;
+            right: 40px;
+    		top: -24px;
             width: 90px;
             height: 35px;
             border-radius: 5px;
@@ -40,7 +40,6 @@
             text-decoration: none;
             text-align: center;
             padding-top: 8px;
-            transform: translateY(20px);
         } /* 작성 설정 */
 
         /* ################### sub_body 설정 영역 ################### */
