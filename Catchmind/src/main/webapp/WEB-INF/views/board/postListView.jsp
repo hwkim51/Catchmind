@@ -21,7 +21,11 @@
             height: 50px;
             color: rgb(81, 81, 81);
             font-family: 'IBM Plex Sans KR', sans-serif;
-        } /* 게시판 타이틀 및 작성 영역 설정 */
+        } /* 작성 영역 설정 */
+        
+        .sessionTitle{
+        	margin-left:0px !important;
+        }
 
 
       .btn_write{

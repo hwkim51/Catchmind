@@ -29,14 +29,9 @@
             height: 50px;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
-        .sub_head>.title{
-          position: absolute;
-          font-size: 30px;
-          width: 380px;
-          left:0px; /* 왼쪽 정렬 */
-          padding-bottom: 2px;
-          border-bottom: 1px solid black;
-      } /* 게시판 타이틀 설정 */
+      .sessionTitle{
+        	margin-left:0px !important;
+        }
       
       .sub_head>.btn_update{
             position: absolute;
@@ -191,6 +186,7 @@
       background:none;
       float: right;
       font-size: 12px;
+      transform : translateY(70px);
       color: grey;
       } /* 신고하기 스타일 적용*/
      .w3-modal-content{

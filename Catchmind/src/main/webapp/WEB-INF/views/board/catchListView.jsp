@@ -151,8 +151,7 @@
                 <hr>
             </nav>
             <div class="sub_head">
-                
-                <c:if test="${ not empty loginUser and not empty loginUser.partner }">
+                <c:if test="${ not empty loginUser and loginUser.partner ne 0 }">
                 <a class="btn_write" href="enrollForm.ca">작성</a>
                 </c:if>
             </div>
