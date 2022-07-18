@@ -217,23 +217,29 @@
 		 WHERE USER_ID = #{userId}
 	</update>
 	
+	<select id="selectRequestList" parameterType="member" resultMap="memberResultSet">
+		SELECT USER_NO, PIC, NICKNAME
+		  FROM TB_MEMBER
+		 WHERE PARTNER = #{userNo}
+		   AND NOT(USER_NO = #{partner})
+	</select>
+	
 	<select id="selectCoupleNo" parameterType="string" resultType="string">
 		SELECT USER_NO
 		  FROM TB_MEMBER
-		 WHERE USER_ID = #{coupleId}
+		 WHERE USER_ID = #{userId}
 	</select>
 	
-	<update id="requestCouple" parameterType="member">
+	<update id="updateCoupleId" parameterType="member">
 		UPDATE TB_MEMBER
-		   SET PARTNER = (SELECT USER_NO
-		                    FROM TB_MEMBER
-		                   WHERE USER_ID = #{partner})
-		 WHERE USER_ID = #{userId}
+		   SET PARTNER = #{partner}
+		 WHERE USER_NO = #{userNo}
 	</update>
 	
-	<select id="selectRequestList" parameterType="_int" resultMap="memberResultSet">
-	 	SELECT USER_NO, NICKNAME, PIC
-	 	  FROM TB_MEMBER
-	 	 WHERE PARTNER = #{userNo}
-	</select>
+	<update id="refuseCouple">
+		UPDATE TB_MEMBER
+		   SET PARTNER = 0
+		 WHERE USER_NO = #{partner}
+	</update>
+	
 </mapper>

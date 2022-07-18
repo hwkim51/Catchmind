@@ -64,17 +64,19 @@ public interface MemberService {
 	
 	// 마이페이지 - 회원 정보 수정 서비스(update)
 	int updateInfo(Member m);
-	
-	// 커플관리 > 커플 신청 리스트 서비스(select)
-	ArrayList<Member> selectRequestList(int userNo);
-	
-	// 커플관리 > 커플 요청 아이디의 userNo 조회 서비스(select)
-	String selectCoupleNo(String coupleId);
-	
-	// 커플관리 > 커플 요청 서비스(update)
-	int requestCouple(Member m);
-	
 
 	int unfollowMember(Follow f);
 	
+	// 커플 관리 > 커플 요청 리스트 조회 서비스(select)
+	ArrayList<Member> selectRequestList(Member m);
+	
+	// 커플 관리 > 커플 요청을 받는 회원의 회원 번호 조회 서비스(select)
+	String selectCoupleNo(String coupleId);
+	
+	// 커플 관리 > 커플 아이디어 업데이트 서비스(update)
+	int updateCoupleId(Member m);
+	
+	// 커플 관리 > 커플 거절 서비스(delete)
+	int refuseCouple(Member m);
+
 }

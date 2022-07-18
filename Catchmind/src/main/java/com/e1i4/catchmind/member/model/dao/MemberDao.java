@@ -2,6 +2,7 @@ package com.e1i4.catchmind.member.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.jdbc.SQL;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -109,19 +110,23 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.infoUpdatePwd", m);
 	}
 	
-	// 커플관리 > 커플 신청 리스트 서비스(select)
-	public ArrayList<Member> selectRequestList(SqlSessionTemplate sqlSession, int userNo) {
-		return (ArrayList)sqlSession.selectList("memberMapper.selectRequestList", userNo);
+	// 커플 관리 > 커플 요청 리스트 조회 서비스(select)
+	public ArrayList<Member> selectRequestList(SqlSessionTemplate sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectRequestList", m);
 	}
 	
-	// 커플관리 > 커플 요청 아이디의 userNo 조회 서비스(select)
+	// 커플 관리 > 커플 요청을 받는 회원의 회원 번호 조회 서비스(select)
 	public String selectCoupleNo(SqlSessionTemplate sqlSession, String coupleId) {
 		return sqlSession.selectOne("memberMapper.selectCoupleNo", coupleId);
 	}
 	
-	// 커플관리 > 커플 요청 서비스(update)
-	public int requestCouple(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.update("memberMapper.requestCouple", m);
+	// 커플 관리 > 커플 아이디어 업데이트 서비스(update)
+	public int updateCoupleId(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateCoupleId", m);
 	}
 	
+	// 커플 관리 > 커플 거절 서비스(delete)
+	public int refuseCouple(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.refuseCouple", m);
+	}
 }

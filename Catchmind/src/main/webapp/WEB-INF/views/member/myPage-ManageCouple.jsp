@@ -116,7 +116,7 @@
         <div class="myPage-menu"><a href="myPage.me">회원정보수정</a></div>
         <div class="myPage-menu"><a href="myFollow.me">팔로우리스트</a></div>
         <div class="myPage-menu"><a href="myBlock.me">차단리스트</a></div>
-        <div class="myPage-menu"><a href="myCouple.me" onclick="javascript:document.myCoupleForm.submit();">커플관리</a></div>
+        <div class="myPage-menu"><a href="myCouple.me">커플관리</a></div>
         <div class="myPage-menu"><a href="myBoard.po">내글관리</a></div>
         <hr>
     </div>
@@ -125,8 +125,10 @@
         <div class="inputCoupleID-area">
         	<form action="requestCouple.me" method="post">
 	            <div class="coupleID-text" align="left">커플 아이디 입력</div>
-	            <input id="input-coupleID" type="text" class="form-control" name="coupleId">
 	            <input type="hidden" name="userNo" value="${ loginUser.userNo }">
+	            <input type="hidden" name="userId" value="${ loginUser.userId }">
+	            <input type="hidden" name="userPwd" value="${ loginUser.userPwd }">
+	            <input id="input-coupleID" type="text" class="form-control" name="coupleId">
 	            <button type="submit" id="coupleRequest-btn" class="btn">요청</button>
             </form>
         </div>
@@ -134,15 +136,58 @@
         <div class="coupleRequest-area">
             <div class="coupleRequest-text" align="left">커플 신청 현황</div>
 
-            <div class="coupleRequestMem-area">
-                <img class="coupleRequest-img" src="img/220315 seungmin2.jpg">
-                <div class="coupleRequest-infoArea">
-                    <font class="coupleRequest-name" align="left">영웅유진</font>
-                    <button class="btn couple-acceptBtn">수락</button>
-                    <button class="btn btn-secondary couple-refuseBtn">거절</button>
-                </div>
-            </div>
+			<c:forEach var="c" items="${ cList }">
+	            <div class="coupleRequestMem-area">
+	                <img class="coupleRequest-img" src="${ c.pic }">
+	                <div class="coupleRequest-infoArea">
+	                    <font class="coupleRequest-name" align="left">${ c.nickname }</font>
+        				<input style="width: 50px" type="text" name="partner" value="${ c.userNo }">
+	                    <button class="btn couple-acceptBtn" onclick="coupleFormSubmit(1);">수락</button>
+	                    <button class="btn btn-secondary couple-refuseBtn" onclick="coupleFormSubmit(2);">거절</button>
+	                </div>
+	            </div>
+            </c:forEach>
         </div>
+        
+        <form id="coupleForm" action="" method="post">
+        	<input type="hidden" name="userNo" value="${ loginUser.userNo }">        	
+        	<input type="hidden" name="userId" value="${ loginUser.userId }">        	
+        	<input type="hidden" name="userPwd" value="${ loginUser.userPwd }">
+        	<input style="width: 50px" type="text" name="partner" value="">
+        </form>
+        
+        <script>
+        	function coupleFormSubmit(num) {
+        		
+        		$(".coupleRequest-infoArea .btn").click(function() {
+        			
+        			if(num == 1) {
+        				console.log($(this).prev().val());
+        				$("#coupleForm input[name=partner]").attr("value", $(this).prev().val());
+            			$("#coupleForm").attr("action", "acceptCouple.me").submit();
+        			
+        			} else if(num == 2) {
+        				
+        				$("#coupleForm input[name=partner]").attr("value", $(this).prev().prev().val())
+            			$("#coupleForm").attr("action", "refuseCouple.me").submit();
+        			}
+        			
+        		});
+        		/*
+        		if(num == 1) { // 수락 요청으로 action 속성값 변경
+        			
+        			console.log($(this).prev().val());
+        			$("#coupleForm input[name=partner]").attr("value", $(this).prev().val());
+        			// $("#coupleForm").attr("action", "acceptCouple.me").submit();
+        		
+    			} else if(num == 2) {
+    				
+    				$("#coupleForm input[name=partner]").attr("value", $(this).prev().prev().val())
+        			$("#coupleForm").attr("action", "refuseCouple.me").submit();
+        		}
+        		*/
+        	}
+        </script>
     </div>
 </body>
 </html>

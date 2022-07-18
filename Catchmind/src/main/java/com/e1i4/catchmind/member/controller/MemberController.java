@@ -489,38 +489,6 @@ if(result > 0) { // 프로필 수정 성공
 		}
 	}
 	
-	// 커플 관리 페이지로 이동
-	@RequestMapping(value="myCouple.me")
-	public String myCouple(int userNo, Model model) {
-		/*
-		System.out.println("회원 번호" + userNo);
-		
-		// 로그인유저에게 커플을 신청한 회원 리스트
-		ArrayList<Member> list = memberService.selectRequestList(userNo);
-		
-		System.out.println("커플 신청 리스트" + list);
-		
-		model.addAttribute("list", list);
-		*/
-		return "member/myPage-myCouplePage";
-	}
-	
-	// 커플을 요청하는 메소드
-	@RequestMapping("requestCouple.me")
-	public void requestCouple(Member m, String coupleId, HttpSession session, Model model) {
-		
-		String coupleNo = memberService.selectCoupleNo(coupleId);
-		System.out.println(coupleNo);
-		m.setPartner(coupleNo);
-		
-		if(coupleNo != "") { //
-			System.out.println("회원 조회");
-		} else {
-			System.out.println("회원 아님");
-		}
-		
-	}
-	
 	// 팔로우 취소하는 메소드 (유진)
 	@RequestMapping(value="unfollow.me")
 	public String unfollowMember(HttpSession session,
@@ -547,6 +515,120 @@ if(result > 0) { // 프로필 수정 성공
 		}
 	}
 	
+	// 커플관리 페이지로 이동
+	@RequestMapping("myCouple.me")
+	public String myCouple(HttpSession session, Model model) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		String partner = ((Member)session.getAttribute("loginUser")).getPartner();
+
+		Member m = new Member();
+		m.setUserNo(userNo);
+		m.setPartner(partner);
+		
+		System.out.println(m);
+		
+		// 커플 요청 리스트
+		ArrayList<Member> list = memberService.selectRequestList(m);
+		System.out.println("커플관리 페이지" + list);
+		
+		model.addAttribute("cList", list);
+		
+		return "member/myPage-ManageCouple";
+	}
 	
+	// 커플관리 > 커플 신청
+	@RequestMapping("requestCouple.me")
+	public String requestCouple(Member m, String coupleId, HttpSession session, Model model) {
+		
+		// 커플 요청을 받는 회원의 회원 번호 조회
+		String coupleNo = memberService.selectCoupleNo(coupleId);
+		
+		if(coupleNo != null) { // 커플 요청한 회원의 아이디가 유효할 경우
+
+			m.setPartner(coupleNo);
+			
+			if(coupleId.equals("admin")) {
+				
+				session.setAttribute("alertMsg", "관리자에게 커플 요청을 할 수 없습니다.");
+				
+				return "redirect:myCouple.me";
+				
+			} else if(coupleId.equals(m.getUserId())) {
+				
+				session.setAttribute("alertMsg", "회원 본인에게 커플 요청을 할 수 없습니다.");
+				
+				return "redirect:myCouple.me";
+				
+			} else {
+				
+				int result = memberService.updateCoupleId(m);
+				
+				if(result > 0) {
+					
+					Member updateMem = memberService.loginMember(m);
+					session.setAttribute("loginUser", updateMem);
+					
+					session.setAttribute("alertMsg", "커플 요청에 성공했습니다.");
+					
+					return "redirect:myCouple.me";
+					
+				} else {
+					
+					model.addAttribute("errorMsg", "커플 요청 실패");
+					return "common/errorPage";
+				}
+			}
+			
+		} else { // 커플 요청한 회원의 아이디가 유효하지 않을 경우
+			
+			session.setAttribute("alertMsg", "존재하지 않는 회원입니다.");
+			return "redirect:myCouple.me";
+		}
+	}
+	
+	// 커플관리 > 커플 수락
+	@RequestMapping("acceptCouple.me")
+	public String acceptCouple(Member m, HttpSession session, Model model) {
+		
+		System.out.println(m);
+		
+		int result = memberService.updateCoupleId(m);
+		
+		if(result > 0) {
+			
+			Member updateMem = memberService.loginMember(m);
+			session.setAttribute("loginUser", updateMem);
+			
+			session.setAttribute("alertMsg", "커플 수락했슴둥~");
+			
+			return "redirect:myCouple.me";
+			
+		} else {
+			model.addAttribute("errorMsg", "커플 수락 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	// 커플관리 > 커플 거절
+	@RequestMapping("refuseCouple.me")
+	public String refuseCouple(Member m, HttpSession session, Model model) {
+		
+		System.out.println("커플 거절" + m);
+		
+		int result = memberService.refuseCouple(m);
+		
+		if(result > 0) { // 커플 거절 성공
+			
+			session.setAttribute("alertMsg", "커플 신청이 거절되었습니다.");
+			return "redirect:myCouple.me";
+			
+		} else { // 커플 거절 실패
+			
+			model.addAttribute("errorMsg", "커플 신청 거절 실패");
+			return "common/errorPage";
+		}
+		
+	}
 	
 }

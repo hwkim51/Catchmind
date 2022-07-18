@@ -139,26 +139,33 @@ public class MemberServiceImpl implements MemberService  {
 	public int infoUpdatePwd(Member m) {
 		return memberDao.infoUpdatePwd(sqlSession, m);
 	}
-	
-	// 커플관리 > 커플 신청 리스트 서비스(select)
-	@Override
-	public ArrayList<Member> selectRequestList(int userNo) {
-		return memberDao.selectRequestList(sqlSession, userNo);
-	}
 
-	// 커플관리 > 커플 요청 아이디의 userNo 조회 서비스(select)
+	// 커플 관리 > 커플 요청 리스트 조회 서비스(select)
+	@Override
+	public ArrayList<Member> selectRequestList(Member m) {
+		return memberDao.selectRequestList(sqlSession, m);
+	}
+	
+	// 커플 관리 > 커플 요청을 받는 회원의 회원 번호 조회 서비스(select)
 	@Override
 	public String selectCoupleNo(String coupleId) {
 		return memberDao.selectCoupleNo(sqlSession, coupleId);
 	}
-	
-	// 커플관리 > 커플 요청 서비스(update)
-	@Override
-	public int requestCouple(Member m) {
-		return memberDao.requestCouple(sqlSession, m);
-	}
 
+	// 커플 관리 > 커플 아이디어 업데이트 서비스(update)
+	@Override
+	public int updateCoupleId(Member m) {
+		return memberDao.updateCoupleId(sqlSession, m);
+	}
 	
+	// 커플 관리 > 커플 거절 서비스(delete)
+	@Override
+	public int refuseCouple(Member m) {
+		return memberDao.refuseCouple(sqlSession, m);
+	}
+	
+	
+
 
 	
 	
