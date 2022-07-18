@@ -435,7 +435,19 @@ if(result > 0) { // 프로필 수정 성공
 
 	@ResponseBody
 	@RequestMapping("loginSignal.me")
-	public Map<String, Object> loginSignal(String userNo, Model model) {
+	public void loginSignal(String userNo, Model model, HttpSession session) {
+		
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+				
+		Date time = new Date();
+				
+		String time1 = format1.format(time);
+				
+		System.out.println("현재 시간" + time1);
+		
+		System.out.println("로그아웃 시간" + (((Member)session.getAttribute("loginUser")).getRecentLogout()));
+		
+		
 		int userNo1 = Integer.parseInt(userNo);
 		int result = memberService.loginSignal(userNo1);
 		int roomNo = 0;
@@ -456,11 +468,11 @@ if(result > 0) { // 프로필 수정 성공
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("chatClaimFrom", m);
 				map.put("roomNoWith", roomNo);
-				return map;
+				// return map;
 			}
 		}
 		
-		return null;
+		// return null;
 		
 	}
 	

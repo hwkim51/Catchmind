@@ -427,6 +427,7 @@
         })
         
 		//beforeunload 이벤트 관련 코드
+		/*
 		var validNavigation = true;
         
         
@@ -565,6 +566,8 @@
 	             
 		      });
 		   }
+	      
+	      */
     </script>
 </body>
 </html>

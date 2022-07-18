@@ -154,7 +154,7 @@
 	
 	<update id="updateRecentLogout" parameterType="string">
 		UPDATE TB_MEMBER 
-		   SET RECENT_LOGOUT = SYSDATE 
+		   SET RECENT_LOGOUT = SYSDATE
 		 WHERE USER_ID = #{userId}
 	</update>
 	
@@ -195,7 +195,7 @@
 	
 	<update id="loginSignal" parameterType="_int">
 		UPDATE TB_MEMBER
-		SET RECENT_LOGOUT = NULL
+		SET RECENT_LOGOUT = SYSDATE
 		WHERE USER_NO = #{userNo}
 	</update>
 	
