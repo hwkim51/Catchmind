@@ -210,7 +210,7 @@
         </style>
 </head>
 
-<body>
+<body style="overflow-x: hidden;">
 	<!-- 1회성 알람 문구 기능 -->
 	<c:if test="${ not empty alertMsg }">
 		<script>

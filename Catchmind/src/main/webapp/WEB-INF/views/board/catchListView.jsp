@@ -12,7 +12,7 @@
     <style>
         .body{
             margin: auto;
-            width: 1400px;
+            width: 1200px;
         } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
         /* ################### sub_head 설정 영역 ################### */
@@ -151,6 +151,7 @@
                 <hr>
             </nav>
             <div class="sub_head">
+                * 연애의 발견은 약 148만 캐치 유저들의 연애 이야기를 다루는 공간입니다. <br> &nbsp;&nbsp; 다른 이들의 소소한 사랑이야기에 공감하고, 때로는 사랑에 대한 진지한 고민을 나눠보세요.
                 <c:if test="${ not empty loginUser and loginUser.partner ne 0 }">
                 <a class="btn_write" href="enrollForm.ca">작성</a>
                 </c:if>
