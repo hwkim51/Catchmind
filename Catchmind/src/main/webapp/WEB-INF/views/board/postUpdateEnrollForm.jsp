@@ -18,15 +18,10 @@
           position: relative;
           height: 50px;
       } /* 게시판 타이틀 및 작성 영역 설정 */
-
-      .sub_head>.title{
-          position: absolute;
-          font-size: 40px;
-          width: 380px;
-          left:0px; /* 왼쪽 정렬 */
-          padding-bottom: 9px;
-          border-bottom: 1px solid black;
-      } /* 게시판 타이틀 설정 */
+	  .sessionTitle{
+        	margin-left:0px !important;
+        	margin-bottom:50px
+        }
 
       /* ################### sub_body 설정 영역 ################### */
       .sub_body .form-title,.form-content,.form-file{

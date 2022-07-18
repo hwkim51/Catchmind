@@ -18,7 +18,6 @@
         /* ################### sub_head 설정 영역 ################### */
         .sub_head{
             position: relative;
-            height: 90px;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
         .sub_head>.title{
@@ -149,7 +148,7 @@
                 <hr>
             </nav>
             <div class="sub_head">
-                <c:if test="${ not empty loginUser and not empty loginUser.partner }">
+                <c:if test="${ not empty loginUser and loginUser.partner ne 0 }">
                 <a class="btn_write" href="enrollForm.ca">작성</a>
                 </c:if>
             </div>
