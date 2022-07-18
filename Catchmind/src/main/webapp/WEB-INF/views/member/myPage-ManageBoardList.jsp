@@ -6,15 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title> CATCHMIND | 캐치마인드 </title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <style>
 	.myPage-nav {
         width: 1000px;
         margin-left: 150px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        font-size: 22px;
     }
     .myPage-menu {
         display : table-cell;
         height : 50px;
-        width : 150px;
+        width : 200px;
+        font-weight: 600;
         text-align: center;
     }
     .myPage-menu a {
@@ -46,17 +50,20 @@
         width:180px;
         height: 50px;
         flex-wrap: wrap;
-        font-size: 25px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        padding: 20px;
     }
     /* ################### 게시글 설정 영역 ################### */
     #wrap_flex>#container{
         margin-left: 20px;
         width: 798px;
     }
-    #wrap_flex>#container>*{
-        font-size: 18px;
+    #container table *{
+        font-size: 15px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
     }
-    
     #wrap_flex>#container>.table>thead{
         background-color: #eaeaea;
         border-spacing: 0px;
@@ -124,10 +131,9 @@
         } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
     
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
 </head>
 <body style="overflow-x: hidden">
-
 	<jsp:include page="../common/header.jsp"/>
 	
     <div class="myPage-nav">

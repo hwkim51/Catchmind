@@ -121,8 +121,9 @@
 	 VALUES(SEQ_RNO.NEXTVAL, #{replyContent}, SYSDATE, 'Y', #{replyWriter}, #{replyPost})
 	</insert>
 	
+	<!-- SELECT 절에 REPLY_DATE 컬럼 추가함 : 수빈(7/18) -->
 	<select id="selectReplyList" parameterType="_int" resultMap="replyResultMap">
-	SELECT REPLY_NO, REPLY_WRITER, REPLY_CONTENT, NICKNAME
+	SELECT REPLY_NO, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE, NICKNAME
 	FROM TB_REPLY
 	JOIN TB_MEMBER ON (REPLY_WRITER=USER_NO)
 	WHERE TB_REPLY.STATUS='Y'

@@ -8,10 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
     <style>
         .body{
             margin: auto;
-            width: 1400px;
+            width: 1200px;
         } /* 전체틀 가운데 정렬 및 넓이 설정 */
         /* ################### sub_body 설정 영역 ################### */
         .sub_body *{
@@ -21,40 +24,45 @@
         .sub_body #areaCode{
         	margin-left: 50px;
 	        margin-bottom: 10px;
-	        font-size: 20px;
+	        font-size: 18px;
 	        size: 5;
+            font-family: 'IBM Plex Sans KR', sans-serif;
         }
         .card_area {
+            padding-left: 100px;
             display: flex;
             flex-wrap: wrap;
         }
         .card_area .Loding_data{
+            color:grey;
         	display:block;
             font-size: 30px;
             width: 1400px;
             height: 620px;
             margin:auto;
-            padding-top:250px;
+            font-family: 'IBM Plex Sans KR', sans-serif;
         }
         .card_items {
-            width: 330px;
-            height: 220px;
-            margin: 0px 10px 20px 10px;
+            width: 290px;
+            height: 450px;
+            margin: 0px 30px 60px 30px;
             cursor: pointer;
+            font-family: 'IBM Plex Sans KR', sans-serif;
         }
 
         .card_items .card_img{
-       	 	height: 150px;
-       	 	width: 330px;
-            object-fit: contain;
-            border: 1px solid #cccccc;
+       	 	width: 290px;
+            height: 350px;
+            object-fit: cover;
         }
-        
-        .card_items .data_area{
-            border: 1px solid #cccccc;
+        .card_items .card_img:hover{
+       	 	opacity: 0.5;
+            object-fit:contain;
         }
         
         .card_items .data_area .title{
+            font-size: 18px;
+            font-weight: 800;
             overflow: hidden;
             height: 25px;
             text-overflow:ellipsis;
@@ -73,7 +81,7 @@
         
         .w3-modal {
 	        position: absolute;
-	        displaty:none;
+	        display:none;
         }
         .w3-container>span:hover{
 		    background-color: transparent !important;
@@ -85,14 +93,11 @@
 		    outline:none;
 		    } /* 모달창 내에 사유 입력 스타일 */
         .sessionTitle{
-            font-family: 'IBM Plex Sans KR', sans-serif;
             margin-left: 50px;
             width: 300px;
         }
     </style>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
 </head>
 <body style="overflow-x: hidden; overflow-y: hidden">
 
@@ -101,10 +106,11 @@
     <div class="body">
         <div class="inner_body">
             <nav class="sessionTitle">
-                <h3><b>함께 놀러가요 💑 </b></h3>
+                <h3><b style="font-family: 'IBM Plex Sans KR', sans-serif;">함께 놀러가요 💑 </b></h3>
                 <hr>
             </nav>
             <div class="sub_body">
+            <br>
             <select id="areaCode" name="areaCode">
 			    <option value="1">서울</option>
 			    <option value="2">인천</option>
@@ -123,9 +129,15 @@
 			    <option value="38">전남</option>
 			    <option value="39">제주</option>
 			</select>
+             <span style="padding-left: 30px; color: rgb(81, 81, 81);"> * 대한민국 페스티벌 정보를 찾아 즐겨보세요! ( 클릭 시 해당 축제 페이지로 이동합니다. )</span>
+            <br><br>
                 <div class="card_area" id="result1">
-                    <div class="Loding_data">데이터를 불러오는 중입니다. <br>
-                    	잠시만 기다려주세요.</div>
+                    <div class="Loding_data" >
+                        <video id="loading" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0" width="240px;">
+                            <source src='./resources/images/earth.mp4'>
+                        </video><br>
+                        Loading...<br>
+                        최신 축제 정보로 업데이트 중</div>
                 </div>
             </div>
         </div>
@@ -149,29 +161,29 @@
 					var edate = $(item).find("eventenddate").text();
 					var aos = " data-aos=\"fade-up\"";
 					var addr = $(item).find("addr1").text()+$(item).find("addr2").text();
-					value += "<div class="+"card_items"+aos+">"
-                    + "<img class="+"card_img"+" src="+$(item).find("firstimage").text()+">"
-                    + "<div class="+"data_area"+">"
-                    + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
-                    + "<div class="+"addr"+">"+addr+"</div>"
-                    + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
-                    + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
-                    + "</div>"
-                	+ "</div>"
+					value += "<div class="+"card_items"+aos+"style='transition-delay: 0.5s;'>"
+                            + "<img class="+"card_img"+" src="+$(item).find("firstimage").text()+">"
+                            + "<div class="+"data_area"+">"
+                            + "<div class="+"title"+">"+$(item).find("title").text()+"</div>" + "<br>"
+                            + "<div class="+"addr"+">"+addr+"</div>"
+                            + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
+                            + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
+                            + "</div>"
+                            + "</div>"
 					} else {
 					var sdate = $(item).find("eventstartdate").text();
 					var edate = $(item).find("eventenddate").text();
 					var aos = " data-aos=\"fade-up\"";
 					var addr = $(item).find("addr1").text()+$(item).find("addr2").text();
-					value += "<div class="+"card_items "+aos+">"
-                    + "<img class="+"card_img"+" src="+"https://dilavr.com.ua/image/catalog/empty-img.png"+">"
-                    + "<div class="+"data_area"+">"
-                    + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
-                    + "<div class="+"addr"+">"+addr+"</div>"
-                    + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
-                    + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
-                    + "</div>"
-                	+ "</div>"
+                    value += "<div class="+"card_items "+aos+">"
+                            + "<img class="+"card_img"+" src="+"./resources/images/togetherImg.jpg"+">"
+                            + "<div class="+"data_area"+">"
+                            + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
+                            + "<div class="+"addr"+">"+addr+"</div>"
+                            + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
+                            + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
+                            + "</div>"
+                            + "</div>"
 					}
 				});
 					$("#result1").html(value);
@@ -196,26 +208,26 @@
 						var aos = " data-aos=\"fade-up\"";
 						var addr = $(item).find("addr1").text()+$(item).find("addr2").text();
 						if($(item).find("firstimage").text()) {
-						value += "<div class="+"card_items "+aos+">"
-                        + "<img class="+"card_img"+" src="+$(item).find("firstimage").text()+">"
-                        + "<div class="+"data_area"+">"
-                        + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
-                        + "<div class="+"addr"+">"+$(item).find("addr1").text()+$(item).find("addr2").text()+"</div>"
-                        + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
-                        + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
-                        + "</div>"
-                    	+ "</div>"
+                                value += "<div class="+"card_items "+aos+">"
+                                        + "<img class="+"card_img"+" src="+$(item).find("firstimage").text()+">"
+                                        + "<div class="+"data_area"+">"
+                                        + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
+                                        + "<div class="+"addr"+">"+$(item).find("addr1").text()+$(item).find("addr2").text()+"</div>"
+                                        + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
+                                        + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
+                                        + "</div>"
+                                        + "</div>"
 						} else {
-						value += "<div class="+"card_items "+aos+">"
-                        + "<img class="+"card_img"+" src="+"https://dilavr.com.ua/image/catalog/empty-img.png"+">"
-                        + "<div class="+"data_area"+">"
-                        + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
-                        + "<div class="+"addr"+">"+$(item).find("addr1").text()+$(item).find("addr2").text()+"</div>"
-                        + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
-                        + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
-                        + "</div>"
-                    	+ "</div>"
-						}
+                                value += "<div class="+"card_items "+aos+">"
+                                        + "<img class="+"card_img"+" src="+"https://dilavr.com.ua/image/catalog/empty-img.png"+">"
+                                        + "<div class="+"data_area"+">"
+                                        + "<div class="+"title"+">"+$(item).find("title").text()+"</div>"
+                                        + "<div class="+"addr"+">"+$(item).find("addr1").text()+$(item).find("addr2").text()+"</div>"
+                                        + "<div class="+"period"+">"+sdate.slice(0,4)+"."+sdate.slice(4,6)+"."+sdate.slice(6,9)+"~"+edate.slice(0,4)+"."+edate.slice(4,6)+"."+edate.slice(6,9)+"</div>"
+                                        + "<div id="+"conid "+">"+"^"+$(item).find("contentid").text()+"</div>"
+                                        + "</div>"
+                                        + "</div>"
+                                        }
 					});
 						$("#result1").html(value);
 						

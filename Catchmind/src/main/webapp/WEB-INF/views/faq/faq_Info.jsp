@@ -49,6 +49,7 @@ body{
 #faqImg{
     position: absolute;
     top: 200px;
+    right: 200px;
 }
 
 </style>

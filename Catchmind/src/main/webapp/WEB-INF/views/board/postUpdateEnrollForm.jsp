@@ -10,13 +10,13 @@
 	<style>
       .body{
           margin: auto;
-          width: 1300px;
+          width: 1200px;
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
       .sub_head{
           position: relative;
-          height: 100px;
+          height: 50px;
       } /* 게시판 타이틀 및 작성 영역 설정 */
 
       .sub_head>.title{
@@ -32,18 +32,17 @@
       .sub_body .form-title,.form-content,.form-file{
         margin: auto;
         padding: auto;
-        font-size: 25px;
         resize: none;
         outline: none;
       }
       
       .sub_body #title{
-      	width: 1180px;
+      	width: 600px;
     	}
 
       .sub_body #content{
-          width: 1180px;
-          height: 520px;
+          width: 600px;
+          height: 300px;
       }
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
@@ -59,9 +58,20 @@
         border-radius: 3px;
         width: 100px;
         height: 33px;
-        margin-left: 650px;
-        margin-top:10px;
+        margin-left: 350px;
         margin-bottom : 34px;
+      }
+      #erollFormPost{
+        width: 70%;
+        margin: auto;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        padding-left: 20px;
+      }
+      #erollFormPost td{
+        padding-left: 20px;
+      }
+      #erollFormPost th, #erollFormPost td{
+        padding-bottom: 20px;
       }
 	</style>
 </head>
@@ -72,7 +82,7 @@
     <div class="body">
         <div class="inner_body">
             <nav class="sessionTitle">
-                <h3><b>에브리타임</b></h3>
+                <h3><b>에브리타임⏰</b></h3>
                 <hr>
             </nav>
             <div class="sub_body">

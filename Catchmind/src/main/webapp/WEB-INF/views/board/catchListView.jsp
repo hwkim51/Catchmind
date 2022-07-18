@@ -144,8 +144,11 @@
     
     <div class="body">
         <div class="inner_body">
+            <nav class="sessionTitle">
+                <h3><b>연애의 발견</b></h3>
+                <hr>
+            </nav>
             <div class="sub_head">
-                <div class="title">연애의발견</div>
                 <c:if test="${ not empty loginUser and not empty loginUser.partner }">
                 <a class="btn_write" href="enrollForm.ca">작성</a>
                 </c:if>

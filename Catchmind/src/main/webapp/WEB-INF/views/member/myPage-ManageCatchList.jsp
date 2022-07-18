@@ -10,11 +10,14 @@
 	.myPage-nav {
         width: 1000px;
         margin-left: 150px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        font-size: 22px;
     }
     .myPage-menu {
         display : table-cell;
         height : 50px;
-        width : 150px;
+        width : 200px;
+        font-weight: 600;
         text-align: center;
     }
     .myPage-menu a {
@@ -46,15 +49,19 @@
         width:180px;
         height: 50px;
         flex-wrap: wrap;
-        font-size: 25px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        padding: 20px;
     }
     /* ################### 게시글 설정 영역 ################### */
     #wrap_flex>#container{
         margin-left: 20px;
         width: 798px;
     }
-    #wrap_flex>#container>*{
-        font-size: 18px;
+    #container table *{
+        font-size: 15px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
     }
     
     #wrap_flex>#container>.table>thead{

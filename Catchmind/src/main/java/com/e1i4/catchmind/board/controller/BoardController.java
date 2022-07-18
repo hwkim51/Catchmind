@@ -102,6 +102,7 @@ public class BoardController {
 	/* POST 작성 */
 	@RequestMapping("insert.po")
 	public String insertPost(int postWriter,Post p, Attach a, MultipartFile upfile, HttpSession session, Model model) {
+
 		p.setPostWriter(postWriter);
 		
 		if(!upfile.getOriginalFilename().equals("")) {

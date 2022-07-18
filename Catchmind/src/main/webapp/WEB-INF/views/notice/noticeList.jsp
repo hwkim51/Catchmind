@@ -109,11 +109,11 @@ body{
                 
                 // 이벤트 배너 추가 : 수빈 
                 $("#noticeImg").hover(function(){
-                    $(this).attr("src", './resources/images/noticeMain2.jpg');
+                    $(this).attr("src", './resources/images/notice2.jpg');
                     $(this).css("opacity","0.8");
                 });
                 $("#noticeImg").mouseout(function(){
-                    $(this).attr("src", './resources/images/noticeMain.jpg');
+                    $(this).attr("src", './resources/images/notice.jpg');
                     $(this).css("opacity","1");
                 });// 여기까지 작성 
 

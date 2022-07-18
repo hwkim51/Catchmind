@@ -84,11 +84,7 @@
             font-size:13px;
             color:rgb(21, 21, 246);
         }
-        .sessionTitle{
-            font-family: 'IBM Plex Sans KR', sans-serif;
-            margin-left: 50px;
-            width: 300px;
-        }
+    
         </style>
         </head>
         <body>

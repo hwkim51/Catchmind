@@ -19,6 +19,8 @@
         .sub_head{
             position: relative;
             height: 50px;
+            color: rgb(81, 81, 81);
+            font-family: 'IBM Plex Sans KR', sans-serif;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
 
@@ -127,11 +129,12 @@
     <div class="body">
         <div class="inner_body">
             <nav class="sessionTitle">
-                <h3><b>에브리타임</b></h3>
+                <h3><b>에브리타임⏰</b></h3>
                 <hr>
             </nav>
 
             <div class="sub_head">
+                * 누구나 OK 어떤 주제든 OK 캐치마인드 유저 커뮤니티
                 <c:if test="${ not empty loginUser }">
                     <input type="button" class="btn_write" value="작성" onclick="enrollFormGo();">
                 </c:if>

@@ -4,6 +4,11 @@
 <head>
 <meta charset="UTF-8">
 <title> CATCHMIND | 캐치마인드 </title>
+
+ <!--AOS-->
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+ <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 <style>
     /* 폰트 */
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
@@ -77,6 +82,12 @@
         border-radius: 7px;
         background-color: steelblue;
     }
+    .optionA{
+        transition-delay: 1s;
+    }
+    .optionB{
+        transition-delay: 2s;
+    }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -92,15 +103,17 @@
 
             <div class="carousel-item active qArea" align="center">
                 <div class="qNum" align="left">Q1</div>
-                <div class="qText" align="left">
+                <div class="qText" align="left" data-aos="fade-up" data-aos-duration="1000">
                     <div>데이트가 없는</div>
                     <div>주말에 나는</div>
                 </div>
                 <div class="options" align="center">
-                    <div class="option" href="#question" data-slide="next" value="E">
+                    <div class="option optionA" href="#question" data-slide="next" value="E"
+                        data-aos="fade-up" data-aos-duration="600">
                     	모여! 친구들과 약속을 잡는다
                     </div>
-                    <div class="option" href="#question" data-slide="next" value="I">
+                    <div class="option optionB" href="#question" data-slide="next" value="I"
+                        data-aos="fade-up" data-aos-duration="600">
                     	집이 최고야! 이불 밖은 위험해
                     </div>
                 </div>
@@ -299,6 +312,8 @@
     <jsp:include page="../common/footer.jsp"/>
 
     <script>
+         AOS.init();
+
         $(function () {
 
             var E = 0;
