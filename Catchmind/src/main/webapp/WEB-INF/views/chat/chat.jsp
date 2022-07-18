@@ -54,7 +54,7 @@
 
 			});
 			
-			var sock = new SockJS("http://192.168.40.23:8006/catchmind/chat");
+			var sock = new SockJS("http://localhost:8006/catchmind/chat");
 			var client = Stomp.over(sock);
 			var roomNo = ${roomNo};
 			client.connect({}, function() {

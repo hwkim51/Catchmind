@@ -110,4 +110,14 @@ public class MemberServiceImpl implements MemberService  {
 		
 		return memberDao.updateProfile(sqlSession, m);
 	}
+
+	@Override
+	public int loginSignal(int userNo) {
+		return memberDao.loginSignal(sqlSession, userNo);
+	}
+
+	@Override
+	public Member getChatClaim(int userNo) {
+		return memberDao.getChatClaim(sqlSession, userNo);
+	}
 }

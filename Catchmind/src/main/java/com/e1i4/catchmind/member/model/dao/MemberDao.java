@@ -84,4 +84,18 @@ public class MemberDao {
 		
 		return sqlSession.update("memberMapper.updateProfile", m);
 	}
+	
+	public int loginSignal(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.update("memberMapper.loginSignal", userNo);
+	}
+	
+	public Member getChatClaim(SqlSessionTemplate sqlSession, int userNo) {
+		int result = sqlSession.selectOne("memberMapper.getChatClaim", userNo);
+		if(result != 0) {
+			return sqlSession.selectOne("memberMapper.selectMember", result);
+		}
+		else {
+			return new Member();
+		}
+	}
 }

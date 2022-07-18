@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chatMapper">
-	<select id="getRoomNo" parameterType="HashMap">
+
+	<resultMap type="hashMap" id="userNoMap"></resultMap>
+	
+	<select id="getRoomNo" parameterType="HashMap" resultType="_int">
 		SELECT ROOM_NO
 		FROM CHATROOMS
 		WHERE USER_NO1 = #{userNo1}
@@ -10,6 +13,36 @@
 	
 	<insert id="createRoomNo" parameterType="HashMap">
 		INSERT INTO CHATROOMS
-		VALUES(SEQ_CRNO, #{userNo1}, #{userNo2})
+		VALUES(SEQ_CRNO.NEXTVAL, #{userNo1}, #{userNo2})
 	</insert>
+	
+	<update id="chatRequest" parameterType="HashMap">
+		UPDATE CHATCLAIM
+		SET CLAIM_FROM = #{userNo1}
+		WHERE USER_NO = #{userNo2}
+	</update>
+	
+	<update id="cancelRequest" parameterType="_int">
+		UPDATE CHATCLAIM
+		SET CLAIM_FROM = 0
+		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<select id="getUsers" parameterType="_int" resultMap="userNoMap">
+		SELECT USER_NO1, USER_NO2
+		FROM CHATROOMS
+		WHERE ROOM_NO = #{roomNo}
+	</select>
+	
+	<select id="requestExistence" parameterType="_int" resultType="_int">
+		SELECT CLAIM_FROM
+		FROM CHATCLAIM
+		WHERE USER_NO = #{requestTo}
+	</select>
+	
+	<update id="chatAgreed" parameterType="HashMap">
+		UPDATE CHATCLAIM
+		SET CLAIM_FROM = #{userNo1}
+		WHERE USER_NO = #{userNo2}
+	</update>
 </mapper>

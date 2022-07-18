@@ -17,9 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.e1i4.catchmind.admin.model.service.AdminService;
-import com.e1i4.catchmind.board.model.vo.Board;
+import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
-import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.common.template.Pagination;
 import com.e1i4.catchmind.faq.model.vo.Faq;
@@ -104,7 +103,7 @@ public class AdminController {
 		return "admin/memberListView";
 	}
 	
-	@RequestMapping("boardList.ad")
+	@RequestMapping("postList.ad")
 	public String selectBoardList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 				
 		int listCount = adminService.selectBoardCount();
@@ -114,7 +113,7 @@ public class AdminController {
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
-		ArrayList<Board> list = adminService.selectBoardList(pi);
+		ArrayList<Post> list = adminService.selectPostList(pi);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -297,7 +296,7 @@ public class AdminController {
 	@RequestMapping("recoverNo.ad")
 	public String recoverNotice(int noticeNo, Model model, HttpSession session) {
 		
-int result = adminService.recoverNotice(noticeNo);
+		int result = adminService.recoverNotice(noticeNo);
 		
 		if(result > 0) {
 			session.setAttribute("alertMsg", "공지사항을 복구하였습니다.");

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.admin.model.dao.AdminDao;
-import com.e1i4.catchmind.board.model.vo.Board;
+import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.faq.model.vo.Faq;
@@ -55,8 +55,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public ArrayList<Board> selectBoardList(PageInfo pi) {
-		return adminDao.selectBoardList(sqlSession, pi);
+	public ArrayList<Post> selectPostList(PageInfo pi) {
+		return adminDao.selectPostList(sqlSession, pi);
 	}
 
 	@Override

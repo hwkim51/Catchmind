@@ -2,7 +2,7 @@ package com.e1i4.catchmind.admin.model.service;
 
 import java.util.ArrayList;
 
-import com.e1i4.catchmind.board.model.vo.Board;
+import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.faq.model.vo.Faq;
@@ -24,7 +24,7 @@ public interface AdminService {
 	
 	Member updateMember(Member m);
 	
-	ArrayList<Board> selectBoardList(PageInfo pi);
+	ArrayList<Post> selectPostList(PageInfo pi);
 	
 	ArrayList<CatchBoard> selectCatchBoardList(PageInfo pi);
 

@@ -52,4 +52,10 @@ public interface MemberService {
 	
 	// 마이페이지 - 프로필 수정 서비스(update)
 	int updateProfile(Member m);
+	
+	// 로그인상태 확인용 메소드
+	int loginSignal(int userNo);
+	
+	// 채팅요청여부 확인용 메소드
+	Member getChatClaim(int userNo);
 }
