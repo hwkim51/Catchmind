@@ -22,7 +22,14 @@
     <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
+     <!--AOS-->
+     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+     
     <style>
+        /* 폰트 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
         /* 전체 */
         *{
             margin: 0;
@@ -194,6 +201,11 @@
         #loginchk:checked+label:after{
             left: 65%;
         }
+        .sessionTitle{
+            font-family: 'IBM Plex Sans KR', sans-serif;
+            margin-left: 50px;
+            width: 300px;
+        }
        
         </style>
 </head>
@@ -220,7 +232,6 @@
     </a>
     
 
-     
 
     <!-- header : 회원아이콘 -->
     <div id="membericon" style="right:0px;" onclick="myPage()">
@@ -228,20 +239,23 @@
     </div>
     <br clear="both">
 
+    
+    <!-- header : 로그인/로그아웃 토글-->
     <c:choose>
         <c:when test="${not empty loginUser}">
-            <input type="checkbox" id="loginchk" checked><label for="loginchk"><span>로그인</span></label>
+            <input type="checkbox" id="loginchk" checked><label for="loginchk"><span>로그인상태</span></label>
         </c:when>
         <c:otherwise>
-            <input type="checkbox" id="loginchk"><label for="loginchk"><span>로그아웃</span></label>
+            <input type="checkbox" id="loginchk"><label for="loginchk"><span>로그아웃상태</span></label>
         </c:otherwise>
     </c:choose>
+
 
     <!-- header : click 시 sidebar -->
     <div class="sidebar">
         <label>
             <ul class="accodion"><a href="mbtiTest.te"><span>MBTI 테스트</span></a></ul><br>
-            <ul class="accodion"><a href=""><span>❣ CATCH ❣</span></a></ul><br>
+            <ul class="accodion"><a href="matchList.ch"><span>❣ CATCH ❣</span></a></ul><br>
             <ul class="accodion"><a><span>커뮤니티</span></a></ul>
                 <div>
                     <li><a href="list.to"> 함께 놀러가요 💑</a></li>
@@ -253,13 +267,16 @@
                 <div>
                     <li><a href="list.no">공지사항</a></li>
                     <li><a href="catchTalk.faq">FAQ</a></li>
-                    <li><a href="enrollForm.in">1:1문의</a></li>
+                  <c:if test="${not empty loginUser }">
+               		<li><a href="enrollForm.in">1:1문의</a></li>
+               	  </c:if>
                 </div>
          
         </label>
     </div>
 	
     <script>
+
         // accodion 클릭 시 active 클래스 속성명 추가해주기(효과용)
         var accodion = document.querySelectorAll('.accodion');
         
@@ -379,6 +396,175 @@
 
         }
 
+        $(function(){
+            
+            $("#loginchk").click(function(){
+                if("${loginUser}" == ""){ // 로그아웃상태일 때
+                    var loginAnswer = confirm("로그인 하시겠습니까?"); 
+                   
+                    if(loginAnswer == true){
+                        //로그인페이지로 넘겨주기
+                        location.href="loginPage.me";
+                    }
+                    else{
+                        $(this).prop("checked",false); 
+                    }
+                    
+                }
+                else{ // 로그인 상태일 때(초록색)
+                   var logoutAnswer = confirm("로그아웃 하시겠습니까?");
+
+                    if(logoutAnswer == true){
+                        location.href="logout.me";
+                    }
+                    else {
+                        $(this).prop("checked",true); 
+                    }
+                }
+
+            });
+        
+        })
+        
+		//beforeunload 이벤트 관련 코드
+		var validNavigation = true;
+        
+        
+        function wireUpEvents(){	
+        
+	        $(document).keydown(function(e) {
+	            var key = (e) ? e.keyCode : event.keyCode;
+	            //alert(key)
+	            if(e.ctrlKey){
+	                //이걸로 컨트롤키 뽑을 수 있음
+	            }
+	            if(e.altKey){
+	                //이걸로 알트키 뽑을 수 있음
+	            }
+	            if(e.ctrlKey && e.keyCode == 82){
+	            	 validNavigation = false;
+	                console.log("컨트롤 + R");
+	            }
+	            if(e.keyCode == 116){
+	            	 validNavigation = false;
+	                console.log("F5");
+	            }
+	            if(e.keyCode == 115){
+	            	 validNavigation = false;
+	                console.log("F4");
+	            }
+	        });   
+            
+	        $(document).on('mousedown', function() {
+	        	if ((event.button == 2) || (event.which == 3)) {
+		             console.log("마우스 우클릭");
+		             validNavigation = false;
+	        	}
+	     	});
+	   		
+	        // Attach the event click for all links in the page
+	        $("a").bind("click", function() {
+	        	 validNavigation = false;
+	           console.log("a클릭");
+	        });
+	        
+	        $("tr").bind("click", function() {
+	        	 validNavigation = false;
+	           console.log("tr클릭");
+	        });
+	        
+	        $("li").bind("click", function() {
+	             validNavigation = false;
+	            console.log("li클릭");
+	        });
+	
+	        $("ul").bind("click", function() {
+	            validNavigation = false;
+	           console.log("ul클릭");
+	        });
+	        
+	        $("#noticeImg").bind("click", function() {
+	            validNavigation = false;
+	           console.log("img클릭");
+	        });
+	        
+	        $("div").bind("click", function() {
+	            validNavigation = false; 
+	           console.log("div클릭");
+	        });
+	        
+	         // Prevent logout when clicking in a button (if these buttons redirect to some page)
+		    $("button").bind("click", function() {
+	            validNavigation = false; 
+	           console.log("div클릭");
+	        });
+	        
+	        // Attach the event submit for all forms in the page
+	        $("form").bind("submit", function() {
+	            validNavigation = false; 
+	           console.log("서브밋");
+	        });
+	
+	        // Attach the event click for all inputs in the page
+	        $("input[type=submit]").bind("click", function() {
+	            validNavigation = false; 
+	           console.log("서브밋인풋");
+	        });
+	        
+	        $("input[type=button]").bind("click", function() {
+	            validNavigation = false; 
+	           console.log("인풋버튼타입");
+	        });
+	    }
+       
+			
+		$(document).ready(function() {
+	         refreshSession();
+	         wireUpEvents();
+	         
+	         $(window).on('beforeunload', function(e) {
+	 			//console.log("beforeunload 결과:"+validNavigation);
+	 			
+	 			if(validNavigation){
+	 				//console.log("최종 beforeunload 결과: "+validNavigation);
+	                endSession();
+	         	} 
+	 	    });
+	    });
+		
+	      function endSession() {
+	          $.ajax({
+	             
+	             url : "closeSession.me",
+	             data : {
+	                userId : "${loginUser.userId}"
+	             },
+	             success : function(result) {
+	                console.log("close성공");
+	             },
+	             error : function() {
+	                console.log("댓글 작성용 ajax 통신 실패!");
+	             }
+	             
+	          });
+	      }
+	      
+	      function refreshSession() {
+	          $.ajax({
+	             
+	             url : "refreshSession.me",
+	             data : {
+	                userId : "${loginUser.userId}"
+	             },
+	             success : function(result) {
+	                console.log("refresh성공");
+	             },
+	             error : function() {
+	                console.log("댓글 작성용 ajax 통신 실패!");
+	             }
+	             
+		      });
+		   }
     </script>
 </body>
 </html>

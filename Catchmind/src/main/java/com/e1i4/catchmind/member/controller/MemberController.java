@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.e1i4.catchmind.chat.model.service.ChatService;
 import com.e1i4.catchmind.member.model.service.MemberService;
 import com.e1i4.catchmind.member.model.vo.Block;
+import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -50,18 +52,14 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	// 마이페이지로 이동
+	// 마이페이지로 이동 : 수빈
 	@RequestMapping(value="myPage.me")
 	public String myPage(String userId, String userPwd, Member m, HttpSession session) {
-		
-		Member updateMem = memberService.loginMember(m);
-		
-		session.setAttribute("loginUser", updateMem);
 		
 		return "member/myPage";
 	}
 	
-	// 로그인(select)
+	// 로그인(select) : 수빈
 	@RequestMapping(value="login.me")
 	public String loginMember(
 								Member m,
@@ -85,21 +83,32 @@ public class MemberController {
 		}
 	}
 	
-	// 로그인 시 recentLogin 업데이트(update)
+	// 로그인 시 recentLogin 업데이트(update) : 수빈
 	public int updateRecentLogin(Member m) {
 		int updateRecentLogin = memberService.updateRecentLogin(m);
 		
 		return updateRecentLogin;
 	}
 	
-	// 로그아웃 
+	// 로그아웃  : 수빈 -세션 만료 전 recent_logout 구문 추가(유진220715)
 	@RequestMapping(value="logout.me")
-	public String logoutMember() {
+	public String logoutMember(HttpSession session) {
 		
-		return ""; 
+	    if((Member)session.getAttribute("loginUser")!=null) {
+	    	
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+	    int updateRecentLogout = memberService.updateRecentLogout(userId);
+	   
+	    
+	    	session.invalidate();
+			return "redirect:/"; 
+	    } 
+		else {
+	    	return "redirect:/";
+	    }
 	}
 	
-	// 아이디 중복체크(select)
+	// 아이디 중복체크(select) : 수빈
 	@ResponseBody
 	@RequestMapping(value="idCheck.me", produces="text/html; charset=UTF-8")
 	public String idCheck(String checkId) {
@@ -107,7 +116,7 @@ public class MemberController {
 		return (count>0)?"NNNNN" : "NNNNY"; 
 	}
 	
-	// 닉네임 중복체크(select)
+	// 닉네임 중복체크(select) : 수빈
 	@ResponseBody
 	@RequestMapping(value="nicknameCheck.me", produces="text/html; charset=UTF-8")
 	public String nicknameCheck(String nickname) {
@@ -115,13 +124,13 @@ public class MemberController {
 		return (count>0)? "NNNNN" : "NNNNY"; 
 	}
 		
-	// 아이디 찾기 페이지로 이동
+	// 아이디 찾기 페이지로 이동 : 수빈
 	@RequestMapping(value="findIdPage.me")
 	public String findIdPage() {	
 		return "member/findId"; 	
 	}
 	
-	// 아이디 찾기 
+	// 아이디 찾기  : 수빈
 	@RequestMapping(value="result.me")
 	public String findId(
 							Member m,
@@ -134,13 +143,13 @@ public class MemberController {
 		return "member/findResult"; 	
 	}
 	
-	// 비밀번호 찾기 페이지로 이동
+	// 비밀번호 찾기 페이지로 이동 : 수빈
 	@RequestMapping(value="findPwdPage.me")
 	public String findPwdPage() {
 		return "member/findPwd"; 	
 	}
 	
-	// 비밀번호 찾기 - step1) ajax로 이메일 인증번호 보내기
+	// 비밀번호 찾기 - step1) ajax로 이메일 인증번호 보내기 : 수빈
 	@ResponseBody
 	@RequestMapping(value="sendEmail.me", produces="text/html; charset=UTF-8")
 	public void getCertificationNum(String email,
@@ -201,7 +210,7 @@ public class MemberController {
 			response.getWriter().print(otp);
 	}
 		
-	// 비밀번호 찾기 - step2) 일치회원 조회
+	// 비밀번호 찾기 - step2) 일치회원 조회 : 수빈
 	@RequestMapping(value="findPwd.me")
 	public String findPwd(
 							Member m,
@@ -213,7 +222,7 @@ public class MemberController {
 		return "member/changePwd"; 	
 	}
 	
-	// 비밀번호 찾기 - step3) 변경 서비스
+	// 비밀번호 찾기 - step3) 변경 서비스 : 수빈
 	@RequestMapping(value="changePwd.me")
 	public String changePwd(
 							Member m,
@@ -233,13 +242,13 @@ public class MemberController {
 		}
 	}
 	
-	// 회원가입 페이지로 이동
+	// 회원가입 페이지로 이동 : 수빈
 		@RequestMapping(value="enrollForm.me")
 		public String enrollForm() {
 			return "member/memberEnrollForm";
 		}
 		
-	// 회원가입(insert)
+	// 회원가입(insert) : 수빈
 	@RequestMapping(value="insert.me")
 	public String insertMember(
 								Member m,
@@ -278,13 +287,6 @@ public class MemberController {
 		return "member/myPage-FollowList";
 	}
 	
-	// 마이페이지 - 차단 리스트 페이지로 이동(유진)
-	@RequestMapping(value="myBlock.me")
-	public String blockList() {
-		
-		return "member/myPage-BlockList";
-	}
-	
 	// 로그아웃 버튼 누르거나 or 창 닫으면 recent_logout 업데이트 메소드 (유진)
 	public int updateRecentLogout(String userId) {
 		
@@ -303,47 +305,81 @@ public class MemberController {
 		return new Gson().toJson(list);
 	}
 	
-	// ajax로 차단한 유저의 정보 조회 메소드(유진)
-	@ResponseBody
-	@RequestMapping(value="bList.me", produces="application/json; charset=UTF-8")
-	public String selectBlockList(int userNo) {
+	// 차단한 유저의 정보 조회 메소드(유진)
+	@RequestMapping("myBlock.me")
+	public String selectBlockList(Model model, HttpSession session) {
 		
+		if((Member)session.getAttribute("loginUser")!=null) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		ArrayList<Member> list = memberService.selectBlockList(userNo);
-		return new Gson().toJson(list);
+		
+		model.addAttribute("list", list);
+		return "member/myPage-BlockList";
+		} else {
+			return "redirect:/";
+		}
 	}
 	
 	// 차단된 회원 차단 해제하는 메소드(유진)
 	@RequestMapping("deleteBlock.me")
 	public String deleteBlockMember(HttpSession session,
-									int blockedUser,
+									int blno,
 									Model model) {
 		
-		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
-		Block b = new Block();
-		b.setUserNo(userNo);
-		b.setBlockedUser(blockedUser);
-				
-		int result = memberService.deleteBlockMember(b);
+		if((Member)session.getAttribute("loginUser")!=null) {
+		    
+			int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+			
+			Block b = new Block();
+			b.setUserNo(userNo);
+			b.setBlockedUser(blno);
+			
+			int result = memberService.deleteBlockMember(b);
 		
-		if(result > 0) {
-			session.setAttribute("resultMsg", "해당 회원 차단을 해제하였습니다.");
-			return "redirect:blockList.me";
+			if(result > 0) {
+				//session.setAttribute("alertMsg", "해당 회원 차단을 해제하였습니다.");
+				return "redirect:myBlock.me";
+			}
+			else {
+				model.addAttribute("errorMsg", "요청 처리 실패");
+				return "errorPage";
+			}
 		}
 		else {
-			model.addAttribute("errorMsg", "요청 처리 실패");
-			return "errorPage";
+			return "redirect:/";
 		}
 	}
 		
 	@ResponseBody
 	@RequestMapping(value="closeSession.me", produces="text/html; charset=UTF-8")
-	public String closeSession(String userId, HttpSession session) {
+	public String closeSession(String userId, HttpSession session) { //현재 진행 중
 		
-		// RECENT_LOGOUT 정보 업데이트
-		int updateRecentLogout = memberService.updateRecentLogout(userId);
+		System.out.println("close:"+userId);
+		int updateRecentLogout = 0;
 		
-		//session.removeAttribute("loginUser");
-		return (updateRecentLogout>0)? "YYY" : "NNN";
+		if(userId!=null) {
+			// RECENT_LOGOUT 정보 업데이트
+			updateRecentLogout = memberService.updateRecentLogout(userId);
+			
+			//session.removeAttribute("loginUser");
+		    session.invalidate();
+		}
+		return (updateRecentLogout>0)?"YYY":"NNN";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="refreshSession.me", produces="text/html; charset=UTF-8")
+	public String refreshSession(String userId, HttpSession session) { 
+		
+		System.out.println("refresh:"+userId);
+		int updateRecentLogout = 0;
+		
+		if(userId!=null) {
+			updateRecentLogout = memberService.updateRefreshSession(userId);
+			
+		}
+		return (updateRecentLogout>0)?"YYY":"NNN";
 	}
 	
 	// 회원가입 시 프로필 사진 저장 메소드
@@ -366,8 +402,6 @@ public class MemberController {
 	// 마이페이지 - 프로필 수정 메소드
 	@RequestMapping("updateProfile.me")
 	public String updateProfile(Member m, MultipartFile profileImg, HttpSession session, Model model) {
-		System.out.println(profileImg);
-		System.out.println("Controller" + m);
 		
 		if(!profileImg.getOriginalFilename().equals("")) { // 프로필 이미지를 업데이트 한 경우
 			
@@ -382,10 +416,15 @@ public class MemberController {
 		
 		int result = memberService.updateProfile(m);
 		
-		if(result > 0) { // 프로필 수정 성공
+if(result > 0) { // 프로필 수정 성공
 			
+			Member updateMem = memberService.loginMember(m);
+			
+			session.setAttribute("loginUser", updateMem);
 			session.setAttribute("alertMsg", "프로필이 성공적으로 수정되었습니다.");
-			return "redirect:myPage.me"; // 마이페이지로 url 재요청
+			
+			// 마이페이지 url 재요청 (myPage.me)
+			return "redirect:myPage.me";
 			
 		} else { // 프로필 수정 실패
 			
@@ -422,6 +461,210 @@ public class MemberController {
 		}
 		
 		return null;
+		
+	}
+	
+	// 마이페이지 - 회원 정보 수정 메소드
+	@RequestMapping("updateInfo.me")
+	public String updateInfo(Member m, String address, HttpSession session, Model model) {
+		
+		
+		System.out.println(m);
+		
+		int result = memberService.updateInfo(m);
+		
+		if(result > 0) { // 회원 정보 수정 성공
+			
+			Member updateMem = memberService.loginMember(m);
+			
+			session.setAttribute("loginUser", updateMem);
+			session.setAttribute("alertMsg", "회원 정보가 성공적으로 수정되었습니다.");
+			session.setAttribute("address", address);
+			
+			return "redirect:myPage.me";
+			
+		} else { // 회원 정보 수정 실패
+			
+			model.addAttribute("errorMsg", "회원 정보 수정 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	// 마이페이지 - 비밀번호 수정 > 기존 비밀번호 체크 메소드
+	@ResponseBody
+	@RequestMapping(value="originPwdCheck.me", produces="text/html; charset=UTF-8")
+	public String originPwdCheck(String checkOriginPwd) {
+		
+		System.out.println(checkOriginPwd);
+		
+		int count = memberService.originPwdCheck(checkOriginPwd);
+		
+		return (count > 0) ? "NNNNY" : "NNNNN";
+	}
+	
+	// 마이페이지 - 비밀번호 수정 > 변경 비밀번호 업데이트 메소드
+	@RequestMapping("infoUpdatePwd.me")
+	public String infoUpdatePwd(Member m, HttpSession session, Model model) {
+		
+		System.out.println("비밀번호 업데이트" + m);
+		
+		int result = memberService.infoUpdatePwd(m);
+		
+		if(result > 0) {
+			
+			Member updateMem = memberService.loginMember(m);
+			
+			session.setAttribute("loginUser", updateMem);
+			session.setAttribute("alertMsg", "비밀번호가 성공적으로 수정되었습니다.");
+			
+			return "redirect:myPage.me";
+		
+		} else {
+			
+			model.addAttribute("errorMsg", "비밀번호 수정 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	// 팔로우 취소하는 메소드 (유진)
+	@RequestMapping(value="unfollow.me")
+	public String unfollowMember(HttpSession session,
+								int foedUser,
+								Model model) {
+		
+		if((Member)session.getAttribute("loginUser")!=null) {
+		
+			int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+			Follow f = new Follow();
+			f.setFoUser(userNo);
+			f.setFoedUser(foedUser);
+			int result = memberService.unfollowMember(f);
+			
+			if(result > 0) {
+				return "redirect:myFollow.me";
+			}
+			else {
+				model.addAttribute("errorMsg", "요청 처리 실패");
+				return "errorPage";
+			}
+		} else {
+			return "redirect:/";
+		}
+	}
+	
+	// 커플관리 페이지로 이동
+	@RequestMapping("myCouple.me")
+	public String myCouple(HttpSession session, Model model) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		String partner = ((Member)session.getAttribute("loginUser")).getPartner();
+
+		Member m = new Member();
+		m.setUserNo(userNo);
+		m.setPartner(partner);
+		
+		System.out.println(m);
+		
+		// 커플 요청 리스트
+		ArrayList<Member> list = memberService.selectRequestList(m);
+		System.out.println("커플관리 페이지" + list);
+		
+		model.addAttribute("cList", list);
+		
+		return "member/myPage-ManageCouple";
+	}
+	
+	// 커플관리 > 커플 신청
+	@RequestMapping("requestCouple.me")
+	public String requestCouple(Member m, String coupleId, HttpSession session, Model model) {
+		
+		// 커플 요청을 받는 회원의 회원 번호 조회
+		String coupleNo = memberService.selectCoupleNo(coupleId);
+		
+		if(coupleNo != null) { // 커플 요청한 회원의 아이디가 유효할 경우
+
+			m.setPartner(coupleNo);
+			
+			if(coupleId.equals("admin")) {
+				
+				session.setAttribute("alertMsg", "관리자에게 커플 요청을 할 수 없습니다.");
+				
+				return "redirect:myCouple.me";
+				
+			} else if(coupleId.equals(m.getUserId())) {
+				
+				session.setAttribute("alertMsg", "회원 본인에게 커플 요청을 할 수 없습니다.");
+				
+				return "redirect:myCouple.me";
+				
+			} else {
+				
+				int result = memberService.updateCoupleId(m);
+				
+				if(result > 0) {
+					
+					Member updateMem = memberService.loginMember(m);
+					session.setAttribute("loginUser", updateMem);
+					
+					session.setAttribute("alertMsg", "커플 요청에 성공했습니다.");
+					
+					return "redirect:myCouple.me";
+					
+				} else {
+					
+					model.addAttribute("errorMsg", "커플 요청 실패");
+					return "common/errorPage";
+				}
+			}
+			
+		} else { // 커플 요청한 회원의 아이디가 유효하지 않을 경우
+			
+			session.setAttribute("alertMsg", "존재하지 않는 회원입니다.");
+			return "redirect:myCouple.me";
+		}
+	}
+	
+	// 커플관리 > 커플 수락
+	@RequestMapping("acceptCouple.me")
+	public String acceptCouple(Member m, HttpSession session, Model model) {
+		
+		System.out.println(m);
+		
+		int result = memberService.updateCoupleId(m);
+		
+		if(result > 0) {
+			
+			Member updateMem = memberService.loginMember(m);
+			session.setAttribute("loginUser", updateMem);
+			
+			session.setAttribute("alertMsg", "커플 수락했슴둥~");
+			
+			return "redirect:myCouple.me";
+			
+		} else {
+			model.addAttribute("errorMsg", "커플 수락 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	// 커플관리 > 커플 거절
+	@RequestMapping("refuseCouple.me")
+	public String refuseCouple(Member m, HttpSession session, Model model) {
+		
+		System.out.println("커플 거절" + m);
+		
+		int result = memberService.refuseCouple(m);
+		
+		if(result > 0) { // 커플 거절 성공
+			
+			session.setAttribute("alertMsg", "커플 신청이 거절되었습니다.");
+			return "redirect:myCouple.me";
+			
+		} else { // 커플 거절 실패
+			
+			model.addAttribute("errorMsg", "커플 신청 거절 실패");
+			return "common/errorPage";
+		}
 		
 	}
 	

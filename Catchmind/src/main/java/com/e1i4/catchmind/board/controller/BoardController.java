@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,15 +25,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.e1i4.catchmind.board.model.service.BoardService;
 import com.e1i4.catchmind.board.model.vo.Catch;
+import com.e1i4.catchmind.board.model.vo.Like;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.common.template.Pagination;
+import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -94,6 +102,7 @@ public class BoardController {
 	/* POST 작성 */
 	@RequestMapping("insert.po")
 	public String insertPost(int postWriter,Post p, Attach a, MultipartFile upfile, HttpSession session, Model model) {
+
 		p.setPostWriter(postWriter);
 		
 		if(!upfile.getOriginalFilename().equals("")) {
@@ -257,12 +266,18 @@ public class BoardController {
 		int listCount = boardService.selectCatchListCount();
 		
 		int pageLimit = 10;
-		int boardLimit = 10;
+		int boardLimit = 8;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		ArrayList<Catch> list = boardService.selectCatchList(pi);
+		ArrayList<Attach> a = new ArrayList<Attach>();
+		for(int i=0; i<=listCount+1;i++) {
+			int catchNo = i;
+			a.add(boardService.selectFileTop(catchNo));
+		}
 		
+		model.addAttribute("a", a);
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		
@@ -272,14 +287,21 @@ public class BoardController {
 
 	/* CATCH 상세조회 */
 	@RequestMapping("detail.ca")
-	public ModelAndView detailCatch(int cno, ModelAndView mv) {
-		
+	public ModelAndView detailCatch(int cno, ModelAndView mv, HttpSession session) {
 		int result = boardService.increaseCatchCount(cno);
-		
+		if((session.getAttribute("loginUser"))!=null) {
+			Like like = new Like();
+			like.setLikeUser(((Member)session.getAttribute("loginUser")).getUserNo());
+			like.setCatchNo(cno);
+			int llist = boardService.selectLike(like);
+			mv.addObject("llist", llist);
+		}
 		if(result>0) {
 			Catch c = boardService.selectCatch(cno);
 			ArrayList<Attach> alist = boardService.selectFiles(cno);
+			int l = boardService.likeCount(cno);
 			
+			mv.addObject("l", l);
 			mv.addObject("alist", alist);
 			mv.addObject("c", c).setViewName("board/catchDetailView");
 			return mv;
@@ -303,9 +325,7 @@ public class BoardController {
 		
 		c.setCatchWriter(Integer.toString(catchWriter));
 		int result1 = boardService.insertCatch(c);
-		
-		System.out.println(upfile);
-		
+		int result3 = boardService.getCatchNo();
 		if(!(upfile.get(0).getOriginalFilename().equals(""))) {
 			for(int i=0;i<upfile.size();i++) {
 				String originName = upfile.get(i).getOriginalFilename();
@@ -313,6 +333,7 @@ public class BoardController {
 				
 				a.setAttOrigin(upfile.get(i).getOriginalFilename());
 				a.setAttChange("resources/images/upfiles"+changeName);
+				a.setAttCatch(Integer.toString(result3));
 				
 				result2 = boardService.insertFiles(a);
 			}
@@ -330,15 +351,22 @@ public class BoardController {
 	
 	/* CATCH 삭제 */
 	@PostMapping("delete.ca")
-	public String deleteCatch(int catchNo, Model model, String filePath, HttpSession session) {
+	public String deleteCatch(int catchNo, Model model, HttpSession session) {
 		int result = boardService.deleteCatch(catchNo);
 		
-		if(result>0) {
+		Attach a = new Attach();
+		a.setAttCatch(Integer.toString(catchNo));
+		
+		ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+		
+		if(!path.equals(null)) {
 			// 첨부파일있었던 게시글 삭제 시 첨부파일 서버에서 삭제
-			if(!filePath.equals("")) {
-				String realPath = session.getServletContext().getRealPath(filePath);
+			for(int i = 0; i<path.size();i++) {
+				String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
 				new File(realPath).delete();
 			}
+
+			int result2 = boardService.deleteFiles(a);
 			
 			// url재요청
 			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
@@ -375,9 +403,17 @@ public class BoardController {
 	public String updateCatch(Catch c, Attach a, ArrayList<MultipartFile> reupfile, HttpSession session, Model model) {
 		int result2 = 0;
 		a.setAttCatch(Integer.toString(c.getCatchNo()));
-		if(!reupfile.equals(null)) { // 새로운 첨부파일있는 경우
+		if(reupfile.get(0).getSize()>0) { // 새로운 첨부파일있는 경우
 			
-			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있을 경우
+			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있는 경우
+				ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+				for(int i = 0; i<path.size();i++) {
+					String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
+					new File(realPath).delete();
+				}
+
+				int result3 = boardService.deleteFiles(a);
+			
 					for(int i=0;i<reupfile.size();i++) {
 						String originName = reupfile.get(i).getOriginalFilename();
 						String changeName = saveFile(reupfile.get(i), session);
@@ -385,12 +421,7 @@ public class BoardController {
 						a.setAttOrigin(reupfile.get(i).getOriginalFilename());
 						a.setAttChange("resources/images/upfiles"+changeName);
 						
-						System.out.println(a.getAttOrigin());
-						System.out.println(a.getAttCatch());
-						
-						result2 = boardService.updateFile(a);
-						
-						System.out.println(result2);
+						result2 = boardService.insertFiles(a);
 					}
 				} else { // 기존 첨부파일이 없는 경우
 					for(int i=0;i<reupfile.size();i++) {
@@ -406,10 +437,13 @@ public class BoardController {
 			
 		} else { // 새로운 첨부파일없는 경우
 			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있는 경우
-			String savePath = session.getServletContext().getRealPath(a.getAttChange());
-			
-			new File(savePath).delete();
-			int result3 = boardService.deleteFiles(a);
+				ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+				for(int i = 0; i<path.size();i++) {
+					String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
+					new File(realPath).delete();
+				}
+
+				int result3 = boardService.deleteFiles(a);
 			} else { // 기존 첨부파일이 없는 경우
 				
 			}
@@ -429,8 +463,35 @@ public class BoardController {
 
 	}
 	
+	/* ============================ Like ============================ */
+	@ResponseBody
+	@RequestMapping("like.ca")
+	public String insertLike(int catchNo, int likeUser) {
+		Like l = new Like();
+		l.setCatchNo(catchNo);
+		l.setLikeUser(likeUser);
+		
+		return (boardService.insertLike(l)>0)? "success":"fail";
+	}
+	@ResponseBody
+	@RequestMapping("countLike.ca")
+	public int selectLike(int catchNo) {
+		return boardService.likeCount(catchNo);
+	}
+	@ResponseBody
+	@RequestMapping("cancelLike.ca")
+	public String deleteLike(int catchNo, int likeUser) {
+		Like l = new Like();
+		l.setCatchNo(catchNo);
+		l.setLikeUser(likeUser);
+		
+		return (boardService.deleteLike(l)>0)? "success":"fail";
+	}
 	
 	/* ============================ OpenData ============================ */
+	
+
+	
 	@RequestMapping("list.to")
 	public String listViewTogether() {
 		return "board/togetherListView";
@@ -438,7 +499,7 @@ public class BoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="data.to", produces="text/xml; charset=UTF-8")
-	public String airPollution(String location) throws IOException {
+	public String together(int areaCode) throws IOException {
 		
 		// 현재 날짜 구하는 식
 		LocalDate now = LocalDate.now();
@@ -450,6 +511,7 @@ public class BoardController {
 			url += "&MobileOS=WIN";
 			url += "&MobileApp=CatchMind";
 			url += "&numOfRows=10000";
+			url += "&areaCode="+areaCode;
 			url += "&arrange=C";
 			url += "&listYN=Y";
 			url += "&eventStartDate="+formatedNow;
@@ -481,14 +543,43 @@ public class BoardController {
 			return responseText;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="detail.to", produces="text/xml; charset=UTF-8")
+	public String detailTogether(int contentid) throws IOException {
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon";
+		url += "?ServiceKey=" + SERVICEKEY;
+		url += "&MobileOS=WIN";
+		url += "&MobileApp=CatchMind";
+		url += "&contentId="+contentid;
+		url += "&defaultYN=Y";
+		
+		// URL값을 저장하는 구문
+		URL requestUrl = new URL(url);
+		
+		// URL과 연결하는 구문
+		HttpURLConnection urlConnection = (HttpURLConnection) requestUrl.openConnection();
+		
+		// 연결할 때 접속방식 선택
+		urlConnection.setRequestMethod("GET");
+		
+		// 연결되었으니 값들 읽어오기
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+		
+		String responseText = ""; // 응답데이터 기록용 변수
+		String line; // null => 한줄 한줄 씩 읽어서 대입해주는 용도
+		
+		while((line = br.readLine()) != null) {
+			responseText += line;
+			
+		}
+		
+		br.close();
+		urlConnection.disconnect();
+		
+		return responseText;
+	}
 	
-	
-	
-	
-	
-	
-	
-	/* ============================ 내 글 관리 ============================ */
+	/* ============================ 내 글 관리 - 에브리타임  ============================ */
 	@RequestMapping("myBoard.po")
 	public String listViewMyPost(@RequestParam(value="ppage", defaultValue="1") int currentPage, HttpSession session, Model model) {
 		
@@ -615,6 +706,211 @@ public class BoardController {
 		return "common/errorPage";
 		}
 
+	}
+	
+	/* ============================ 내 글 관리 - 캐치마인드  ============================ */
+	
+	
+	@RequestMapping("myBoard.ca")
+	public String listViewMyCatch(@RequestParam(value="cpage", defaultValue="1") int currentPage, HttpSession session, Model model) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		
+		int listCount = boardService.selectMyCatchCount(userNo);
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		
+		ArrayList<Catch> list = boardService.selectMyCatchList(pi, userNo);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "member/myPage-ManageCatchList";
+	}
+	
+	@RequestMapping("myDetail.ca")
+	public ModelAndView myDetailCatch(int cno, ModelAndView mv, HttpSession session) {
+		
+		int result = boardService.increaseCatchCount(cno);
+		if((session.getAttribute("loginUser"))!=null) {
+			Like like = new Like();
+			like.setLikeUser(((Member)session.getAttribute("loginUser")).getUserNo());
+			like.setCatchNo(cno);
+			int llist = boardService.selectLike(like);
+			mv.addObject("llist", llist);
+		}
+		if(result>0) {
+			Catch c = boardService.selectCatch(cno);
+			ArrayList<Attach> alist = boardService.selectFiles(cno);
+			int l = boardService.likeCount(cno);
+			
+			mv.addObject("l", l);
+			mv.addObject("alist", alist);
+			mv.addObject("c", c).setViewName("board/myCatchDetailView");
+			return mv;
+		} else {
+			mv.addObject("errorMsg", "상세조회 요청에 실패하였습니다.").setViewName("common/errorPage");
+			return mv;
+		}
+	}
+	@PostMapping("myDelete.ca")
+	public String myDeleteCatch(int catchNo, Model model, String filePath, HttpSession session) {
+		int result = boardService.deleteCatch(catchNo);
+		
+		Attach a = new Attach();
+		a.setAttCatch(Integer.toString(catchNo));
+		
+		ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+		
+		if(!path.equals(null)) {
+			// 첨부파일있었던 게시글 삭제 시 첨부파일 서버에서 삭제
+			for(int i = 0; i<path.size();i++) {
+				String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
+				new File(realPath).delete();
+			}
+
+			int result2 = boardService.deleteFiles(a);
+			
+			// url재요청
+			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
+			
+			return "redirect:myBoard.ca";
+			
+		} else {
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	@PostMapping("myUpdateEnroll.ca")
+	public ModelAndView myUpdateEnrollFormCatch(int catchNo, ModelAndView mv) {
+int result = boardService.increaseCatchCount(catchNo);
+		
+		if(result>0) {
+			Catch c = boardService.selectCatch(catchNo);
+			ArrayList<Attach> alist = boardService.selectFiles(catchNo);
+			
+			mv.addObject("alist", alist);
+			mv.addObject("c", c).setViewName("board/myUpdateEnrollFormCatch");
+			return mv;
+		} else {
+			mv.addObject("errorMsg", "상세조회 요청에 실패하였습니다.").setViewName("common/errorPage");
+			return mv;
+		}
+	}
+	@RequestMapping("myUpdate.ca")
+	public String myUpdateBoard(Catch c, Attach a, ArrayList<MultipartFile> reupfile, HttpSession session, Model model) {
+		int result2 = 0;
+		a.setAttCatch(Integer.toString(c.getCatchNo()));
+		if(reupfile.get(0).getSize()>0) { // 새로운 첨부파일있는 경우
+			
+			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있는 경우
+				ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+				for(int i = 0; i<path.size();i++) {
+					String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
+					new File(realPath).delete();
+				}
+
+				int result3 = boardService.deleteFiles(a);
+			
+					for(int i=0;i<reupfile.size();i++) {
+						String originName = reupfile.get(i).getOriginalFilename();
+						String changeName = saveFile(reupfile.get(i), session);
+						
+						a.setAttOrigin(reupfile.get(i).getOriginalFilename());
+						a.setAttChange("resources/images/upfiles"+changeName);
+						
+						result2 = boardService.insertFiles(a);
+					}
+				} else { // 기존 첨부파일이 없는 경우
+					for(int i=0;i<reupfile.size();i++) {
+						String originName = reupfile.get(i).getOriginalFilename();
+						String changeName = saveFile(reupfile.get(i), session);
+						
+						a.setAttOrigin(reupfile.get(i).getOriginalFilename());
+						a.setAttChange("resources/images/upfiles"+changeName);
+						
+						result2 = boardService.addFiles(a);
+					}
+				}
+			
+		} else { // 새로운 첨부파일없는 경우
+			if(a.getAttOrigin() != null) { // 기존 첨부파일이 있는 경우
+				ArrayList<Attach> path = boardService.selectFiles(Integer.parseInt(a.getAttCatch()));
+				for(int i = 0; i<path.size();i++) {
+					String realPath = session.getServletContext().getRealPath(path.get(i).getAttChange());
+					new File(realPath).delete();
+				}
+
+				int result3 = boardService.deleteFiles(a);
+			} else { // 기존 첨부파일이 없는 경우
+				
+			}
+		}
+		
+
+		int result1 = boardService.updateCatch(c);
+		
+		if(result1+result2 > 0) { // 성공
+		session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다.");
+		
+		return "redirect:myDetail.ca?cno=" + c.getCatchNo();
+		} else { // 실패
+		model.addAttribute("errorMsg", "게시글 수정 실패");
+		return "common/errorPage";
+		}
+
+	}
+	
+	/* ============================ 내 글 관리 - QA  ============================ */
+	@RequestMapping("myBoard.qa")
+	public String listViewMyQA(@RequestParam(value="qpage", defaultValue="1") int currentPage, HttpSession session, Model model) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		
+		int listCount = boardService.selectMyQACount(userNo);
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		
+		ArrayList<Inquiry> list = boardService.selectMyQAList(pi, userNo);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "member/myPage-ManageQAList";
+	}
+	@ResponseBody
+	@RequestMapping(value="update.qa", produces="text/html; charset=UTF-8;")
+	public String updateQA(String qaNo, String qaContent, String qaTitle, HttpSession session, Model model) {
+		
+		Inquiry i = new Inquiry();
+		
+		i.setQaNo(qaNo);
+		i.setQaContent(qaContent);
+		i.setQaTitle(qaTitle);
+		
+		int result = boardService.updateQA(i);
+		
+		return (result>0)? "success" : "fail";
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="delete.qa", produces="text/html; charset=UTF-8;")
+	public String deleteQA(int qaNo, HttpSession session, Model model) {
+		
+		int result = boardService.deleteQA(qaNo);
+		
+		return (result>0)? "success" : "fail";
+		
 	}
 	
 	

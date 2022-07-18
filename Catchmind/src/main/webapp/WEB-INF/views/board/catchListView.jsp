@@ -12,23 +12,26 @@
     <style>
         .body{
             margin: auto;
-            width: 1720px;
+            width: 1400px;
         } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
         /* ################### sub_head 설정 영역 ################### */
         .sub_head{
             position: relative;
-            height: 130px;
+            height: 90px;
+            color: rgb(81, 81, 81);
+            font-family: 'IBM Plex Sans KR', sans-serif;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
         .sub_head>.title{
-            position: absolute;
-            font-size: 50px;
-            width: 450px;
-            left:0px; /* 왼쪽 정렬 */
-            padding-bottom: 9px;
-            border-bottom: 1px solid black;
-        } /* 게시판 타이틀 설정 */
+          position: absolute;
+          font-size: 40px;
+          width: 380px;
+          left:0px; /* 왼쪽 정렬 */
+          padding-bottom: 9px;
+          border-bottom: 1px solid black;
+          margin-left: 10px;
+      } /* 게시판 타이틀 설정 */
 
         .sub_head>.btn_write{
             position: absolute;
@@ -36,14 +39,13 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 60px;
+            top: 30px;
             width: 120px;
             height: 40px;
             border-radius: 4px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
-            vertical-align: middle;
             padding-top: 8px;
         } /* 작성 설정 */
 
@@ -60,20 +62,29 @@
             flex-wrap: wrap;
         }
         .card_items{
-            width: 500px;
-            height: 300px;
-            border: 1px red solid;
-            margin: 0px 10px 20px 60px;
+            width: 330px;
+            height: 230px;
+            margin: 0px 10px 0px 10px;
+            cursor: pointer;
+        }
+        .card_items>*{
+        border: 1px solid #eaeaeaea;
         }
 
         .card_items>.card_img{
-            width: 100%;
+            width: 330px;
+            height: 170px;
         }
-
+        .card_items>.card_img img{
+            width:100%;
+            height:100%;
+        }
+		.card_items>.data_area>.title{
+			border-bottom: 1px solid #eaeaeaea;
+		}
         .card_items>.data_area>.info{
             overflow: hidden;
-            width: 60px;
-            height: 20px;
+            width: 100%;
             text-overflow:ellipsis;
             white-space:nowrap;
         }
@@ -86,6 +97,11 @@
             align-items: center;
             justify-content: center;
         } /* 정렬 */
+        
+        .pagination #clickPage {
+            background-color: rgb(255, 165,0);
+            border-radius: 50%;
+        }
         .pagination ul li{
             list-style: none;
             line-height: 45px;
@@ -95,9 +111,10 @@
             height: 35px;
             width: 35px;
             transition: all 0.5s ease;
+            margin: 3px 3px 3px 3px;
         } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
         .pagination ul li a{
-            padding: 5px 5px 5px 5px;
+            padding: 30px 5px 30px 5px;
             margin: 5px 5px 5px 5px;
         	text-decoration: none;
         	color:black;
@@ -119,23 +136,39 @@
             border-radius: 50%;
             color:white;
         } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
+        
+        
     </style>
 </head>
-<body>
+<body style="overflow-x: hidden">
 
     <jsp:include page="../common/header.jsp"/>
     
     <div class="body">
         <div class="inner_body">
+            <nav class="sessionTitle">
+                <h3><b>연애의 발견</b></h3>
+                <hr>
+            </nav>
             <div class="sub_head">
-                <div class="title">연애의발견</div>
+                <c:if test="${ not empty loginUser and loginUser.partner ne 0 }">
                 <a class="btn_write" href="enrollForm.ca">작성</a>
+                </c:if>
             </div>
             <div class="sub_body">
                 <div class="card_area">
                 	<c:forEach var="c" items="${ list }">
                     <div class="card_items">
-                        <a class="card_img" href=""><img src="" alt="이미지 박스입니다."></a>
+                        <div class="card_img">
+	                        <c:choose>
+	                        <c:when  test="${ a[c.catchNo] ne null}">
+	                        <img src="${ a[c.catchNo].attChange }">
+	                        </c:when>
+	                        <c:otherwise>
+	                        <img src="https://dilavr.com.ua/image/catalog/empty-img.png">
+	                        </c:otherwise>
+	                        </c:choose>
+                        </div>
                         <div class="cno" style="visibility: hidden; display:none;">${ c.catchNo }</div>
                         <div class="data_area">
                             <div class="title">${ c.catchTitle }</div>
@@ -165,7 +198,14 @@
                     		</c:choose>
                     		
 				            <c:forEach var="c" begin="${ pi.startPage }" end="${ pi.endPage }">
-				            <li class="page_num"><a href="list.ca?cpage=${ c }">${ c }</a></li>
+				            <c:choose>
+				            <c:when test="${ c != pi.currentPage }">
+				            <li class="page_num" ><a href="list.ca?cpage=${ c }">${ c }</a></li>
+				            </c:when>
+				            <c:otherwise>
+				            <li id="clickPage" class="page_num" ><a href="list.ca?cpage=${ c }">${ c }</a></li>
+				            </c:otherwise>
+				            </c:choose>
 				            </c:forEach>
 				            
 				            <c:choose>

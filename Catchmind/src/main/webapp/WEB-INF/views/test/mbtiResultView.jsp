@@ -6,7 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title> CATCHMIND | 캐치마인드 </title>
+ <!--AOS-->
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+ <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 <style>
+    /* 폰트 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
 	.mbtiResult-area {
         width: 1200px;
         height: 750px;
@@ -16,21 +23,24 @@
 
     .mbtiResult-img {
         width: 500px;
-        margin-top: 70px;
+        margin-top: 50px;
     }
 
     .mbtiResult-title {
+        font-family: 'IBM Plex Sans KR', sans-serif;
         font-size: 30px;
         font-weight: bold;
         margin-top: 15px;
     }
 
     .mbtiResult-mbti {
+        font-family: 'IBM Plex Sans KR', sans-serif;
         font-size: 45px;
         font-weight: bold;
     }
 
     .mbtiResult-content {
+        font-family: 'IBM Plex Sans KR', sans-serif;
         width: 500px;
         margin: 25px 0px 35px 0px;
     }
@@ -40,7 +50,17 @@
         color: white !important;
         width: 250px;
         border-radius: 20px !important;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        box-shadow: 1px 3px 4px rgba(0,0,0,0.3);
     }
+    .mbtiResult-btn:hover{
+        color: white;
+        background: linear-gradient(to right, rgb(236, 3, 194) 10%, orange);
+    }
+    #mbtiResultModal{
+        font-family: 'IBM Plex Sans KR', sans-serif;
+    }
+ 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -51,12 +71,12 @@
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	
-    <div class="mbtiResult-area" align="center">
+    <div class="mbtiResult-area" align="center" data-aos="fade-up" data-aos-duration="1000">
         <img class="mbtiResult-img" src="${ testResult.mbtiImg }">
-        <div class="mbtiResult-title">${ testResult.mbtiTitle }</div>
-        <div class="mbtiResult-mbti">${ testResult.mbtiResult }</div>
-        <div class="mbtiResult-content" align="left">${ testResult.mbtiContent }</div>
-        <button class="btn mbtiResult-btn" data-toggle="modal" data-target="#mbtiResultModal">확인</button>
+        <div class="mbtiResult-title" data-aos="fade-up" data-aos-duration="1000">${ testResult.mbtiTitle }</div>
+        <div class="mbtiResult-mbti" data-aos="fade-up" data-aos-duration="1000">${ testResult.mbtiResult }</div>
+        <div class="mbtiResult-content" align="left" data-aos="fade-up" data-aos-duration="1000">${ testResult.mbtiContent }</div>
+        <button class="btn mbtiResult-btn" data-toggle="modal" data-target="#mbtiResultModal" data-aos="fade-up" data-aos-duration="1000">확인</button>
     </div>
 
     <div class="modal" id="mbtiResultModal">
@@ -89,5 +109,8 @@
     
     <jsp:include page="../common/footer.jsp"/>
     
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>

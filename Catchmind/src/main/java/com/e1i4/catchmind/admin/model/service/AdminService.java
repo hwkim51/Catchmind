@@ -2,6 +2,8 @@ package com.e1i4.catchmind.admin.model.service;
 
 import java.util.ArrayList;
 
+import com.e1i4.catchmind.board.model.vo.Board;
+import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
@@ -65,4 +67,20 @@ public interface AdminService {
 	int insertFaq(Faq f);
 	
 	int deleteFaq(int faqNo);
+	
+	int selectPostCount();
+	
+	ArrayList<Post> selectPostList(PageInfo pi);
+
+	int selectCatchCount();
+
+	ArrayList<Catch> selectCatchList(PageInfo pi);
+
+	int recoverPost(int postNo);
+	
+	int deletePost(int postNo);
+
+	int recoverCatch(int catchNo);
+
+	int deleteCatch(int catchNo);
 }

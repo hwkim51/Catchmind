@@ -19,16 +19,14 @@ body{
     padding: 0;
     font-size: .8rem;
 }
-
+.question, .chat-message{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
 .chat-list li {
     margin-bottom: 10px;
     overflow:auto;
     color: #ffffff;
 }
-
-
-
-
 
 .chat-list .chat-img {
     float: left;
@@ -142,6 +140,7 @@ body{
 }
 
 .card-body-content{
+    font-family: 'IBM Plex Sans KR', sans-serif;
     margin-top:80px;
     text-align: center;
     /*border: 1px solid red;*/
@@ -152,6 +151,7 @@ body{
 }
 
 .box{
+    font-family: 'IBM Plex Sans KR', sans-serif;
     text-align: center;
     margin-top: 50px;
 }
@@ -203,7 +203,6 @@ body{
     overflow-y:auto;
 
 }
-
 #btn1{
     background-color: orange;
     color: white;
@@ -215,14 +214,21 @@ body{
     border-bottom-color: #e2e2e2;
     font-size:small;
 }
+.sessionTitle{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    margin-left: 50px;
+    width: 300px;
+}
 </style>
 </head>
 <body>
     <%-- header 영역 --%>
     <jsp:include page="../common/header.jsp"/>
 	<div class="outer">
-        <h1>FAQ</h1><hr>
-
+        <nav class="sessionTitle">
+            <h3><b>FAQ</b></h3>
+            <hr>
+        </nav>
     <div class="container content">
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -239,8 +245,16 @@ body{
                             <div><h4>catchmindofficial@gmail.com</h4></div>
                             <hr><br>
                             <div>
-                                <span><b>관리자에게 1:1 문의하기</b></span>
-                                <span><button id="btn1" onclick="inquiryClick();">문의하기</button></span>
+                            <c:choose>
+                            	<c:when test="${not empty loginUser }">
+	                                <span><b>관리자에게 1:1 문의하기</b></span>
+	                                <span><button id="btn1" onclick="inquiryClick();">문의하기</button></span>
+                                </c:when>
+                                <c:otherwise>
+                                	 <span><b>로그인 후 1:1 문의 가능합니다.</b></span>
+	                                <span><button id="btn1" onclick="login();">로그인하기</button></span>
+                                </c:otherwise>
+                            </c:choose>
                             </div>
                         </div>
                     </div>
@@ -329,7 +343,9 @@ body{
         // 채팅 스크롤 하단으로 보내기 
         $("#chatlist-id").scrollTop($("#chatlist-id")[0].scrollHeight);
          
-          
+        function login(){
+        	location.href="loginPage.me";
+        }  
     </script>
     
     <%-- footer 영역 --%>

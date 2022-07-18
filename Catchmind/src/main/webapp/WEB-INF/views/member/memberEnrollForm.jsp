@@ -79,15 +79,17 @@
         width:50px;
     }
     #upfilePicPreview{
-        background-image:url('https://cdn-icons-png.flaticon.com/512/3525/3525130.png');
+        background-image:url('./resources/images/pic.png');
         background-size: contain;
         background-color: rgba(0, 0, 0, 0.865);
+        object-fit: cover;
     }
     #upfilePicPreview:hover{
         cursor: pointer;
         background-image:url('./resources/images/pic2.png');
         background-size: contain;
         background-color: rgba(0, 0, 0, 0.865);
+        object-fit: cover;
     }
 </style>
 </head>
@@ -255,8 +257,8 @@
             <input type="text" id="nickname" name="nickname" maxlength="15"><br>
                 <div class="check_font" id="nickname_check">닉네임으로 회원님을 소개해주세요.</div>
             <label for="mbti">MBTI : </label>
-            <input type="text" id="mbti" name="mbti"><br><br>
-          
+            <input type="text" id="mbti" name="mbti">
+                <div class="check_font" id="mbti_check">mbti를 입력하면 매칭 성공률이 높아져요! 👍</div><br><br>
             <input type="submit" id="btn-terms3" class="btn-terms" value="회&nbsp;원&nbsp;가&nbsp;입 ">
         </div><br>
         <div class="status">
@@ -353,12 +355,14 @@
             var $checkPwd = $("#enrollStep2 input[name=checkPwd]");
             var $email = $("#enrollStep2 input[name=email]");
             var $phone = $("#enrollStep2 input[name=phone]");
+            var $mbti = $("#enrollStep3 input[name=mbti]");
             var $nickname = $("#enrollStep3 input[name=nickname]");
 
             var regExpId = /^[0-9a-zA-Z]{3,14}$/; 
             var regExpPwd = /^[a-zA-Z0-9`~!@#$%^&*+=_-|₩';:₩"/?]{4,16}$/i;
             var regExpPhone = /^[0-9]{4}$/;
             var regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9A-Za-z])*@[0-9a-zA-Z]([-_.]?[0-9A-Za-z])*.[a-zA-Z]{2,3}$/i;
+            var regExpMbti = /^[E,I,e,i][S,N,s,n][F,T,f,t][P,J,p,j]$/;
 
             // * id 유효성 검사 & 중복체크
             $checkId.blur(function(){   
@@ -433,8 +437,20 @@
                 else{
                     $("#btn-terms2").prop("disabled",false);
                 }
-            })
-
+            });
+            // * MBTI 유효성 체크 
+            $mbti.blur(function(){
+                console.log($mbti.val().length);
+                if( $mbti.val().length >= 1 &&  !regExpMbti.test($mbti.val())){
+                        $("#mbti_check").css("color","red").text("MBTI를 모른다면 비워두시고, 캐치마인드에서 나의 MBTI를 검사할 수 있어요.");    
+                        document.getElementById("mbti").focus;
+                        $("#btn-terms3").prop("disabled",true);
+                }
+                else{
+                    $("#mbti_check").css("color","grey").text("캐치마인드가 당신의 인연을 찾아드릴게요:D");
+                    $("#btn-terms3").prop("disabled",false);
+                }
+            });
             // * 닉네임 중복 체크 
             $nickname.blur(function(){ 
                 if($nickname.val().length >= 1){

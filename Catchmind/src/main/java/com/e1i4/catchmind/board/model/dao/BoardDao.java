@@ -7,11 +7,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e1i4.catchmind.board.model.vo.Catch;
+import com.e1i4.catchmind.board.model.vo.Like;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
+import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 
 @Repository
 public class BoardDao {
@@ -149,4 +151,66 @@ public class BoardDao {
 	public int updateCatch(Catch c, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("boardMapper.updateCatch", c);
 	}
+
+	public int insertLike(Like l, SqlSessionTemplate sqlSession) {
+		sqlSession.update("boardMapper.decreaseCatchCount", l);
+		return sqlSession.insert("boardMapper.insertLike", l);
+	}
+	
+	public int deleteLike(Like l, SqlSessionTemplate sqlSession) {
+		sqlSession.update("boardMapper.decreaseCatchCount", l);
+		return sqlSession.delete("boardMapper.deleteLike", l);
+	}
+
+	public int selectLike(Like like, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectLike", like);
+	}
+
+	public int likeCount(int catchNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.likeCount", catchNo);
+	}
+
+	public Attach selectFileTop(int catchNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectFileTop", catchNo);
+	}
+
+	public int getCatchNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.getCatchNo");
+	}
+
+	public ArrayList<Catch> selectMyCatchList(PageInfo pi, int userNo, SqlSessionTemplate sqlSession) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMyCatchList", userNo, rowBounds);
+	}
+
+	public int selectMyCatchCount(int userNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectMyCatchCount", userNo);
+	}
+
+	public int selectMyQACount(int userNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectMyQACount", userNo);
+	}
+
+	public ArrayList<Inquiry> selectMyQAList(PageInfo pi, int userNo, SqlSessionTemplate sqlSession) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMyQAList", userNo, rowBounds);
+	}
+
+	public int updateQA(Inquiry i, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("boardMapper.updateQA", i);
+	}
+
+	public int deleteQA(int qaNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("boardMapper.deleteQA", qaNo);
+	}
+
+	
 }

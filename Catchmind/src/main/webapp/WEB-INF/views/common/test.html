@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>detect close the browser or refresh</p>
+  <form action="">
+    <textarea placeholder="input the text and use this page"name="" id="" cols="30" rows="10"></textarea>
+  </form>
+  <script>
+    window.addEventListener('beforeunload', (event) => {     // beforeunload
+      // 표준에 따라 기본 동작 방지
+      event.preventDefault();
+      // Chrome에서는 returnValue 설정이 필요함
+      event.returnValue = '';
+    });
+  </script>
+</body>
+</html>

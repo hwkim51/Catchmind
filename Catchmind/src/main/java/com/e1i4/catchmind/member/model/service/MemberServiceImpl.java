@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.member.model.dao.MemberDao;
 import com.e1i4.catchmind.member.model.vo.Block;
+import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
 
 @Service
@@ -89,7 +90,12 @@ public class MemberServiceImpl implements MemberService  {
 	public int updateRecentLogout(String userId) {
 		return memberDao.updateRecentLogout(sqlSession, userId);
 	}
-
+	
+	@Override
+	public int updateRefreshSession(String userId) {
+		return memberDao.updateRefreshSession(sqlSession, userId);
+	}
+	
 	@Override
 	public ArrayList<Member> selectFollowList(int userNo) {
 		return memberDao.selectFollowList(sqlSession, userNo);
@@ -105,9 +111,9 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.deleteBlockMember(sqlSession, b);
 	}
 
+	// 마이페이지 - 프로필 수정 서비스(update)
 	@Override
 	public int updateProfile(Member m) {
-		
 		return memberDao.updateProfile(sqlSession, m);
 	}
 
@@ -120,4 +126,57 @@ public class MemberServiceImpl implements MemberService  {
 	public Member getChatClaim(int userNo) {
 		return memberDao.getChatClaim(sqlSession, userNo);
 	}
+	
+	// 마이페이지 - 회원 정보 수정 서비스(update)
+	@Override
+	public int updateInfo(Member m) {
+		return memberDao.updateInfo(sqlSession, m);
+	}
+	
+	@Override
+	public int unfollowMember(Follow f) {
+		return memberDao.unfollowMember(sqlSession, f);
+	}
+
+	// 마이페이지 - 프로필 수정 > 기존 비밀번호 체크 서비스(select)
+	@Override
+	public int originPwdCheck(String checkOriginPwd) {
+		return memberDao.originPwdCheck(sqlSession, checkOriginPwd);
+	}
+
+	// 마이페이지 - 프로필 수정 > 변경된 비밀번호 업데이트 서비스(update)
+	@Override
+	public int infoUpdatePwd(Member m) {
+		return memberDao.infoUpdatePwd(sqlSession, m);
+	}
+
+	// 커플 관리 > 커플 요청 리스트 조회 서비스(select)
+	@Override
+	public ArrayList<Member> selectRequestList(Member m) {
+		return memberDao.selectRequestList(sqlSession, m);
+	}
+	
+	// 커플 관리 > 커플 요청을 받는 회원의 회원 번호 조회 서비스(select)
+	@Override
+	public String selectCoupleNo(String coupleId) {
+		return memberDao.selectCoupleNo(sqlSession, coupleId);
+	}
+
+	// 커플 관리 > 커플 아이디어 업데이트 서비스(update)
+	@Override
+	public int updateCoupleId(Member m) {
+		return memberDao.updateCoupleId(sqlSession, m);
+	}
+	
+	// 커플 관리 > 커플 거절 서비스(delete)
+	@Override
+	public int refuseCouple(Member m) {
+		return memberDao.refuseCouple(sqlSession, m);
+	}
+	
+	
+
+
+	
+	
 }

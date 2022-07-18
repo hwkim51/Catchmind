@@ -59,11 +59,14 @@
     .myPage-nav {
         width: 1000px;
         margin-left: 150px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        font-size: 22px;
     }
     .myPage-menu {
         display : table-cell;
         height : 50px;
-        width : 150px;
+        width : 200px;
+        font-weight: 600;
         text-align: center;
     }
     .myPage-menu a {
@@ -86,10 +89,14 @@
         <div class="myPage-menu"><a href="myPage.me">회원정보수정</a></div>
         <div class="myPage-menu"><a href="myFollow.me">팔로우리스트</a></div>
         <div class="myPage-menu"><a href="myBlock.me">차단리스트</a></div>
-        <div class="myPage-menu"><a href="">커플관리</a></div>
-        <div class="myPage-menu"><a href="">내글관리</a></div>
+        <div class="myPage-menu"><a href="#" onclick="javascript:document.myCoupleForm.submit();">커플관리</a></div>
+        <div class="myPage-menu"><a href="myBoard.po">내글관리</a></div>
         <hr>
     </div>
+    
+    <form name="myCoupleForm" action="myCouple.me" method="post">
+       <input type="hidden" name="userNo" value="${ loginUser.userNo }">
+    </form>
 
     <%-- myPage followList 영역 --%>
     <div class="content">
@@ -97,7 +104,7 @@
             <table align="center" id="followTable">
             <!-- ajax : 동적으로 구성 예정 -->
             	<tbody>
-            	
+            		
             	</tbody>
             </table>
         </div>
@@ -121,9 +128,20 @@
     			for(var i in result){
     				
     				resultStr += "<tr>"
-    						   + 	"<th class='box' style='background: white;'>"
-    						   + 		"<img class='profile' src='"+ result[i].pic +"'>"
-                    		   + 	"</th>"
+    						   + 	"<th class='box' style='background: white;'>";
+    						   if(result[i].pic != null && result[i].recentLogout != null){//사진 있고 접속 중 x
+    							   resultStr += "<img class='profile' style='filter:brightness(0.4);' src='"+ result[i].pic +"'>"
+    						   }
+    						   else if(result[i].pic != null && result[i].recentLogout == null){ //사진 있고 접속 중
+    							   resultStr += "<img class='profile' src='"+ result[i].pic +"'>"
+    						   }
+    						   else if(result[i].pic == null && result[i].recentLogout != null){ //사진 없고 접속 중 x
+    							   resultStr += "<img class='profile' src='resources/images/user.png' style='filter:brightness(0.4); border: 1px solid #e0e1e2;'>"
+    						   }
+    						   else{ //사진 없고 접속 중
+    							   resultStr += "<img class='profile' src='resources/images/user.png' style='border: 1px solid #e0e1e2;'>"
+    						   }
+    				resultStr +=    "</th>"
                     		   +    "<td>"+ result[i].mbti +"</td>"
                     		   +    "<td>"+ result[i].nickname +"</td>"
                     		   +    "<td>";
@@ -144,11 +162,13 @@
                     		   }
                     		   
                     resultStr += "</td>"
-                    		   + "<td><button type='button' class='btn btn-secondary'>팔로우 취소</button></td>"
-                			   + "</tr>"
+                    		   + "<td id='ufButton'><a class='btn btn-secondary'>팔로우 취소</a></td>"
+                			   + "<td class='ufno' style='visibility: hidden; display:none;'>"+result[i].userNo+"</td>"
+                    		   + "</tr>"
     			}
     			
     			$("#followTable>tbody").html(resultStr);
+    			
     		},
     		error : function(){
     			console.log("ajax 통신으로 팔로우 리스트 조회 실패");
@@ -156,10 +176,18 @@
         });
     }
     
+    // 팔로우 취소
+    $(document).on("click", "#ufButton", function(event){
+    	console.log($(this).next().text()); //해당 회원 번호
+    	location.href="unfollow.me?foedUser="+$(this).next().text();
+    });
+   
+    // 대화하기
     
+   
     </script>
     <%-- footer 영역 --%>
     <jsp:include page="../common/footer.jsp"/>
-
+ 
 </body>
 </html>

@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.e1i4.catchmind.admin.model.service.AdminService;
+import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
@@ -50,48 +53,51 @@ public class AdminController {
 		return "admin/memberListView";
 	}
 	
+	// 회원관리 - 블랙리스트 처리  : 수빈
 	@RequestMapping("blackMember.ad")
-	public String blackMemeber(String userId, Model model) {
+	public String blackMemeber(String userId, HttpSession session) {
 		
 		int result = adminService.blackMember(userId);
 		
 		if(result > 0) {
-			model.addAttribute("alertMsg", "black성공!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"'는 블랙리스트 처리되었습니다.");
+			return "redirect:memberList.ad";
 		}
 		else {
-			model.addAttribute("alertMsg", "black실패!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"' 블랙리스트 처리가 실패되었습니다.");
+			return "common/errorPage";
 		}
 	}
 	
+	// 회원관리 - 회원탈퇴 처리  : 수빈
 	@RequestMapping("deleteMember.ad")
-	public String deleteMember(String userId, Model model) {
+	public String deleteMember(String userId, HttpSession session) {
 		
 		int result = adminService.deleteMember(userId);
 		
 		if(result > 0) {
-			model.addAttribute("alertMsg", "탈퇴 성공!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"'는 탈퇴 처리되었습니다.");
+			return "redirect:memberList.ad";
 		}
 		else {
-			model.addAttribute("alertMsg", "탈퇴 실패!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"' 탈퇴 처리가 실패되었습니다.");
+			return "common/errorPage";
 		}
 	}
 	
+	// 회원관리 - 회원계정 복구 처리  : 수빈
 	@RequestMapping("recoverMember.ad")
-	public String recoverMember(String userId, Model model) {
+	public String recoverMember(String userId, HttpSession session) {
 		
 		int result = adminService.recoverMember(userId);
 		
 		if(result > 0) {
-			model.addAttribute("alertMsg", "복구 성공!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"' 계정이 복구 처리되었습니다.");
+			return "redirect:memberList.ad";
 		}
 		else {
-			model.addAttribute("alertMsg", "복구 실패!");
-			return "admin/memberListView";
+			session.setAttribute("alertMsg", "'ID : "+userId+"' 계정 복구 처리가 실패되었습니다.");
+			return "common/errorPage";
 		}
 	}
 	
@@ -144,7 +150,7 @@ public class AdminController {
 		int listCount = adminService.selectInquiryCount();
 		
 		int pageLimit = 10;
-		int boardLimit = 10;
+		int boardLimit = 5;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
@@ -186,7 +192,7 @@ public class AdminController {
 		int listCount = adminService.selectListCount();
 		
 		int pageLimit = 10;
-		int boardLimit = 10;
+		int boardLimit = 5;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
@@ -314,7 +320,7 @@ public class AdminController {
 		int listCount = adminService.selectFaqCount();
 		
 		int pageLimit = 10;
-		int boardLimit = 10;
+		int boardLimit = 5;
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
@@ -370,4 +376,115 @@ public class AdminController {
 					
 		return changeName;
 	}
+	
+	// 통계 페이지 : 수빈
+	@RequestMapping("statistics.ad")
+	public String statistics() {
+		return "admin/statistics";
+	}
+	
+	//에브리타임 전체 조회 (유진)
+	@RequestMapping("postList.ad")
+	public String selectPostList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.selectPostCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 5;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Post> list = adminService.selectPostList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "admin/postListViewAdmin";
+	}
+	
+	// 에브리타임 복구 기능(인범)
+	@RequestMapping(value="recoverfncPost.ad", method=RequestMethod.GET)
+	public String recoverfncPost(int postNo, HttpSession session) {
+	
+		
+		int result = adminService.recoverPost(postNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 "+postNo+"번에 대한 복구 처리되었습니다.");
+			return "redirect:postList.ad";
+		}
+		else {
+			session.setAttribute("alertMsg", "게시글 "+postNo+"번에 대한 복구 처리에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 에브리타임 삭제 기능(인범)
+	@RequestMapping(value="deletefncPost.ad", method=RequestMethod.GET)
+	public String deletefncPost(int postNo, HttpSession session) {
+		
+		int result = adminService.deletePost(postNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 "+postNo+"번에 대한 삭제 처리되었습니다.");
+			return "redirect:postList.ad";
+		}
+		else {
+			session.setAttribute("alertMsg", "게시글 "+postNo+"번에 대한 삭제 처리에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	//연애의발견 전체 조회 (인범)
+	@RequestMapping("catchList.ad")
+	public String selectCatchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.selectCatchCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 5;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Catch> list = adminService.selectCatchList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "admin/catchListViewAdmin";
+		
+	}
+	
+	// 연애의발견 복구 기능(인범)
+	@RequestMapping(value="recoverfncCatch.ad", method=RequestMethod.GET, produces="application/text;charset=utf-8")
+	public String recoverfncCatch(int catchNo, HttpSession session) {
+	
+		
+		int result = adminService.recoverCatch(catchNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 "+catchNo+"번에 대한 복구 처리되었습니다.");
+			return "redirect:catchList.ad";
+		}
+		else {
+			session.setAttribute("alertMsg", "게시글 "+catchNo+"번에 대한 복구 처리에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 연애의발견 삭제 기능(인범)
+	@RequestMapping(value="deletefncCatch.ad", method=RequestMethod.GET, produces="application/text;charset=utf-8")
+	public String deletefncCatch(int catchNo, HttpSession session) {
+		
+		int result = adminService.deleteCatch(catchNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 "+catchNo+"번에 대한 삭제 처리되었습니다.");
+			return "redirect:catchList.ad";
+		}
+		else {
+			session.setAttribute("alertMsg", "게시글 "+catchNo+"번에 대한 삭제 처리에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	
 }

@@ -3,6 +3,7 @@ package com.e1i4.catchmind.member.model.service;
 import java.util.ArrayList;
 
 import com.e1i4.catchmind.member.model.vo.Block;
+import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
 
 public interface MemberService {
@@ -42,6 +43,8 @@ public interface MemberService {
 	// 로그아웃 시 recentLogout 업데이트
 	int updateRecentLogout(String userId);
 	
+	int updateRefreshSession(String userId);
+	
 	// 마이 페이지 팔로우 리스트 조회 서비스(select)
 	ArrayList<Member> selectFollowList(int userNo);
 	
@@ -58,4 +61,27 @@ public interface MemberService {
 	
 	// 채팅요청여부 확인용 메소드
 	Member getChatClaim(int userNo);
+	// 마이페이지 - 프로필 수정 > 기존 비밀번호 체크 서비스(select)
+	int originPwdCheck(String checkOriginPwd);
+	
+	// 마이페이지 - 프로필 수정 > 변경된 비밀번호 업데이트 서비스(update)
+	int infoUpdatePwd(Member m);
+	
+	// 마이페이지 - 회원 정보 수정 서비스(update)
+	int updateInfo(Member m);
+
+	int unfollowMember(Follow f);
+	
+	// 커플 관리 > 커플 요청 리스트 조회 서비스(select)
+	ArrayList<Member> selectRequestList(Member m);
+	
+	// 커플 관리 > 커플 요청을 받는 회원의 회원 번호 조회 서비스(select)
+	String selectCoupleNo(String coupleId);
+	
+	// 커플 관리 > 커플 아이디어 업데이트 서비스(update)
+	int updateCoupleId(Member m);
+	
+	// 커플 관리 > 커플 거절 서비스(delete)
+	int refuseCouple(Member m);
+
 }

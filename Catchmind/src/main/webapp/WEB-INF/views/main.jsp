@@ -18,6 +18,7 @@
  <style>
         html{
             font-size: 20px;
+            font-family: 'Noto Sans KR', sans-serif;
         }
          /* swiper */
         #mainSwiper{
@@ -88,10 +89,12 @@
             border-radius: 30px;
             font-weight: bolder;
             box-shadow: 1px 3px 4px rgba(0,0,0,0.3);
+            font-family: 'IBM Plex Sans KR', sans-serif;
         }
         .btn-main:hover{
             color: white;
             background: linear-gradient(to right, rgb(236, 3, 194) 10%, orange);
+            font-family: 'IBM Plex Sans KR', sans-serif;
         }
         /* article */
         .article-main {
@@ -107,6 +110,7 @@
             width: 550px;
         }
         .article-main b{
+            display: block;
             font-size: 35px;
             line-height: 30px;
         }
@@ -117,8 +121,12 @@
             margin: 10px 0px;
             transition-duration:0.5;
         }
-        .article-main b{
-            display: block;
+        #catchArea{
+            background-color: rgba(211, 211, 211, 0.171);
+            padding-left: 50px;
+            width: 1000px;
+            height: 500px;
+            
         }
 
         /* 미디어쿼리 (반응형 웹)
@@ -144,7 +152,6 @@
     
     </style>
 </head>
-
 <body>
     
     <%-- header 영역 --%>
@@ -174,9 +181,12 @@
             </div>
             <div class="swiper-slide">
                 <img src='./resources/images/nav4.jpg'>
-                <div class="text-wrap" style="text-align: left;"><br>
-                    <p style="color:rgb(246, 255, 0);">딱 나만큼 괜찮은 사람과의 만남</p>
-                    <h2 style="color:rgb(246, 255, 0);">CATCH<br>&nbsp;MIND</h2>
+                <div class="text-wrap" id="catchArea" style="text-align: left;"><br>
+                    <p style="color:rgb(255, 242, 0);">지금 바로 나의 운명의 상대를 찾고싶다면?</p>
+                    <h2 style="color:rgb(255, 242, 0);">CATCH
+                        <input type="button" class="btn-main" style="background-color: rgb(255, 242, 0);" value="채팅 상대 둘러보기"><br>&nbsp;MIND 
+                       
+                    </h2>
                 </div>
             </div>
         </div>

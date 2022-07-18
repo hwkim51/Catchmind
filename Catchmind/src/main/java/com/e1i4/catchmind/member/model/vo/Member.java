@@ -1,6 +1,5 @@
 package com.e1i4.catchmind.member.model.vo;
 
-import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +33,6 @@ public class Member {
 	private String partner; //PARTNER	NUMBER
 	private int status; //STATUS	NUMBER
 	private String pic; //PIC	VARCHAR2(100 BYTE)
-	private int longitude; //LONGITUDE	NUMBER
-	private int latitude; //LATITUDE	NUMBER
+	private double longitude; //LONGITUDE	NUMBER
+	private double latitude; //LATITUDE	NUMBER
 }

@@ -51,17 +51,20 @@
         height: 95%;
         border-radius: 70%;
         object-fit: cover;
-        filter:brightness(50%);
+        <!--filter:brightness(30%);-->
     }
     
     .myPage-nav {
         width: 1000px;
         margin-left: 150px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        font-size: 22px;
     }
     .myPage-menu {
         display : table-cell;
         height : 50px;
-        width : 150px;
+        width : 200px;
+        font-weight: 600;
         text-align: center;
     }
     .myPage-menu a {
@@ -81,74 +84,64 @@
 
     <%-- myPage header 영역 --%>
     <div class="myPage-nav">
-        <div class="myPage-menu"><a href="">회원정보수정</a></div>
+        <div class="myPage-menu"><a href="myPage.me">회원정보수정</a></div>
         <div class="myPage-menu"><a href="myFollow.me">팔로우리스트</a></div>
         <div class="myPage-menu"><a href="myBlock.me">차단리스트</a></div>
-        <div class="myPage-menu"><a href="">커플관리</a></div>
-        <div class="myPage-menu"><a href="">내글관리</a></div>
+        <div class="myPage-menu"><a href="#" onclick="javascript:document.myCoupleForm.submit();">커플관리</a></div>
+        <div class="myPage-menu"><a href="myBoard.po">내글관리</a></div>
         <hr>
     </div>
+    
+    <form name="myCoupleForm" action="myCouple.me" method="post">
+       <input type="hidden" name="userNo" value="${ loginUser.userNo }">
+    </form>
     
     <%-- myPage BlockList 영역 --%>
     <div class="content">
         <div class="innerContent">
             <table align="center" id="blockTable">
                 <tbody>
-                   
+                <c:forEach var="bl" items="${list }"> 
+                    <tr>
+                    	<th class="box" style="background: white;">
+		           			<c:choose>
+		           			<c:when test="${empty bl.pic }">
+		                        <img class="profile" src="resources/images/user.png">
+		                    </c:when>
+		                    <c:otherwise>
+		                    	<img class="profile" src="${bl.pic }">
+		                    </c:otherwise>   
+		                    </c:choose> 
+		                </th>
+                    	<td>${bl.mbti }</td>
+	                    <td>${bl.nickname }</td>
+	                    <c:choose>
+		                    <c:when test="${empty bl.profile }">
+		                   	 	<td>작성된 소개 글이 없어요!</td>
+		                    </c:when>
+		                    <c:otherwise>
+		                    	<td>${bl.profile }</td>
+		                    </c:otherwise>
+	                    </c:choose>
+                    	<td id="blButton"><a class="btn btn-dark">차단 취소</a></td>
+                    	<td class="blno" style="visibility: hidden; display:none;">${bl.userNo }</td>
+                	</tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
     </div>
     
     <script>
-    $(function(){
-    	selectBlockList();
-    	
-    	setInterval(selectBlockList, 2000);
-    	
-    	
-    	$("#blockTable>tbody>tr").on("click", "#button", function(){
-        	
-    		var blockedUser = $("#blockedUser").text();
-    		location.href="deleteBlock.me?blockNo="+blockedUser;	
+		$("#blockTable>tbody>tr>#blButton").click(function(){
+    		console.log($(this).siblings(".blno").text()); 
+    		location.href="deleteBlock.me?blno="+$(this).siblings(".blno").text();
     	});
-    });
-    
-    function selectBlockList(){
     	
-    	$.ajax({
-    		url: "bList.me",
-    		data : {userNo : ${loginUser.userNo}},
-    		success : function(result){
-    			
-    			var resultStr = "";
-    			
-    			for(var i in result){
-    				
-    				resultStr += "<tr>"
-    						   + 	"<th class='box' style='background: white;'>"
-    						   + 		"<img class='profile' src='"+ result[i].pic +"'>"
-                    		   + 	"</th>"
-                    		   +    "<td>"+ result[i].mbti +"</td>"
-                    		   +    "<td>"+ result[i].nickname +"</td>"
-                    		   +    "<td>"+ result[i].profile +"</td>"
-                    		   +    "<td><button type='button' id='button' class='btn btn-secondary'>차단해제</button></td>"
-                    		   +    "<td><input type='hidden' value='"+ result[i].userNo +"' id='blockedUser'></td>"
-                			   + "</tr>"
-    			}
-    			
-    			$("#blockTable>tbody").html(resultStr);
-    		},
-    		error : function(){
-    			console.log("ajax 통신으로 팔로우 리스트 조회 실패");
-    		}
-       });
-    }
-    
     </script>
     
     <%-- footer 영역 --%>
     <jsp:include page="../common/footer.jsp"/>
-
+    
 </body>
 </html>

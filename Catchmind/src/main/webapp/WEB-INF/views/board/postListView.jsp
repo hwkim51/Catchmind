@@ -12,40 +12,32 @@
     <style>
         .body{
             margin: auto;
-            width: 1720px;
+            width: 1200px;
         } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
         /* ################### sub_head 설정 영역 ################### */
         .sub_head{
             position: relative;
-            height: 130px;
-        } /* 게시판 타이틀 및 작성 영역 설정 */
+            height: 50px;
+            color: rgb(81, 81, 81);
+            font-family: 'IBM Plex Sans KR', sans-serif;
+        } /* 작성 영역 설정 */
+        
+        .sessionTitle{
+        	margin-left:0px !important;
+        }
 
-        .sub_head>.title{
-            position: absolute;
-            font-size: 50px;
-            width: 450px;
-            left:0px; /* 왼쪽 정렬 */
-            padding-bottom: 9px;
-            border-bottom: 1px solid black;
-        } /* 게시판 타이틀 설정 */
 
-        .sub_head>.btn_write{
-            position: absolute;
-            font-size: 15px;
-            cursor: pointer;
-            color: white;
-            right:0px; /* 오른쪽 정렬 */
-            top: 60px;
-            width: 120px;
-            height: 40px;
-            border-radius: 4px;
+      .btn_write{
+            width: 90px;
+            height: 35px;
             background-color: rgb(17, 199, 231);
-            text-decoration: none;
-            text-align: center;
-            vertical-align: middle;
-            padding-top: 8px;
-        } /* 작성 설정 */
+            color:white;
+            border-radius: 5px;
+            border: none;
+            float: right;
+      }
+
 
         /* ################### sub_body 설정 영역 ################### */
         .sub_body{
@@ -56,19 +48,29 @@
             border-spacing: 0px;
         } /* 리스트형 게시판의 상단부 설정 */
         .sub_body table{
+            font-family: 'IBM Plex Sans KR', sans-serif;
             border: 1px solid #cccccc;
             border-collapse: collapse;
             text-align: center;
         } /* 테두리 선에 대한 설정 */
+        .sub_body table *{
+            border-collapse: collapse;
+        }
         .sub_body .table tr{
         	cursor: pointer;
+            font-size: 14px;
+            height:15px;
+        	padding: 0px 0px 0px 0px;
         }
-        .sub_body tr{
-            font-size: 20px;
-            height: 50px;
-        } /* 리스트형 게시판 각 열 넓이 및 폰트 크기 */
+        .sub_body .table td{
+        	padding-top: 8px;
+        	padding-bottom : 8px;
+        }
+        .sub_body .table_pno{
+        	width:100px;
+        }
         .sub_body .table_title{
-            width: 1300px;
+            width: 1000px;
         } /* 제목 행에 대한 넓이 */
         .sub_body .table_writer{
             width: 300px;
@@ -84,6 +86,10 @@
             align-items: center;
             justify-content: center;
         } /* 정렬 */
+        .pagination #clickPage {
+            background-color: rgb(255, 165,0);
+            border-radius: 50%;
+        }
         .pagination ul li{
             list-style: none;
             line-height: 45px;
@@ -93,9 +99,10 @@
             height: 35px;
             width: 35px;
             transition: all 0.5s ease;
+            margin: 3px 3px 3px 3px;
         } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
         .pagination ul li a{
-            padding: 5px 5px 5px 5px;
+            padding: 30px 5px 30px 5px;
             margin: 5px 5px 5px 5px;
         	text-decoration: none;
         	color:black;
@@ -119,22 +126,29 @@
         } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
     </style>
 </head>
-<body>
+<body style="overflow-x: hidden">
 
     <jsp:include page="../common/header.jsp"/>
     
     <div class="body">
         <div class="inner_body">
+            <nav class="sessionTitle">
+                <h3><b>에브리타임⏰</b></h3>
+                <hr>
+            </nav>
+
             <div class="sub_head">
-                <div class="title">에브리타임</div>
+                * 누구나 OK 어떤 주제든 OK 캐치마인드 유저 커뮤니티
                 <c:if test="${ not empty loginUser }">
-                <a class="btn_write" href="enrollForm.po">작성</a>
+                    <input type="button" class="btn_write" value="작성" onclick="enrollFormGo();">
                 </c:if>
             </div>
+
             <div class="sub_body">
                 <table class="table">
                     <thead>
                       <tr>
+                        <th class="table_pno">글 번호</th>
                         <th class="table_title">글 제목</th>
                         <th class="table_writer">작성자</th>
                         <th class="table_date">작성일</th>
@@ -143,7 +157,7 @@
                     <tbody>
                     <c:forEach var="p" items="${ list }">
                       <tr>
-                        <td class="pno" style="visibility: hidden; display:none;">${ p.postNo }</td>
+                        <td class="pno">${ p.postNo }</td>
                         <td>${ p.postTitle }</td>
                         <td>${ p.nickName }</td>
                         <td>${ p.postDate }</td>
@@ -153,6 +167,11 @@
                   </table>
                   
                   	<script>
+                    
+                    function enrollFormGo(){
+                        location.href = 'enrollForm.po';
+                    }
+
 		           	$(function() {
 		           		$(".table>tbody>tr").click(function() {
 		           			location.href = "detail.po?pno=" + $(this).children(".pno").text();
@@ -173,7 +192,14 @@
                     		</c:choose>
                     		
 				            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-				            <li class="page_num"><a href="list.po?ppage=${ p }">${ p }</a></li>
+				            <c:choose>
+				            <c:when test="${ p != pi.currentPage }">
+				            <li class="page_num" ><a href="list.po?ppage=${ p }">${ p }</a></li>
+				            </c:when>
+				            <c:otherwise>
+				            <li id="clickPage"  class="page_num" ><a href="list.po?ppage=${ p }">${ p }</a></li>
+				            </c:otherwise>
+				            </c:choose>
 				            </c:forEach>
 				            
 				            <c:choose>

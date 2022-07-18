@@ -80,6 +80,7 @@ div{
 }
     
 #pagingArea {width:fit-content; margin:auto; margin-top:50px;}
+
 </style>
 </head>
 <body>
@@ -107,16 +108,22 @@ div{
                     </tr>
                 </thead>
                 <tbody>
-                
-                    <c:forEach items="${list}" var="iq">
-	                    <tr align="center">
-	                        <td class="qno">${iq.qaNo}</td>
-	                        <td class="tt">${iq.qaTitle}</td>
-	                        <td>${iq.qaWriter}</td>
-	                        <td>${iq.qaAnswerYn}</td>
-	                        <td id="detail"><a id="btn1">상세보기</a></td>
-	                    </tr>
-                    </c:forEach>
+	            	<c:choose>
+	                	<c:when test="${empty list }">
+	                		<td colspan="5">1:1 문의 내역이 없습니다.</td>
+	                	</c:when>
+                		<c:otherwise>
+		                    <c:forEach items="${list}" var="iq">
+			                    <tr align="center">
+			                        <td class="qno">${iq.qaNo}</td>
+			                        <td class="tt">${iq.qaTitle}</td>
+			                        <td>${iq.qaWriter}</td>
+			                        <td>${iq.qaAnswerYn}</td>
+			                        <td id="detail"><a id="btn1">상세보기</a></td>
+			                    </tr>
+		                    </c:forEach>
+	                    </c:otherwise>
+                    </c:choose>
                 </tbody>
             </table>
           </div>

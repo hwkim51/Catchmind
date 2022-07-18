@@ -13,19 +13,19 @@
 
       .body{
           margin: auto;
-          width: 1700px;
+          width: 1400px;
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
       .sub_head{
-          position: relative;
-          height: 130px;
-      } /* 게시판 타이틀 및 작성 영역 설정 */
+            position: relative;
+            height: 90px;
+        } /* 게시판 타이틀 및 작성 영역 설정 */
 
-      .sub_head>.title{
+        .sub_head>.title{
           position: absolute;
-          font-size: 50px;
-          width: 450px;
+          font-size: 40px;
+          width: 380px;
           left:0px; /* 왼쪽 정렬 */
           padding-bottom: 9px;
           border-bottom: 1px solid black;
@@ -37,7 +37,7 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 60px;
+            top: 30px;
             width: 120px;
             height: 40px;
             border-radius: 4px;
@@ -54,7 +54,7 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 60px;
+            top: 30px;
             width: 120px;
             height: 40px;
             border-radius: 4px;
@@ -76,37 +76,68 @@
       /* ########## 글제목, 작성일자, 작성자 설정 영역 ########## */
       .sub_body>.wr_title{
         display: inline-block;
-        width: 1200px;
+        width: 920px;
         font-weight: 800;
         font-size: 30px;
         margin-bottom: 5px;
       } /* 글제목 설정 */
       .sub_body>.wr_date{
         display: inline-block;
-        width: 400px;
+        width: 350px;
         font-weight: 800;
         font-size: 30px;
       } /* 작성일자 설정 */
       .sub_body>.wr_writer{
         display: inline-block;
-        width: 1200px;
+        width: 920px;
         font-weight: 800;
         font-size: 30px;
         margin-bottom: 20px;
       } /* 작성자 설정 */
       .sub_body>.wr_count{
         display: inline-block;
-        width: 400px;
+        width: 200px;
         font-weight: 800;
         font-size: 30px;
       } /* 조회수 설정 */
+      .sub_body>.wr_count>#countLike{
+        display: inline-block;
+      }
+      
+      .sub_body>.btn_like{
+        display: inline-block;
+        width: 200px;
+        font-weight: 800;
+        font-size: 30px;
+      	float:right;
+      	cursor:pointer;
+      	border: none;
+      	background: none;
+      }.sub_body>.btn_like_cancel{
+        display: inline-block;
+        width: 200px;
+        font-weight: 800;
+        font-size: 30px;
+      	float:right;
+      	cursor:pointer;
+      	border: none;
+      	background: none;
+      }
+      .sub_body>.btn_like_disabled{
+        display: inline-block;
+        width: 200px;
+        font-weight: 800;
+        font-size: 30px;
+      	float:right;
+      }
       
       .swiper {
 		  width: 100%;
-		  height: 535px;
+		  height: 300px;
 		  position:sticky !important;
 		  top:1px !important;
 		  background: #eaeaea;
+		  z-index:0 !important;
 		}
       .swiper img{
 	    width:100%;
@@ -161,19 +192,24 @@
       #reply_Area .report-box{
       font-size: 7px;
       } /* 댓글의 신고하기 크기설정 */
+      
+      
     </style>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 </head>
-<body>
+<body style="overflow-x: hidden">
 
     <jsp:include page="../common/header.jsp" />
         
     <div class="body">
         <div class="inner_body">
+          <nav class="sessionTitle">
+            <h3><b>연애의 발견</b></h3>
+            <hr>
+        </nav>
             <div class="sub_head">
-                <div class="title">연애의발견</div>
                 <c:if test="${ (not empty loginUser) and (loginUser.userNo eq c.catchWriter) or (loginUser.userNo eq 1) }">
                 <a class="btn_update" onclick="catchFormSubmit(1);">수정</a>
                 <a class="btn_delete" onclick="catchFormSubmit(2);">삭제</a>
@@ -182,7 +218,6 @@
             <c:if test="${ (not empty loginUser) and (loginUser.userNo eq c.catchWriter) or (loginUser.userNo eq 1) }">
             	<form id="catchForm" action="" method="post">
             		<input type="hidden" name="catchNo" value="${ c.catchNo}">
-            		<input type="hidden" name="filePath" value="${ a.attChange }">
             	</form>
             	
             	<script>
@@ -201,7 +236,18 @@
                 <div class="wr_title">글제목 : ${ c.catchTitle }</div>
                 <div class="wr_date">작성일자 : ${ c.catchDate }</div> <br>
                 <div class="wr_writer">작성자 : ${ c.nickName }</div>
-                <div class="wr_count">조회수 : ${ c.catchCount }</div> <br>
+                <div class="wr_count">조회수 : ${ c.catchCount }</div>
+                <c:choose>
+                <c:when test="${ not empty loginUser and llist eq 0 }">
+                <button class="btn_like" onclick="like();">좋아요 : ${ l }</button><br>
+                </c:when>
+                <c:when test="${ not empty loginUser and llist eq 1 }">
+                <button class="btn_like_cancel" onclick="cancelLike();">좋아요 : ${ l }</button><br>
+                </c:when>
+                <c:otherwise>
+                <div class="btn_like_disabled">좋아요 : ${ l }</div><br>
+                </c:otherwise>
+                </c:choose>
                 <c:if test="${ !empty alist }">
                 	<div class=swiper>
                			<div class=swiper-wrapper>
@@ -270,7 +316,61 @@
       				console.log("댓글작성용 ajax 통신 실패!");
       			}
       		});
-  	}
+  		}
+	  function like() {
+		  $.ajax({
+			  url : "like.ca",
+			  data : {
+				  catchNo : ${ c.catchNo},
+				  likeUser : ${ loginUser.userNo }
+			  },
+			  success : function(result) {
+					  if(result=="success") {
+						  selectLike();
+					  } else {
+						  console.log("좋아요 반영 실패")
+					  }
+				  },
+			  error : function() {
+				  console.log("좋아요 ajax 통신 실패!");
+			  }
+			  
+		  });
+	  }
+	  
+	  function cancelLike() {
+		  $.ajax({
+			  url : "cancelLike.ca",
+			  data : {
+				  catchNo : ${ c.catchNo},
+				  likeUser : ${ loginUser.userNo }
+			  },
+			  success : function(result) {
+					  if(result=="success") {
+						  selectLike();
+					  } else {
+						  console.log("좋아요 반영 실패")
+					  }
+				  },
+			  error : function() {
+				  console.log("좋아요 ajax 통신 실패!");
+			  }
+			  
+		  });
+	  }
+	  
+	  function selectLike() {
+		  $.ajax({
+			  url : "countLike.ca",
+			  data : {catchNo : ${ c.catchNo }},
+			  success : function(result) {
+				  location.reload();
+			  },
+			  error : function() {
+				  console.log("좋아요 선택 통신 실패!")
+			  }
+		  });
+	  }
 	  </script>
 	  <script>
 	  const swiper = new Swiper('.swiper', {

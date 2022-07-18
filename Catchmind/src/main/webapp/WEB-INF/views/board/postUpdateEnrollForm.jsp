@@ -8,49 +8,36 @@
 <title>Insert title here</title>
 
 	<style>
-		/* ################### 임시 ################### header영역 넓이 */
-      .header{
-          width: 100%;
-          height: 100px;
-          background-color: aquamarine;
-      } 
-
       .body{
           margin: auto;
-          width: 1720px;
+          width: 1200px;
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
       .sub_head{
           position: relative;
-          height: 130px;
+          height: 50px;
       } /* 게시판 타이틀 및 작성 영역 설정 */
-
-      .sub_head>.title{
-          position: absolute;
-          font-size: 50px;
-          width: 450px;
-          left:0px; /* 왼쪽 정렬 */
-          padding-bottom: 9px;
-          border-bottom: 1px solid black;
-      } /* 게시판 타이틀 설정 */
+	  .sessionTitle{
+        	margin-left:0px !important;
+        	margin-bottom:50px
+        }
 
       /* ################### sub_body 설정 영역 ################### */
       .sub_body .form-title,.form-content,.form-file{
         margin: auto;
         padding: auto;
-        font-size: 25px;
         resize: none;
         outline: none;
       }
       
       .sub_body #title{
-      	width: 1600px;
+      	width: 600px;
     	}
 
       .sub_body #content{
-          width: 1600px;
-          height: 520px;
+          width: 600px;
+          height: 300px;
       }
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
@@ -66,21 +53,33 @@
         border-radius: 3px;
         width: 100px;
         height: 33px;
-        margin-left: 800px;
-        margin-top:10px;
+        margin-left: 350px;
         margin-bottom : 34px;
+      }
+      #erollFormPost{
+        width: 70%;
+        margin: auto;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        padding-left: 20px;
+      }
+      #erollFormPost td{
+        padding-left: 20px;
+      }
+      #erollFormPost th, #erollFormPost td{
+        padding-bottom: 20px;
       }
 	</style>
 </head>
-<body>
+<body style="overflow-x: hidden">
 
     <jsp:include page="../common/header.jsp" />
         
     <div class="body">
         <div class="inner_body">
-            <div class="sub_head">
-                <div class="title">에브리타임</div>
-            </div>
+            <nav class="sessionTitle">
+                <h3><b>에브리타임⏰</b></h3>
+                <hr>
+            </nav>
             <div class="sub_body">
                 <form id="erollFormPost" method="post" action="update.po" enctype="multipart/form-data">
                     <table algin="center">

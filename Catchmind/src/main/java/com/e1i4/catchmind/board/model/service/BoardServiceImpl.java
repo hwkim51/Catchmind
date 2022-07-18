@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.board.model.dao.BoardDao;
 import com.e1i4.catchmind.board.model.vo.Catch;
+import com.e1i4.catchmind.board.model.vo.Like;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
-
-import oracle.net.aso.r;
+import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -123,6 +123,26 @@ public class BoardServiceImpl implements BoardService {
 	public int selectMyListCount(int userNo) {
 		return boardDao.selectMyListCount(userNo, sqlSession);
 	}
+	
+	@Override
+	public ArrayList<Catch> selectMyCatchList(PageInfo pi, int userNo) {
+		return boardDao.selectMyCatchList(pi, userNo, sqlSession);
+	}
+	
+	@Override
+	public int selectMyCatchCount(int userNo) {
+		return boardDao.selectMyCatchCount(userNo, sqlSession);
+	}
+	
+	@Override
+	public int selectMyQACount(int userNo) {
+		return boardDao.selectMyQACount(userNo, sqlSession);
+	}
+
+	@Override
+	public ArrayList<Inquiry> selectMyQAList(PageInfo pi, int userNo) {
+		return boardDao.selectMyQAList(pi, userNo, sqlSession);
+	}
 
 	
 	/* ============================ Catch ============================ */
@@ -181,8 +201,45 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.updateCatch(c, sqlSession);
 	}
 
+	@Override
+	public int insertLike(Like l) {
+		return boardDao.insertLike(l, sqlSession);
+	}
 	
+	@Override
+	public int deleteLike(Like l) {
+		return boardDao.deleteLike(l, sqlSession);
+	}
 
+	@Override
+	public int selectLike(Like like) {
+		return boardDao.selectLike(like, sqlSession);
+	}
+
+	@Override
+	public int likeCount(int catchNo) {
+		return boardDao.likeCount(catchNo, sqlSession);
+	}
+
+	@Override
+	public Attach selectFileTop(int catchNo) {
+		return boardDao.selectFileTop(catchNo, sqlSession);
+	}
+
+	@Override
+	public int getCatchNo() {
+		return boardDao.getCatchNo(sqlSession);
+	}
+
+	@Override
+	public int updateQA(Inquiry i) {
+		return boardDao.updateQA(i,sqlSession);
+	}
+
+	@Override
+	public int deleteQA(int qaNo) {
+		return boardDao.deleteQA(qaNo, sqlSession);
+	}
 
 	
 
