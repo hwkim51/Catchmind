@@ -105,5 +105,7 @@ public interface BoardService {
 	int updateQA(Inquiry i);
 
 	int deleteQA(int qaNo);
+
+	int deleteLike(Like l);
 	
 }

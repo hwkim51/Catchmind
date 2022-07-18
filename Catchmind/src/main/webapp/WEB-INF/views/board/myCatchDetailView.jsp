@@ -201,8 +201,11 @@
         
     <div class="body">
         <div class="inner_body">
+          <nav class="sessionTitle">
+            <h3><b>연애의 발견</b></h3>
+            <hr>
+        </nav>
             <div class="sub_head">
-                <div class="title">연애의발견</div>
                 <c:if test="${ (not empty loginUser) and (loginUser.userNo eq c.catchWriter) or (loginUser.userNo eq 1) }">
                 <a class="btn_update" onclick="catchFormSubmit(1);">수정</a>
                 <a class="btn_delete" onclick="catchFormSubmit(2);">삭제</a>

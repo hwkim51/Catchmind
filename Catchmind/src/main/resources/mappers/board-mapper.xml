@@ -121,8 +121,9 @@
 	 VALUES(SEQ_RNO.NEXTVAL, #{replyContent}, SYSDATE, 'Y', #{replyWriter}, #{replyPost})
 	</insert>
 	
+	<!-- SELECT 절에 REPLY_DATE 컬럼 추가함 : 수빈(7/18) -->
 	<select id="selectReplyList" parameterType="_int" resultMap="replyResultMap">
-	SELECT REPLY_NO, REPLY_WRITER, REPLY_CONTENT, NICKNAME
+	SELECT REPLY_NO, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE, NICKNAME
 	FROM TB_REPLY
 	JOIN TB_MEMBER ON (REPLY_WRITER=USER_NO)
 	WHERE TB_REPLY.STATUS='Y'
@@ -279,6 +280,13 @@
 		AND CATCH_STATUS = 'Y'
 	</update>
 	
+	<update id="decreaseCatchCount" parameterType="like">
+		UPDATE TB_CATCH
+		SET CATCH_COUNT = CATCH_COUNT - 1
+		WHERE CATCH_NO = #{catchNo}
+		AND CATCH_STATUS = 'Y'
+	</update>
+	
 	<delete id="deleteFiles" parameterType="attach">
 		DELETE TB_ATTACHMENT
 		WHERE ATT_CATCH = #{attCatch}
@@ -310,6 +318,10 @@
 		INSERT INTO TB_LIKE(CATCH_NO, LIKE_USER)
 		VALUES(#{catchNo},#{likeUser})
 	</insert>
+	<delete id="deleteLike" parameterType="like">
+		DELETE FROM TB_LIKE
+		WHERE CATCH_NO = #{catchNo} AND LIKE_USER  = #{likeUser}
+	</delete>
 	<select id="selectLike" parameterType="like" resultType="int">
 		SELECT COUNT(*)
 		FROM TB_LIKE
@@ -322,6 +334,19 @@
 		WHERE CATCH_NO = #{catchNo}
 	</select>
 	
+	<update id="updateQA" parameterType="inquiry">
+		UPDATE TB_QA
+		SET Q_TITLE = #{qaTitle}, Q_CONTENT = #{qaContent}
+		WHERE QA_NO = #{qaNo}
+	</update>
+	
+	<delete id="deleteQA" parameterType="_int">
+		DELETE FROM TB_QA
+		WHERE QA_NO = #{qaNo}
+	</delete>
+	
+	
+	<!-- ############################ 관리자 페이지 ############################ -->
 	<!-- 관리자: 에브리타임 게시글 개수 조회(유진) -->
 	<select id="selectPostCount" resultType="int">
 		SELECT COUNT(*) 
@@ -336,14 +361,43 @@
 		ORDER BY POST_DATE DESC, POST_NO DESC
 	</select>
 	
-	<update id="updateQA" parameterType="inquiry">
-		UPDATE TB_QA
-		SET Q_TITLE = #{qaTitle}, Q_CONTENT = #{qaContent}
-		WHERE QA_NO = #{qaNo}
+	<update id="recoverfncPost" parameterType="_int">
+		UPDATE TB_POST
+		SET POST_STATUS = 'Y'
+		WHERE POST_NO = #{postNo}
 	</update>
 	
-	<delete id="deleteQA" parameterType="_int">
-		DELETE FROM TB_QA
-		WHERE QA_NO = #{qaNo}
-	</delete>
+	<update id="deletefncPost" parameterType="_int">
+		UPDATE TB_POST
+		SET POST_STATUS = 'N'
+		WHERE POST_NO =#{postNo}
+	</update>
+	
+	<!-- 관리자: 캐치마인드 게시글 개수 조회(인범) -->
+	<select id="selectadCatchCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM TB_CATCH
+	</select>
+	
+	<!-- 관리자: 캐치마인드 전체 조회(인범) -->
+	<select id="selectadCatchList" parameterType="_int" resultMap="catchResultMap">
+		SELECT CATCH_NO, CATCH_TITLE, CATCH_CONTENT, TO_CHAR(CATCH_DATE, 'YYYY-MM-DD') "CATCH_DATE", CATCH_COUNT, CATCH_STATUS, NICKNAME
+		FROM TB_CATCH
+		JOIN TB_MEMBER ON (CATCH_WRITER=USER_NO)
+		ORDER BY CATCH_DATE DESC, CATCH_NO DESC
+	</select>
+	
+	<update id="recoverfncCatch" parameterType="_int">
+		UPDATE TB_CATCH
+		SET CATCH_STATUS = 'Y'
+		WHERE CATCH_NO = #{catchNo}
+	</update>
+	
+	<update id="deletefncCatch" parameterType="_int">
+		UPDATE TB_CATCH
+		SET CATCH_STATUS = 'N'
+		WHERE CATCH_NO =#{catchNo}
+	</update>
+	
+	
 </mapper>

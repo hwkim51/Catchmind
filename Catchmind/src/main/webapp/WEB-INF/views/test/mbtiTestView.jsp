@@ -4,7 +4,15 @@
 <head>
 <meta charset="UTF-8">
 <title> CATCHMIND | 캐치마인드 </title>
+
+ <!--AOS-->
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+ <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 <style>
+    /* 폰트 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
     .qArea {
         margin-top: 80px;
     }
@@ -17,6 +25,7 @@
     }
 
     .qText {
+        font-family: 'IBM Plex Sans KR', sans-serif;
         font-size: 1.8vw;
         font-weight: bold;
         line-height: 1.5;
@@ -32,6 +41,7 @@
     }
 
     .option {
+        font-family: 'IBM Plex Sans KR', sans-serif;
         width: 30vw;
         height: 6.6vw;
         margin-bottom: 12px;
@@ -43,6 +53,7 @@
         background-color: rgb(227, 234, 245);
         border-radius: 15px;
         cursor: pointer;
+        box-shadow: 1px 3px 4px rgba(0,0,0,0.3);
     }
 
     .option:hover {
@@ -72,6 +83,17 @@
         border-radius: 7px;
         background-color: steelblue;
     }
+    .optionA{
+        transition-delay: 0.9s;
+    }
+    .optionB{
+        transition-delay: 1.8s;
+    }
+    .testBackImg{
+        position: absolute;
+        top: 200px;
+        left: 150px;
+    }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -87,15 +109,19 @@
 
             <div class="carousel-item active qArea" align="center">
                 <div class="qNum" align="left">Q1</div>
-                <div class="qText" align="left">
+                <div class="qText" align="left" data-aos="fade-left" data-aos-duration="800">
                     <div>데이트가 없는</div>
-                    <div>주말에 나는</div>
+                    <div>주말에 나는
+                    </div>
+                    <img src='./resources/images/mbti1.png' class='testBackImg' width="320px;" height="200px;">
                 </div>
                 <div class="options" align="center">
-                    <div class="option" href="#question" data-slide="next" value="E">
+                    <div class="option optionA" href="#question" data-slide="next" value="E"
+                        data-aos="fade-left" data-aos-duration="600">
                     	모여! 친구들과 약속을 잡는다
                     </div>
-                    <div class="option" href="#question" data-slide="next" value="I">
+                    <div class="option optionB" href="#question" data-slide="next" value="I"
+                        data-aos="fade-left" data-aos-duration="600">
                     	집이 최고야! 이불 밖은 위험해
                     </div>
                 </div>
@@ -294,6 +320,8 @@
     <jsp:include page="../common/footer.jsp"/>
 
     <script>
+         AOS.init();
+
         $(function () {
 
             var E = 0;

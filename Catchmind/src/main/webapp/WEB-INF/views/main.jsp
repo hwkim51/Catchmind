@@ -18,6 +18,7 @@
  <style>
         html{
             font-size: 20px;
+            font-family: 'Noto Sans KR', sans-serif;
         }
          /* swiper */
         #mainSwiper{
@@ -88,10 +89,12 @@
             border-radius: 30px;
             font-weight: bolder;
             box-shadow: 1px 3px 4px rgba(0,0,0,0.3);
+            font-family: 'IBM Plex Sans KR', sans-serif;
         }
         .btn-main:hover{
             color: white;
             background: linear-gradient(to right, rgb(236, 3, 194) 10%, orange);
+            font-family: 'IBM Plex Sans KR', sans-serif;
         }
         /* article */
         .article-main {
@@ -107,6 +110,7 @@
             width: 550px;
         }
         .article-main b{
+            display: block;
             font-size: 35px;
             line-height: 30px;
         }
@@ -116,9 +120,6 @@
             height: 5px;
             margin: 10px 0px;
             transition-duration:0.5;
-        }
-        .article-main b{
-            display: block;
         }
         #catchArea{
             background-color: rgba(211, 211, 211, 0.171);

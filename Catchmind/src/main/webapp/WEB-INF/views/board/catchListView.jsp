@@ -19,6 +19,8 @@
         .sub_head{
             position: relative;
             height: 90px;
+            color: rgb(81, 81, 81);
+            font-family: 'IBM Plex Sans KR', sans-serif;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
         .sub_head>.title{
@@ -63,6 +65,7 @@
             width: 330px;
             height: 230px;
             margin: 0px 10px 0px 10px;
+            cursor: pointer;
         }
         .card_items>*{
         border: 1px solid #eaeaeaea;
@@ -94,6 +97,11 @@
             align-items: center;
             justify-content: center;
         } /* 정렬 */
+        
+        .pagination #clickPage {
+            background-color: rgb(255, 165,0);
+            border-radius: 50%;
+        }
         .pagination ul li{
             list-style: none;
             line-height: 45px;
@@ -103,6 +111,7 @@
             height: 35px;
             width: 35px;
             transition: all 0.5s ease;
+            margin: 3px 3px 3px 3px;
         } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
         .pagination ul li a{
             padding: 30px 5px 30px 5px;
@@ -137,9 +146,12 @@
     
     <div class="body">
         <div class="inner_body">
+            <nav class="sessionTitle">
+                <h3><b>연애의 발견</b></h3>
+                <hr>
+            </nav>
             <div class="sub_head">
-                <div class="title">연애의발견</div>
-                <c:if test="${ not empty loginUser and not empty loginUser.partner }">
+                <c:if test="${ not empty loginUser and loginUser.partner ne 0 }">
                 <a class="btn_write" href="enrollForm.ca">작성</a>
                 </c:if>
             </div>
@@ -186,7 +198,14 @@
                     		</c:choose>
                     		
 				            <c:forEach var="c" begin="${ pi.startPage }" end="${ pi.endPage }">
-				            <li class="page_num"><a href="list.ca?cpage=${ c }">${ c }</a></li>
+				            <c:choose>
+				            <c:when test="${ c != pi.currentPage }">
+				            <li class="page_num" ><a href="list.ca?cpage=${ c }">${ c }</a></li>
+				            </c:when>
+				            <c:otherwise>
+				            <li id="clickPage" class="page_num" ><a href="list.ca?cpage=${ c }">${ c }</a></li>
+				            </c:otherwise>
+				            </c:choose>
 				            </c:forEach>
 				            
 				            <c:choose>

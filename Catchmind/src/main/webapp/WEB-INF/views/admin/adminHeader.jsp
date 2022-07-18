@@ -88,7 +88,7 @@ div {
             <div id="admin-board">게시글 관리</div>
             <ul>
                 <li><a href="postList.ad">에브리타임</a></li>
-                <li><a href="">연애의 발견</a></li>
+                <li><a href="catchList.ad">연애의 발견</a></li>
             </ul>
             <div id="admin-cs">고객센터 관리</div>
             <ul>

@@ -10,7 +10,7 @@
 	<style>
       .body{
           margin: auto;
-          width: 1300px;
+          width: 1200px;
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
@@ -71,8 +71,11 @@
         
     <div class="body">
         <div class="inner_body">
+            <nav class="sessionTitle">
+                <h3><b>에브리타임⏰</b></h3>
+                <hr>
+            </nav>
             <div class="sub_head">
-                <div class="title">에브리타임</div>
             </div>
             <div class="sub_body">
                 <form id="erollFormPost" method="post" action="insert.po" enctype="multipart/form-data">

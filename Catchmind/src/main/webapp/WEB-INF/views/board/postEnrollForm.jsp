@@ -10,40 +10,30 @@
 	<style>
       .body{
           margin: auto;
-          width: 1300px;
+          width: 1200px;
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
-
       /* ################### sub_head 설정 영역 ################### */
-      .sub_head{
-          position: relative;
-          height: 100px;
-      } /* 게시판 타이틀 및 작성 영역 설정 */
-
-      .sub_head>.title{
-          position: absolute;
-          font-size: 40px;
-          width: 380px;
-          left:0px; /* 왼쪽 정렬 */
-          padding-bottom: 9px;
-          border-bottom: 1px solid black;
-      } /* 게시판 타이틀 설정 */
+      .sessionTitle{
+        	margin-left:0px !important;
+        	margin-bottom:50px
+        }
 
       /* ################### sub_body 설정 영역 ################### */
+    
       .sub_body .form-title,.form-content,.form-file{
         margin: auto;
         padding: auto;
-        font-size: 25px;
         resize: none;
         outline: none;
       }
       
       .sub_body #title{
-      	width: 1180px;
+      	width: 600px;
     	}
 
       .sub_body #content{
-          width: 1180px;
-          height: 520px;
+          width: 600px;
+          height: 300px;
       }
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
@@ -59,9 +49,20 @@
         border-radius: 3px;
         width: 100px;
         height: 33px;
-        margin-left: 650px;
-        margin-top:10px;
+        margin-left: 350px;
         margin-bottom : 34px;
+      }
+      #erollFormPost{
+        width: 70%;
+        margin: auto;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        padding-left: 20px;
+      }
+      #erollFormPost td{
+        padding-left: 20px;
+      }
+      #erollFormPost th, #erollFormPost td{
+        padding-bottom: 20px;
       }
 	</style>
 </head>
@@ -70,24 +71,34 @@
     <jsp:include page="../common/header.jsp" />
         
     <div class="body">
+
         <div class="inner_body">
-            <div class="sub_head">
-                <div class="title">에브리타임</div>
-            </div>
+            <nav class="sessionTitle">
+                <h3><b>에브리타임⏰</b></h3>
+                <hr>
+            </nav>
+
+            <div class="sub_head"></div>
+
             <div class="sub_body">
                 <form id="erollFormPost" method="post" action="insert.po" enctype="multipart/form-data">
                     <table algin="center">
                     <input type="hidden" name="postWriter" value="${ loginUser.userNo }">
                         <tr>
-                            <th><label class="form-title" for="title">제목</label></th>
-                            <td><input class="form-title" type="text" id="title" name="postTitle" required></td>
+                            <th><label class="form-title" for="title">제목 </label></th>
+                            <td><input class="form-title" type="text" id="title" name="postTitle" required 
+                                        placeholder="제목을 입력해주세요."></td>
                         </tr>
                         <tr>
-                            <th><label class="form-content" for="content">내용</label></th>
-                            <td><textarea class="form-content" id="content" name="postContent" required></textarea></td>
+                            <th><label class="form-content" for="content">내용 </label></th>
+                            <td><textarea class="form-content" id="content" name="postContent" required
+                                        placeholder="캐치마인드 유저들을 위한 커뮤니티 게시판 입니다.
+자유롭게 게시글을 작성해주세요.
+(다만, 쾌적한 이용환경을 위하여 게시판 목적에 어긋나는
+욕설, 과도한 홍보, 비방글 등의 경우 통보없이 삭제 될 수 있습니다.) "></textarea></td>
                         </tr>
                         <tr>
-                            <th><label class="form-file" for="upfile">첨부파일</label></th>
+                            <th><label class="form-file" for="upfile">첨부파일 </label></th>
                             <td><input class="form-file" type="file" id="upfile" name="upfile"></td>
                         </tr>
                     </table>

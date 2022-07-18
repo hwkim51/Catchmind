@@ -7,13 +7,13 @@
 <meta charset="UTF-8">
 <title>Catchmind</title>
 <style>
-
 body{
     margin:auto;
     padding: 0%;
 }
 
 .content{
+    font-family: 'IBM Plex Sans KR', sans-serif;
     width:1200px;
     height: 1000px;
     margin-left: 13%;

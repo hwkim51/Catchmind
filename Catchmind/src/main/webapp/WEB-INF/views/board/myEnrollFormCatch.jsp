@@ -76,8 +76,11 @@
         
     <div class="body">
         <div class="inner_body">
+            <nav class="sessionTitle">
+                <h3><b>연애의 발견</b></h3>
+                <hr>
+            </nav>
             <div class="sub_head">
-                <div class="title">연애의발견</div>
             </div>
             <div class="sub_body">
                 <form id="erollFormPost" method="post" action="insert.ca" enctype="multipart/form-data">

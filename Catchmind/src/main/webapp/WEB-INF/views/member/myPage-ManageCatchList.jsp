@@ -10,11 +10,14 @@
 	.myPage-nav {
         width: 1000px;
         margin-left: 150px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        font-size: 22px;
     }
     .myPage-menu {
         display : table-cell;
         height : 50px;
-        width : 150px;
+        width : 200px;
+        font-weight: 600;
         text-align: center;
     }
     .myPage-menu a {
@@ -46,15 +49,19 @@
         width:180px;
         height: 50px;
         flex-wrap: wrap;
-        font-size: 25px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        padding: 20px;
     }
     /* ################### 게시글 설정 영역 ################### */
     #wrap_flex>#container{
         margin-left: 20px;
         width: 798px;
     }
-    #wrap_flex>#container>*{
-        font-size: 18px;
+    #container table *{
+        font-size: 15px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
     }
     
     #wrap_flex>#container>.table>thead{
@@ -84,6 +91,11 @@
             align-items: center;
             justify-content: center;
         } /* 정렬 */
+        
+        .pagination #clickPage {
+            background-color: rgb(255, 165,0);
+            border-radius: 50%;
+        }
         .pagination ul li{
             list-style: none;
             line-height: 45px;
@@ -189,7 +201,14 @@
                     		</c:choose>
                     		
 				            <c:forEach var="c" begin="${ pi.startPage }" end="${ pi.endPage }">
-				            <li class="page_num"><a href="myBoard.ca?cpage=${ c }">${ c }</a></li>
+				            <c:choose>
+				            <c:when test="${ c != pi.currentPage }">
+				            <li class="page_num" ><a href="myBoard.ca?cpage=${ c }">${ c }</a></li>
+				            </c:when>
+				            <c:otherwise>
+				            <li id="clickPage"  class="page_num" ><a href="myBoard.ca?cpage=${ c }">${ c }</a></li>
+				            </c:otherwise>
+				            </c:choose>
 				            </c:forEach>
 				            
 				            <c:choose>

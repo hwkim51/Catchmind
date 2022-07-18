@@ -7,13 +7,12 @@
 <meta charset="UTF-8">
 <title>Catchmind</title>
 <style>
-
 body{
     margin:auto;
     padding: 0%;
 }
-
 .content{
+    font-family: 'IBM Plex Sans KR', sans-serif;
     width:1200px;
     height: 800px;
     margin-left: 13%;
@@ -23,32 +22,30 @@ body{
    /*border: 1px solid red; */
    margin:auto;
    width:80%;
-   background-color: rgb(250, 243, 235);
 }
 
 #noticeDetail{
     margin:auto;
     width:800px;
-    text-align: center;
     border-collapse: separate;
     border-spacing: 0 15px;
 }
 
 #noticeDetail thead th{
-    width:15%;
+    width:10%;
+    
 }
 
 #noticeDetail thead td{
-    width: 35%;
+    width: 40%;
 }
 
 #noticeDetail textarea{
     margin: auto;
-    text-align: center;
-    width: 84%;
-    height:400px;
-    padding:3%;
-    -webkit-transform:scale(0.9); 
+    text-align: left;
+    border: none;
+    width: 800px;
+    height:500px;
 }
 
 #noticeDetail textarea::-webkit-scrollbar{
@@ -61,9 +58,11 @@ body{
     <jsp:include page="../common/header.jsp"/>
 
     <div class="content">
-    <br>
-    <h1>공지사항</h1>
-    <hr><br>
+        <nav class="sessionTitle">
+            <h3><b>공지사항</b></h3>
+            <hr>
+        </nav>
+        <br>
         <div class="innerContent" align="center">
             <table align="center" id="noticeDetail">
                 <thead>
@@ -89,10 +88,10 @@ body{
                                     첨부파일이 없습니다.
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="${n.changeName }" style="width:100%; height:350px;">
+                                    <img src="${n.changeName }" style="width:100%; height:250px;">
                                 </c:otherwise>
                             </c:choose>
-                            <textarea style="resize:none;"> 
+                            <textarea style="resize: none;" readonly> 
                                 ${n.noticeContent}
                             </textarea>
                         </td>

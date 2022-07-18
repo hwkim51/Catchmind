@@ -10,26 +10,27 @@
     <title>Document</title>
 
     <style>
-
+       /* 폰트 */
+       @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+       @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
+        
       .body{
           margin: auto;
-          width: 1400px;
+          width: 1200px;
+          /*transform: translateY(-20px);*/
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
       .sub_head{
             position: relative;
-            height: 90px;
+            margin: 0 100px;
+            width: 1000px;
+            height: 50px;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
-        .sub_head>.title{
-          position: absolute;
-          font-size: 40px;
-          width: 380px;
-          left:0px; /* 왼쪽 정렬 */
-          padding-bottom: 9px;
-          border-bottom: 1px solid black;
-      } /* 게시판 타이틀 설정 */
+      .sessionTitle{
+        	margin-left:0px !important;
+        }
       
       .sub_head>.btn_update{
             position: absolute;
@@ -37,111 +38,108 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 30px;
-            width: 120px;
-            height: 40px;
+            top: 10px;
+            width: 75px;
+            height: 25px;
             border-radius: 4px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
             vertical-align: middle;
-            padding-top: 8px;
-            right:140px;
+            padding-top: 2px;
+            right:90px;
         } /* 작성 설정 */
         .sub_head>.btn_delete{
             position: absolute;
-            font-size: 15px;
+            font-size: 12;
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 30px;
-            width: 120px;
-            height: 40px;
+            top: 10px;
+            width: 75px;
+            height: 25px;
             border-radius: 4px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
+            padding-top: 2px;
             vertical-align: middle;
-            padding-top: 8px;
         } /* 작성 설정 */
 
       /* ################### sub_body 설정 영역 ################### */
       .sub_body{
+          font-family: 'IBM Plex Sans KR', sans-serif;
+          margin: auto;
           height: 100%;
+          width: 1000px;
           background-color: #eaeaea;
-          padding: 25px 25px 25px 25px;
+          padding: 10px 10px 10px 10px;
       } /* 게시판의 영역 설정 */
       
 
       /* ########## 글제목, 작성일자, 작성자 설정 영역 ########## */
       .sub_body>.wr_title{
         display: inline-block;
-        width: 980px;
+        width: 985px;
         font-weight: 800;
-        font-size: 30px;
         margin-bottom: 5px;
       } /* 글제목 설정 */
       .sub_body>.wr_date{
         display: inline-block;
-        width: 350px;
+        width: 230px;
         font-weight: 800;
-        font-size: 30px;
       } /* 작성일자 설정 */
       .sub_body>.wr_writer{
         display: inline-block;
-        width: 980px;
+        width: 985px;
         font-weight: 800;
-        font-size: 30px;
-        margin-bottom: 20px;
+        margin-bottom: 5px;
       } /* 작성자 설정 */
       .sub_body>.wr_count{
         display: inline-block;
-        width: 350px;
+        width: 230px;
         font-weight: 800;
-        font-size: 30px;
       } /* 조회수 설정 */
       .sub_body .wr_image{
-        width: 100%;
-        height:535px;
+        height:300px;
       }
       .sub_body .wr_image>img{
-	    width:100%;
-	    height: 100%;
+        width:100%;
+        height: 100%;
       	object-fit:contain;
       }
 
       /* ########## 글내용 설정 영역 ########## */
       .sub_body>.wr_content{
+        font-family: 'IBM Plex Sans KR', sans-serif;
         height: 100%;
-        font-size: 20px;
-        border-bottom: 1px solid #cccccc;
-        padding-bottom: 20px;
-    	white-space: pre-wrap;
+        white-space: pre-wrap;
+        margin-bottom:0px;
+        font-size: 15px;
       } /* 글 내용 설정 */
       
       /* ########## 댓글 입력 설정 영역 ##########*/
       .sub_body>.wr_reply{
-        padding-top: 20px;
+        padding-top: 10px;
         text-align: center;
+        margin-top: 10px;
       } /* 글내용과 댓글입력 창 사이 공간 설정 */
       .sub_body>.wr_reply textarea{
-        width: 700px;
-        height: 45px;
+        width: 500px;
+        height: 25px;
         border: none;
         outline: none;
         border-radius: 4px;
-        padding: 10px 10px 10px 10px;
-        font-size: 15px;
         resize:none;
+        margin-left:100px;
       } /* 댓글 입력하는 창 설정 */
       .sub_body>.wr_reply button{
         border: none;
         border-radius: 4px;
-        height: 45px;
-        width: 120px;
+        height: 25px;
+        width: 75px;
         color: white;
-        font-size: 17px;
-        transform: translateY(-16px); /* 입력창과 높이 맞춤 */
+        transform: translateY(-7px); /* 입력창과 높이 맞춤 */
         margin-left: 30px;
         background-color: rgb(17, 199, 231)
       } /* 댓글 입력 버튼 설정 영역 */
@@ -149,23 +147,18 @@
       /* ########## 입력된 댓글 설정 영역 ########## */
       .sub_body .rep_count{
       width:100px;
-      font-size:20px;
       margin-bottom:2px;
       } /* 댓글 개수 */
       .sub_body .rep_userbox{
       display:inline-flex;
       width:100%;
-      background-color: rgb(186,186,186);
       } /* 댓글 작성자에 대한 정보 */
       .sub_body .rep_userbox, .rep_content{
-      font-size:17px;
-      border: 1px solid black;
       border-collapse: collapse;
       white-space: pre-wrap;
       } /* 댓글 내용 */
       .sub_body .rep_update, .rep_delete{
       flex-wrap: wrap;
-      font-size:10px;
       display: flex;
       align-items:center;
       margin: 0px 0px 0px 10px;
@@ -174,12 +167,12 @@
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
         text-align: center;
-        font-size: 30px;
         border: none;
-        padding-bottom: 100px;
-        padding-top: 20px;
+        padding-bottom: 5px;
+        padding-top: 10px;
       } /* 목록으로 구역 설정 및 스타일 적용 */
       .sub_foot>.btn_list{
+        font-family: 'IBM Plex Sans KR', sans-serif;
         cursor:pointer;
         color:black;
         text-decoration: none;
@@ -190,14 +183,27 @@
       outline:none !important;
       border:none;
       background:none;
+      float: right;
+      font-size: 12px;
+      transform : translateY(70px);
+      color: grey;
       } /* 신고하기 스타일 적용*/
+     .w3-modal-content{
+      top: 200px;
+      width: 400px;
+      height: 250px;
+     }
+      .w3-orange{
+        width: 100%;
+        height: 40px;
+      }
       .w3-container>span:hover{
       background-color: transparent !important;
       } /* 모달창 내에 취소박스 배경색 적용 */
       .w3-container>textarea{
-      margin-top:5px;
-      width:100%;
-      height:500px;
+      margin:15px 10px;
+      width:90%;
+      height:140px;
       resize:none;
       outline:none;
       } /* 모달창 내에 사유 입력 스타일 */
@@ -219,8 +225,11 @@
         
     <div class="body">
         <div class="inner_body">
+          <nav class="sessionTitle">
+            <h3><b>에브리타임⏰</b></h3>
+            <hr>
+        </nav>
             <div class="sub_head">
-                <div class="title">에브리타임</div>
                 <c:if test="${ (not empty loginUser) and (loginUser.userNo eq p.postWriter) or (loginUser.userNo eq 1) }">
                 <a class="btn_update" onclick="postFormSubmit(1);">수정</a>
                 <a class="btn_delete" onclick="postFormSubmit(2);">삭제</a>
