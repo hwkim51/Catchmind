@@ -90,7 +90,7 @@ public class MemberController {
 		return updateRecentLogin;
 	}
 	
-	// 로그아웃  : 수빈 -세션 만료 전 recent_logout 구문 추가(유진220715)
+	// 로그아웃  : 수빈 - 세션 만료 전 recent_logout 구문 추가(유진220715)
 	@RequestMapping(value="logout.me")
 	public String logoutMember(HttpSession session) {
 		
@@ -368,20 +368,21 @@ public class MemberController {
 		return (updateRecentLogout>0)?"YYY":"NNN";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="refreshSession.me", produces="text/html; charset=UTF-8")
-	public String refreshSession(String userId, HttpSession session) { 
-		
-		System.out.println("refresh:"+userId);
-		int updateRecentLogout = 0;
-		
-		if(userId!=null) {
-			updateRecentLogout = memberService.updateRefreshSession(userId);
-			
-		}
-		return (updateRecentLogout>0)?"YYY":"NNN";
-	}
-	
+// 주석처리 : 수빈(7/18)
+//	@ResponseBody
+//	@RequestMapping(value="refreshSession.me", produces="text/html; charset=UTF-8")
+//	public String refreshSession(String userId, HttpSession session) { 
+//		
+//		System.out.println("refresh:"+userId);
+//		int updateRecentLogout = 0;
+//		
+//		if(userId!=null) {
+//			updateRecentLogout = memberService.updateRefreshSession(userId);
+//			
+//		}
+//		return (updateRecentLogout>0)?"YYY":"NNN";
+//	}
+//	
 	// 회원가입 시 프로필 사진 저장 메소드
 	public String saveFile(MultipartFile upfilePic, HttpSession session) {
 		
@@ -432,22 +433,10 @@ if(result > 0) { // 프로필 수정 성공
 			return "common/errorPage";
 		}
 	}
-
+	// 현우쓰 코드 
 	@ResponseBody
 	@RequestMapping("loginSignal.me")
-	public void loginSignal(String userNo, Model model, HttpSession session) {
-		
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-				
-		Date time = new Date();
-				
-		String time1 = format1.format(time);
-				
-		System.out.println("현재 시간" + time1);
-		
-		System.out.println("로그아웃 시간" + (((Member)session.getAttribute("loginUser")).getRecentLogout()));
-		
-		
+	public Map<String, Object> loginSignal(String userNo, Model model) {
 		int userNo1 = Integer.parseInt(userNo);
 		int result = memberService.loginSignal(userNo1);
 		int roomNo = 0;
@@ -468,13 +457,14 @@ if(result > 0) { // 프로필 수정 성공
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("chatClaimFrom", m);
 				map.put("roomNoWith", roomNo);
-				// return map;
+				return map;
 			}
 		}
 		
-		// return null;
+		 return null;
 		
 	}
+	
 	
 	// 마이페이지 - 회원 정보 수정 메소드
 	@RequestMapping("updateInfo.me")

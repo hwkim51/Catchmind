@@ -173,7 +173,7 @@ public class MemberServiceImpl implements MemberService  {
 	public int refuseCouple(Member m) {
 		return memberDao.refuseCouple(sqlSession, m);
 	}
-	
+
 	
 
 

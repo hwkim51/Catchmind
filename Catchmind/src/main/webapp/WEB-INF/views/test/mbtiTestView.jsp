@@ -89,10 +89,15 @@
     .optionB{
         transition-delay: 1.8s;
     }
-    .testBackImg{
+    .testBackImg1{
         position: absolute;
         top: 200px;
         left: 150px;
+    }
+    .testBackImg2{
+        position: absolute;
+        top: -16px;
+        left: 670px;
     }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -113,7 +118,7 @@
                     <div>데이트가 없는</div>
                     <div>주말에 나는
                     </div>
-                    <img src='./resources/images/mbti1.png' class='testBackImg' width="320px;" height="200px;">
+                    <img src='./resources/images/mbti1.png' class='testBackImg1' width="320px;" height="200px;">
                 </div>
                 <div class="options" align="center">
                     <div class="option optionA" href="#question" data-slide="next" value="E"
@@ -133,6 +138,7 @@
                     <div>데이트 룩을</div>
                     <div>고를 때 나는</div>
                 </div>
+                <img src='./resources/images/mbti2.png' class='testBackImg2' width="360px;" height="200px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="J">
                     	날씨부터 착장까지 완벽하게 계산한다

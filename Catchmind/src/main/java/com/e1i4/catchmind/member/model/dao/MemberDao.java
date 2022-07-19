@@ -143,4 +143,5 @@ public class MemberDao {
 	public int refuseCouple(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.refuseCouple", m);
 	}
+
 }
