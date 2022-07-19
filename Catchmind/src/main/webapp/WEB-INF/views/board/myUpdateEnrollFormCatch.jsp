@@ -10,40 +10,36 @@
 	<style>
       .body{
           margin: auto;
-          width: 1300px;
+          width: 1200px;
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
-      .sub_head{
-          position: relative;
-          height: 100px;
-      } /* 게시판 타이틀 및 작성 영역 설정 */
-
-      .sub_head>.title{
-          position: absolute;
-          font-size: 40px;
-          width: 380px;
-          left:0px; /* 왼쪽 정렬 */
-          padding-bottom: 9px;
-          border-bottom: 1px solid black;
-      } /* 게시판 타이틀 설정 */
+      .sessionTitle{
+        	margin-left:38px !important;
+        	margin-bottom:50px;
+        }
 
       /* ################### sub_body 설정 영역 ################### */
+      .sub_body{
+        margin-left: 100px;
+      }
       .sub_body .form-title,.form-content,.form-file{
         margin: auto;
         padding: auto;
-        font-size: 25px;
         resize: none;
         outline: none;
       }
+      .sub_body label{
+        width: 58px;
+      }
       
       .sub_body #title{
-      	width: 1180px;
+      	width: 600px;
     	}
 
       .sub_body #content{
-          width: 1180px;
-          height: 520px;
+          width: 600px;
+          height: 300px;
       }
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
@@ -56,12 +52,23 @@
         background-color: rgb(17, 199, 231);
         color: white;
         border: none;
-        border-radius: 3px;
+        border-radius: 5px;
         width: 100px;
         height: 33px;
-        margin-left: 650px;
-        margin-top:10px;
+        margin-left: 350px;
         margin-bottom : 34px;
+      }
+      #erollFormPost{
+        width: 70%;
+        margin: auto;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        padding-left: 20px;
+      }
+      #erollFormPost td{
+        padding-left: 20px;
+      }
+      #erollFormPost th, #erollFormPost td{
+        padding-bottom: 20px;
       }
 	</style>
 </head>
@@ -72,11 +79,10 @@
     <div class="body">
         <div class="inner_body">
             <nav class="sessionTitle">
-                <h3><b>연애의 발견</b></h3>
-                <hr>
-            </nav>
-            <div class="sub_head">
-            </div>
+                <nav class="sessionTitle">
+                    <h3 style="margin-bottom: 8px;"><b style="font-family: 'IBM Plex Sans KR', sans-serif; font-size: 28px;">연애의 발견</b></h3>
+                    <hr>
+                  </nav>
             <div class="sub_body">
                 <form id="erollFormPost" method="post" action="myUpdate.ca" enctype="multipart/form-data">
                     <table algin="center">
