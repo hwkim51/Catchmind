@@ -133,9 +133,9 @@
     <div class="body">
         <div class="inner_body">
             <nav class="sessionTitle">
-                <h3><b>에브리타임⏰</b></h3>
-                <hr>
-            </nav>
+            <h3 style="margin-bottom: 8px;"><b style="font-family: 'IBM Plex Sans KR', sans-serif; font-size: 28px;">에브리타임⏰</b></h3>
+            <hr>
+          </nav>
 
             <div class="sub_head">
                 * 누구나 OK 어떤 주제든 OK 캐치마인드 유저 커뮤니티

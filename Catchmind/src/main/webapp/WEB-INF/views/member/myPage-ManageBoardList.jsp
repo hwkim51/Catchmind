@@ -105,6 +105,7 @@
             height: 35px;
             width: 35px;
             transition: all 0.5s ease;
+            margin: 3px 3px 3px 3px;
         } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
         .pagination ul li a{
             padding: 30px 5px 30px 5px;

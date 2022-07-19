@@ -108,7 +108,7 @@ public class AdminController {
 		model.addAttribute("updateMem", updateMem);
 		return "admin/memberListView";
 	}
-
+	
 	@RequestMapping("catchboardList.ad")
 	public String selectCatchBoardList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 				

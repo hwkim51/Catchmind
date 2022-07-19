@@ -84,4 +84,5 @@ public interface MemberService {
 	// 커플 관리 > 커플 거절 서비스(delete)
 	int refuseCouple(Member m);
 
+
 }

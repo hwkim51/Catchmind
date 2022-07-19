@@ -90,7 +90,7 @@ public class MemberController {
 		return updateRecentLogin;
 	}
 	
-	// 로그아웃  : 수빈 -세션 만료 전 recent_logout 구문 추가(유진220715)
+	// 로그아웃  : 수빈 - 세션 만료 전 recent_logout 구문 추가(유진220715)
 	@RequestMapping(value="logout.me")
 	public String logoutMember(HttpSession session) {
 		
@@ -368,20 +368,21 @@ public class MemberController {
 		return (updateRecentLogout>0)?"YYY":"NNN";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="refreshSession.me", produces="text/html; charset=UTF-8")
-	public String refreshSession(String userId, HttpSession session) { 
-		
-		// System.out.println("refresh:"+userId);
-		int updateRecentLogout = 0;
-		
-		if(userId!=null) {
-			updateRecentLogout = memberService.updateRefreshSession(userId);
-			
-		}
-		return (updateRecentLogout>0)?"YYY":"NNN";
-	}
-	
+// 주석처리 : 수빈(7/18)
+//	@ResponseBody
+//	@RequestMapping(value="refreshSession.me", produces="text/html; charset=UTF-8")
+//	public String refreshSession(String userId, HttpSession session) { 
+//		
+//		System.out.println("refresh:"+userId);
+//		int updateRecentLogout = 0;
+//		
+//		if(userId!=null) {
+//			updateRecentLogout = memberService.updateRefreshSession(userId);
+//			
+//		}
+//		return (updateRecentLogout>0)?"YYY":"NNN";
+//	}
+//	
 	// 회원가입 시 프로필 사진 저장 메소드
 	public String saveFile(MultipartFile upfilePic, HttpSession session) {
 		
@@ -432,7 +433,7 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
-
+	// 현우쓰 코드 
 	@ResponseBody
 	@RequestMapping("loginSignal.me")
 	public Map<String, Object> loginSignal(String userNo, Model model) {
@@ -460,7 +461,7 @@ public class MemberController {
 			}
 		}
 		
-		return null;
+		 return null;
 		
 	}
 	
