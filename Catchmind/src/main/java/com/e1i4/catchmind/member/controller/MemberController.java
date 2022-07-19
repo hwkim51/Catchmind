@@ -3,6 +3,7 @@ package com.e1i4.catchmind.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,6 +66,8 @@ public class MemberController {
 								Member m,
 								HttpSession session) {		
 		Member loginUser = memberService.loginMember(m);
+		//System.out.println(loginUser.getRecentLogin().getTime());
+		//System.out.println(loginUser.getRecentLogout().getTime());
 		
 		if(loginUser == null) {
 			session.setAttribute("alertMsg", "일치하는 회원정보가 없습니다.");
@@ -302,6 +305,26 @@ public class MemberController {
 	public String selectFollowList(int userNo) {
 		
 		ArrayList<Member> list = memberService.selectFollowList(userNo);
+		
+		for(int i=0; i<list.size(); i++) {
+			
+			Long recentLogout = list.get(i).getRecentLogout().getTime();
+			//System.out.println("recentLogout:"+recentLogout);
+			
+			Date date = new Date();
+			Long sysdateTime = date.getTime();
+			//System.out.println("sysdateTime:"+sysdateTime);
+			
+			long result = sysdateTime - recentLogout;
+			//System.out.println("result:"+result);
+			
+			if(result > 15000){//15초 차이
+				list.get(i).setStatus(4); //디비 안가고 테스트 용(접속x)
+			} else {
+				list.get(i).setStatus(5); //디비 안가고 테스트 용(접속o)
+			}
+			//System.out.println("arraylist-status:"+list.get(i).getStatus());
+		}
 		return new Gson().toJson(list);
 	}
 	
@@ -349,37 +372,6 @@ public class MemberController {
 		else {
 			return "redirect:/";
 		}
-	}
-		
-	@ResponseBody
-	@RequestMapping(value="closeSession.me", produces="text/html; charset=UTF-8")
-	public String closeSession(String userId, HttpSession session) { //현재 진행 중
-		
-		System.out.println("close:"+userId);
-		int updateRecentLogout = 0;
-		
-		if(userId!=null) {
-			// RECENT_LOGOUT 정보 업데이트
-			updateRecentLogout = memberService.updateRecentLogout(userId);
-			
-			//session.removeAttribute("loginUser");
-		    session.invalidate();
-		}
-		return (updateRecentLogout>0)?"YYY":"NNN";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="refreshSession.me", produces="text/html; charset=UTF-8")
-	public String refreshSession(String userId, HttpSession session) { 
-		
-		System.out.println("refresh:"+userId);
-		int updateRecentLogout = 0;
-		
-		if(userId!=null) {
-			updateRecentLogout = memberService.updateRefreshSession(userId);
-			
-		}
-		return (updateRecentLogout>0)?"YYY":"NNN";
 	}
 	
 	// 회원가입 시 프로필 사진 저장 메소드
@@ -435,21 +427,11 @@ if(result > 0) { // 프로필 수정 성공
 
 	@ResponseBody
 	@RequestMapping("loginSignal.me")
-	public void loginSignal(String userNo, Model model, HttpSession session) {
-		
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-				
-		Date time = new Date();
-				
-		String time1 = format1.format(time);
-				
-		System.out.println("현재 시간" + time1);
-		
-		System.out.println("로그아웃 시간" + (((Member)session.getAttribute("loginUser")).getRecentLogout()));
-		
+	public Map<String, Object> loginSignal(String userNo, Model model, HttpSession session) {
 		
 		int userNo1 = Integer.parseInt(userNo);
 		int result = memberService.loginSignal(userNo1);
+		
 		int roomNo = 0;
 		if(result > 0) {
 			
@@ -468,11 +450,11 @@ if(result > 0) { // 프로필 수정 성공
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("chatClaimFrom", m);
 				map.put("roomNoWith", roomNo);
-				// return map;
+				 return map;
 			}
 		}
 		
-		// return null;
+		 return null;
 		
 	}
 	
@@ -678,6 +660,60 @@ if(result > 0) { // 프로필 수정 성공
 			return "common/errorPage";
 		}
 		
+	}
+	
+	//팔로우하는 메소드(유진)
+	@RequestMapping("follow.me")
+	public String followMember(int userNo, 
+							   Model model, 
+							   HttpSession session) {
+		
+		if((Member)session.getAttribute("loginUser")!=null) {
+			int foUser = ((Member)session.getAttribute("loginUser")).getUserNo();
+			Follow f = new Follow();
+			f.setFoUser(foUser);
+			f.setFoedUser(userNo);
+			
+			int result = memberService.followMember(f);
+			if(result > 0) {
+				
+				return "chat/matchListView";
+			} else {
+				
+				model.addAttribute("errorMsg", "팔로우 실패");
+				return "common/errorPage";
+			}
+		}
+		else {
+			return "redirect:/";
+		}
+	}
+	
+	//차단하는 메소드(유진)
+	@RequestMapping("block.me")
+	public String blockMember(int userNo,
+							  Model model,
+							  HttpSession session) {
+		
+		if((Member)session.getAttribute("loginUser")!=null) {
+			int user = ((Member)session.getAttribute("loginUser")).getUserNo();
+			Block b = new Block();
+			b.setUserNo(user);
+			b.setBlockedUser(userNo);
+			
+			int result = memberService.blockMember(b);
+			if(result > 0) {
+				
+				return "chat/matchListView";
+			} else {
+				
+				model.addAttribute("errorMsg", "차단 실패");
+				return "common/errorPage";
+			}
+		}
+		else {
+			return "redirect:/";
+		}
 	}
 	
 }

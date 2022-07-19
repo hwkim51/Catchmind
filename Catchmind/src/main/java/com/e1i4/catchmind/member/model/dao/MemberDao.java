@@ -143,4 +143,14 @@ public class MemberDao {
 	public int refuseCouple(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.refuseCouple", m);
 	}
+	
+	// 팔로우 서비스(insert)
+	public int followMember(SqlSessionTemplate sqlSession, Follow f) {
+		return sqlSession.insert("memberMapper.followMember", f);
+	}
+	
+	// 차단 서비스(insert)
+	public int blockMember(SqlSessionTemplate sqlSession, Block b) {
+		return sqlSession.insert("memberMapper.blockMember", b);
+	}
 }

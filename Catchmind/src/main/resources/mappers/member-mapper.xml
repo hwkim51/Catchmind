@@ -125,7 +125,8 @@
 								MBTI,
 								PHONE,
 								STATUS,
-								PIC)
+								PIC,
+								RECENT_LOGOUT)
 		VALUES(SEQ_MNO.NEXTVAL,
 				LOWER(#{userId}),
 				#{userPwd},
@@ -136,7 +137,8 @@
 				UPPER(#{mbti}),
 				REPLACE(#{phone},',','-'),
 				#{status},
-				#{pic})
+				#{pic},
+				SYSDATE)
 	</insert>
 	
 	<select id="matchList" parameterType="member" resultMap="memberResultSet">
@@ -148,7 +150,7 @@
 	<update id="updateRecentLogin" parameterType="member">
 		UPDATE TB_MEMBER
 		   SET RECENT_LOGIN = SYSDATE,
-		       RECENT_LOGOUT = NULL 
+		       RECENT_LOGOUT = SYSDATE 
 		 WHERE USER_ID = #{userId}
 	</update>
 	
@@ -165,7 +167,7 @@
 	</update>
 	
 	<select id="selectFollowList" parameterType="_int" resultMap="memberResultSet">
-		SELECT USER_NO, USER_ID, NICKNAME, MBTI, PROFILE, PIC, RECENT_LOGOUT 
+		SELECT USER_NO, USER_ID, NICKNAME, MBTI, PROFILE, PIC, RECENT_LOGIN, RECENT_LOGOUT, STATUS 
 		FROM TB_FOLLOW  
 		JOIN TB_MEMBER ON(USER_NO = FOED_USER) 
 		WHERE FO_USER = #{userNo}
@@ -194,8 +196,8 @@
 	</update>
 	
 	<update id="loginSignal" parameterType="_int">
-		UPDATE TB_MEMBER
-		SET RECENT_LOGOUT = SYSDATE
+		UPDATE TB_MEMBER 
+		SET RECENT_LOGOUT = SYSDATE 
 		WHERE USER_NO = #{userNo}
 	</update>
 	
@@ -259,5 +261,25 @@
 		   SET PARTNER = 0
 		 WHERE USER_NO = #{partner}
 	</update>
+	
+	<insert id="followMember" parameterType="follow">
+		INSERT INTO TB_FOLLOW(FO_USER, FOED_USER)
+		SELECT #{foUser}, #{foedUser} 
+		  FROM dual
+		 WHERE NOT EXISTS (SELECT FO_USER, FOED_USER 
+		                     FROM TB_FOLLOW 
+		                    WHERE FO_USER = #{foUser} 
+		                      AND FOED_USER = #{foedUser})
+	</insert>
+	
+	<insert id="blockMember" parameterType="block">
+		INSERT INTO TB_BLOCK(USER_NO, BLOCKED_USER)
+			SELECT #{userNo}, #{blockedUser} 
+			  FROM dual
+			 WHERE NOT EXISTS (SELECT USER_NO, BLOCKED_USER 
+			                     FROM TB_BLOCK 
+			                    WHERE USER_NO = #{userNo} 
+			                      AND BLOCKED_USER = #{blockedUser})
+	</insert>
 	
 </mapper>

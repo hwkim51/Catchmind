@@ -152,13 +152,13 @@
 			         			   resultStr += "작성된 소개 글이 없어요!"
 			         		   }
 			        resultStr  +=   "</td>"
-                    		   +    "<td>";
-                    		   if(result[i].recentLogout != null){
+                    		   +    "<td id='chatButton'>";
+                    		   if(result[i].status == 4){
                     		   		// 현재 접속하지 않은 경우
-                    		   		resultStr += "<button type='button' id='chatButton' class='btn btn-secondary'>대화하기</button>";
-                    		   } else {
+                    		   		resultStr += "<button type='button' disabled class='btn btn-secondary'>대화하기</button>";
+                    		   } else if(result[i].status == 5){
                     			    // 현재 접속한 경우
-                    			    resultStr += "<button type='button' id='chatButton' class='btn btn-success'>대화하기</button>";
+                    			    resultStr += "<button type='button' class='btn btn-success'>대화하기</button>";
                     		   }
                     		   
                     resultStr += "</td>"
@@ -183,7 +183,10 @@
     });
    
     // 대화하기
-    
+     $(document).on("click", "#chatButton", function(event){
+    	//console.log($(this).next().next().text());
+    	location.href=""; //채팅하러 가요
+    });
    
     </script>
     <%-- footer 영역 --%>

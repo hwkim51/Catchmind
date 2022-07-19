@@ -174,7 +174,16 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.refuseCouple(sqlSession, m);
 	}
 	
-	
+	// 팔로우 서비스(insert)
+	@Override
+	public int followMember(Follow f) {
+		return memberDao.followMember(sqlSession, f);
+	}
+
+	@Override
+	public int blockMember(Block b) {
+		return memberDao.deleteBlockMember(sqlSession, b);
+	}
 
 
 	
