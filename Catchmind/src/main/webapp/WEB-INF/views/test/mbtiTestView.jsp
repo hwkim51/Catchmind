@@ -206,7 +206,7 @@
                     <div>연인이 집에</div>
                     <div>놀러온다고 했을 때 나는</div>
                 </div>
-                <img src='./resources/images/mbti4.png' class='testBackImg4' width="230px;" height="200px;">
+                <img src='./resources/images/mbti4.png' class='testBackImg4' style="top: 90px !important; left: 920px;" width="350px;" height="330px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="P">
                         OK 콜! 얼른 와~
