@@ -258,7 +258,7 @@
                 <div class="check_font" id="nickname_check">닉네임으로 회원님을 소개해주세요.</div>
             <label for="mbti">MBTI : </label>
             <input type="text" id="mbti" name="mbti">
-                <div class="check_font" id="mbti_check">mbti를 입력하면 매칭 성공률이 높아져요! 👍</div><br><br>
+                <div class="check_font" id="mbti_check">mbti를 입력하면 매칭 성공률이 높아져요! 👍</div><br>
             <input type="submit" id="btn-terms3" class="btn-terms" value="회&nbsp;원&nbsp;가&nbsp;입 ">
         </div><br>
         <div class="status">

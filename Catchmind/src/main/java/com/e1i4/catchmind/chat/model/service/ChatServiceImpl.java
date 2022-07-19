@@ -1,5 +1,6 @@
 package com.e1i4.catchmind.chat.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.chat.model.dao.ChatDao;
+import com.e1i4.catchmind.chat.model.vo.Chat;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -40,5 +42,10 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public int chatAgreed(int userNo, int userNo2) {
 		return chatDao.chatAgreed(sqlSession, userNo, userNo2);
+	}
+
+	@Override
+	public ArrayList<Chat> getChatLog(int roomNo) {
+		return chatDao.getChatLog(sqlSession, roomNo);
 	}
 }

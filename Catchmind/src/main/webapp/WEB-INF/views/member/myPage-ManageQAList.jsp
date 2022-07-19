@@ -105,6 +105,7 @@
             height: 35px;
             width: 35px;
             transition: all 0.5s ease;
+            margin: 3px 3px 3px 3px;
         } /* 페이지네이션 스타일 및 정렬 및 애니메이션 속도 */
         .pagination ul li a{
             padding: 30px 5px 30px 5px;
@@ -130,37 +131,61 @@
             color:white;
         } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
         
-        .w3-modal {
-	        position: absolute;
-	        displaty:none;
-        }
+        .w3-modal-content{
+			top: 30px;
+			width: 400px !important;
+			height: 350px;
+			border-radius: 10px 10px !important;
+			box-shadow: 3px 3px rgb(114, 111, 111);
+		}
+		.w3-container{
+			width: 400px;
+		}
+		.w3-orange{
+			width: 400px;
+			height: 40px;
+			border-radius: 10px 10px 0px 0px !important;
+		}
+		.w3-container>span{
+			border-radius: 10px 10px !important;
+		}
         .w3-container>span:hover{
 		    background-color: transparent !important;
-		    } /* 모달창 내에 취소박스 배경색 적용 */
+			border-radius: 10px 10px!important;
+		} /* 모달창 내에 취소박스 배경색 적용 */
 	    .w3-container textarea{
-		    margin-top:5px;
-		    width:100%;
-		    resize:none;
-		    outline:none;
-		    } /* 모달창 내에 사유 입력 스타일 */
+			margin:15px 10px;
+			height:140px;
+			resize:none;
+			outline:none;
+		} /* 모달창 내에 사유 입력 스타일 */
+		#id01>.w3-modal-content{
+			top: -40px;
+			height: 490px;
+		}
 		#id01 .qtis{
+			width: 350px;
 			height:30px;
 		}
     	#id01 .qac{
-    		height:200px;
+			width: 350px;
+    		height:120px;
     	}
     	#id01 .anc{
-    		height:200px;
+			width: 350px;
+    		height:120px;
     	}
 		#id01 textarea {
 		    border: none;
 		}
 		
 		#id02 .qtif{
+			width: 350px;
 			height:30px;
 		}
     	#id02 .qac{
-    		height:200px;
+			width: 350px;
+    		height:120px;
     	}
 	    .w3-container>button{
 		    border:none;
@@ -299,17 +324,17 @@
 	        <header class="w3-container w3-orange">
 	            <span onclick="document.getElementById('id01').style.display='none'"
 	            class="w3-button w3-display-topright">&times;</span>
-	            <h2>내 문의</h2>
+	            <h5 style="font-family: 'IBM Plex Sans KR', sans-serif; padding:10px;">내 문의 </h5>
 	        </header>
-	    <div class="w3-container">
+	    <div class="w3-container" id="box-sha">
 	      <span onclick="document.getElementById('id01').style.display='none'"
 	      class="w3-button w3-display-topright">&times;</span>
 	      	<div class="qtis_div">문의 제목 : </div>
-	      	<textarea type="text" class="qtis" readonly></textarea>
+			<textarea type="text" class="qtis" style="font-family: 'IBM Plex Sans KR', sans-serif;" readonly></textarea>
 	      	<div class="qac_div">문의 내용 : </div>
-            <textarea type="text" class="qac" style="vertical-align: top;" name="qaContent" readonly></textarea>
+			<textarea type="text" class="qac" style="font-family: 'IBM Plex Sans KR', sans-serif;" readonly></textarea>
 	      	<div class="anc_div">답변 내용 : </div>
-            <textarea type="text" class="anc" readonly></textarea>
+			<textarea type="text" class="anc" style="font-family: 'IBM Plex Sans KR', sans-serif;" readonly></textarea>
 	  </div>
 	  </div>
 	  </div>
@@ -319,9 +344,9 @@
 	        <header class="w3-container w3-orange">
 	            <span onclick="document.getElementById('id02').style.display='none'"
 	            class="w3-button w3-display-topright">&times;</span>
-	            <h2>내 문의</h2>
+	            <h5 style="font-family: 'IBM Plex Sans KR', sans-serif; padding:10px;">내 문의 </h5>
 	        </header>
-	    <div class="w3-container">
+	    <div class="w3-container" id="box-sha">
 	      <span onclick="document.getElementById('id02').style.display='none'"
 	      class="w3-button w3-display-topright">&times;</span>
 	      	<div class="qtis_div">문의 제목 : </div>

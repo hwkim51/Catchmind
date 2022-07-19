@@ -37,6 +37,7 @@ import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.google.gson.Gson;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 @Controller
 public class MemberController {
@@ -55,7 +56,15 @@ public class MemberController {
 	
 	// 마이페이지로 이동 : 수빈
 	@RequestMapping(value="myPage.me")
-	public String myPage(String userId, String userPwd, Member m, HttpSession session) {
+	public String myPage(HttpSession session) {
+		
+		String partner = ((Member)session.getAttribute("loginUser")).getPartner();
+		
+		System.out.println("커플 회원 아이디" + partner);
+		// 커플 회원 정보 조회
+		Member coupleMem = memberService.selectCoupleInfo(partner);
+		session.setAttribute("coupleMem", coupleMem);
+		System.out.println("커플 정보" + coupleMem);
 		
 		return "member/myPage";
 	}
@@ -93,7 +102,7 @@ public class MemberController {
 		return updateRecentLogin;
 	}
 	
-	// 로그아웃  : 수빈 -세션 만료 전 recent_logout 구문 추가(유진220715)
+	// 로그아웃  : 수빈 - 세션 만료 전 recent_logout 구문 추가(유진220715)
 	@RequestMapping(value="logout.me")
 	public String logoutMember(HttpSession session) {
 		
@@ -246,10 +255,10 @@ public class MemberController {
 	}
 	
 	// 회원가입 페이지로 이동 : 수빈
-		@RequestMapping(value="enrollForm.me")
-		public String enrollForm() {
-			return "member/memberEnrollForm";
-		}
+	@RequestMapping(value="enrollForm.me")
+	public String enrollForm() {
+		return "member/memberEnrollForm";
+	}
 		
 	// 회원가입(insert) : 수빈
 	@RequestMapping(value="insert.me")
@@ -373,7 +382,39 @@ public class MemberController {
 			return "redirect:/";
 		}
 	}
+		
+	@ResponseBody
+	@RequestMapping(value="closeSession.me", produces="text/html; charset=UTF-8")
+	public String closeSession(String userId, HttpSession session) { //현재 진행 중
+		
+		// System.out.println("close:"+userId);
+		int updateRecentLogout = 0;
+		
+		if(userId!=null) {
+			// RECENT_LOGOUT 정보 업데이트
+			updateRecentLogout = memberService.updateRecentLogout(userId);
+			
+			//session.removeAttribute("loginUser");
+		    session.invalidate();
+		}
+		return (updateRecentLogout>0)?"YYY":"NNN";
+	}
 	
+// 주석처리 : 수빈(7/18)
+//	@ResponseBody
+//	@RequestMapping(value="refreshSession.me", produces="text/html; charset=UTF-8")
+//	public String refreshSession(String userId, HttpSession session) { 
+//		
+//		System.out.println("refresh:"+userId);
+//		int updateRecentLogout = 0;
+//		
+//		if(userId!=null) {
+//			updateRecentLogout = memberService.updateRefreshSession(userId);
+//			
+//		}
+//		return (updateRecentLogout>0)?"YYY":"NNN";
+//	}
+//	
 	// 회원가입 시 프로필 사진 저장 메소드
 	public String saveFile(MultipartFile upfilePic, HttpSession session) {
 		
@@ -408,7 +449,7 @@ public class MemberController {
 		
 		int result = memberService.updateProfile(m);
 		
-if(result > 0) { // 프로필 수정 성공
+		if(result > 0) { // 프로필 수정 성공
 			
 			Member updateMem = memberService.loginMember(m);
 			
@@ -424,7 +465,7 @@ if(result > 0) { // 프로필 수정 성공
 			return "common/errorPage";
 		}
 	}
-
+	// 현우쓰 코드 
 	@ResponseBody
 	@RequestMapping("loginSignal.me")
 	public Map<String, Object> loginSignal(String userNo, Model model, HttpSession session) {
@@ -450,7 +491,7 @@ if(result > 0) { // 프로필 수정 성공
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("chatClaimFrom", m);
 				map.put("roomNoWith", roomNo);
-				 return map;
+				return map;
 			}
 		}
 		
@@ -458,12 +499,17 @@ if(result > 0) { // 프로필 수정 성공
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping("signalFromChat.me")
+	public int signalFromChat(String userNo) {
+		int userNo1 = Integer.parseInt(userNo);   
+		int result = memberService.loginSignal(userNo1);
+		return result;
+	}
+	
 	// 마이페이지 - 회원 정보 수정 메소드
 	@RequestMapping("updateInfo.me")
 	public String updateInfo(Member m, String address, HttpSession session, Model model) {
-		
-		
-		System.out.println(m);
 		
 		int result = memberService.updateInfo(m);
 		
@@ -622,13 +668,14 @@ if(result > 0) { // 프로필 수정 성공
 	@RequestMapping("acceptCouple.me")
 	public String acceptCouple(Member m, HttpSession session, Model model) {
 		
-		System.out.println(m);
+		System.out.println("커플 수우락" + m);
 		
 		int result = memberService.updateCoupleId(m);
 		
 		if(result > 0) {
 			
 			Member updateMem = memberService.loginMember(m);
+			
 			session.setAttribute("loginUser", updateMem);
 			
 			session.setAttribute("alertMsg", "커플 수락했슴둥~");
@@ -659,7 +706,25 @@ if(result > 0) { // 프로필 수정 성공
 			model.addAttribute("errorMsg", "커플 신청 거절 실패");
 			return "common/errorPage";
 		}
+	}
+	
+	// 마이페이지 - 커플 삭제
+	@RequestMapping("deleteCouple")
+	public String deleteCouple(Member m, HttpSession session, Model model) {
 		
+		int result = memberService.deleteCouple(m);
+		
+		if(result > 0) { // 커플 삭제 성공
+			Member updateMem = memberService.loginMember(m);
+			session.setAttribute("loginUser", updateMem);
+			
+			session.setAttribute("alertMsg", "성공적으로 삭제되었습니다.");
+			return "redirect:myPage.me";
+			
+		} else { // 커플 삭제 실패
+			model.addAttribute("errorMsg", "커플 삭제 실패");
+			return "common/errorPage";
+		}
 	}
 	
 	//팔로우하는 메소드(유진)

@@ -50,7 +50,7 @@
         background-color: rgb(17, 199, 231);
         color: white;
         border: none;
-        border-radius: 3px;
+        border-radius: 5px;
         width: 100px;
         height: 33px;
         margin-left: 350px;
@@ -77,9 +77,9 @@
     <div class="body">
         <div class="inner_body">
             <nav class="sessionTitle">
-                <h3><b>에브리타임⏰</b></h3>
+                <h3 style="margin-bottom: 8px;"><b style="font-family: 'IBM Plex Sans KR', sans-serif; font-size: 28px;">에브리타임⏰</b></h3>
                 <hr>
-            </nav>
+              </nav>
             <div class="sub_body">
                 <form id="erollFormPost" method="post" action="update.po" enctype="multipart/form-data">
                     <table algin="center">
@@ -106,7 +106,10 @@
                         <tr>
                             <c:if test="${ not empty a.attOrigin }">
 		                        <th class="form-file">기존파일</th>
-			                    <td><a class="form-file" href="${ a.attChange }">${ a.attOrigin }</a></td>
+			                    <td>
+			                    <a class="form-file" href="${ a.attChange }">${ a.attOrigin }</a>
+			                    <br> 기존의 파일은 무조건 삭제되니 주의해주시기 바랍니다.
+			                    </td>
 		                    </c:if>
                         </tr>
                     </table>
