@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -160,15 +161,15 @@
         height : 600px;
     }
 
-	.recieved-side {
+	.received-side {
 		-webkit-border-radius: 50px;
 		-moz-border-radius: 50px;
 		border-radius: 50px;
 		background: #5a99ee;
-		display: inline-block;
 		padding: 10px 20px;
 		position: relative;
-		float : left;
+		display : inline-block;
+		align-items : right;
 	}
 
 	.writer-side {
@@ -176,10 +177,10 @@
 		-moz-border-radius: 50px;
 		border-radius: 50px;
 		background: orange;
-		display: inline-block;
 		padding: 10px 20px;
 		position: relative;
-		float : right;
+		display : inline-block;
+		align-items : right;
 	}
 
     #chat-attachment {
@@ -215,6 +216,10 @@
         float : bottom;
     }
 
+	#chat-text-list {
+		list-style-type : none;
+	}
+
 </style>
 </head>
 <body>
@@ -226,11 +231,35 @@
 				alert("로그인 후 이용 가능한 서비스입니다.");
 				history.back();
 			}
-			else if(!(("${loginUser.userNo}"=="${users.USER_NO1}") ||("${loginUser.userNo}" == "${users.USER_NO2}"))) {
+			else if(!(("${loginUser.userNo}"=="${users.m1.userNo}") ||("${loginUser.userNo}" == "${users.m2.userNo}"))) {
 				alert("비정상적인 접근입니다.");
 				history.back();
 			}
 		});
+		
+		var interval;
+		
+		$(function() {
+			
+			signalFromChat;
+			
+			interval = setInterval(signalFromChat, 2000);
+		});
+		
+		function signalFromChat() {
+			$.ajax({
+        		url : "signalFromChat.me",
+        		data : {
+        			userNo : "${loginUser.userNo}"
+        		},
+        		success : function(result){
+        		},
+        		error : function(){
+        			console.log("header ajax problem");
+        		}
+        	});
+
+		}
 	</script>
 	
 	<div class="chat-outer">
@@ -241,20 +270,26 @@
 		</div>
 		<div class="chat-profile" align="center">
             
+            <c:choose>
+            	<c:when test="${ users.m1.userNo == loginUser.userNo }">
+            		<c:set var='profile' value='${ users.m2 }' />
+            	</c:when>
+            	<c:otherwise>
+            		<c:set var='profile' value='${ users.m1 }' />
+            	</c:otherwise>
+            </c:choose>
+            
             <div id="profile-pic">
-                <img src="">
+                <img src="${ profile.pic }">
             </div>
 			<div id="profile-nickname">
-				<span>치매정인</span>
+				<span>${ profile.nickname }</span>
 			</div>
 			<div id="profile-mbti">
-				<span>ISTP</span>
+				<span>${ profile.mbti }</span>
 			</div>
 			<div id="profile-introduction">
-				<span> 사랑이란 무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란
-					무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란
-					무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란 무엇일까?사랑이란
-					무엇일까?사랑이란 무엇일까? </span>
+				<span>${ profile.profile }</span>
 			</div>
             
 			<hr id="profile-midline">
@@ -330,17 +365,17 @@
 						chatResult += "<li class='writer-side'>"
 							+ "<div class='chat-body'>"
                 			+ 		"<div class='chat-message'>"
-                			+			"<h5>" + content.writer + "</h5>"
+                			+			"<h5>" + "${loginUser.nickname}" + "</h5>"
                 			+			"<p>" + content.chatContent + "</p>"
                 			+		"</div>"
             				+	"</div>"
             				+ "</li>";
 					}
 					else {
-						chatResult += "<li class='received-side'>"
-							+ "<div class='chat-body'>"
+						chatResult += "<li>"
+							+ "<div class='received-side'>"
                 			+ 		"<div class='chat-message'>"
-                			+			"<h5>" + content.writer + "</h5>"
+                			+			"<h5>" + "${profile.nickname}" + "</h5>"
                 			+			"<p>" + content.chatContent + "</p>"
                 			+		"</div>"
             				+	"</div>"
@@ -353,7 +388,7 @@
 				
 				client.send('/fromServer/' + roomNo, {},
 					JSON.stringify({
-						chatContent : $("#chat-text").val(),
+						chatContent : "님이 입장하셨습니다.",
 						writer : ${loginUser.userNo}
 					})
 				);

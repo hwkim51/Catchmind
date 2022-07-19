@@ -18,6 +18,4 @@ public class Chat implements Serializable{
 	private String writer;
 	private String chatContent;
 	private String chatTime;
-	
-	private String readStatus;
 }

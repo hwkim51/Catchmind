@@ -1,9 +1,13 @@
 package com.e1i4.catchmind.chat.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.e1i4.catchmind.chat.model.vo.Chat;
+import com.e1i4.catchmind.member.model.vo.Member;
 
 @Repository
 public class ChatDao {
@@ -50,7 +54,15 @@ public class ChatDao {
 	}
 	
 	public HashMap getUsers(SqlSessionTemplate sqlSession, int roomNo) {
-		return sqlSession.selectOne("chatMapper.getUsers", roomNo);
+		HashMap map = sqlSession.selectOne("chatMapper.getUsers", roomNo);
+		int result = Integer.parseInt(String.valueOf(map.get("USER_NO1")));
+		Member m1 = sqlSession.selectOne("memberMapper.selectMember", result);
+		result = Integer.parseInt(String.valueOf(map.get("USER_NO2")));
+		Member m2 = sqlSession.selectOne("memberMapper.selectMember", result);
+		
+		map.put("m1", m1);
+		map.put("m2", m2);
+		return map;
 	}
 	
 	public int chatAgreed(SqlSessionTemplate sqlSession, int userNo, int userNo2) {
@@ -58,6 +70,11 @@ public class ChatDao {
 		map.put("userNo1", userNo);
 		map.put("userNo2", userNo2);
 		return sqlSession.update("chatMapper.chatAgreed", map);
+	}
+	
+	
+	public ArrayList<Chat> getChatLog(SqlSessionTemplate sqlSession, int roomNo) {
+		return (ArrayList)sqlSession.selectList("chatMapper.getChatLog", roomNo);
 	}
 	
 }

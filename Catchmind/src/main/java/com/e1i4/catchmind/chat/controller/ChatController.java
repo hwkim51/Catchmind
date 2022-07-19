@@ -2,6 +2,7 @@ package com.e1i4.catchmind.chat.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -43,6 +44,8 @@ public class ChatController {
     	model.addAttribute("roomNo", roomNo);
     	HashMap map = chatService.getUsers(roomNo);
     	model.addAttribute("users", map);
+    	ArrayList<Chat> list = chatService.getChatLog(roomNo);
+    	model.addAttribute("chatlist", list);
     	return "chat/chatTemp";
     }
     
@@ -75,16 +78,19 @@ public class ChatController {
     }
     
     */
+
     /*
     @RequestMapping("sendRequest.ch")
-    public String chatRequest(int userNo, int requestTo) {
+    public String chatRequest(int userNo, int requestTo, Model model) {
     	int result = chatService.chatRequest(userNo, requestTo);
     	if(result == -1) {
+    		model.addAttribute("alertMsg", "채팅 신청을 받을 수 없는 상태입니다.");
     	}
     	else {
+    		
     	}
     }
-    */
+	*/
     
     @ResponseBody
     @RequestMapping("cancelRequest.ch")

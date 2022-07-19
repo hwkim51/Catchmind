@@ -18,12 +18,14 @@
         /* ################### sub_head 설정 영역 ################### */
         .sub_head{
             position: relative;
+        	margin-left:38px;
+            margin-bottom: 10px;
             color: rgb(81, 81, 81);
             font-family: 'IBM Plex Sans KR', sans-serif;
         } /* 게시판 타이틀 및 작성 영역 설정 */
         
         .sessionTitle{
-        	margin-left:10px !important;
+        	margin-left:38px !important;
         }
 
         .sub_head>.btn_write{
@@ -31,7 +33,7 @@
             font-size: 15px;
             cursor: pointer;
             color: white;
-            right: 40px;
+            right: 65px;
     		top: -24px;
             width: 90px;
             height: 35px;
@@ -39,7 +41,7 @@
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
-            padding-top: 8px;
+            padding-top: 6px;
         } /* 작성 설정 */
 
         /* ################### sub_body 설정 영역 ################### */
@@ -55,9 +57,9 @@
             flex-wrap: wrap;
         }
         .card_items{
-            width: 370px;
+            width: 320px;
             height: 250px;
-            margin: 0px 10px 0px 10px;
+            margin: 0px 35px 10px 35px;
             cursor: pointer;
         }
         .card_items>*{
@@ -65,7 +67,7 @@
         }
 
         .card_items>.card_img{
-            width: 370px;
+            width: 320px;
             height: 190px;
         }
         .card_items>.card_img img{
@@ -83,6 +85,9 @@
         }
         
         /* ################### sub_foot 설정 영역 ################### */
+        .pagination{
+            transform: translateY(-10px);
+        }
         .pagination *{
         	margin: auto;
         	padding: auto;
@@ -140,9 +145,9 @@
     <div class="body">
         <div class="inner_body">
             <nav class="sessionTitle">
-                <h3><b>연애의 발견</b></h3>
+                <h3 style="margin-bottom: 8px;"><b style="font-family: 'IBM Plex Sans KR', sans-serif; font-size: 28px;">연애의 발견</b></h3>
                 <hr>
-            </nav>
+              </nav>
             <div class="sub_head">
                 * 연애의 발견은 약 148만 캐치 유저들의 연애 이야기를 다루는 공간입니다. <br> &nbsp;&nbsp; 다른 이들의 소소한 사랑이야기에 공감하고, 때로는 사랑에 대한 진지한 고민을 나눠보세요.
                 <c:if test="${ not empty loginUser and loginUser.partner ne 0 }">

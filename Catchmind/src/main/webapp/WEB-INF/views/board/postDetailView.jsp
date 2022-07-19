@@ -54,7 +54,7 @@
         } /* 작성 설정 */
         .sub_head>.btn_delete{
             position: absolute;
-            font-size: 12;
+            font-size: 12px;
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */

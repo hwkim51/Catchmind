@@ -2,10 +2,10 @@ package com.e1i4.catchmind.member.model.dao;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.jdbc.SQL;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.e1i4.catchmind.chat.model.vo.Chat;
 import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
@@ -95,7 +95,7 @@ public class MemberDao {
 	}
 	
 	public Member getChatClaim(SqlSessionTemplate sqlSession, int userNo) {
-		int result = sqlSession.selectOne("memberMapper.getChatClaim", userNo);
+		int result = sqlSession.selectOne("chatMapper.getChatClaim", userNo);
 		if(result != 0) {
 			return sqlSession.selectOne("memberMapper.selectMember", result);
 		}
@@ -143,5 +143,14 @@ public class MemberDao {
 	public int refuseCouple(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.refuseCouple", m);
 	}
-
+	
+	// 커플 회원 정보 조회 서비스(select)
+	public Member selectCoupleInfo(SqlSessionTemplate sqlSession, String partner) {
+		return sqlSession.selectOne("memberMapper.selectCoupleInfo", partner);
+	}
+	
+	// 마이페이지 - 커플 삭제 서비스(update)
+	public int deleteCouple(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.deleteCouple", m);
+	}
 }
