@@ -1,6 +1,8 @@
 package com.e1i4.catchmind.member.model.vo;
 
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -29,7 +31,7 @@ public class Member {
 	private String gender; //GENDER	VARCHAR2(1 BYTE)
 	private String profile; //PROFILE	VARCHAR2(50 BYTE)
 	private String recentLogin; //RECENT_LOGIN	DATE
-	private String recentLogout; //RECENT_LOGOUT	DATE
+	private Date recentLogout; //RECENT_LOGOUT	DATE
 	private String partner; //PARTNER	NUMBER
 	private int status; //STATUS	NUMBER
 	private String pic; //PIC	VARCHAR2(100 BYTE)

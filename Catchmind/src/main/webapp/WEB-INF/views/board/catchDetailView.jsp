@@ -8,28 +8,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
     <style>
-
+      /* 폰트 */
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
+       
       .body{
           margin: auto;
-          width: 1400px;
+          width: 1200px;
       } /* 전체틀 가운데 정렬 및 넓이 설정 */
 
       /* ################### sub_head 설정 영역 ################### */
       .sub_head{
-            position: relative;
-            height: 90px;
+        position: relative;
+            margin: 0 100px;
+            width: 1000px;
+            height: 50px;
         } /* 게시판 타이틀 및 작성 영역 설정 */
 
-        .sub_head>.title{
-          position: absolute;
-          font-size: 40px;
-          width: 380px;
-          left:0px; /* 왼쪽 정렬 */
-          padding-bottom: 9px;
-          border-bottom: 1px solid black;
-      } /* 게시판 타이틀 설정 */
+        .sessionTitle{
+        	margin-left:31px !important;
+        	transform: translateX(7px);
+        }
       
       .sub_head>.btn_update{
             position: absolute;
@@ -37,68 +41,68 @@
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 30px;
-            width: 120px;
-            height: 40px;
-            border-radius: 4px;
+            top: 10px;
+            width: 90px;
+            height: 35px;
+            border-radius: 5px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
             vertical-align: middle;
-            padding-top: 8px;
-            right:140px;
+            padding-top: 6px;
+            right:102px;
+        	  transform: translateY(-15px);
         } /* 작성 설정 */
         .sub_head>.btn_delete{
             position: absolute;
-            font-size: 15px;
+            font-size: 12px;
             cursor: pointer;
             color: white;
             right:0px; /* 오른쪽 정렬 */
-            top: 30px;
-            width: 120px;
-            height: 40px;
-            border-radius: 4px;
+            top: 10px;
+            width: 90px;
+            height: 35px;
+            border-radius: 5px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
+            padding-top: 6px;
             vertical-align: middle;
-            padding-top: 8px;
+        	  transform: translateY(-15px);
         } /* 작성 설정 */
 
       /* ################### sub_body 설정 영역 ################### */
       .sub_body{
+          font-family: 'IBM Plex Sans KR', sans-serif;
+          margin: auto;
           height: 100%;
+          width: 1000px;
           background-color: #eaeaea;
-          padding: 25px 25px 25px 25px;
+          padding: 10px 10px 10px 10px;
       } /* 게시판의 영역 설정 */
       
 
       /* ########## 글제목, 작성일자, 작성자 설정 영역 ########## */
       .sub_body>.wr_title{
         display: inline-block;
-        width: 920px;
+        width: 720px;
         font-weight: 800;
-        font-size: 30px;
         margin-bottom: 5px;
       } /* 글제목 설정 */
       .sub_body>.wr_date{
         display: inline-block;
-        width: 350px;
+        width: 180px;
         font-weight: 800;
-        font-size: 30px;
       } /* 작성일자 설정 */
       .sub_body>.wr_writer{
         display: inline-block;
-        width: 920px;
+        width: 720px;
         font-weight: 800;
-        font-size: 30px;
-        margin-bottom: 20px;
       } /* 작성자 설정 */
       .sub_body>.wr_count{
         display: inline-block;
-        width: 200px;
+        width: 120px;
         font-weight: 800;
-        font-size: 30px;
       } /* 조회수 설정 */
       .sub_body>.wr_count>#countLike{
         display: inline-block;
@@ -106,29 +110,27 @@
       
       .sub_body>.btn_like{
         display: inline-block;
-        width: 200px;
         font-weight: 800;
-        font-size: 30px;
-      	float:right;
       	cursor:pointer;
-      	border: none;
       	background: none;
+        text-align: left;
+        border: none;
+        transform: translateY(-1px);
       }.sub_body>.btn_like_cancel{
         display: inline-block;
-        width: 200px;
         font-weight: 800;
-        font-size: 30px;
-      	float:right;
       	cursor:pointer;
-      	border: none;
       	background: none;
+        text-align: left;
+        border: none;
+        transform: translateY(-1px);
       }
       .sub_body>.btn_like_disabled{
         display: inline-block;
-        width: 200px;
         font-weight: 800;
-        font-size: 30px;
-      	float:right;
+        text-align: left;
+        border: none;
+        transform: translateY(-1px);
       }
       
       .swiper {
@@ -148,21 +150,23 @@
 
       /* ########## 글내용 설정 영역 ########## */
       .sub_body>.wr_content{
+        font-family: 'IBM Plex Sans KR', sans-serif;
         height: 100%;
-        font-size: 20px;
-        padding-bottom: 20px;
-    	white-space: pre-wrap;
+        white-space: pre-wrap;
+        margin-bottom:0px;
+        font-size: 15px;
       } /* 글 내용 설정 */
       
       /* ################### sub_foot 설정 영역 ################### */
       .sub_foot{
         text-align: center;
-        font-size: 30px;
         border: none;
-        padding-bottom: 100px;
-        padding-top: 20px;
+        padding-bottom: 5px;
+        padding-top: 10px;
+        margin-bottom: 30px;
       } /* 목록으로 구역 설정 및 스타일 적용 */
       .sub_foot>.btn_list{
+        font-family: 'IBM Plex Sans KR', sans-serif;
         cursor:pointer;
         color:black;
         text-decoration: none;
@@ -173,14 +177,26 @@
       outline:none !important;
       border:none;
       background:none;
+      float: right;
+      font-size: 12px;
+      color: grey;
       } /* 신고하기 스타일 적용*/
+     .w3-modal-content{
+      top: 200px;
+      width: 400px;
+      height: 250px;
+     }
+      .w3-orange{
+        width: 100%;
+        height: 40px;
+      }
       .w3-container>span:hover{
       background-color: transparent !important;
       } /* 모달창 내에 취소박스 배경색 적용 */
       .w3-container>textarea{
-      margin-top:5px;
-      width:100%;
-      height:600px;
+      margin:15px 10px;
+      width:90%;
+      height:140px;
       resize:none;
       outline:none;
       } /* 모달창 내에 사유 입력 스타일 */
@@ -189,15 +205,14 @@
       margin-bottom: 10px;
       background-color:orange;
       } /* 모달창 내에 제출 스타일 */
-      #reply_Area .report-box{
+      .report-box{
       font-size: 7px;
+      transform: translateY(-10px);
       } /* 댓글의 신고하기 크기설정 */
       
       
     </style>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    
 </head>
 <body style="overflow-x: hidden">
 
@@ -206,9 +221,9 @@
     <div class="body">
         <div class="inner_body">
           <nav class="sessionTitle">
-            <h3><b>연애의 발견</b></h3>
+            <h3 style="margin-bottom: 8px;"><b style="font-family: 'IBM Plex Sans KR', sans-serif; font-size: 28px;">연애의 발견</b></h3>
             <hr>
-        </nav>
+          </nav>
             <div class="sub_head">
                 <c:if test="${ (not empty loginUser) and (loginUser.userNo eq c.catchWriter) or (loginUser.userNo eq 1) }">
                 <a class="btn_update" onclick="catchFormSubmit(1);">수정</a>
@@ -265,7 +280,7 @@
                 <c:if test="${ (not empty loginUser) or (loginUser.userNo eq 1) }">
                 <!-- Trigger/Open the Modal -->
 				<button onclick="document.getElementById('id01').style.display='block'"
-				class="report-box">신고하기</button>
+				class="report-box" id="postRep">🚨 게시물 신고하기</button>
 				</c:if>
                 
             </div>
@@ -285,14 +300,17 @@
 	        <header class="w3-container w3-orange">
 	            <span onclick="document.getElementById('id01').style.display='none'"
 	            class="w3-button w3-display-topright">&times;</span>
-	            <h2>신고하기</h2>
+	            <h5 style="font-family: 'IBM Plex Sans KR', sans-serif;
+                          padding:10px;">🚨 REPORT </h5>
 	        </header>
 	    <div class="w3-container">
 	      <span onclick="document.getElementById('id01').style.display='none'"
 	      class="w3-button w3-display-topright">&times;</span>
             <input type="hidden" name="catchNo" value="${ c.catchNo }">
-            <textarea id="repContent" name="repContent" placeholder="신고사유를 작성해주세요" required></textarea>
-            <button onclick="reportRep();">신고</button>
+            <textarea id="repContent" name="repContent" 
+            style="font-family: 'IBM Plex Sans KR', sans-serif;" placeholder="신고사유를 작성해주세요" required></textarea>
+            <br>
+            <button onclick="reportRep();" style="border-radius: 5px; font-family: 'IBM Plex Sans KR', sans-serif;">신고접수</button>
 	    </div>
 	  </div>
 	  </div>
