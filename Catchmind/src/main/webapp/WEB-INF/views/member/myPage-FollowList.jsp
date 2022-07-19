@@ -185,7 +185,25 @@
     // 대화하기
      $(document).on("click", "#chatButton", function(event){
     	//console.log($(this).next().next().text());
-    	location.href=""; //채팅하러 가요
+    	chatPage == 1;
+    	alert("상대에게 채팅 신청 메시지를 보냈습니다.\n 잠시 기다려 주세요.");
+    	$.ajax({
+    		url : "sendRequest.ch",
+    		data : {},
+    		success : function(data) {
+    			if(data > 0) {
+    				alert("상대가 채팅 신청을 수락하였습니다.");
+    				location.href("/chat.do?roomNo=" + data);
+    			}
+    			else {
+    				chatPage = 0;
+    				interval = setInterval(loginSignal, 2000);
+    			}
+    		},
+    		error : function() {
+    			console.log("Ajax : sendRequest failed");
+    		}
+    	});
     });
    
     </script>

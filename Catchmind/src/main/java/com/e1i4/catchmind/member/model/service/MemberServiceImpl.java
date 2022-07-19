@@ -194,7 +194,7 @@ public class MemberServiceImpl implements MemberService  {
 
 	@Override
 	public int blockMember(Block b) {
-		return memberDao.deleteBlockMember(sqlSession, b);
+		return memberDao.blockMember(sqlSession, b);
 	}
 
 

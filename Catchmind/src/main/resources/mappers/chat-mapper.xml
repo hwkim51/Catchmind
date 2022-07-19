@@ -66,4 +66,20 @@
 		WHERE ROOM_NO = #{roomNo}
 		ORDER BY CHAT_TIME DESC
 	</select>
+	
+	<select id="checkRequest" parameterType="_int" resultType="_int">
+		SELECT CLAIM_FROM
+		FROM CHATCLAIM
+		WHERE USER_NO = #{userNo}
+	</select>
+	
+	<insert id="insertChat" parameterType="chat">
+		INSERT INTO TB_CHAT
+		VALUES (#{chatContent}, #{chatTime}, #{writer}, #{roomNo})
+	</insert>
+	
+	<insert id="chatReport" parameterType="chatReport">
+		INSERT INTO CHAT_REPORT
+		VALUES (#{uesrNo}, #{reportedFrom}, #{reportedFor})
+	</insert>
 </mapper>

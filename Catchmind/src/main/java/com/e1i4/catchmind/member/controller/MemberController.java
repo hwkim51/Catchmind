@@ -37,7 +37,6 @@ import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.google.gson.Gson;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 @Controller
 public class MemberController {
@@ -479,12 +478,6 @@ public class MemberController {
 			Member m = memberService.getChatClaim(userNo1);
 			if(m.getUserNo() != 0) {
 				int userNo2 = m.getUserNo();
-				
-				if(userNo1 > userNo2) {
-		    		int temp = userNo2;
-		    		userNo2 = userNo1;
-		    		userNo1 = temp;
-		    	}
 		    	
 		    	roomNo = chatService.getRoomNo(userNo1, userNo2);
 				
@@ -765,10 +758,10 @@ public class MemberController {
 			Block b = new Block();
 			b.setUserNo(user);
 			b.setBlockedUser(userNo);
-			
 			int result = memberService.blockMember(b);
+			System.out.println(result);
 			if(result > 0) {
-				
+				model.addAttribute("alertMsg", "차단 성공");
 				return "chat/matchListView";
 			} else {
 				
