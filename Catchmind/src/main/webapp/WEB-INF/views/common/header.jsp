@@ -341,7 +341,7 @@
                 
     
         function loginSignal() {
-        	
+        	console.log("하이");
         	$.ajax({
         		url : "loginSignal.me",
         		data : {
@@ -424,148 +424,7 @@
 
             });
         
-        })
-        
-        /*
-		//beforeunload 이벤트 관련 코드
-		// var validNavigation = true;
-        
-        
-        // function wireUpEvents(){	
-        
-	    //     $(document).keydown(function(e) {
-	    //         var key = (e) ? e.keyCode : event.keyCode;
-	    //         //alert(key)
-	    //         if(e.ctrlKey){
-	    //             //이걸로 컨트롤키 뽑을 수 있음
-	    //         }
-	    //         if(e.altKey){
-	    //             //이걸로 알트키 뽑을 수 있음
-	    //         }
-	    //         if(e.ctrlKey && e.keyCode == 82){
-	    //         	 validNavigation = false;
-	    //             console.log("컨트롤 + R");
-	    //         }
-	    //         if(e.keyCode == 116){
-	    //         	 validNavigation = false;
-	    //             console.log("F5");
-	    //         }
-	    //         if(e.keyCode == 115){
-	    //         	 validNavigation = false;
-	    //             console.log("F4");
-	    //         }
-	    //     });   
-            
-	    //     $(document).on('mousedown', function() {
-	    //     	if ((event.button == 2) || (event.which == 3)) {
-		//              console.log("마우스 우클릭");
-		//              validNavigation = false;
-	    //     	}
-	    //  	});
-	   		
-	    //     // Attach the event click for all links in the page
-	    //     $("a").bind("click", function() {
-	    //     	 validNavigation = false;
-	    //        console.log("a클릭");
-	    //     });
-	        
-	    //     $("tr").bind("click", function() {
-	    //     	 validNavigation = false;
-	    //        console.log("tr클릭");
-	    //     });
-	        
-	    //     $("li").bind("click", function() {
-	    //          validNavigation = false;
-	    //         console.log("li클릭");
-	    //     });
-	
-	    //     $("ul").bind("click", function() {
-	    //         validNavigation = false;
-	    //        console.log("ul클릭");
-	    //     });
-	        
-	    //     $("#noticeImg").bind("click", function() {
-	    //         validNavigation = false;
-	    //        console.log("img클릭");
-	    //     });
-	        
-	    //     $("div").bind("click", function() {
-	    //         validNavigation = false; 
-	    //        console.log("div클릭");
-	    //     });
-	        
-	    //      // Prevent logout when clicking in a button (if these buttons redirect to some page)
-		//     $("button").bind("click", function() {
-	    //         validNavigation = false; 
-	    //        console.log("div클릭");
-	    //     });
-	        
-	    //     // Attach the event submit for all forms in the page
-	    //     $("form").bind("submit", function() {
-	    //         validNavigation = false; 
-	    //        console.log("서브밋");
-	    //     });
-	
-	    //     // Attach the event click for all inputs in the page
-	    //     $("input[type=submit]").bind("click", function() {
-	    //         validNavigation = false; 
-	    //        console.log("서브밋인풋");
-	    //     });
-	        
-	    //     $("input[type=button]").bind("click", function() {
-	    //         validNavigation = false; 
-	    //        console.log("인풋버튼타입");
-	    //     });
-	    // }
-       
-			
-		// $(document).ready(function() {
-	    //      refreshSession();
-	    //      wireUpEvents();
-	         
-	    //      $(window).on('beforeunload', function(e) {
-	 	// 		//console.log("beforeunload 결과:"+validNavigation);
-	 			
-	 	// 		if(validNavigation){
-	 	// 			//console.log("최종 beforeunload 결과: "+validNavigation);
-	    //             endSession();
-	    //      	} 
-	 	//     });
-	    // });
-		
-	    //   function endSession() {
-	    //       $.ajax({
-	             
-	    //          url : "closeSession.me",
-	    //          data : {
-	    //             userId : "${loginUser.userId}"
-	    //          },
-	    //          success : function(result) {
-	    //             console.log("close성공");
-	    //          },
-	    //          error : function() {
-	    //             console.log("댓글 작성용 ajax 통신 실패!");
-	    //          }
-	             
-	    //       });
-	    //   }
-	      
-	    //   function refreshSession() {
-	    //       $.ajax({
-	             
-	    //          url : "refreshSession.me",
-	    //          data : {
-	    //             userId : "${loginUser.userId}"
-	    //          },
-	    //          success : function(result) {
-	    //             console.log("refresh성공");
-	    //          },
-	    //          error : function() {
-	    //             console.log("댓글 작성용 ajax 통신 실패!");
-	    //          }
-	             
-		//       });
-		//    }
+        });
     </script>
 </body>
 </html>

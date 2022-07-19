@@ -490,7 +490,7 @@ public class MemberController {
 		}
 		
 		 return null;
-		
+		*/
 	}
 	
 	@ResponseBody
@@ -719,7 +719,6 @@ public class MemberController {
 			model.addAttribute("errorMsg", "커플 삭제 실패");
 			return "common/errorPage";
 		}
-		
 	}
 	
 }
