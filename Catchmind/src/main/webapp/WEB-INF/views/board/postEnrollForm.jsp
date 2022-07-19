@@ -73,12 +73,10 @@
     <div class="body">
 
         <div class="inner_body">
-            <nav class="sessionTitle">
-                <h3><b>에브리타임⏰</b></h3>
-                <hr>
-            </nav>
-
-            <div class="sub_head"></div>
+          <nav class="sessionTitle">
+            <h3 style="margin-bottom: 8px;"><b style="font-family: 'IBM Plex Sans KR', sans-serif; font-size: 28px;">에브리타임⏰</b></h3>
+            <hr>
+          </nav>
 
             <div class="sub_body">
                 <form id="erollFormPost" method="post" action="insert.po" enctype="multipart/form-data">

@@ -255,8 +255,10 @@
 		                		<div class="swiper-slide"><img src="${ a.attChange }"></div>
 		                	</c:forEach>
 	                	</div>
+	                	<c:if test="${ alist[1].attNo > 0 }">
 						<div class="swiper-button-prev"></div>
 						<div class="swiper-button-next"></div>
+						</c:if>
                 	</div>
                 </c:if>
                 <pre class="wr_content">${ c.catchContent }</pre>

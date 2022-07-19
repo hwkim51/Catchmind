@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <style>
        /* 폰트 */
@@ -30,6 +31,7 @@
 
       .sessionTitle{
         	margin-left:0px !important;
+        	transform: translateX(9px);
         }
       
       .sub_head>.btn_update{
@@ -39,15 +41,16 @@
             color: white;
             right:0px; /* 오른쪽 정렬 */
             top: 10px;
-            width: 75px;
-            height: 25px;
-            border-radius: 4px;
+            width: 90px;
+            height: 35px;
+            border-radius: 5px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
             vertical-align: middle;
-            padding-top: 2px;
-            right:90px;
+            padding-top: 6px;
+            right:102px;
+        	  transform: translateY(-15px);
         } /* 작성 설정 */
         .sub_head>.btn_delete{
             position: absolute;
@@ -56,14 +59,15 @@
             color: white;
             right:0px; /* 오른쪽 정렬 */
             top: 10px;
-            width: 75px;
-            height: 25px;
-            border-radius: 4px;
+            width: 90px;
+            height: 35px;
+            border-radius: 5px;
             background-color: rgb(17, 199, 231);
             text-decoration: none;
             text-align: center;
-            padding-top: 2px;
+            padding-top: 6px;
             vertical-align: middle;
+        	  transform: translateY(-15px);
         } /* 작성 설정 */
 
       /* ################### sub_body 설정 영역 ################### */
@@ -80,7 +84,7 @@
       /* ########## 글제목, 작성일자, 작성자 설정 영역 ########## */
       .sub_body>.wr_title{
         display: inline-block;
-        width: 985px;
+        width: 720px;
         font-weight: 800;
         margin-bottom: 5px;
       } /* 글제목 설정 */
@@ -91,9 +95,8 @@
       } /* 작성일자 설정 */
       .sub_body>.wr_writer{
         display: inline-block;
-        width: 985px;
+        width: 720px;
         font-weight: 800;
-        margin-bottom: 5px;
       } /* 작성자 설정 */
       .sub_body>.wr_count{
         display: inline-block;
@@ -107,6 +110,9 @@
         width:100%;
         height: 100%;
       	object-fit:contain;
+      }
+      .sub_body #postRep{
+      	transform: translateY(75px);
       }
 
       /* ########## 글내용 설정 영역 ########## */
@@ -126,7 +132,7 @@
       } /* 글내용과 댓글입력 창 사이 공간 설정 */
       .sub_body>.wr_reply textarea{
         width: 500px;
-        height: 25px;
+        height: 30px;
         border: none;
         outline: none;
         border-radius: 4px;
@@ -136,10 +142,10 @@
       .sub_body>.wr_reply button{
         border: none;
         border-radius: 4px;
-        height: 25px;
+        height: 30px;
         width: 75px;
         color: white;
-        transform: translateY(-7px); /* 입력창과 높이 맞춤 */
+        transform: translateY(-10px); /* 입력창과 높이 맞춤 */
         margin-left: 30px;
         background-color: rgb(17, 199, 231)
       } /* 댓글 입력 버튼 설정 영역 */
@@ -153,11 +159,14 @@
       display:inline-flex;
       width:100%;
       } /* 댓글 작성자에 대한 정보 */
+      .sub_body .rep_userbox .rep_replyDate{
+      margin-left: auto;
+      }
       .sub_body .rep_userbox, .rep_content{
       border-collapse: collapse;
       white-space: pre-wrap;
       } /* 댓글 내용 */
-      .sub_body .rep_update, .rep_delete{
+      .sub_body .rep_update, .rep_delete, .rep_replyDate{
       flex-wrap: wrap;
       display: flex;
       align-items:center;
@@ -185,7 +194,6 @@
       background:none;
       float: right;
       font-size: 12px;
-      transform : translateY(70px);
       color: grey;
       } /* 신고하기 스타일 적용*/
      .w3-modal-content{
@@ -217,7 +225,6 @@
       } /* 댓글의 신고하기 크기설정 */
     </style>
     
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body style="overflow-x: hidden">
 
@@ -226,9 +233,9 @@
     <div class="body">
         <div class="inner_body">
           <nav class="sessionTitle">
-            <h3><b>에브리타임⏰</b></h3>
+            <h3 style="margin-bottom: 8px;"><b style="font-family: 'IBM Plex Sans KR', sans-serif; font-size: 28px;">에브리타임⏰</b></h3>
             <hr>
-        </nav>
+          </nav>
             <div class="sub_head">
                 <c:if test="${ (not empty loginUser) and (loginUser.userNo eq p.postWriter) or (loginUser.userNo eq 1) }">
                 <a class="btn_update" onclick="postFormSubmit(1);">수정</a>
@@ -257,14 +264,35 @@
                 <div class="wr_title">글제목 : ${ p.postTitle }</div>
                 <div class="wr_date">작성일자 : ${ p.postDate }</div> <br>
                 <div class="wr_writer">작성자 : ${ p.nickName }</div>
-                <div class="wr_count">조회수 : ${ p.postCount }</div> <br>
-                <div class="wr_image"><img src="${ a.attChange }" /> <br></div>
+                <div class="wr_count">조회수 : ${ p.postCount }</div> <br><br>
+                <c:if test= "${ !empty a }">
+                	<div class="wr_image"><img src="${ a.attChange }"> <br></div>
+                </c:if>
                 <pre class="wr_content">${ p.postContent }</pre>
                 <c:if test="${ (not empty loginUser) or (loginUser.userNo eq 1) }">
                 <!-- Trigger/Open the Modal -->
 				<button onclick="document.getElementById('id01').style.display='block'"
+				class="report-box" id="postRep">🚨 게시물 신고하기</button>
+          </c:if>
+
+                <br><br><br>
+                <div><b>댓글</b></div>
+                <hr>
+                <div id="reply_Area">
+                	<c:forEach var="r" items="${ rlist }">
+                        <div class="rep_userbox">
+                        <input type="hidden" class="rno" name="rno" value="${ r.replyNo }">
+		                <div class="rep_nickname"> 🙆‍♂️ <b> ${ r.replyNickName }</b></div>
+			                <c:if test="${ (not empty loginUser) and (loginUser.userNo eq r.replyWriter) or (loginUser.userNo eq 1) }">
+				                <div class="rep_delete">(삭제하기)</div>
+				                <button onclick="document.getElementById('id01').style.display='block'"
 				class="report-box">신고하기</button>
-				</c:if>
+			                </c:if>
+		               	<div class="rep_replyDate" style="padding-right:10px;">${ r.replyDate }</div>
+		               	</div>
+		               	<pre class="rep_content" style="padding-left: 35px;">${ r.replyContent }</pre>
+                    </c:forEach>
+                </div>
                 <div class="wr_reply">
                     <c:choose>
                     	<c:when test="${ empty loginUser }">
@@ -277,23 +305,6 @@
 		                   <button type="button" onclick="addReply();">작성</button>
                     	</c:otherwise>
                     </c:choose>
-                </div>
-                
-                <div>댓글</div>
-                
-                <div id="reply_Area">
-                	<c:forEach var="r" items="${ rlist }">
-                        <div class="rep_userbox">
-                        <input type="hidden" class="rno" name="rno" value="${ r.replyNo }">
-		                <div class="rep_nickname">${ r.replyNickName }</div>
-			                <c:if test="${ (not empty loginUser) and (loginUser.userNo eq r.replyWriter) or (loginUser.userNo eq 1) }">
-				                <div class="rep_delete">(삭제하기)</div>
-				                <button onclick="document.getElementById('id01').style.display='block'"
-				class="report-box">신고하기</button>
-			                </c:if>
-		               	</div>
-		               	<pre class="rep_content">${ r.replyContent }</pre>
-                    </c:forEach>
                 </div>
                 
                 <script>
@@ -378,7 +389,7 @@
             </div>
         </div>
     </div>
-    
+    <br><br>
     
     <!-- The Modal -->
 	<div id="id01" class="w3-modal">
@@ -386,15 +397,18 @@
 	        <header class="w3-container w3-orange">
 	            <span onclick="document.getElementById('id01').style.display='none'"
 	            class="w3-button w3-display-topright">&times;</span>
-	            <h2>신고하기</h2>
+	            <h5 style="font-family: 'IBM Plex Sans KR', sans-serif;
+                          padding:10px;">🚨 REPORT </h5>
 	        </header>
 	    <div class="w3-container">
 	      <span onclick="document.getElementById('id01').style.display='none'"
 	      class="w3-button w3-display-topright">&times;</span>
             <input type="hidden" name="postNo" value="${ p.postNo }">
             <input type="hidden" id="replyNo" name="replyNo" value="">
-            <textarea id="repContent" name="repContent" placeholder="신고사유를 작성해주세요" required></textarea>
-            <button onclick="reportRep();">신고</button>
+            <textarea id="repContent" name="repContent" 
+            style="font-family: 'IBM Plex Sans KR', sans-serif;" placeholder="신고사유를 작성해주세요" required></textarea>
+            <br>
+            <button onclick="reportRep();" style="border-radius: 5px; font-family: 'IBM Plex Sans KR', sans-serif;">신고접수</button>
 	    </div>
 	  </div>
 	  </div>
