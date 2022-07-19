@@ -305,7 +305,7 @@
 
         
     <br clear="both">
-    <hr>
+    
     <br><br><br>
         
     </section>

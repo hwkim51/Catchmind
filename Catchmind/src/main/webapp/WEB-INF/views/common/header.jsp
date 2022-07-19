@@ -297,6 +297,7 @@
         var membericon = document.querySelector("#membericon");
         
         function myPage(){
+        	console.log("마이페이지");
             if("${loginUser}" != ""){
             	/* myPage 이동 시 회원의 userId, userPwd 데이터 전달 */
             	var form = document.createElement('form');

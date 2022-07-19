@@ -79,6 +79,7 @@ public class ChatController {
     
     */
 
+    /*
     @RequestMapping("sendRequest.ch")
     public String chatRequest(int userNo, int requestTo, Model model) {
     	int result = chatService.chatRequest(userNo, requestTo);
@@ -89,7 +90,7 @@ public class ChatController {
     		
     	}
     }
-
+	*/
     
     @ResponseBody
     @RequestMapping("cancelRequest.ch")

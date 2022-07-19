@@ -445,26 +445,8 @@ public class MemberController {
 	// 현우쓰 코드 
 	@ResponseBody
 	@RequestMapping("loginSignal.me")
-	public void loginSignal(String userNo, Model model, HttpSession session) {
+	public Map<String, Object> loginSignal(String userNo, Model model, HttpSession session) {
 		
-		/*
-		Date date = new Date();
-		System.out.println("현재시간" + date);
-		
-		System.out.println("로그아웃 시간" + (((Member)session.getAttribute("loginUser")).getRecentLogout()));
-		/*
-		try {
-			Date recentLogout = format.parse(logout);
-			
-			System.out.println("로그아웃 시간" + recentLogout);
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
-		}
-		*/
-		// System.out.println("로그아웃 시간" + (((Member)session.getAttribute("loginUser")).getRecentLogout()));
-		// System.out.println("로그아웃 시간" + (((Member)session.getAttribute("loginUser")).getRecentLogout()));
-		
-		/*
 		int userNo1 = Integer.parseInt(userNo);
 		int result = memberService.loginSignal(userNo1);
 		int roomNo = 0;
