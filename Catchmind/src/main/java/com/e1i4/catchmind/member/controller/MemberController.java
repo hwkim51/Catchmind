@@ -243,10 +243,10 @@ public class MemberController {
 	}
 	
 	// 회원가입 페이지로 이동 : 수빈
-		@RequestMapping(value="enrollForm.me")
-		public String enrollForm() {
-			return "member/memberEnrollForm";
-		}
+	@RequestMapping(value="enrollForm.me")
+	public String enrollForm() {
+		return "member/memberEnrollForm";
+	}
 		
 	// 회원가입(insert) : 수빈
 	@RequestMapping(value="insert.me")
@@ -355,7 +355,7 @@ public class MemberController {
 	@RequestMapping(value="closeSession.me", produces="text/html; charset=UTF-8")
 	public String closeSession(String userId, HttpSession session) { //현재 진행 중
 		
-		System.out.println("close:"+userId);
+		// System.out.println("close:"+userId);
 		int updateRecentLogout = 0;
 		
 		if(userId!=null) {
@@ -372,7 +372,7 @@ public class MemberController {
 	@RequestMapping(value="refreshSession.me", produces="text/html; charset=UTF-8")
 	public String refreshSession(String userId, HttpSession session) { 
 		
-		System.out.println("refresh:"+userId);
+		// System.out.println("refresh:"+userId);
 		int updateRecentLogout = 0;
 		
 		if(userId!=null) {
@@ -416,7 +416,7 @@ public class MemberController {
 		
 		int result = memberService.updateProfile(m);
 		
-if(result > 0) { // 프로필 수정 성공
+		if(result > 0) { // 프로필 수정 성공
 			
 			Member updateMem = memberService.loginMember(m);
 			
@@ -436,7 +436,7 @@ if(result > 0) { // 프로필 수정 성공
 	@ResponseBody
 	@RequestMapping("loginSignal.me")
 	public Map<String, Object> loginSignal(String userNo, Model model) {
-		int userNo1 = Integer.parseInt(userNo);
+		int userNo1 = Integer.parseInt(userNo);   
 		int result = memberService.loginSignal(userNo1);
 		int roomNo = 0;
 		if(result > 0) {
@@ -462,6 +462,14 @@ if(result > 0) { // 프로필 수정 성공
 		
 		return null;
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping("signalFromChat.me")
+	public int signalFromChat(String userNo) {
+		int userNo1 = Integer.parseInt(userNo);   
+		int result = memberService.loginSignal(userNo1);
+		return result;
 	}
 	
 	// 마이페이지 - 회원 정보 수정 메소드

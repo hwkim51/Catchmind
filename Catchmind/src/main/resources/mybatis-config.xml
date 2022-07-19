@@ -21,6 +21,7 @@
 		<typeAlias type="com.e1i4.catchmind.board.model.vo.Report" alias="report"/>
 		<typeAlias type="com.e1i4.catchmind.board.model.vo.Catch" alias="catch"/>
 		<typeAlias type="com.e1i4.catchmind.board.model.vo.Like" alias="like"/>
+		<typeAlias type="com.e1i4.catchmind.chat.model.vo.Chat" alias="chat" />
 	</typeAliases>
 	
 	<mappers>
