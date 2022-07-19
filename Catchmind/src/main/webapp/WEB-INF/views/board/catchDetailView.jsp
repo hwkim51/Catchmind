@@ -254,13 +254,13 @@
                 <div class="wr_count">조회수 : ${ c.catchCount }</div>
                 <c:choose>
                 <c:when test="${ not empty loginUser and llist eq 0 }">
-                <button class="btn_like" onclick="like();">좋아요 : ${ l }</button><br>
+                <button class="btn_like" onclick="like();">좋아요 : ${ l } &nbsp;&nbsp;🤍 </button><br>
                 </c:when>
                 <c:when test="${ not empty loginUser and llist eq 1 }">
-                <button class="btn_like_cancel" onclick="cancelLike();">좋아요 : ${ l }</button><br>
+                <button class="btn_like_cancel" onclick="cancelLike();">좋아요 : ${ l } &nbsp;&nbsp;💗 </button><br>
                 </c:when>
                 <c:otherwise>
-                <div class="btn_like_disabled">좋아요 : ${ l }</div><br>
+                <div class="btn_like_disabled">좋아요 : ${ l } &nbsp;&nbsp;💗 </div><br>
                 </c:otherwise>
                 </c:choose>
                 <c:if test="${ !empty alist }">
