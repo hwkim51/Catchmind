@@ -59,7 +59,7 @@
         .card_items{
             width: 320px;
             height: 250px;
-            margin: 0px 35px 10px 35px;
+            margin: 0px 35px 40px 35px;
             cursor: pointer;
         }
         .card_items>*{
@@ -73,6 +73,7 @@
         .card_items>.card_img img{
             width:100%;
             height:100%;
+            object-fit: cover;
         }
 		.card_items>.data_area>.title{
 			border-bottom: 1px solid #eaeaeaea;
@@ -155,6 +156,7 @@
                 </c:if>
             </div>
             <div class="sub_body">
+                <br>
                 <div class="card_area">
                 	<c:forEach var="c" items="${ list }">
                     <div class="card_items">
@@ -184,6 +186,7 @@
 		           		});
 		           	});
 		           </script>
+                   <br>     
                   <div class="sub_foot">
                       <div class="pagination">
 				        <ul>
@@ -206,7 +209,7 @@
 				            </c:otherwise>
 				            </c:choose>
 				            </c:forEach>
-				            
+				        
 				            <c:choose>
 	                    		<c:when test="${ pi.currentPage eq pi.maxPage }">
 					            	<li class="signal disabled" id="right"><a href="#">Next &gt;</a></li>
@@ -223,7 +226,7 @@
             </div>
         </div>
     </div>
-
+    <br><br><br>
     <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
