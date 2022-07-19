@@ -60,6 +60,26 @@
     #mbtiResultModal{
         font-family: 'IBM Plex Sans KR', sans-serif;
     }
+    .btn-yes{
+        background-color: white;
+        color:rgb(0, 0, 0);
+        font-size: 20px;
+        font-weight: 900;
+        width: 210px;
+        height: 40px;
+        border-radius: 10px;
+        border: none;
+    }
+    .btn-no{
+        background-color: white;
+        color:rgb(93, 93, 93);
+        font-size: 20px;
+        font-weight: 900;
+        width: 220px;
+        height: 40px;
+        border-radius: 10px;
+        border: none;
+    }
  
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -91,17 +111,19 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                	나의 MBTI 정보를 업데이트 하시겠습니까?
+                	나의 MBTI 정보를 업데이트 하시겠습니까?<br><br>
+                    <h1 style="text-align: center; font-size: 100px;">🤔<br></h1>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer" align="center">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                    
                     <form action="updateMbti.te" method="post">
                     	<input type="hidden" name="mbtiUser" value="${ loginUser.userId }">
                     	<input type="hidden" name="mbtiResult" value="${ testResult.mbtiResult }">
-                    	<button type="submit" class="btn btn-success">확인</button>
+                    	<button type="submit" class="btn-yes">YES</button>
                     </form>
+                    <button type="button" class="btn-no" data-dismiss="modal">NO</button>
                 </div>
             </div>
         </div>

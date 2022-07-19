@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,6 +100,36 @@
         top: -16px;
         left: 670px;
     }
+    .testBackImg3{
+        position: absolute;
+        top: 14px;
+        left: 810px;
+    }
+    .testBackImg4{
+        position: absolute;
+        top:-46px;
+        left: 770px;
+    }
+    .testBackImg5{
+        position: absolute;
+        top: 140px;
+        left: 980px;
+    }
+    .homelogo{
+        width: 100vw;
+        text-align: center;
+        position: absolute;
+        font-size: 35px;
+        font-weight: 700;
+        top: 20px;
+        color:orange;
+        z-index: 5;
+    }
+    .homelogo:hover{
+        background: linear-gradient( rgb(236, 3, 194) 1%, orange);
+        -webkit-text-fill-color : transparent;
+        -webkit-background-clip: text; 
+    }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -108,10 +139,13 @@
 </head>
 
 <body>
+    <a href="/catchmind/">
+        <div class="homelogo">CATCHMIND<hr></div>
+    </a>
+   
     <div id="question" class="carousel slide" data-ride="carousel" data-interval="0">
-
         <div class="carousel-inner">
-
+            <br><br><br>
             <div class="carousel-item active qArea" align="center">
                 <div class="qNum" align="left">Q1</div>
                 <div class="qText" align="left" data-aos="fade-left" data-aos-duration="800">
@@ -155,6 +189,7 @@
                     <div>어색한 첫만남</div>
                     <div>침묵의 순간 나는</div>
                 </div>
+                <img src='./resources/images/mbti3.png' class='testBackImg3' width="130px;" height="170px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="E">
                         "말씀 많이 들었어요" 분위기를 띄운다
@@ -171,6 +206,7 @@
                     <div>연인이 집에</div>
                     <div>놀러온다고 했을 때 나는</div>
                 </div>
+                <img src='./resources/images/mbti4.png' class='testBackImg4' width="230px;" height="200px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="P">
                         OK 콜! 얼른 와~
@@ -187,6 +223,7 @@
                     <div>인생영화를 궁금해하는</div>
                     <div>연인에게 나는</div>
                 </div>
+                <img src='./resources/images/mbti5.png' class='testBackImg5' width="350px;" height="330px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="S">
                     	연애의 온도! 완전 현실 커플 이야기
@@ -203,6 +240,7 @@
                     <div>연인과 사소한 일로</div>
                     <div>다퉜을 때 나는</div>
                 </div>
+                <img src='./resources/images/mbti6.png' class='testBackImg2' style="left: 750px;" width="230px;" height="200px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="T">
                         "왜 화가 났나면..." 이유를 설명한다
@@ -219,6 +257,7 @@
                     <div>데이트 중 길에서</div>
                     <div>연인의 친구를 만난다면 나는</div>
                 </div>
+                <img src='./resources/images/mbti7.png' class='testBackImg2' style="left: 800px;" width="230px;" height="200px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="E">
                     	우리는 모두 친구! 친구가 된다
@@ -235,6 +274,7 @@
                     <div>상사한테 지적 당해</div>
                     <div>우울한 애인에게 나는</div>
                 </div>
+                <img src='./resources/images/mbti8.png' class='testBackImg2' style="left: 750px;" width="320px;" height="200px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="T">
                         "다음에는 이런 식으로 해보면 어떨까?"
@@ -251,6 +291,7 @@
                     <div>연인에게 줄</div>
                     <div>선물을 고르게 된 나는</div>
                 </div>
+                <img src='./resources/images/mbti9.png' class='testBackImg5' width="400px;" height="330px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="S">
                     	평소 애인이 필요했던 실용적인 선물
@@ -267,6 +308,7 @@
                     <div>연인에게 노래를</div>
                     <div>추천해줄 때 나는</div>
                 </div>
+                <img src='./resources/images/mbti10.png' class='testBackImg5' style="top:-30px;" width="450px;" height="500px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="S">
                         "가사보다 멜로디" 멜로디가 좋은 노래
@@ -299,6 +341,7 @@
                     <div>애인과의 약속에</div>
                     <div>지각했을 때 나는</div>
                 </div>
+                <img src='./resources/images/mbti12.png' class='testBackImg2' style="left: 750px;" width="320px;" height="200px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="pause" value="T">
                     	구구절절 늦은 이유를 설명한다
@@ -326,6 +369,77 @@
     <jsp:include page="../common/footer.jsp"/>
 
     <script>
+        var chatPage = 0;
+        var interval;
+        
+        $(function() {
+        	if(chatPage == 0){
+	        	if("${loginUser.userNo}" != "") {        		
+	        		interval = setInterval(loginSignal, 2000);
+	        	}
+	        	else {				
+					console.log("비로그인");
+	        	}
+        	}
+        });
+                
+    
+        function loginSignal() {
+        	
+        	$.ajax({
+        		url : "loginSignal.me",
+        		data : {
+        			userNo : "${loginUser.userNo}"
+        		},
+        		success : function(result){
+        			if(result != "") {
+        				
+        				clearInterval(interval);
+        				console.log(result.chatClaimFrom.userNo); 
+        				console.log(result.roomNoWith); 
+        				var answer = confirm(result.chatClaimFrom.nickname + "님으로부터 채팅 요청이 들어왔습니다.\n" + "채팅 요청에 응하시겠습니까?");
+        				
+        					
+        				if(answer == true) {
+        					$.ajax({
+        						url : "chatAgreed.ch",
+        						type : "POST",
+        						data : {
+        							userNo : "${loginUser.userNo}",
+        							userNo2 : result.chatClaimFrom.userNo
+        						},
+        						success : function(data){
+        							location.replace("/catchmind/chat.do?roomNo=" + result.roomNoWith);
+        						},
+        						error : function() {
+        							console.log("header ajax2 problem");
+        						}
+        					});
+        				}
+        				else {
+        					$.ajax({
+        						url : "cancelRequest.ch",
+        						data : {
+        							userNo : "${loginUser.userNo}"
+        						},
+        						success : function(result){
+        							interval = setInterval(loginSignal, 2000);
+        						},
+        						error : function() {
+        							console.log("header ajax2 problem");
+        						}
+        					});
+        				}
+        			}
+        			console.log("다시 인터벌 시작");
+        		},
+        		error : function(){
+        			console.log("header ajax problem");
+        		}
+        	});
+
+        }
+
          AOS.init();
 
         $(function () {
