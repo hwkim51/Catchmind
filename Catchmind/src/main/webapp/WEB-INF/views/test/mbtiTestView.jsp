@@ -103,6 +103,9 @@
 </head>
 
 <body>
+	
+	<jsp:include page="../common/header.jsp" />
+	
     <div id="question" class="carousel slide" data-ride="carousel" data-interval="0">
 
         <div class="carousel-inner">

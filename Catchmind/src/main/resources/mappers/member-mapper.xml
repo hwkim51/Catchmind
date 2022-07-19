@@ -207,7 +207,8 @@
 	
 	<update id="updateInfo">
 		UPDATE TB_MEMBER
-		   SET GENDER = #{gender},
+		   SET USER_NAME = #{userName},
+		   	   GENDER = #{gender},
 		       BIRTHDAY = #{birthDay},
 		       PHONE = #{phone},
 		       EMAIL = #{email},
@@ -260,4 +261,15 @@
 		 WHERE USER_NO = #{partner}
 	</update>
 	
+	<select id="selectCoupleInfo" parameterType="string" resultMap="memberResultSet">
+		SELECT *
+		  FROM TB_MEMBER
+		 WHERE USER_NO = #{partner}
+	</select>
+	
+	<update id="deleteCouple" parameterType="member">
+		UPDATE TB_MEMBER
+		   SET PARTNER = 0
+		 WHERE USER_ID = #{userId}
+	</update>
 </mapper>

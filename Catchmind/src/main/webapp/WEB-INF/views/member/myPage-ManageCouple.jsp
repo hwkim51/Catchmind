@@ -144,7 +144,7 @@
 	                <img class="coupleRequest-img" src="${ c.pic }">
 	                <div class="coupleRequest-infoArea">
 	                    <font class="coupleRequest-name" align="left">${ c.nickname }</font>
-        				<input style="width: 50px" type="text" name="partner" value="${ c.userNo }">
+        				<input style="width: 50px" type="hidden" name="partner" value="${ c.userNo }">
 	                    <button class="btn couple-acceptBtn" onclick="coupleFormSubmit(1);">수락</button>
 	                    <button class="btn btn-secondary couple-refuseBtn" onclick="coupleFormSubmit(2);">거절</button>
 	                </div>
@@ -156,40 +156,38 @@
         	<input type="hidden" name="userNo" value="${ loginUser.userNo }">        	
         	<input type="hidden" name="userId" value="${ loginUser.userId }">        	
         	<input type="hidden" name="userPwd" value="${ loginUser.userPwd }">
-        	<input style="width: 50px" type="text" name="partner" value="">
+        	<input type="hidden" name="partner" value="">
         </form>
         
         <script>
+        	$(function() {
+        		$(".coupleRequest-infoArea .couple-acceptBtn").click(function() {
+        			$("#coupleForm input[name=partner]").attr("value", $(this).prev().val())
+        			$("#coupleForm").attr("action", "acceptCouple.me").submit();
+        		});
+        		
+        		$(".coupleRequest-infoArea .couple-refuseBtn").click(function() {
+        			$("#coupleForm input[name=partner]").attr("value", $(this).prev().prev().val())
+        			$("#coupleForm").attr("action", "refuseCouple.me").submit();
+        		});
+        	});
+        	/*
         	function coupleFormSubmit(num) {
         		
-        		$(".coupleRequest-infoArea .btn").click(function() {
+        		$(".coupleRequest-infoArea .couple-acceptBtn").click(function() {
         			
         			if(num == 1) {
-        				console.log($(this).prev().val());
-        				$("#coupleForm input[name=partner]").attr("value", $(this).prev().val());
-            			$("#coupleForm").attr("action", "acceptCouple.me").submit();
+        				
+        				
         			
         			} else if(num == 2) {
         				
         				$("#coupleForm input[name=partner]").attr("value", $(this).prev().prev().val())
             			$("#coupleForm").attr("action", "refuseCouple.me").submit();
         			}
-        			
         		});
-        		/*
-        		if(num == 1) { // 수락 요청으로 action 속성값 변경
-        			
-        			console.log($(this).prev().val());
-        			$("#coupleForm input[name=partner]").attr("value", $(this).prev().val());
-        			// $("#coupleForm").attr("action", "acceptCouple.me").submit();
-        		
-    			} else if(num == 2) {
-    				
-    				$("#coupleForm input[name=partner]").attr("value", $(this).prev().prev().val())
-        			$("#coupleForm").attr("action", "refuseCouple.me").submit();
-        		}
-        		*/
         	}
+        	*/
         </script>
     </div>
 </body>

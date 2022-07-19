@@ -36,6 +36,7 @@ import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.google.gson.Gson;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 @Controller
 public class MemberController {
@@ -54,7 +55,15 @@ public class MemberController {
 	
 	// 마이페이지로 이동 : 수빈
 	@RequestMapping(value="myPage.me")
-	public String myPage(String userId, String userPwd, Member m, HttpSession session) {
+	public String myPage(HttpSession session) {
+		
+		String partner = ((Member)session.getAttribute("loginUser")).getPartner();
+		
+		System.out.println("커플 회원 아이디" + partner);
+		// 커플 회원 정보 조회
+		Member coupleMem = memberService.selectCoupleInfo(partner);
+		session.setAttribute("coupleMem", coupleMem);
+		System.out.println("커플 정보" + coupleMem);
 		
 		return "member/myPage";
 	}
@@ -437,17 +446,24 @@ if(result > 0) { // 프로필 수정 성공
 	@RequestMapping("loginSignal.me")
 	public void loginSignal(String userNo, Model model, HttpSession session) {
 		
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-				
-		Date time = new Date();
-				
-		String time1 = format1.format(time);
-				
-		System.out.println("현재 시간" + time1);
+		/*
+		Date date = new Date();
+		System.out.println("현재시간" + date);
 		
 		System.out.println("로그아웃 시간" + (((Member)session.getAttribute("loginUser")).getRecentLogout()));
+		/*
+		try {
+			Date recentLogout = format.parse(logout);
+			
+			System.out.println("로그아웃 시간" + recentLogout);
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		*/
+		// System.out.println("로그아웃 시간" + (((Member)session.getAttribute("loginUser")).getRecentLogout()));
+		// System.out.println("로그아웃 시간" + (((Member)session.getAttribute("loginUser")).getRecentLogout()));
 		
-		
+		/*
 		int userNo1 = Integer.parseInt(userNo);
 		int result = memberService.loginSignal(userNo1);
 		int roomNo = 0;
@@ -473,15 +489,12 @@ if(result > 0) { // 프로필 수정 성공
 		}
 		
 		// return null;
-		
+		*/
 	}
 	
 	// 마이페이지 - 회원 정보 수정 메소드
 	@RequestMapping("updateInfo.me")
 	public String updateInfo(Member m, String address, HttpSession session, Model model) {
-		
-		
-		System.out.println(m);
 		
 		int result = memberService.updateInfo(m);
 		
@@ -640,13 +653,14 @@ if(result > 0) { // 프로필 수정 성공
 	@RequestMapping("acceptCouple.me")
 	public String acceptCouple(Member m, HttpSession session, Model model) {
 		
-		System.out.println(m);
+		System.out.println("커플 수우락" + m);
 		
 		int result = memberService.updateCoupleId(m);
 		
 		if(result > 0) {
 			
 			Member updateMem = memberService.loginMember(m);
+			
 			session.setAttribute("loginUser", updateMem);
 			
 			session.setAttribute("alertMsg", "커플 수락했슴둥~");
@@ -675,6 +689,25 @@ if(result > 0) { // 프로필 수정 성공
 		} else { // 커플 거절 실패
 			
 			model.addAttribute("errorMsg", "커플 신청 거절 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	// 마이페이지 - 커플 삭제
+	@RequestMapping("deleteCouple")
+	public String deleteCouple(Member m, HttpSession session, Model model) {
+		
+		int result = memberService.deleteCouple(m);
+		
+		if(result > 0) { // 커플 삭제 성공
+			Member updateMem = memberService.loginMember(m);
+			session.setAttribute("loginUser", updateMem);
+			
+			session.setAttribute("alertMsg", "성공적으로 삭제되었습니다.");
+			return "redirect:myPage.me";
+			
+		} else { // 커플 삭제 실패
+			model.addAttribute("errorMsg", "커플 삭제 실패");
 			return "common/errorPage";
 		}
 		

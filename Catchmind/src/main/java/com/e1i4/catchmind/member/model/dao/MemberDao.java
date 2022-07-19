@@ -143,4 +143,14 @@ public class MemberDao {
 	public int refuseCouple(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.refuseCouple", m);
 	}
+	
+	// 커플 회원 정보 조회 서비스(select)
+	public Member selectCoupleInfo(SqlSessionTemplate sqlSession, String partner) {
+		return sqlSession.selectOne("memberMapper.selectCoupleInfo", partner);
+	}
+	
+	// 마이페이지 - 커플 삭제 서비스(update)
+	public int deleteCouple(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.deleteCouple", m);
+	}
 }

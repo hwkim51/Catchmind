@@ -51,7 +51,8 @@
         margin-top: 70px;
     }
     
-    #profileModal .modal-header, #addressModal .modal-header {
+    #profileModal .modal-header, #addressModal .modal-header,
+    #coupleUserModal .modal-header, #withdrawModal .modal-header {
         border-bottom: none !important;
     }
 
@@ -64,6 +65,10 @@
     }
 
     .update-profileImg {
+        margin-top: 20px !important;
+    }
+    
+    .couple-profileImg {
         margin-top: 20px !important;
     }
     
@@ -108,6 +113,11 @@
         font-size: 15px;
         font-weight: normal;
     }
+    
+    #couple-age {
+        font-size: 15px;
+        font-weight: normal;
+    }
 
     #user-feature {
         font-size: 14px;
@@ -148,11 +158,17 @@
         margin-top: 13px;
         font-weight: 500;
     }
+    
+    #couple-coupleID {
+        margin-top: 13px;
+        font-weight: 500;
+    }
 
     .myPageInfo-area {
         width: 600px;
         height: 600px;
         float: left;
+        margin-bottom: 100px;
     }
 
     .pwdmod-btn, .findAddress-btn {
@@ -173,10 +189,15 @@
         text-align: center;
     }
 
-    .profile-updateBtn, .searchAddress-btn, .info-updateBtn, #addressConfirm {
+    .profile-updateBtn, .searchAddress-btn, .info-updateBtn, #addressConfirm, .couple-deleteBtn {
         background-color: orange !important;
         color: white !important;
         margin: auto;
+    }
+    
+    .couple-deleteBtn {
+    	margin-top: 30px;	
+    	margin-bottom: 30px;
     }
     
     .profile-updateBtn {
@@ -190,6 +211,24 @@
     input[name=address] {
     	background-color: white !important;
     }
+    
+    select option[value=""][disabled] {
+    	display: none;
+    }
+    
+    #user-coupleID .coupleId:hover {
+    	cursor: pointer;
+    }
+    
+    .withdrawFont {
+    	color: rgb(148, 148, 148);
+    	font-size: 15px;
+    }
+    
+    .withdrawFont:hover {
+		cursor: pointer;
+	}
+}
 </style>
 <!-- 아이콘 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
@@ -215,7 +254,14 @@
     
     <div class="myPage-area" align="center">
         <div class="profile-area">
-            <img class="profile-img" src="${ loginUser.pic }">
+        	<c:choose>
+        		<c:when test="${ loginUser.pic eq null }">
+        			<img class="profile-img" src="resources/images/pic.png">
+        		</c:when>
+        		<c:otherwise>            
+        			<img class="profile-img" src="${ loginUser.pic }">
+        		</c:otherwise>
+        	</c:choose>
             <div class="user-mbti">${ loginUser.mbti }</div>
             <div class="user-nickname">
             	${ loginUser.nickname } 
@@ -223,14 +269,17 @@
                 	<!-- 현재 년도 - 생년 + 1 -->
                 	<script>
                 		$(function() {
-                			var now = new Date().getFullYear(); // 현재 년도
-                			
-                			var birthDay = "${ loginUser.birthDay }"; 
-                    		var birthYear = birthDay.substr(0, 4); // 생년
-                    		
-                    		var age = (now - birthYear) + 1;
-                    		
-                    		$("#user-age").text("(" + age + ")");
+                			// 회원의 생일이 null이 아닌 경우만 나이 추출
+                			if(${loginUser.birthDay} != null) {
+                				var now = new Date().getFullYear(); // 현재 년도
+                    			
+                    			var birthDay = "${ loginUser.birthDay }"; 
+                        		var birthYear = birthDay.substr(0, 4); // 생년
+                        		
+                        		var age = (now - birthYear) + 1;
+                        		
+                        		$("#user-age").text("(" + age + ")");
+                			}
                 		});
                 	</script>
                 </font>
@@ -257,15 +306,108 @@
             </script>
             <div id="user-coupleID">
             	<c:choose>
-            		<c:when test="${ loginUser.partner eq null}">
+            		<c:when test="${ loginUser.partner eq 0}">
             			💖CATCH MIND💖
             		</c:when>
             		<c:otherwise>
-            			💖${ loginUser.partner }💖
+            			<div class="coupleId" data-toggle="modal" data-target="#coupleUserModal">💖${ coupleMem.nickname }💖</div>
             		</c:otherwise>
             	</c:choose>
             </div>
         </div>
+		
+		<!-- 커플 회원 모달 -->
+		<div class="modal" id="coupleUserModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					
+					<!-- 커플 회원 모달 헤더 -->
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					
+					<!-- 커플 회원 모달 바디 -->
+					<div class="modal-body">
+						<!-- 커플 회원 프로필 사진 -->
+						<c:choose>
+							<c:when test="${ coupleMem.pic eq null }">
+								<img class="profile-img couple-profileImg" src="resources/images/pic.png">
+							</c:when>
+			        		<c:otherwise>            						
+			        			<img class="profile-img couple-profileImg" src="${ coupleMem.pic }">
+			        		</c:otherwise>
+			        	</c:choose>
+						
+						<!-- 커플 회원 MBTI -->  
+						<div class="user-mbti">${ coupleMem.mbti }</div>
+						
+						<!-- 커플 회원 닉네임 및 나이 -->
+						<div class="user-nickname">
+		            		${ coupleMem.nickname } 
+			                <font id="couple-age">
+			                	<!-- 현재 년도 - 생년 + 1 -->
+			                	<script>
+			                		$(function() {
+			                			// 회원의 생일이 null이 아닌 경우만 나이 추출
+			                			if(${coupleMem.birthDay} != null) {
+			                				var now = new Date().getFullYear(); // 현재 년도
+			                    			
+			                    			var birthDay = "${ coupleMem.birthDay }"; 
+			                        		var birthYear = birthDay.substr(0, 4); // 생년
+			                        		
+			                        		var age = (now - birthYear) + 1;
+			                        		
+			                        		$("#couple-age").text("(" + age + ")");
+			                			}
+			                		});
+			                	</script>
+			                </font>
+		            	</div>
+		            	
+		            	<!-- 커플 회원 상태메세지 -->
+		            	<div class="user-message" id="couple-message" align="left">
+			            	<c:choose>
+			            		<c:when test="${ coupleMem.profile eq null }">
+			            			나만의 상태메세지를 작성해주세요
+			            		</c:when>
+			            		<c:otherwise>
+			            			${ coupleMem.profile }
+			            		</c:otherwise>
+			            	</c:choose>
+			            </div>
+			            <script>
+			                /* 사용자 상태메세지 공백 제거 */
+			                $(function() {
+			                    var m = $("#couple-message").text();
+			                    
+			                    $("#couple-message").text($.trim(m));
+			                });
+			            </script>
+			            
+			            <!-- 커플 회원의 커플 닉네임 -->
+			            <div id="couple-coupleID">
+			            	<c:choose>
+			            		<c:when test="${ coupleMem.partner eq 0}">
+			            			💖CATCH MIND💖
+			            		</c:when>
+			            		<c:otherwise>
+			            			<div class="coupleId">💖${ loginUser.nickname }💖</div>
+			            		</c:otherwise>
+			            	</c:choose>
+			            </div>
+			            
+			            <!-- 커플 회원 삭제 버튼 -->
+			            <form action="deleteCouple" method="post">
+			            	<input type="hidden" name="userId" value="${ loginUser.userId }">
+			            	<input type="hidden" name="userPwd" value="${ loginUser.userPwd }">
+			            	<input type="submit" class="btn couple-deleteBtn" value="삭제하기">
+			            </form>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
 		
 		<!-- 프로필 수정 모달 -->
         <div class="modal" id="profileModal"> 
@@ -285,7 +427,14 @@
                         	<input type="hidden" name="userPwd" value="${ loginUser.userPwd }">
                         	
                             <!-- 프로필 수정 - 이미지 -->
-                            <img class="profile-img update-profileImg" src="${ loginUser.pic }" onclick="document.getElementById('updateProfileImg').click();">
+                            <c:choose>
+				        		<c:when test="${ loginUser.pic eq null }">
+				        			<img class="profile-img update-profileImg" src="resources/images/pic.png" onclick="document.getElementById('updateProfileImg').click();">
+				        		</c:when>
+				        		<c:otherwise>
+				        			<img class="profile-img update-profileImg" src="${ loginUser.pic }" onclick="document.getElementById('updateProfileImg').click();">
+				        		</c:otherwise>
+				        	</c:choose>
                             <input type="file" id="updateProfileImg" name="profileImg" accept="image/*" onchange="setProfileImg(event)">
                             <input type="hidden" name="pic" value="${ loginUser.pic }">
                             
@@ -443,18 +592,18 @@
 	                    </td>
 	                </tr>
 	                <tr>
-	                    <td>이름</td>
-	                    <td>
-	                    	<input type="text" class="form-control" value="${ loginUser.userName }" name="userName" readonly>
-	                    </td>
-	                </tr>
-	                <tr>
 	                    <td>비밀번호</td>
 	                    <td>
 	                    	<input type="password" class="form-control" value="${ loginUser.userPwd }" name="userPwd" readonly>
 	                    </td>
 	                    <td width="110px" align="right">
 	                        <button type="button" class="btn pwdmod-btn" data-toggle="modal" data-target="#updatePwdModal">비밀번호 수정</button>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>이름</td>
+	                    <td>
+	                    	<input type="text" class="form-control" value="${ loginUser.userName }" name="userName">
 	                    </td>
 	                </tr>
 	                <tr>
@@ -499,9 +648,51 @@
 	                    	<input type="text" class="form-control" value="${ loginUser.height }" name="height">
 	                    </td>
 	                </tr>
+	                <tr>
+	                    <td><div class="withdrawFont" data-toggle="modal" data-target="#withdrawModal">회원탈퇴 ></div></td>
+	                    <td align="center">
+	                    	<input type="submit" class="btn info-updateBtn" value="수정하기">
+	                    </td>
+	                </tr>
 	            </table>
-	            <input type="submit" class="btn info-updateBtn" value="수정하기">
 	    	</form>
+        </div>
+        
+        <!-- 회원 탈퇴 모달 -->
+        <div class="modal" id="withdrawModal">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+        		
+        			<!-- 회원 탈퇴 모달 헤더 -->
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal">&times;</button>
+        			</div>
+        			
+        			<!-- 회원 탈퇴 모달 헤더 -->
+        			<div class="modal-body">
+        				<table border="1">
+        					<tr>
+        						<td colspan="2">안전한 회원탈퇴를 위해, 비밀번호를 확인해주세요.</td>
+        					</tr>
+        					<tr>
+        						<td>아이디</td>
+        						<td>
+        							<input type="text" class="form-control" name="userId" value="${ loginUser.userId }" readonly>
+        						</td>
+        					</tr>
+        					<tr>
+        						<td>비밀번호</td>
+        						<td>
+        							<input type="text" class="form-control" name="userPwd">
+        						</td>
+        					</tr>
+        				
+        				</table>
+        			
+        			</div>
+        		
+        		</div>
+        	</div>
         </div>
         
         <!-- 비밀번호 수정 모달 -->
