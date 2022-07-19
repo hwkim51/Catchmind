@@ -174,6 +174,18 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.refuseCouple(sqlSession, m);
 	}
 
+	// 커플 회원 정보 조회 서비스(select)
+	@Override
+	public Member selectCoupleInfo(String partner) {
+		return memberDao.selectCoupleInfo(sqlSession, partner);
+	}
+
+	// 마이페이지 - 커플 삭제 서비스(update)
+	@Override
+	public int deleteCouple(Member m) {
+		return memberDao.deleteCouple(sqlSession, m);
+	}
+	
 	
 
 
