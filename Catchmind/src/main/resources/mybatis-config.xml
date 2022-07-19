@@ -34,6 +34,7 @@
 		<mapper resource="/mappers/faq-mapper.xml" />
 		<mapper resource="/mappers/test-mapper.xml" />
 		<mapper resource="/mappers/chat-mapper.xml" />
+		<mapper resource="/mappers/match-mapper.xml" />
 	</mappers>
 
 </configuration>

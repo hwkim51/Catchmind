@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="matchMapper">
+
+	<resultMap type="member" id="memberResultSet">
+ 	 	<result column="USER_NO" property="userNo"/>
+ 		<result column="USER_ID" property="userId"/>
+ 		<result column="USER_PWD" property="userPwd"/>
+ 		<result column="EMAIL" property="email"/>
+ 		<result column="NICKNAME" property="nickname"/>
+ 		<result column="USER_NAME" property="userName"/>
+ 		<result column="BIRTHDAY" property="birthDay"/>
+ 		<result column="MBTI" property="mbti"/>
+ 		<result column="PHONE" property="phone"/>
+ 		<result column="HEIGHT" property="height"/>
+ 		<result column="GENDER" property="gender"/>
+ 		<result column="PROFILE" property="profile"/>
+ 		<result column="RECENT_LOGIN" property="recentLogin"/>
+ 		<result column="RECENT_LOGOUT" property="recentLogout"/>
+ 		<result column="PARTNER" property="partner"/>
+ 		<result column="STATUS" property="status"/>
+ 		<result column="PIC" property="pic"/>
+ 		<result column="LONGITUDE" property="longitude"/>
+ 		<result column="LATITUDE" property="latitude"/>
+ 	</resultMap>
+
+	<select id="matchList" parameterType="member" resultMap="memberResultSet">
+		SELECT *
+		FROM TB_MEMBER A
+		WHERE GENDER != #{gender} AND STATUS = 0 AND A.USER_NO != 1
+		ORDER BY A.USER_NO DESC
+	</select>
+	
+	<insert id="insertBlock" parameterType="block">
+		INSERT INTO TB_BLOCK(USER_NO, BLOCKED_USER)
+		VALUES (#{userNo}, #{blockedUser})
+	</insert>
+	
+	<insert id="insertFollow" parameterType="follow">
+		INSERT INTO TB_FOLLOW(FO_USER, FOED_USER)
+		VALUES (#{foUser}, #{foedUser})
+	</insert>
+</mapper>

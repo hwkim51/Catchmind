@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <style>
     body{
         font-family: 'IBM Plex Sans KR', sans-serif;
@@ -17,67 +20,191 @@
     .matchList{
         padding: 20px 220px;
     }
-    .matchUser{
-        position: relative;
-        display: inline-block;
-        margin: 60px 50px;
-        border-radius: 50px;
-        width: 250px;
-        height: 230px;
-        background-color: rgb(234, 232, 232);
+    
+    .wrap_area{
     }
-    .matchUser:hover{
-        cursor: pointer;
+    
+	.swiper-container {
+	  width: 100%;
+	  padding-top: 80px;
+	  padding-bottom: 50px;
+	  overflow: hidden;
+	}
+	.swiper-slide {
+	  background-position: center;
+	  background-size: cover;
+	  width: 300px;
+	  height: 360px;
+	  
+	}
+    .swiper-3d .swiper-slide-shadow-left{
+    	background-image: none;
     }
-    .matchUser *{
-        position: absolute;
+    .swiper-3d .swiper-slide-shadow-right{
+		background-image: none;
     }
-    .matchUserPic{
-        border-radius: 70%;
-        background-image:url('./resources/images/song.jpg');
-        background-size: contain;
-        background-color: rgba(0, 0, 0, 0.865);
-        object-fit: cover;
-        width: 120px;
-        height: 120px;
-        top: -50px;
-        left: 65px;
-    }
-    .matchUserInfo{
-        width: 100%;
-        text-align: center;
-    }
-    .matchUserNickname{
-        top:85px;
-        font-size: 18px;
-        font-weight: 600;
-    }
-    .matchUserMbti{
-        top: 110px;
-    }
-    .matchUserWord{
-        font-size: 12px;
-        top: 150px;
-    }
-    .btn-match{
-        top: 180px;
-        left: 80px;
-    }
-    #profileModal{
-        text-align: center;
-        background-color: rgba(0, 0, 0, 0.829)
-    }
-    .profile-img{
-        width: 350px;
-        height: 350px;
-        border-radius: 70%;
-        object-fit: cover;
-    }
+    
+    
+    
+    
+.card
+{
+    position: relative;
+    width: 300px;
+    height:190px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 35px 80px rgba(0,0,0,0.15);
+    transition: 0.5s;
+}
+/* 카드 틀 */
+
+.card:hover
+{
+    height: 350px;
+}
+/* 호버 시 길이 */
+
+.imgBx
+{
+    position:absolute;
+    left: 50%;
+    top: -50px;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.35);
+    overflow: hidden;
+    transition: 0.5s;
+}
+/* 이미지 박스의 모양 */
+
+.card:hover .imgBx
+{
+    width:170px;
+    height: 170x;
+}
+/* 호버 시 이미지 박스의 모양 */
+
+.imgBx img
+{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* 실제 사용자 이미지 */
+
+.card .content
+{
+    position:absolute;
+    width:100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+}
+/* 사용자에 대한 내용을 카드에 붙히는 기능고 모양잡기 */
+
+.card .content .details
+{
+    padding:40px;
+    text-align: center;
+    width: 100%;
+    transition: 0.5s;
+    transform: translateY(120px);
+}
+/* 사용자에 대한 내용 영역 */
+.card:hover .content .details .user_info
+{
+}
+.card:hover .content .details
+{
+    transform: translateY(0px);
+}
+/* 호버 시 내용들 고정시키기 */
+
+.card .content .details h2
+{
+    font-size: 1.25em;
+    font-weight: 600;
+    color: #555;
+    line-height: 1.2em;
+}
+/* 이름, 직업, 취미 스타일 */
+
+.card .content .details h2 span
+{
+    font-size: 0.75em;
+    font-weight: 500;
+    opacity: 0.5;
+}
+/* 직업, 취미 스타일 */
+
+.card .content .details .data
+{
+    display: flex;
+    justify-content: space-between;
+    margin:  20px 0;
+}
+/* 게시글, 팔로워, 팔로잉 모양 스타일 */
+
+.card .content .details .data h3
+{
+    font-size: 1em;
+    color: #555;
+    line-height: 1.2em;
+    font-weight: 600;
+}
+/* 게시글, 팔로워, 팔로잉의 숫자 스타일  */
+
+.card .content .details .data h3 span
+{
+    font-size: 0.85em;
+    font-weight: 400;
+    opacity: 0.5;
+}
+/* 게시글, 팔로워, 팔로잉 스타일  */
+
+.card .content .details .actionBtn
+{
+	transform: translateY(20px);
+    display: flex;
+    justify-content: center;
+}
+/* 버튼 모양잡기 */
+
+.card .content .details .actionBtn button
+{
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    font-weight: 500;
+    background: #ff5f95;
+    color: #fff;
+    cursor: pointer;
+    margin-right:10px;
+    margin-left: 10px;
+}
+/* 버튼 스타일 */
+
+.card .content .details .actionBtn button:nth-child(2)
+{
+    border: 1px solid #999;
+    color: #999;
+    background: #fff;
+}
+/* message 버튼 스타일 */
 
 </style>
 </head>
 <body>
- 
     <%-- header 영역 --%>
     <jsp:include page="../common/header.jsp"/>
     <div class="matchList">
@@ -86,110 +213,84 @@
             <hr>
         </nav>
         <br>
-        
-        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
-            <div class="matchUserPic"></div>
-            <div class="matchUserInfo matchUserNickname">조러블메이커(25)</div>
-            <div class="matchUserInfo matchUserMbti">ENFP</div>
-            <div class="matchUserInfo matchUserWord">진지한 만남 상대 찾아요❣</div>
-            <div class="btn-match">
-                <input type="button" class="btn-sm btn-danger" value="자세히 보기">
-            </div>
-        </article>
-
-        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
-            <div class="matchUserPic"></div>
-            <div class="matchUserInfo matchUserNickname">캔디현우(27)</div>
-            <div class="matchUserInfo matchUserMbti">ENFP</div>
-            <div class="matchUserInfo matchUserWord">💌안녕 나랑 친구하자</div>
-            <div class="btn-match">
-                <input type="button" class="btn-sm btn-danger" value="자세히 보기">
-            </div>
-        </article>
-        
-        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
-            <div class="matchUserPic"></div>
-            <div class="matchUserInfo matchUserNickname">치매정인(22)</div>
-            <div class="matchUserInfo matchUserMbti">ISTJ</div>
-            <div class="matchUserInfo matchUserWord">진지한 만남 상대 찾아요.</div>
-            <div class="btn-match">
-                <input type="button" class="btn-sm btn-danger" value="자세히 보기">
-            </div>
-        </article>
-
-        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
-            <div class="matchUserPic"></div>
-            <div class="matchUserInfo matchUserNickname">영웅유진(24)</div>
-            <div class="matchUserInfo matchUserMbti">ENFP</div>
-            <div class="matchUserInfo matchUserWord">안녕 나랑 친구하자</div>
-            <div class="btn-match">
-                <input type="button" class="btn-sm btn-danger" value="자세히 보기">
-            </div>
-        </article>
-
-        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
-            <div class="matchUserPic"></div>
-            <div class="matchUserInfo matchUserNickname">캔디현우(29)</div>
-            <div class="matchUserInfo matchUserMbti">ISTJ</div>
-            <div class="matchUserInfo matchUserWord">진지한 만남 상대 찾아요.💌</div>
-            <div class="btn-match">
-                <input type="button" class="btn-sm btn-danger" value="자세히 보기">
-            </div>
-        </article>
-        
-        <article class="matchUser" data-toggle="modal" data-target="#profileModal">
-            <div class="matchUserPic"></div>
-            <div class="matchUserInfo matchUserNickname">치매정인(31)</div>
-            <div class="matchUserInfo matchUserMbti">ENFP</div>
-            <div class="matchUserInfo matchUserWord">안녕 나랑 친구하자</div>
-            <div class="btn-match">
-                <input type="button" class="btn-sm btn-danger" value="자세히 보기">
-            </div>
-        </article>
-
-
-
-        <!-- 프로필 상세보기 모달 -->
-        <div class="modal" id="profileModal"> 
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <!-- 프로필 상세보기 모달 헤더 -->
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-
-                    <!-- 프로필 상세보기 모달 바디 -->
-                    <div class="modal-body">
-
-                        <form action="follow.me" method="post">
-                        	<input type="hidden" name="userId" value="">
-                        	<input type="hidden" name="userPwd" value="">
-                            <input type="hidden" name="userNo" value=""><!--팔로우 할 상대의 userNo-->
-                        	
-                            <!-- 프로필 - 이미지 -->
-                            <img class="profile-img" src='./resources/images/song.jpg'>
-                           
-                            <br><br>
-                            <div class="matchUserInfo matchUserNickname">조러블메이커(25)</div>
-                            <div class="matchUserInfo matchUserMbti">ENFP</div>
-                            <div class="matchUserInfo matchUserWord">진지한 만남 상대 찾아요❣</div>
-                            <hr>                            
-                            <!-- 팔로우 / 차단하기 버튼 -->
-                            <input type="submit" class="btn btn-danger" value=" f o l l o w "> &nbsp;
-                            <input type="button" class="btn btn-secondary" value=" 차 단 하 기 ">
-                            <br>
-                        </form>
-
-                    </div>
-                </div>
-        	</div>
-        </div>
-
+        <div class="wrap_area">
+        <div class="swiper-container">
+		<div class="swiper-wrapper">
+		  <c:choose>
+		  	<c:when test="${ not empty loginUser.userNo }">
+		  		<c:forEach var="m" items="${ mlist }">
+		  <div class="swiper-slide">
+			  <div class="inner">
+		        <div class="outter">
+		            <div class="card">
+		                <div class="imgBx">
+		                    <img src="${ m.pic }" alt="프로필 사진">
+		                </div>
+		                <div class="content">
+		                    <div class="details">
+		                        <h2 class="user_info">${ m.nickname }<br><span>${ m.mbti }</span></h2>
+		                        <div class="data">
+		                            <h3>소개글<br><span>${ m.profile }</span></h3>
+		                        </div>
+		                        
+		                        <div class="actionBtn">
+		                            <button onclick="follow(${m.userNo });">팔로우</button>
+		                            <button onclick="blocked(${m.userNo});">차단</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		  </div>
+		    </c:forEach>
+		    </c:when>
+		    <c:otherwise>
+		    </c:otherwise>
+		    </c:choose>
+		  </div>
+		</div>
+		</div>
 
     </div>
     <%-- footer 영역 --%>
     <jsp:include page="../common/footer.jsp"/>
 
+
+	<script>
+var swiper = new Swiper('.swiper-container', {
+	  pagination: '.swiper-pagination',
+	  effect: 'coverflow',
+	  grabCursor: true,
+	  centeredSlides: true,
+	  slidesPerView: 'auto',
+	  coverflow: {
+	    rotate: 50,
+	    stretch: 0,
+	    depth: 100,
+	    modifier: 1,
+	    slideShadows : true
+	  },
+	  loop: true
+	});
+	</script>
+	
+	<script>
+	function blocked(e) {
+		$.ajax({
+			url: "block.ma",
+			data: {userNo:${loginUser.userNo},
+				block:e}
+		});
+	}
+	
+	function follow(e) {
+		$.ajax({
+			url: "follow.ma",
+			data: {userNo:${loginUser.userNo},
+				follow:e}
+		});
+	}
+	</script>
 </body>
 </html>
