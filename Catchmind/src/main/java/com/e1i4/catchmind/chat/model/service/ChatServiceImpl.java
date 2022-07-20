@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.chat.model.dao.ChatDao;
 import com.e1i4.catchmind.chat.model.vo.Chat;
+import com.e1i4.catchmind.chat.model.vo.ChatReport;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -21,6 +22,13 @@ public class ChatServiceImpl implements ChatService {
 	
 	@Override
 	public int getRoomNo(int userNo1, int userNo2) {
+		
+		if(userNo1 > userNo2) {
+    		int temp = userNo2;
+    		userNo2 = userNo1;
+    		userNo1 = temp;
+    	}
+		
 		return chatDao.getRoomNo(sqlSession, userNo1, userNo2);
 	}
 
@@ -47,5 +55,40 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public ArrayList<Chat> getChatLog(int roomNo) {
 		return chatDao.getChatLog(sqlSession, roomNo);
+	}
+
+	@Override
+	public int checkRequest(int userNo) {
+		return chatDao.checkRequest(sqlSession, userNo);
+	}
+
+	@Override
+	public void insertChat(Chat chat) {
+		chatDao.insertChat(sqlSession, chat);
+	}
+
+	@Override
+	public int chatReport(ChatReport cr) {
+		return chatDao.chatReport(sqlSession, cr);
+	}
+
+	@Override
+	public int signalFromChatRoom(int roomNo, int userNo) {
+		return chatDao.signalFromChatRoom(sqlSession, roomNo, userNo);
+	}
+
+	@Override
+	public HashMap getRoomTimes(int roomNo) {
+		return chatDao.getRoomTimes(sqlSession, roomNo);
+	}
+
+	@Override
+	public void clearRoom(int roomNo) {
+		chatDao.clearRoom(sqlSession, roomNo);
+	}
+
+	@Override
+	public int setRoomTime(int roomNo) {
+		return chatDao.setRoomTime(sqlSession, roomNo);
 	}
 }

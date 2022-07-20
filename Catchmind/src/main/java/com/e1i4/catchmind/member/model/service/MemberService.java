@@ -83,6 +83,10 @@ public interface MemberService {
 	
 	// 커플 관리 > 커플 거절 서비스(delete)
 	int refuseCouple(Member m);
+
+	int followMember(Follow f);
+	
+	int blockMember(Block b);
 	
 	
 	// 커플 회원 정보 조회 서비스(select)
@@ -90,4 +94,6 @@ public interface MemberService {
 	
 	// 마이페이지 - 커플 삭제 서비스(update)
 	int deleteCouple(Member m);
+	
+	int checkBlocked(Block b);
 }

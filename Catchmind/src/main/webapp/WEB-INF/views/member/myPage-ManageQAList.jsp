@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title> CATCHMIND | 캐치마인드 </title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
 	.myPage-nav {
         width: 1000px;
@@ -81,7 +83,7 @@
     	width:520px;
     }
     #alertEmpty{
-    text-align: center;
+    	text-align: center;
     } /* 작성된 게시글이 없을 경우 나타남 */
     /* ################### sub_foot 설정 영역 ################### */
         .pagination *{
@@ -126,24 +128,37 @@
         .pagination .active,
         .pagination .page_num:hover,
         .pagination .signal:hover{
-            background-color: rgb(255, 165,0);
             border-radius: 50%;
             color:white;
         } /* 호버 시 애니메이션 .signal(prev,next)는 위에서 id선택자를 사용하여 우선순위에 의해 border-radius가 적용되지 않고 background-color만 적용됨 */
         
         .w3-modal-content{
 			top: 30px;
-			width: 400px !important;
-			height: 350px;
+			width: 700px !important;
+			height: 600px;
 			border-radius: 10px 10px !important;
 			box-shadow: 3px 3px rgb(114, 111, 111);
+			background-color: rgb(226, 226, 226) !important;
 		}
 		.w3-container{
-			width: 400px;
+			margin:auto;
+			margin-top: 20px;
+			width: 600px;
+			height: 500px;
+			border-radius: 10px 10px !important;
+			background-color: white;
 		}
-		.w3-orange{
-			width: 400px;
+		.w3-button{
+			
+			background-color: rgb(226, 226, 226) !important;
+		}
+		
+		.w3-white{
+			
+			background-color: rgb(226, 226, 226) !important;
+			width: 100%;
 			height: 40px;
+			margin:0px;
 			border-radius: 10px 10px 0px 0px !important;
 		}
 		.w3-container>span{
@@ -159,9 +174,9 @@
 			resize:none;
 			outline:none;
 		} /* 모달창 내에 사유 입력 스타일 */
-		#id01>.w3-modal-content{
-			top: -40px;
-			height: 490px;
+		h5, #id01, #id02{
+			font-family: 'IBM Plex Sans KR', sans-serif; 
+			padding:10px;
 		}
 		#id01 .qtis{
 			width: 350px;
@@ -190,12 +205,25 @@
 	    .w3-container>button{
 		    border:none;
 		    margin-bottom: 10px;
-		    background-color:orange;
 		    } /* 모달창 내에 제출 스타일 */
-    
+		.borderNone{
+			border: none;
+		}
+		.anc{
+			width: 100%;
+			height: 30px;
+		}
+		.btn-update, .btn-delete{
+			width: 100px;
+			height: 30px;
+			border-radius: 5px;
+			color:white;
+		}
+		.btn-update:hover, .btn-delete:hover{
+			opacity: 0.7;
+		}
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 </head>
 <body style="overflow-x: hidden">
 
@@ -321,41 +349,46 @@
            <!-- The Modal -->
 		<div id="id01" class="w3-modal">
 	    <div class="w3-modal-content w3-animate-zoom">
-	        <header class="w3-container w3-orange">
+	        <header class="w3-container w3-white">
 	            <span onclick="document.getElementById('id01').style.display='none'"
 	            class="w3-button w3-display-topright">&times;</span>
-	            <h5 style="font-family: 'IBM Plex Sans KR', sans-serif; padding:10px;">내 문의 </h5>
+	            <h5><b>내가 작성한 문의 보기 💌</b></h5>
 	        </header>
 	    <div class="w3-container" id="box-sha">
 	      <span onclick="document.getElementById('id01').style.display='none'"
 	      class="w3-button w3-display-topright">&times;</span>
-	      	<div class="qtis_div">문의 제목 : </div>
+			<br>
+		  <div class="qtis_div"><b>문의 제목 : </b></div>
 			<textarea type="text" class="qtis" style="font-family: 'IBM Plex Sans KR', sans-serif;" readonly></textarea>
-	      	<div class="qac_div">문의 내용 : </div>
-			<textarea type="text" class="qac" style="font-family: 'IBM Plex Sans KR', sans-serif;" readonly></textarea>
-	      	<div class="anc_div">답변 내용 : </div>
-			<textarea type="text" class="anc" style="font-family: 'IBM Plex Sans KR', sans-serif;" readonly></textarea>
+	      	<div class="qac_div"><b>문의 내용 : </b></div>
+			<textarea type="text" class="qac" style="font-family: 'IBM Plex Sans KR', sans-serif;
+													width: 100%;" readonly></textarea>
+	      	<hr>
+			<div class="anc_div"><b>답변 내용 : </b></div>
+			<textarea type="text" class="anc" style="font-family: 'IBM Plex Sans KR', sans-serif; 
+													width: 100%;" readonly></textarea>
 	  </div>
 	  </div>
 	  </div>
 	  
 	  <div id="id02" class="w3-modal">
 	    <div class="w3-modal-content w3-animate-zoom">
-	        <header class="w3-container w3-orange">
+	        <header class="w3-container w3-white">
 	            <span onclick="document.getElementById('id02').style.display='none'"
 	            class="w3-button w3-display-topright">&times;</span>
-	            <h5 style="font-family: 'IBM Plex Sans KR', sans-serif; padding:10px;">내 문의 </h5>
+	            <h5><b>내가 작성한 문의 보기 💌</b></h5>
 	        </header>
 	    <div class="w3-container" id="box-sha">
 	      <span onclick="document.getElementById('id02').style.display='none'"
 	      class="w3-button w3-display-topright">&times;</span>
-	      	<div class="qtis_div">문의 제목 : </div>
-	      	<textarea type="text" class="qtif" id="qtif"></textarea>
-	      	<div class="qac_div">문의 내용 : </div>
-            <textarea type="text" class="qac" id="qac"></textarea>
+			<br>
+	      	<div class="qtis_div"><b>문의 제목 : </b></div>
+	      	<textarea type="text" class="qtif borderNone" style="width: 100%;" id="qtif"></textarea>
+	      	<div class="qac_div"><b>문의 내용 : </b></div>
+            <textarea type="text" class="qac borderNone" style="width: 100%; height: 280px;" id="qac"></textarea>
             <input type="hidden" class="qan" id="qan">
-           	<button onclick="updateQA();">수정</button>
-            <button onclick="deleteQA();">삭제</button>
+           	<button onclick="updateQA();" class="btn-update" style="background-color:rgb(5, 147, 5);">수정</button>
+            <button onclick="deleteQA();" class="btn-delete" style="background-color:grey;">삭제</button>
 	  </div>
 	  </div>
 	  </div>

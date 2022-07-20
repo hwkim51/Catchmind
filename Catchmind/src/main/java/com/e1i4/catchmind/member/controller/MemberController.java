@@ -3,6 +3,7 @@ package com.e1i4.catchmind.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +37,6 @@ import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
 import com.google.gson.Gson;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 @Controller
 public class MemberController {
@@ -74,6 +74,8 @@ public class MemberController {
 								Member m,
 								HttpSession session) {		
 		Member loginUser = memberService.loginMember(m);
+		//System.out.println(loginUser.getRecentLogin().getTime());
+		//System.out.println(loginUser.getRecentLogout().getTime());
 		
 		if(loginUser == null) {
 			session.setAttribute("alertMsg", "일치하는 회원정보가 없습니다.");
@@ -311,6 +313,26 @@ public class MemberController {
 	public String selectFollowList(int userNo) {
 		
 		ArrayList<Member> list = memberService.selectFollowList(userNo);
+		
+		for(int i=0; i<list.size(); i++) {
+			
+			Long recentLogout = list.get(i).getRecentLogout().getTime();
+			//System.out.println("recentLogout:"+recentLogout);
+			
+			Date date = new Date();
+			Long sysdateTime = date.getTime();
+			//System.out.println("sysdateTime:"+sysdateTime);
+			
+			long result = sysdateTime - recentLogout;
+			//System.out.println("result:"+result);
+			
+			if(result > 15000){//15초 차이
+				list.get(i).setStatus(4); //디비 안가고 테스트 용(접속x)
+			} else {
+				list.get(i).setStatus(5); //디비 안가고 테스트 용(접속o)
+			}
+			//System.out.println("arraylist-status:"+list.get(i).getStatus());
+		}
 		return new Gson().toJson(list);
 	}
 	
@@ -455,24 +477,32 @@ public class MemberController {
 			Member m = memberService.getChatClaim(userNo1);
 			if(m.getUserNo() != 0) {
 				int userNo2 = m.getUserNo();
-				
-				if(userNo1 > userNo2) {
-		    		int temp = userNo2;
-		    		userNo2 = userNo1;
-		    		userNo1 = temp;
-		    	}
 		    	
 		    	roomNo = chatService.getRoomNo(userNo1, userNo2);
 				
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("chatClaimFrom", m);
 				map.put("roomNoWith", roomNo);
-				return map;
+				
+					Block b = new Block();
+					b.setUserNo(userNo1);
+					b.setBlockedUser(userNo2);
+					int checkBlocked = memberService.checkBlocked(b);
+					
+					if(checkBlocked == 0) {
+						return map;
+					}
+					else {
+						chatService.cancelRequest(userNo1);
+						return null;
+					}
+				
+				
 			}
 		}
 		
 		 return null;
-	
+		
 	}
 	
 	@ResponseBody
@@ -723,5 +753,59 @@ public class MemberController {
 		}
 	}
 		
+	//팔로우하는 메소드(유진)
+	@RequestMapping("follow.me")
+	public String followMember(int userNo, 
+							   Model model, 
+							   HttpSession session) {
+		
+		if((Member)session.getAttribute("loginUser")!=null) {
+			int foUser = ((Member)session.getAttribute("loginUser")).getUserNo();
+			Follow f = new Follow();
+			f.setFoUser(foUser);
+			f.setFoedUser(userNo);
+			
+			int result = memberService.followMember(f);
+			if(result > 0) {
+				session.setAttribute("alertMsg", "해당 회원을 팔로우합니다.");
+				return "chat/matchListView";
+			} else {
+				
+				session.setAttribute("alertMsg", "이미 팔로우한 회원입니다.");
+				return "chat/matchListView";
+			}
+		}
+		else {
+			model.addAttribute("errorMsg", "팔로우 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	//차단하는 메소드(유진)
+	@RequestMapping("block.me")
+	public String blockMember(int userNo,
+							  Model model,
+							  HttpSession session) {
+		
+		if((Member)session.getAttribute("loginUser")!=null) {
+			int user = ((Member)session.getAttribute("loginUser")).getUserNo();
+			Block b = new Block();
+			b.setUserNo(user);
+			b.setBlockedUser(userNo);
+			int result = memberService.blockMember(b);
+			System.out.println(result);
+			if(result > 0) {
+				model.addAttribute("alertMsg", "차단 성공");
+				return "chat/matchListView";
+			} else {
+				
+				model.addAttribute("errorMsg", "차단 실패");
+				return "common/errorPage";
+			}
+		}
+		else {
+			return "redirect:/";
+		}
+	}
 	
 }

@@ -3,10 +3,12 @@ package com.e1i4.catchmind.chat.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.e1i4.catchmind.chat.model.vo.Chat;
+import com.e1i4.catchmind.chat.model.vo.ChatReport;
 import com.e1i4.catchmind.member.model.vo.Member;
 
 @Repository
@@ -44,7 +46,12 @@ public class ChatDao {
 			return sqlSession.update("chatMapper.chatRequest", map);
 		}
 		else {
-			return -1;
+			if(requestTo == (Integer)sqlSession.selectOne("chatMapper.checkRequest", existence)) {
+				return -1;
+			}
+			else {
+				return -2;
+			}
 		}
 
 	}
@@ -75,6 +82,47 @@ public class ChatDao {
 	
 	public ArrayList<Chat> getChatLog(SqlSessionTemplate sqlSession, int roomNo) {
 		return (ArrayList)sqlSession.selectList("chatMapper.getChatLog", roomNo);
+	}
+	
+	public int checkRequest(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("chatMapper.checkRequest", userNo);
+	}
+	
+	public void insertChat(SqlSessionTemplate sqlSession, Chat chat) {
+		sqlSession.insert("chatMapper.insertChat", chat);
+	} 
+	
+	public int chatReport(SqlSessionTemplate sqlSession, ChatReport cr) {
+		return sqlSession.insert("chatMapper.chatReport", cr);
+	}
+	
+	public int signalFromChatRoom(SqlSessionTemplate sqlSession, int roomNo, int userNo) {
+		HashMap map = sqlSession.selectOne("chatMapper.getUsers", roomNo);
+		if(userNo == Integer.parseInt(String.valueOf(map.get("USER_NO1")))) {
+			sqlSession.update("chatMapper.signalFromChatRoom1", roomNo);
+			return 1;
+		}
+		else {
+			sqlSession.update("chatMapper.signalFromChatRoom2", roomNo);
+			return 2;
+		}
+		
+	}
+	
+	public HashMap getRoomTimes(SqlSessionTemplate sqlSession, int roomNo) {
+		return sqlSession.selectOne("chatMapper.getRoomTimes", roomNo);
+	}
+	
+	public void clearRoom(SqlSession sqlSession, int roomNo) {
+		HashMap map = sqlSession.selectOne("chatMapper.getUsers", roomNo);
+		int userNo = Integer.parseInt(String.valueOf(map.get("USER_NO1")));
+		sqlSession.update("chatMapper.cancelRequest", userNo);
+		userNo = Integer.parseInt(String.valueOf(map.get("USER_NO2")));
+		sqlSession.update("chatMapper.cancelRequest", userNo);
+	}
+	
+	public int setRoomTime(SqlSession sqlSession, int roomNo) {
+		return sqlSession.update("chatMapper.setRoomTime", roomNo);
 	}
 	
 }

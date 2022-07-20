@@ -42,7 +42,12 @@ public class MemberDao {
 
 	// 회원가입 서비스(insert)
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.insert("memberMapper.insertMember", m);
+		
+		int result = sqlSession.insert("memberMapper.insertMember", m);
+		String userId = m.getUserId();
+		int userNo = Integer.parseInt(String.valueOf(sqlSession.selectOne("memberMapper.selectMemberById", userId)));
+		sqlSession.insert("chatMapper.insertChatClaim", userNo);
+		return result;
 	}
 
 	// 비밀번호 찾기 - 변경 서비스(update)
@@ -144,6 +149,16 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.refuseCouple", m);
 	}
 	
+	// 팔로우 서비스(insert)
+	public int followMember(SqlSessionTemplate sqlSession, Follow f) {
+		return sqlSession.insert("memberMapper.followMember", f);
+	}
+	
+	// 차단 서비스(insert)
+	public int blockMember(SqlSessionTemplate sqlSession, Block b) {
+		return sqlSession.insert("memberMapper.blockMember", b);
+	} 
+	
 	// 커플 회원 정보 조회 서비스(select)
 	public Member selectCoupleInfo(SqlSessionTemplate sqlSession, String partner) {
 		return sqlSession.selectOne("memberMapper.selectCoupleInfo", partner);
@@ -157,5 +172,9 @@ public class MemberDao {
 	// 마이페이지 - 회원 탈퇴 서비스(update)
 	public int deleteMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.deleteMember", m);
+	}
+	
+	public int checkBlocked(SqlSessionTemplate sqlSession, Block b) {
+		return sqlSession.selectOne("memberMapper.checkBlocked", b);
 	}
 }

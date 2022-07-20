@@ -3,6 +3,7 @@
 <mapper namespace="chatMapper">
 
 	<resultMap type="hashMap" id="userNoMap"></resultMap>
+	<resultMap type="hashMap" id="roomTimeMap"></resultMap>
 	
 	<resultMap type="chat" id="chatResultSet">
 		<result column="ROOM_NO" property="roomNo"/>
@@ -20,7 +21,7 @@
 	
 	<insert id="createRoomNo" parameterType="HashMap">
 		INSERT INTO CHATROOMS
-		VALUES(SEQ_CRNO.NEXTVAL, #{userNo1}, #{userNo2})
+		VALUES(SEQ_CRNO.NEXTVAL, #{userNo1}, #{userNo2}, SYSDATE)
 	</insert>
 	
 	<update id="chatRequest" parameterType="HashMap">
@@ -66,4 +67,49 @@
 		WHERE ROOM_NO = #{roomNo}
 		ORDER BY CHAT_TIME DESC
 	</select>
+	
+	<select id="checkRequest" parameterType="_int" resultType="_int">
+		SELECT CLAIM_FROM
+		FROM CHATCLAIM
+		WHERE USER_NO = #{userNo}
+	</select>
+	
+	<insert id="insertChat" parameterType="chat">
+		INSERT INTO TB_CHAT
+		VALUES (#{chatContent}, #{chatTime}, #{writer}, #{roomNo})
+	</insert>
+	
+	<insert id="chatReport" parameterType="chatReport">
+		INSERT INTO CHAT_REPORT
+		VALUES (#{uesrNo}, #{reportedFrom}, #{reportedFor})
+	</insert>
+	
+	<insert id="insertChatClaim" parameterType="_int">
+		INSERT INTO CHATCLAIM
+		VALUES (#{userNo}, 0)
+	</insert>
+	
+	<update id="signalFromChatRoom1" parameterType="_int">
+		UPDATE CHATROOMS
+		SET ROOMTIME1 = SYSDATE
+		WHERE ROOM_NO = #{roomNo}
+	</update>
+	
+	<update id="signalFromChatRoom2" parameterType="_int">
+		UPDATE CHATROOMS
+		SET ROOMTIME2 = SYSDATE
+		WHERE ROOM_NO = #{roomNo}
+	</update>
+	
+	<select id="getRoomTimes" parameterType="_int" resultMap="roomTimeMap">
+		SELECT ROOMTIME1, ROOMTIME2
+		FROM CHATROOMS
+		WHERE ROOM_NO = #{roomNo}
+	</select>
+	
+	<update id="setRoomTime" parameterType="_int">
+		UPDATE CHATROOMS
+		SET ROOMTIME1 = SYSDATE, ROOMTIME2 = SYSDATE
+		WHERE ROOM_NO = #{roomNo}
+	</update>
 </mapper>
