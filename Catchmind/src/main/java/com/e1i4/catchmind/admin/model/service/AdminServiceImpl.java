@@ -247,6 +247,8 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int deleteChatReportMember(int userNo) {
 		return adminDao.deleteChatReportMember(sqlSession, userNo);
+	}
+	
 	public int deleteMemberAccount(String userId) {
 		return adminDao.deleteMemberAccount(sqlSession, userId);
 	}
