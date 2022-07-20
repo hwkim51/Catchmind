@@ -25,9 +25,10 @@
     #blockTable{
         width:85%;
         margin: auto;
+        margin-left: 20px;
         text-align: center;
         border-collapse: separate;
-        border-spacing: 0 25px;
+        border-spacing: 0 30px;
     }
 
     #blockTable tr{
@@ -35,7 +36,7 @@
     }
 
     #blockTable td{
-        background-color: lightgray;
+        background-color: rgb(229, 229, 229);
         font-size: medium;
         font-weight: 500;
     }
@@ -44,14 +45,13 @@
         width: 70px;
         height: 70px; 
         overflow: hidden;
-        
     }
+
     .profile {
-        width: 95%;
-        height: 95%;
+        width: 100%;
+        height: 100%;
         border-radius: 70%;
         object-fit: cover;
-        <!--filter:brightness(30%);-->
     }
     
     .myPage-nav {

@@ -85,6 +85,11 @@ div{
     font-size: 17px;
 }
 
+.reply-write{
+    margin-left: 65px;
+    padding-top: 20px;
+}
+
 .reply button{
     background-color: black;
     border: none;
@@ -94,6 +99,7 @@ div{
     color: white;
     font-size: 15px;
     margin-left: 15px;
+    vertical-align: middle;
 }
 
 .rep{
@@ -109,14 +115,20 @@ div{
 
 .rep .rep_date{
     width: 100px;
-    text-align: left;
+    text-align:center;
     font-weight:bold;
 }
 
 .rep .rep_content{
-    width: 620px;
+    width: 580px;
     text-align: left;
 } 
+
+.rep pre{
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow: auto;
+}
 
 </style>
 </head>
@@ -157,17 +169,26 @@ div{
              </table>
              <!-- 답변 영역 -->
              <div class="reply">
-                 <form action="updateInquiry.ad" method="post">
-                 	<input type="hidden" value="${in.qaNo }" name="qaNo">
-                    <input type="text" placeholder="답변을 입력해주세요" name="anContent" required>
-                    <button type="submit">작성</button>
-                 </form>
+                <table class="reply-write" align="center">
+                    <form action="updateInquiry.ad" method="post">
+                        <input type="hidden" value="${in.qaNo }" name="qaNo">
+                        <!--<input type="text" placeholder="답변을 입력해주세요" name="anContent" required>-->
+                        <tr>
+                            <td>
+                                <textarea name="anContent" required placeholder="답변을 입력해주세요." cols="75" rows="4" style="resize:none;"></textarea>
+                            </td>
+                            <td>
+                                <button type="submit">작성</button>
+                            </td>
+                        </tr>
+                    </form>
+                </table>
                  <table class="rep">
                      <c:choose>
                          <c:when test="${not empty in.anContent}">
                               <tr>
-                                 <td class="rep_date">${in.qaAnswerDate }</td>
-                                 <td class="rep_content">${in.anContent }</td>
+                                <td class="rep_content"><pre>${in.anContent }</pre></td> 
+                                <td class="rep_date"><p>${in.qaAnswerDate }</p></td>
                              </tr>
                          </c:when>
                          <c:otherwise>
