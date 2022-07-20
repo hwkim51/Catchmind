@@ -303,7 +303,31 @@
                 </font>
             </div>
             <i class="bi bi-pencil-fill" data-toggle="modal" data-target="#profileModal"></i>
-            <div id="user-feature">번개처럼 빠른</div>
+            <c:choose>
+            	<c:when test="${ image eq 'CHARMING' }">
+            		<div id="user-feature"> 💟 매력적이에요 </div>
+            	</c:when>
+            	<c:when test="${ image eq 'KIND' }">
+            		<div id="user-feature">친절해요 💚</div>
+            	</c:when>
+            	<c:when test="${ image eq 'WARMHEARTED' }">
+            		<div id="user-feature">따뜻해요 💞</div>
+            	</c:when>
+            	<c:when test="${ image eq 'HAPPY' }">
+            		<div id="user-feature">대화가 즐거워요 😄</div>
+            	</c:when>
+            	<c:when test="${ image eq 'RAPID' }">
+            		<div id="user-feature">⚡ 답장이 빨라요</div>
+            	</c:when>
+            	<c:when test="${ image eq 'LOVE' }">
+            		<div id="user-feature">갖고싶어요 💝</div>
+            	</c:when>
+            	<c:otherwise>
+            		<div id="user-feature"></div>
+            	</c:otherwise>
+            </c:choose>
+            
+            
             <div class="user-message" id="user-message" align="left">
             	<c:choose>
             		<c:when test="${ loginUser.profile eq null }">

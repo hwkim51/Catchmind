@@ -24,6 +24,8 @@
  		<result column="LATITUDE" property="latitude"/>
  	</resultMap>
  	
+ 	<resultMap type="hashMap" id="imageMap"></resultMap>
+ 	
  	<select id="selectMember" parameterType="_int" resultMap="memberResultSet">
  		SELECT *
  		FROM TB_MEMBER
@@ -324,11 +326,60 @@
 		WHERE USER_NO = #{userNo}
 		AND BLOCKED_USER = #{blockedUser}
 	</select>
-	
+
 	<!-- 유저 차단(=블랙리스트 회원 추가) -->
 	<update id="deleteChatReportMember" parameterType="_int">
 		UPDATE TB_MEMBER
 		   SET STATUS = 2 
 		 WHERE USER_NO = #{userNo}
 	</update>
+
+	<insert id="createReview" parameterType="_int">
+		INSERT INTO TB_CHAT_REVIEW
+		VALUES (#{userNo}, 0, 0, 0, 0, 0, 0)
+	</insert>
+	
+	<update id="addCharming" parameterType="_int">
+		UPDATE TB_CHAT_REVIEW
+		SET CHARMING = CHARMING + 1
+		WHERE REVIEW_NO = #{userNo}
+	</update>
+	
+	<update id="addKind" parameterType="_int">
+		UPDATE TB_CHAT_REVIEW
+		SET KIND = KIND + 1
+		WHERE REVIEW_NO = #{userNo}
+	</update>
+	
+	<update id="addLove" parameterType="_int">
+		UPDATE TB_CHAT_REVIEW
+		SET LOVE = LOVE + 1
+		WHERE REVIEW_NO = #{userNo}
+	</update>
+	
+	<update id="addRapid" parameterType="_int">
+		UPDATE TB_CHAT_REVIEW
+		SET RAPID = RAPID + 1
+		WHERE REVIEW_NO = #{userNo}
+	</update>
+	
+	<update id="addWarmhearted" parameterType="_int">
+		UPDATE TB_CHAT_REVIEW
+		SET WARMHEARTED = WARMHEARTED + 1
+		WHERE REVIEW_NO = #{userNo}
+	</update>
+	
+	<update id="addHappy" parameterType="_int">
+		UPDATE TB_CHAT_REVIEW
+		SET HAPPY = HAPPY + 1
+		WHERE REVIEW_NO = #{userNo}
+	</update>
+	
+	<select id="myImage" parameterType="member" resultMap="imageMap">
+		SELECT *
+		FROM TB_CHAT_REVIEW
+		WHERE REVIEW_NO = #{userNo}
+	</select>
+	
+
 </mapper>

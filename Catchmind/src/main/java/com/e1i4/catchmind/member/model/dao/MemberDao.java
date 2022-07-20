@@ -1,11 +1,13 @@
 package com.e1i4.catchmind.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.e1i4.catchmind.chat.model.vo.Chat;
 import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
@@ -47,6 +49,7 @@ public class MemberDao {
 		String userId = m.getUserId();
 		int userNo = (Integer)sqlSession.selectOne("memberMapper.selectMemberById", userId);
 		sqlSession.insert("chatMapper.insertChatClaim", userNo);
+		sqlSession.insert("memberMapper.createReview", userNo);
 		return result;
 	}
 
@@ -184,5 +187,49 @@ public class MemberDao {
 
 	public int phoneCheck(SqlSessionTemplate sqlSession, String phone) {
 		return sqlSession.selectOne("memberMapper.phoneCheck", phone);
+	}
+	
+	public int imageReview(SqlSessionTemplate sqlSession, String reviewType, int userNo) {
+		switch(reviewType) {
+		case "CHARMING" : return sqlSession.update("memberMapper.addCharming", userNo);
+		case "KIND" : return sqlSession.update("memberMapper.addKind", userNo);
+		case "WARMHEARTED" : return sqlSession.update("memberMapper.addWarmhearted", userNo);
+		case "RAPID" : return sqlSession.update("memberMapper.addRapid", userNo);
+		case "HAPPY" : return sqlSession.update("memberMapper.addHappy", userNo);
+		case "LOVE" : return sqlSession.update("memberMapper.addLove", userNo);
+		default : return 0;
+		}
+	}
+	
+	public String myImage(SqlSessionTemplate sqlSession, Member m) {
+		Map map = sqlSession.selectOne("memberMapper.myImage", m);
+		int[] arr = new int[6];
+		arr[0] = Integer.parseInt(String.valueOf(map.get("CHARMING")));
+		arr[1] = Integer.parseInt(String.valueOf(map.get("KIND")));
+		arr[2] = Integer.parseInt(String.valueOf(map.get("WARMHEARTED")));
+		arr[3] = Integer.parseInt(String.valueOf(map.get("RAPID")));
+		arr[4] = Integer.parseInt(String.valueOf(map.get("HAPPY")));
+		arr[5] = Integer.parseInt(String.valueOf(map.get("LOVE")));
+		String image = "";
+		if((arr[0] == Arrays.stream(arr).max().getAsInt()) && (arr[0] != 0)) {
+			image = "CHARMING";
+		}
+		else if((arr[1] == Arrays.stream(arr).max().getAsInt()) && (arr[1] != 0)) {
+			image = "KIND";
+		}
+		else if((arr[2] == Arrays.stream(arr).max().getAsInt()) && (arr[2] != 0)) {
+			image = "WARMHEARTED";
+		}
+		else if((arr[3] == Arrays.stream(arr).max().getAsInt()) && (arr[3] != 0)) {
+			image = "RAPID";
+		}
+		else if((arr[4] == Arrays.stream(arr).max().getAsInt()) && (arr[4] != 0)) {
+			image = "HAPPY";
+		}
+		else if((arr[5] == Arrays.stream(arr).max().getAsInt()) && (arr[5] != 0)) {
+			image = "LOVE";
+		}
+		
+		return image;
 	}
 }

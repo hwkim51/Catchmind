@@ -63,6 +63,8 @@ public class MemberController {
 		Member coupleMem = memberService.selectCoupleInfo(partner);
 		session.setAttribute("coupleMem", coupleMem);
 		
+		String myImage = memberService.myImage((Member)session.getAttribute("loginUser"));
+		session.setAttribute("image", myImage);
 		return "member/myPage";
 	}
 	
@@ -822,6 +824,13 @@ public class MemberController {
 		else {
 			return "redirect:/";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="imageReview.me", produces="application/json; charset=UTF-8")
+	public int imageReview(String reviewType, int reviewNo) {
+		int result = memberService.imageReview(reviewType, reviewNo);
+		return result;
 	}
 	
 }

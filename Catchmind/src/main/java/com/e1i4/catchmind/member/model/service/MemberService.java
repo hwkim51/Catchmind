@@ -100,4 +100,8 @@ public interface MemberService {
 	int emailCheck(String email);
 
 	int phoneCheck(String phone);
+	
+	int imageReview(String reviewType, int userNo);
+	
+	String myImage(Member m);
 }

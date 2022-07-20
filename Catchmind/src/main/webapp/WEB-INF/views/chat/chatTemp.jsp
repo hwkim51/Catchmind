@@ -339,6 +339,75 @@ div {
 		height: 500px;
 		z-index: 5 !important;
 	}
+	/* 모달 스타일*/
+	.modal-dialog{
+		background-color: rgb(207, 206, 206);
+		border-radius: 50px;
+		border: none;
+	}
+	.modal-content{
+		background-color: white;
+		border-radius: 50px;
+		margin: auto;
+		top: 20px;
+		width: 600px !important;
+		height: 350px;
+	}
+	.modal-content *{
+		border: none;
+	}
+	.btn-review{
+		font-family: 'Noto Sans KR', sans-serif;
+		width: 230px;
+		height: 40px;
+		background-color: orange;
+		border-radius: 20px;
+		margin: 0 15px 20px 15px;
+		color: white;
+		font-weight: 600;
+		box-shadow: 1px 3px 4px rgba(0,0,0,0.3);
+		display: block;
+		float: left;
+		padding-top: 5px;
+	}
+
+	.modal-body, .modal-footer{
+		padding: 0px 16px;
+	}
+	.btn-sendReview{
+	background-color: white;
+	}
+	input[type="radio"]:checked + label, .btn-review:hover{
+		background-color: rgb(255, 123, 0) !important;
+		cursor: pointer !important;
+	}
+
+	input[type="radio"] {
+		display : none;
+	}
+
+	.reviewModal, .modal-dialog{
+		top: 120px;
+		text-align: center;
+		max-width: 700px !important;
+		width: 640px !important;
+		height: 400px;
+	}
+	.modal-footer{
+		height: 80px;
+		cursor: pointer;
+	}
+	.review-profile {
+		position:absolute;
+		left: 100px;
+		width: 160px;
+		height: 160px;
+		border-radius: 70%;
+		background-color: green;
+		margin-top: -80px;
+		margin-left: -80px;
+		object-fit : cover;
+	}
 
 </style>
 </head>
@@ -435,54 +504,85 @@ div {
     </div>
 	
 	<!-- The Modal -->
-	
-	<div class="modal fade" id="review-Modal">
-		<div class="modal-dialog">
-			<div class="reviewModal">
-				<img src="${ profile.pic }" class="review-profile">
-				<span class="btn-close" style="float:right; padding-right: 70px;"><h1>&times;</h1></span>
-				<div style="padding-top: 170px;"> 
-				
-					<h5 style="text-align: left; padding-left: 70px;"><b>
-							<span style="font-size: 30px;">캔디현우</span>님과의 대화는 어떠셨나요?</b></h5><br>
-					
-					<input type="radio" name="reviewType" id="charming" value="CHARMING">
-						<label for="charming" class="btn-review"> 💟 매력적이에요 </label>
-					<input type="radio" name="reviewType" id="kind" value="KIND">
-						<label for="kind" class="btn-review">친절해요 💚</label><br>
-					
-					<input type="radio" name="reviewType" id="warmhearted" value="WARMHEARTED">
-						<label for="warmhearted" class="btn-review">따뜻해요 💞</label>
-					<input type="radio" name="reviewType" id="rapid" value="RAPID">
-						<label for="rapid" class="btn-review">⚡ 답장이 빨라요</label><br>
-
-					<input type="radio" name="reviewType" id="happy" value="HAPPY">
-						<label for="happy" class="btn-review">대화가 즐거워요 😄</label>
-					<input type="radio" name="reviewType" id="love" value="LOVE">
-						<label for="love" class="btn-review">갖고싶어요 💝</label><br clear="both">
-
-					<input type="submit" class="btn btn-secondary" value="보내기">
+	<div class="modal fade" id="myModal" data-backdrop="static">
+		
+		<div class="modal-dialog modal-lg reviewModal">
+			<div class="modal-content">
+			
+				<!-- Modal Header -->
+				<div class="modal-header">
+						
+					<c:choose>
+						<c:when test="${ profile.pic eq null }">
+							<img class="review-profile" src="resources/images/pic.png">
+						</c:when>
+						<c:otherwise>            
+							<img class="review-profile" src="${ profile.pic }">
+						</c:otherwise>
+					</c:choose>
+					<h5 style="text-align: left; padding-left: 150px;"><br><br><b>
+						<span style="font-size: 30px;">${ profile.nickname }</span>님과의 대화는 어떠셨나요?</b></h5><br>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				
+					<!-- Modal body -->
+					<div class="modal-body">
+						
+							<input type="radio" name="reviewType" id="charming" value="CHARMING">
+							<label for="charming" class="btn-review"> 💟 매력적이에요 </label>
+							<input type="radio" name="reviewType" id="kind" value="KIND">
+							<label for="kind" class="btn-review">친절해요 💚</label><br>
+						
+							<input type="radio" name="reviewType" id="warmhearted" value="WARMHEARTED">
+							<label for="warmhearted" class="btn-review">따뜻해요 💞</label>
+							<input type="radio" name="reviewType" id="rapid" value="RAPID">
+							<label for="rapid" class="btn-review">⚡ 답장이 빨라요</label><br>
+				
+							<input type="radio" name="reviewType" id="happy" value="HAPPY">
+							<label for="happy" class="btn-review">대화가 즐거워요 😄</label>
+							<input type="radio" name="reviewType" id="love" value="LOVE">
+							<label for="love" class="btn-review">갖고싶어요 💝</label><br clear="both">
+						
+					</div>
+						
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<input type="button" class="btn-sendReview" style="margin: auto;" onclick="imageReview()" value="S E N D ✏">
+					</div>
+
 				
 			</div>
 		</div>
+
 	</div>
 
 
 	<script>
 		$(document).ready(function(){
 		    $("#chat-review").click(function(){
-				$("#review-Modal").modal();
-		    });
-
-			$(".btn-close").click(function(){
-				$("#review-Modal").modal("hide");
-			});
-		
+				$("#myModal").modal();
+		    });		
 		});
 		
-		
+		function imageReview() {
+			$.ajax({
+				url : "imageReview.me",
+				type : "POST",
+				data : {
+					reviewNo : ${ profile.userNo },
+					reviewType : $("input[name='reviewType']:checked").val()
+				},
+				success : function(result) {
+					if(result) {
+						alert("채팅 상대에 대한 후기를 남겼어요!");
+						$("#myModal").modal('hide');
+					}
+				},
+				error : function() {
+					console.log("review ajax problem");
+				}
+			});
+		}
 
 		chatPage = 1;
 		$(function() {
@@ -535,7 +635,7 @@ div {
 						clearInterval(interval2);
 						var modalAnswer = confirm("상대가 채팅방을 떠났습니다.\n채팅 후기를 남기시겠습니까?");
 						if(modalAnswer == true) {
-							$("#review-Modal").modal();
+							$("#myModal").modal();
 						}
 						else {
 							location.href = "/catchmind";

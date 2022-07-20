@@ -212,6 +212,16 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.phoneCheck(sqlSession, phone);
 	}
 
+	@Override
+	public int imageReview(String reviewType, int userNo) {
+		return memberDao.imageReview(sqlSession, reviewType, userNo);
+	}
+
+	@Override
+	public String myImage(Member m) {
+		return memberDao.myImage(sqlSession, m);
+	}
+
 	
 
 	
