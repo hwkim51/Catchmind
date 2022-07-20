@@ -110,24 +110,6 @@ public class AdminController {
 		return "admin/memberListView";
 	}
 	
-	@RequestMapping("boardList.ad")
-	public String selectBoardList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
-				
-		int listCount = adminService.selectBoardCount();
-		
-		int pageLimit = 10;
-		int boardLimit = 5;
-		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-		
-		ArrayList<Board> list = adminService.selectBoardList(pi);
-		
-		model.addAttribute("list", list);
-		model.addAttribute("pi", pi);
-		
-		return "admin/boardListView";
-	}
-	
 	@RequestMapping("catchList.ad")
 	public String selectCatchBoardList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 				
