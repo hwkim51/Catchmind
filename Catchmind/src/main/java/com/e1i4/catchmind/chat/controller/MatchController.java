@@ -30,9 +30,24 @@ public class MatchController {
 	@Autowired
 	private MatchDao mdao;
 	
-	
 	@RequestMapping("matchList.ch")
 	public String matchList(HttpSession session, Model model) {
+		
+		if((Member) session.getAttribute("loginUser")!= null) {
+		Member m = (Member) session.getAttribute("loginUser");
+		ArrayList<Member> result = mdao.matchList(sqlSession, m);
+		
+		model.addAttribute("mlist", result);
+		
+		return "chat/matchListView";
+		} else {
+			session.setAttribute("alertMsg", "로그인 후 이용가능합니다.");
+			return "main";
+		}
+	}
+	
+	@RequestMapping("recList.ch")
+	public String recList(HttpSession session, Model model) {
 		
 		if((Member) session.getAttribute("loginUser")!= null) {
 			Member m = (Member) session.getAttribute("loginUser");
@@ -56,7 +71,7 @@ public class MatchController {
 			}		
 			model.addAttribute("mlist", mlist);
 			
-			return "chat/matchListView";
+			return "chat/recommandList";
 		} else {
 			session.setAttribute("alertMsg", "로그인 후 이용가능합니다.");
 			return "main";
@@ -96,13 +111,6 @@ public class MatchController {
 		m.setGender(((Member) session.getAttribute("loginUser")).getGender());
 		m.setUserNo(((Member) session.getAttribute("loginUser")).getUserNo());
 		
-		System.out.println(mbti);
-		System.out.println(hlow);
-		System.out.println(hhigh);
-		System.out.println(alow);
-		System.out.println(ahigh);
-		
-		
 		if (mbti.equals("")) {
 			if (!(hlow.equals(""))) {
 				m.setHlow(Integer.parseInt(hlow));
@@ -128,7 +136,7 @@ public class MatchController {
 
 			model.addAttribute("mlist", result);
 			
-			return "chat/matchListView2";
+			return "chat/matchSearch";
 		} else {
 			m.setMbti(mbti);
 			if (!(hlow.equals(""))) {
@@ -155,7 +163,7 @@ public class MatchController {
 
 			model.addAttribute("mlist", result);
 			
-			return "chat/matchListView2";
+			return "chat/matchSearch";
 		}
 		} else {
 			session.setAttribute("alertMsg", "로그인 후 이용가능합니다.");

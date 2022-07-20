@@ -208,14 +208,14 @@ position:fixed;
 top: 160px;
 margin: 0px 15px 0px 25px;
 width: 180px;
-height: 440px;
+height: 465px;
 background: linear-gradient(to right, rgb(236, 3, 194) 10%, orange);
 border-radius: 10px;
 }
 .sub_menu{
 position:absolute;
 width: 160px;
-height:400px;
+height:425px;
 border-radius: 15px;
 background-color: white;
 padding: 20px 0px 0px 15px;
@@ -407,10 +407,10 @@ input[type="number"]::-webkit-inner-spin-button {
                             <span class="subTitle">나이 : </span><input type="number" class="search_age" name="alow" id="alow" placeholder="이상"> - &nbsp; &nbsp;<input type="number" class="search_age" name="ahigh" id="ahigh" placeholder="이하"><br>
                             <button type="submit" id="searchbtn" class="btn-matchSearch">S E A R C H 🔍</button>
                             
-                            <div id ="info">CATCHMIND<br>추천 MBTI<br> 상대 리스트</div>
+                            <div id ="info">CATCHMIND는<br>최상의 상대 찾기를<br> 위해 검색 후 검색만을 지원합니다.</div>
                             </form>
-                            <form action="recList.ch">
-                            <button type="submit" id="searchbtn" class="btn-matchSearch">보러 가기 🔍</button>
+                            <form action="matchList.ch">
+                            <button type="submit" id="searchbtn" class="btn-matchSearch">뒤로 가기</button>
                             </form>
     						</div> <!-- sub_menu -->
                         </div>
@@ -490,6 +490,9 @@ var swiper = new Swiper('.swiper-container', {
 				}
 			}
 		});
+	}
+	function listBack() {
+		window.history.back();
 	}
 	</script>
 	
