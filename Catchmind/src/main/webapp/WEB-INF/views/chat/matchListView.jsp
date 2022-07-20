@@ -346,7 +346,7 @@ input[type="number"]::-webkit-inner-spin-button {
                             </select>
                             </div> <!-- user-mbti -->
                             <form action="searchList.ma">
-                            <input name="mbti" id="updateMbti">
+                            <input type="hidden" name="mbti" id="updateMbti">
                             <input type="number" class="search_height" name="hlow" id="hlow" placeholder="이상"> ~ <input type="number" class="search_height" name="hhigh" id="hhigh" placeholder="이하">
                             <input type="number" class="search_age" name="alow" id="alow" placeholder="이상"> ~ <input type="number" class="search_age" name="ahigh" id="ahigh" placeholder="이하">
                             <button type="submit" id="searchbtn">검색</button>

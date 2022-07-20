@@ -140,14 +140,14 @@ div {
 }
 
 .modal-dialog {
-	background-color: rgb(232, 230, 230);
-	border-radius: 70px !important;
+	width: 700px;
+	height: 450px;
+	background-color: lightgrey;
+	border-radius: 50px;
 	margin-top: 15vh !important;
 }
 
 .review-profile {
-	position:absolute;
-	left: 100px;
 	width: 200px;
 	height: 200px;
 	border-radius: 70%;
@@ -219,32 +219,6 @@ div {
 #chat-text-list {
 	list-style-type: none;
 }
-.btn-review{
-	font-family: 'Noto Sans KR', sans-serif;
-	width: 230px;
-	height: 40px;
-	background-color: orange;
-	border:none;
-	border-radius: 20px;
-	margin: 0 15px 20px 15px;
-	color: white;
-	font-weight: 600;
-	box-shadow: 1px 3px 4px rgba(0,0,0,0.3);
-	display: block;
-	float: left;
-}
-.btn-review:hover{
-	background-color: rgb(255, 123, 0) !important;
-	cursor: pointer !important;
-}
-.reviewModal, .modal-dialog{
-	text-align: center;
-	max-width: 600px !important;
-	width: 600px !important;
-	height: 500px;
-	z-index: 5 !important;
-}
-
 </style>
 </head>
 <body>
@@ -263,16 +237,15 @@ div {
 		});
 		
 		var interval;
-		var interval2
-		var roomTime = 0;
-		var roomNo = "${roomNo};"
+		
 		$(function() {
-			chatPage = 1;
-			setRoomTime();
+			
+			signalFromChat;
+			
+			interval = setInterval(signalFromChat, 2000);
 		});
 		
 		function signalFromChat() {
-			console.log("챗시그널");
 			$.ajax({
         		url : "signalFromChat.me",
         		data : {
@@ -281,61 +254,10 @@ div {
         		success : function(result){
         		},
         		error : function(){
-        			console.log("chatsignal ajax problem");
+        			console.log("header ajax problem");
         		}
         	});
 
-		}
-		
-		function signalFromChatRoom() {
-			console.log("챗룸시그널");
-			$.ajax({
-				url : "signalFromChatRoom.ch",
-				data : {
-					roomNo : "${roomNo}",
-					userNo : "${loginUser.userNo}"
-				},
-				success : function(result) {
-					if(result == 0) {
-						clearInterval(interval);
-						clearInterval(interval2);
-						var modalAnswer = confirm("상대가 채팅방을 떠났습니다.\n채팅 후기를 남기시겠습니까?");
-						if(modalAnswer == true) {
-							$("#review-Modal").modal();
-						}
-						else {
-							location.href = "/catchmind";
-						}
-						
-					}
-					else {
-						
-					}
-				},
-				error : function() {
-					console.log("chatroom ajax problem");
-				}
-			});
-		}
-		
-		function setRoomTime() {
-			$.ajax({
-				url : "setRoomTime.ch",
-				data : {
-					roomNo : "${roomNo}"
-				},
-				success : function(result) {
-					chatPage = 1;
-					console.log("인터벌 설정 완료");
-					signalFromChat;
-					signalFromChatRoom;
-					interval = setInterval(signalFromChat, 2000);
-					interval2 = setInterval(signalFromChatRoom, 5000);
-				},
-				error : function() {
-					console.log("setRoomTime ajax problem");
-				}
-			});
 		}
 		
 	</script>
@@ -386,7 +308,6 @@ div {
 				$("#profile-report").click(function() {
 					location.href = "report.ch?userNo=${profile.userNo}";
 				});
-				var profileNo = ${profile.userNo};
 			</script>
 		</div>
 		<div class="chat-window">
@@ -409,34 +330,9 @@ div {
 
 	<!-- The Modal -->
 	<div class="modal fade" id="review-Modal">
-		<div class="modal-dialog">
-			<div class="reviewModal">
+		<div class="modal-dialog" style="width: 840px;">
+			<div>
 				<img src="${ profile.pic }" class="review-profile">
-				<span class="btn-close" style="float:right; padding-right: 70px;"><h1>&times;</h1></span>
-				<div style="padding-top: 170px;"> 
-				
-					<h5 style="text-align: left; padding-left: 70px;"><b>
-							<spna style="font-size: 30px;">캔디현우</spna>님과의 대화는 어떠셨나요?</b></h5><br>
-					
-					<input type="radio" name="reviewType" id="charming" value="CHARMING">
-						<label for="charming" class="btn-review"> 💟 매력적이에요 </label>
-					<input type="radio" name="reviewType" id="kind" value="KIND">
-						<label for="kind" class="btn-review">친절해요 💚</label><br>
-					
-					<input type="radio" name="reviewType" id="warmhearted" value="WARMHEARTED">
-						<label for="warmhearted" class="btn-review">따뜻해요 💞</label>
-					<input type="radio" name="reviewType" id="rapid" value="RAPID">
-						<label for="rapid" class="btn-review">⚡ 답장이 빨라요</label><br>
-
-					<input type="radio" name="reviewType" id="happy" value="HAPPY">
-						<label for="happy" class="btn-review">대화가 즐거워요 😄</label>
-					<input type="radio" name="reviewType" id="love" value="LOVE">
-						<label for="love" class="btn-review">갖고싶어요 💝</label><br clear="both">
-
-					<input type="submit" class="btn btn-secondary" value="보내기">
-				</div>
-				
-				
 			</div>
 		</div>
 	</div>
@@ -444,30 +340,15 @@ div {
 	<script>
 		$(document).ready(function(){
 		    $("#chat-review").click(function(){
-				$("#review-Modal").modal();
+		        $("#review-Modal").modal();
 		    });
+		});
 
-			$(".btn-close").click(function(){
-			$("#review-Modal").modal("hide");
-		});
-		
-		});
-		
-		
-	
-		
 	</script>
 
 	<script>
 		
-		var client;
-	
 		$(function() {
-			
-			var chatTimeVar;
-			var sock = new SockJS("http://192.168.40.23:8006/catchmind/chat");
-			client = Stomp.over(sock);
-			var roomNo = ${roomNo};
 			
 			$("#chat-send").click(function() {
 				var contents = $("#chat-text").val();
@@ -481,7 +362,10 @@ div {
 					);
 				$("#chat-text").val("");
 			});
-			
+			var chatTimeVar;
+			var sock = new SockJS("http://192.168.40.23:8006/catchmind/chat");
+			var client = Stomp.over(sock);
+			var roomNo = ${roomNo};
 			client.connect({}, function() {
 	
 				client.subscribe('/subscribe/' + roomNo, function(chat) {
@@ -544,7 +428,16 @@ div {
 	
 			});
 			
+			client.disconnect(function() {
+				client.send('/fromServer/' + roomNo, {},
+					JSON.stringify({
+						chatContent : "님이 퇴장하셨습니다.",
+						writer : ${loginUser.userNo}
+					}))
+			});
+	
 		});
+		
 		
 	</script>
 
