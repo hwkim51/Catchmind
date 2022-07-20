@@ -396,7 +396,7 @@ input[type="number"]::-webkit-inner-spin-button {
                             </select>
                             </div> <!-- user-mbti -->
                             <form id="matchFilter" action="searchList.ma">
-                           <input type="hidden" name="mbti" id="updateMbti"><br>
+                            <input type="hidden" name="mbti" id="updateMbti"><br>
                             <span class="subTitle">키 : </span>
                                 <input type="number" class="search_height" name="hlow" id="hlow" placeholder="이상" style="margin-left: 10px;"> - &nbsp; &nbsp;<input type="number" class="search_height" name="hhigh" id="hhigh" placeholder="이하"><br>
                             <span class="subTitle">나이 : </span><input type="number" class="search_age" name="alow" id="alow" placeholder="이상"> - &nbsp; &nbsp;<input type="number" class="search_age" name="ahigh" id="ahigh" placeholder="이하"><br>
