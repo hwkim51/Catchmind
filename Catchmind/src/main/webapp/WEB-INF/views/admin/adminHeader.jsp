@@ -99,7 +99,7 @@ div {
              <div id="admin-report">신고 관리</div>
             <ul>
                 <li><a href="reportList.ad">신고 관리</a></li>
-                <li><a href="">채팅 신고 관리</a></li>
+                <li><a href="chatReportList.ad">채팅 신고 관리</a></li>
             </ul>
             <div id="admin-stat"><a href="statistics.ad">웹사이트 통계</a></div>
         </div>

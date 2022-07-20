@@ -310,4 +310,11 @@
 		WHERE USER_NO = #{userNo}
 		AND BLOCKED_USER = #{blockedUser}
 	</select>
+	
+	<!-- 유저 차단(=블랙리스트 회원 추가) -->
+	<update id="deleteChatReportMember" parameterType="_int">
+		UPDATE TB_MEMBER
+		   SET STATUS = 2 
+		 WHERE USER_NO = #{userNo}
+	</update>
 </mapper>

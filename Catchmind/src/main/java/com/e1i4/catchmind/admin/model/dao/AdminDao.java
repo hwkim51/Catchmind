@@ -12,6 +12,7 @@ import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
+import com.e1i4.catchmind.chat.model.vo.ChatReport;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.faq.model.vo.Faq;
@@ -259,5 +260,25 @@ public class AdminDao {
 	
 	public Catch detailCatchReport(SqlSessionTemplate sqlSession, int catchNo) {
 		return sqlSession.selectOne("boardMapper.selectCatch", catchNo);
+	}
+	
+	public int deleteReply(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.update("boardMapper.deleteReply", replyNo);
+	}
+	
+	public int selectChatReportCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("chatMapper.selectChatReportCount");
+	}
+
+	public ArrayList<ChatReport> selectChatReportList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("chatMapper.selectChatReportList", null, rowBounds);
+	}
+	
+	public int deleteChatReportMember(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.update("memberMapper.deleteChatReportMember", userNo);
 	}
 }

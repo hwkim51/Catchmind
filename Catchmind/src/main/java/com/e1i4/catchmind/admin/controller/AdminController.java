@@ -22,6 +22,7 @@ import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
 import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
+import com.e1i4.catchmind.chat.model.vo.ChatReport;
 import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.common.template.Pagination;
@@ -505,9 +506,10 @@ public class AdminController {
 	
 	//에브리타임 신고된 게시글 삭제 처리
 	@RequestMapping("deletePo.ad")
-	public String deletePost(int reportNo, Model model, HttpSession session) {
-		
-		int result = adminService.deletePost(reportNo);
+	public String deletePost(int postNo, Model model, HttpSession session) {
+		System.out.println(postNo);
+		int result = adminService.deletePost(postNo);
+		System.out.println(result);
 		if(result > 0) {
 			session.setAttribute("alertMsg", "신고된 게시글 처리 완료");
 			return "redirect:reportList.ad";
@@ -517,6 +519,51 @@ public class AdminController {
 			return "common/errorPage";
 		}
 	}
+	
+	@RequestMapping("deleteReply.ad")
+	public String deleteReply(int replyNo, Model model) {
+		
+		int result = adminService.deleteReply(replyNo);
+		if(result > 0){
+			return "redirect:reportList.ad";
+		}else {
+			model.addAttribute("errorMsg", "댓글 삭제  실패");
+			return "common/errorPage";
+		}
+	}
+	
+	// 채팅 신고 내역 전체 조회(유진)
+	@RequestMapping("chatReportList.ad")
+	public String selectChatReportList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.selectChatReportCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 5;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<ChatReport> list = adminService.selectChatReportList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "admin/chatReportListView";
+	}
+	
+	@RequestMapping("deleteChatReportMember.ad")
+	public String deleteChatReportMember(int userNo, Model model, HttpSession session) {
+		
+		int result = adminService.deleteChatReportMember(userNo);
+		if(result > 0) {
+			session.setAttribute("alertMsg", "유저 차단 성공");
+			return "redirect:chatReportList.ad";
+		}else {
+			model.addAttribute("errorMsg", "유저 차단  실패");
+			return "common/errorPage";
+		}
+	
+	}
+	
 	
 	/*
 	@RequestMapping("detailCatch.ad")

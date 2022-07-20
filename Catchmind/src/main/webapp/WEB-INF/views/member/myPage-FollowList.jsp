@@ -145,13 +145,13 @@
 	    				resultStr += "<tr>"
 	    						   + 	"<th class='box' style='background: white;'>";
 	    						   if(result[i].pic != null && result[i].recentLogout != null){//사진 있고 접속 중 x
-	    							   resultStr += "<img class='profile' style='filter:brightness(0.4);' src='"+ result[i].pic +"'>"
+	    							   resultStr += "<img class='profile' src='"+ result[i].pic +"'>"
 	    						   }
 	    						   else if(result[i].pic != null && result[i].recentLogout == null){ //사진 있고 접속 중
 	    							   resultStr += "<img class='profile' src='"+ result[i].pic +"'>"
 	    						   }
 	    						   else if(result[i].pic == null && result[i].recentLogout != null){ //사진 없고 접속 중 x
-	    							   resultStr += "<img class='profile' src='resources/images/user.png' style='filter:brightness(0.4);'>"
+	    							   resultStr += "<img class='profile' src='resources/images/user.png'>"
 	    						   }
 	    						   else{ //사진 없고 접속 중
 	    							   resultStr += "<img class='profile' src='resources/images/user.png'>"

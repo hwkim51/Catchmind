@@ -12,6 +12,12 @@
 		<result column="CHAT_TIME" property="chatTime"/>
 	</resultMap>
 	
+	<resultMap type="chatReport" id="chatReportResultSet">
+		<result column="USER_NO" property="userNo"/>
+		<result column="REPORTED_FROM" property="reportedFrom"/>
+		<result column="REPORTED_FOR" property="reportedFor"/>
+	</resultMap>
+	
 	<select id="getRoomNo" parameterType="HashMap" resultType="_int">
 		SELECT ROOM_NO
 		FROM CHATROOMS
@@ -112,4 +118,15 @@
 		SET ROOMTIME1 = SYSDATE, ROOMTIME2 = SYSDATE
 		WHERE ROOM_NO = #{roomNo}
 	</update>
+	
+	<select id="selectChatReportCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM CHAT_REPORT
+	</select>
+	
+	<select id="selectChatReportList" resultMap="chatReportResultSet">
+		SELECT USER_NO, REPORTED_FROM, REPORTED_FOR   
+		FROM CHAT_REPORT C
+		JOIN TB_MEMBER M USING (USER_NO)
+	</select>
 </mapper>

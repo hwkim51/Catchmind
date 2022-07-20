@@ -55,7 +55,7 @@ div{
     padding-right : 20px;
 }
 
-#noticeDetail{
+#reportDetail{
     margin:auto;
     margin-top:50px;
     width:80%;
@@ -64,17 +64,8 @@ div{
     border-collapse: separate;
     border-spacing: 0 20px;
 }
-/*
-#noticeDetail p{
-    margin-top: 15px;
-    width:100%;
-    margin: 0 auto;
-    padding: 5%;
-    -webkit-transform:scale(0.9);
-}
-*/
 
-#noticeDetail textarea{
+#reportDetail textarea{
     border: 1px solid gray;
     box-sizing: border-box; 
     width:100%;
@@ -84,16 +75,22 @@ div{
     height:450px;
 }
 
-#noticeDetail thead th{
+#reportDetail thead th{
     width:15%;
 }
 
-#noticeDetail thead td{
+#reportDetail thead td{
     width: 35%;
 }
 
-#noticeDetail textarea::-webkit-scrollbar{
+#reportDetail textarea::-webkit-scrollbar{
     display: none;
+}
+
+#reportDetail pre{
+ 	white-space: pre-wrap;
+    word-break: break-all;
+    overflow: auto;
 }
 
 .rep{
@@ -108,20 +105,28 @@ div{
 } 
 
 .rep .rep_date{
-    width: 100px;
+    width: 130px;
     text-align:center;
     font-weight:bold;
 }
 
+.rep .rep_writer{
+	width: 100px;
+	text-align:center;
+	font-weight:bold;
+}
+
 .rep .rep_content{
-    width: 580px;
+    width: 450px;
     text-align: left;
 } 
 
 .rep pre{
+    margin:auto;
     white-space: pre-wrap;
     word-break: break-all;
     overflow: auto;
+    
 }
 </style>
 </head>
@@ -138,7 +143,7 @@ div{
             <a href="/catchmind/"><span id="toMain">CATCHMIND</span></a>
             <br>
                 <div class="body-content">
-                    <table align="center" id="noticeDetail">
+                    <table align="center" id="reportDetail">
                         <thead>
                             <tr>
                                 <th>글제목</th>
@@ -158,11 +163,9 @@ div{
                             <tr>
                                 <td colspan="4">
                                     <c:if test="${ !empty a }">
-                                        <img src="${ a.attChange }" style="width:100%; height:350px;"><br><br>
+                                        <img src="${ a.attChange }" style="width:90%; height:300px;"><br><br>
                                     </c:if>
-                                    <pre style="resize:none;"> 
-                                        ${p.postContent}
-                                    </pre>
+                                    <pre>${p.postContent}</pre>
                                 </td>
                             </tr>
                         </tbody>
@@ -170,10 +173,15 @@ div{
                     <table class="rep">
                         <c:choose>
                             <c:when test="${not empty rlist}">
-                                 <tr>
-                                   <td class="rep_content"><pre></pre></td> 
-                                   <td class="rep_date"><p></p></td>
-                                </tr>
+                            	<c:forEach var="r" items="${rlist }">
+	                                 <tr>
+	                                   <td class="rep_content"><pre>${r.replyContent }</pre></td> 
+	                                   <td class="rep_writer"><p>${r.replyNickName }</p></td>
+	                                   <td class="rep_date"><p>${r.replyDate }</p></td>
+	                                   <td><button class="btn-sm btn-secondary">삭제</button></td>
+	                                   <td class="reNo"><input type="hidden" value="${r.replyNo }"></td>
+	                                </tr>
+                                </c:forEach>
                             </c:when>
                             <c:otherwise>
                                 <tr class="wrap_rep">
@@ -184,13 +192,14 @@ div{
                          </c:choose>
                      </table> 
                     <div align="center">
-                        <a class="btn btn-danger btn-sm" onclick="postFormSubmit(1);">삭제하기</a>
+                    <br>
+                        <a class="btn btn-danger btn-sm" onclick="postFormSubmit(1);">게시글 삭제하기</a>
                     </div>
                     <form action="" method="post" id="reportForm">
                         <input type="hidden" name="postNo" value="${p.postNo}">
                         <input type="hidden" name="filePath" value="${ a.attChange }">
                     </form>
-                    <br>
+                    <br><br>
                 </div>
             </div>
         </div>
@@ -201,8 +210,17 @@ div{
             if(num == 1){  //삭제
                 $("#reportForm").attr("action", "deletePo.ad").submit();
             }
-            
        }
+       
+   
+      $(function(){
+    	 
+    	      $(".btn-secondary").click(function(){
+    		  var postNo = $(this).parent().siblings(".reNo").children().val();
+    		  console.log(replyNo);
+    		  location.href="deleteReply.ad?postNo="+postNo;
+    	  })
+      });
     </script>
   </div>
 </body>

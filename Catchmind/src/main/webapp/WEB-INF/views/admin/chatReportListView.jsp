@@ -124,61 +124,34 @@ div{
            <div class="body right">
              <br>
                  <!-- 메뉴 별 제목 작성하는 곳! -->
-                 <span id="title">신고 관리</span>
+                 <span id="title">채팅 신고 관리</span>
                  <a href="/catchmind/"><span id="toMain">CATCHMIND</span></a>
              <br>
              <div class="body-content">
              <table id="reportTable">
                  <thead>
                      <tr>
-                         <th class="reNo" style="width : 100px;">신고 게시판</th>
-                         <th style="width : 150px;">글번호</th>
-                         <th style="width : 150px;">댓글 번호</th>
-                         <th style="width : 300px;">신고 사유</th>
+                        <th style="width : 150px;">신고한 회원번호</th>
+                         <th style="width : 150px;">신고된 회원번호</th>
+                         <th style="width : 400px;">신고 사유</th>
                          <th style="width : 100px;"></th>
                      </tr>
                  </thead>
                  <tbody>
                         <c:choose>
                             <c:when test="${empty list}">
-                                <th colspan="5">
+                                <th colspan="3">
                                     신고 내역이 존재하지 않습니다.
                                 </th>
                             </c:when>
                             <c:otherwise>
-                                <c:forEach items="${list}" var="r">
+                                <c:forEach items="${list}" var="cr">
                                     <tr>
-                                        <th class="userId">
-                                            <c:choose>
-                                                <c:when test="${r.catchNo eq 0}">에브리타임</c:when>
-                                                <c:when test="${r.postNo eq 0}">연애의발견</c:when>
-                                            </c:choose>
-                                        </th>
-                                        <th class="reNo">
-                                            <c:choose>
-                                                <c:when test="${r.catchNo eq 0}">${r.postNo}</c:when>
-                                                <c:when test="${r.postNo eq 0}">${r.catchNo}</c:when>
-                                            </c:choose>
-                                        </th>
-                                        <th class="replyNo">
-                                            <c:choose>
-                                            <c:when test="${r.replyNo eq 0 }">
-                                            </c:when>
-                                            <c:otherwise>
-                                                ${r.replyNo}
-                                            </c:otherwise>
-                                            </c:choose>
-                                        </th>
-                                        <th class="nickname">${r.repContent}</th>
+                                        <th class="nickname">${cr.reportedFrom}</th>
+                                        <th class="userNo">${cr.userNo}</th>
+                                        <th class="reportContent">${cr.reportedFor}</th>
                                         <th class="statusBtn">
-                                            <c:choose>
-                                            <c:when test="${r.catchNo eq 0}"> 
-                                                <input type="button" class="btn-member btn-recover" value="상세보기" style="background-color: rgb(51, 143, 51);">&nbsp;&nbsp;
-                                            </c:when>
-                                            <c:otherwise>
-                                                <input type="button" class="btn-member btn-secondary" value="상세보기" style="background-color: rgb(25, 46, 230);">&nbsp;&nbsp;
-                                            </c:otherwise>  
-                                            </c:choose>
+                                            <input type="button" class="btn-member btn-recover" value="유저 차단" style="background-color: rgb(216, 19, 19);">&nbsp;&nbsp;
                                         </th>
                                     </tr>
                                     </c:forEach>
@@ -195,18 +168,18 @@ div{
                             <li class="page-item disabled"><a class="page-link" href="#">&lt; Prev</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="reportList.ad?cpage=${pi.currentPage - 1}">&lt; Prev</a></li>
+                            <li class="page-item"><a class="page-link" href="chatReportList.ad?cpage=${pi.currentPage - 1}">&lt; Prev</a></li>
                         </c:otherwise>
                     </c:choose>
                     <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                    <li class="page-item"><a class="page-link" href="reportList.ad?cpage=${ p }">${ p }</a></li>
+                    <li class="page-item"><a class="page-link" href="chatReportList.ad?cpage=${ p }">${ p }</a></li>
                     </c:forEach>     
                     <c:choose>   
                         <c:when test="${pi.currentPage eq pi.maxPage}">  
                             <li class="page-item disabled"><a class="page-link" href="#">Next &gt;</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="reportList.ad?cpage=${pi.currentPage + 1}">Next &gt;</a></li>
+                            <li class="page-item"><a class="page-link" href="chatReportList.ad?cpage=${pi.currentPage + 1}">Next &gt;</a></li>
                         </c:otherwise>
                     </c:choose>
                  </ul>
@@ -216,10 +189,10 @@ div{
 
      <script>
         $(function(){
-            $(".btn-recover").click(function(){ //에브리타임 조회
-                var reportNo = $(this).parent().siblings(".reNo").text(); //글번호
-                var replyNo = $(this).parent().siblings(".replyNo").text(); //댓글번호
-                location.href="detailPost.ad?reportNo="+reportNo; 
+            $(".btn-recover").click(function(){ 
+               
+                var userNo = $(this).parent().siblings(".userNo").text();
+                location.href="deleteChatReportMember.ad?userNo="+userNo; 
             });
 
         })
