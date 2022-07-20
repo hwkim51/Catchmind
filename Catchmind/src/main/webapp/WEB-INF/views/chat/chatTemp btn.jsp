@@ -12,9 +12,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <title>이야기 나누기</title>
 <style>
-/*
 div {
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	box-sizing: border-box;
 	margin: 0px;
 	padding: 0px;
@@ -220,100 +219,6 @@ div {
 #chat-text-list {
 	list-style-type: none;
 }
-*/
-	#chat-input {
-		height: 100px;
-	}
-
-	#chat-text {
-		margin-top: 7px;
-		margin-left : 15px;
-		resize: none;
-		width: 510px; height: 90px; background-color: white; border: 1px solid gray; border-radius: 7px; float: left;
-		-ms-overflow-style: none;
-	}
-	#chat-send {
-		float: right;
-		height: 90px;
-		width: 65px;
-		border: 0px;
-		background-color: orange;
-		color: white;
-		border-radius: 5px;
-		margin-top: 7px;
-	}
-	.profile-img {
-        width: 200px;
-        height: 200px;
-        border-radius: 70%;
-        margin-top: 80px;
-        object-fit: cover;
-    }
-
-    .user-mbti {
-        margin-top: 15px;
-        font-size: 20px;
-    }
-
-    .user-nickname {
-        font-weight: bold;
-        font-size: 25px;
-        display: inline-block;
-    }
-
-    .user-message {
-        width: 200px;
-        height: 50px;
-        word-break: break-all;
-        margin-top: 20px;
-        font-size: 15px;
-        overflow-y: scroll;
-        margin-bottom: 30px;
-    }
-    
-    .user-message::-webkit-scrollbar {
-        width: 5px;
-    }
-
-    .user-message::-webkit-scrollbar-thumb {
-        height: 10%;
-        background: orange;
-        border-radius: 10px;
-    }
-
-    .user-message::-webkit-scrollbar-track {
-        background: rgb(254, 235, 200);
-    }
-
-    .test {
-        -ms-overflow-style: none;
-    }
-    .test::-webkit-scrollbar{
-        display:none;
-    }
-
-    .input {
-        -ms-overflow-style: none;
-    }
-    .input ::-webkit-scrollbar{
-        display:none;
-    }
-
-	.tableDiv{
-        display: table;
-        
-    }
-    .timeDiv{
-        display: table-cell;
-        vertical-align: bottom;
-        padding: 0px 0px 15px 10px;
-    }
-  
-    .partnertimeDiv {
-        display: table-cell;
-        vertical-align: bottom;
-        padding: 0px 10px 15px 0px;
-    }
 .btn-review{
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 230px;
@@ -325,8 +230,6 @@ div {
 	color: white;
 	font-weight: 600;
 	box-shadow: 1px 3px 4px rgba(0,0,0,0.3);
-	display: block;
-	float: left;
 }
 .btn-review:hover{
 	background-color: rgb(255, 123, 0) !important;
@@ -337,62 +240,12 @@ div {
 	max-width: 600px !important;
 	width: 600px !important;
 	height: 500px;
-	z-index: 5 !important;
 }
 
 </style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
-
-	<c:choose>
-				<c:when test="${ users.m1.userNo == loginUser.userNo }">
-					<c:set var='profile' value='${ users.m2 }' />
-				</c:when>
-				<c:otherwise>
-					<c:set var='profile' value='${ users.m1 }' />
-				</c:otherwise>
-			</c:choose>
-
-	<div style="width: 1000px; height: 650px; margin: auto;">
-
-        <!-- 채팅 상대 프로필 -->
-        <div style="width: 400px; height: 650px; background-color: azure; float: left;" align="center">
-            <img src="${profile.pic}" class="profile-img">
-            <div class="user-mbti">${profile.mbti}</div>
-            <div class="user-nickname">${profile.nickname}</div>
-            <div class="user-message" id="user-message" align="left">${profile.profile}</div>
-            <hr style="width: 220px;">
-            <button type="button" class="btn btn-sm" style="width: 200px; background-color: rgb(91, 124, 208); color: white; margin-bottom: 10px; display: block;">상대 후기 남기기</button>
-            <button type="button" class="btn btn-sm" style="width: 90px; background-color: lightgrey; color: white; margin-right: 15px;">차단</button>
-            <button type="button" class="btn btn-sm" style="width: 90px; background-color: lightgrey; color: white;">신고</button>
-        </div>
-
-        <!-- 채팅창 -->
-        <div style="width: 600px; height: 650px; float: left;">
-            <!-- 채팅 영역 -->
-            <div class="test" style="width: 600px; height: 560px; float: left; overflow-y: scroll;">
-                
-                <ul style="list-style: none;" id="chat-text-list">
-                    
-                </ul>
-
-    
-            </div>
-            
-            <!-- 채팅 입력창 -->
-            
-			<textarea id="chat-text" name="chatContent"
-			placeholder="내용을 입력해주세요."></textarea>
-			<button type="button" id="chat-send">전송</button>
-
-
-        </div>
-
-        
-    </div>
-
-	
 	<script>
 		chatPage = 1;
 		$(function() {
@@ -407,16 +260,15 @@ div {
 		});
 		
 		var interval;
-		var interval2
-		var roomTime = 0;
-		var roomNo = "${roomNo};"
+		
 		$(function() {
-			chatPage = 1;
-			setRoomTime();
+			
+			signalFromChat;
+			
+			interval = setInterval(signalFromChat, 2000);
 		});
 		
 		function signalFromChat() {
-			console.log("챗시그널");
 			$.ajax({
         		url : "signalFromChat.me",
         		data : {
@@ -425,65 +277,14 @@ div {
         		success : function(result){
         		},
         		error : function(){
-        			console.log("chatsignal ajax problem");
+        			console.log("header ajax problem");
         		}
         	});
 
 		}
 		
-		function signalFromChatRoom() {
-			console.log("챗룸시그널");
-			$.ajax({
-				url : "signalFromChatRoom.ch",
-				data : {
-					roomNo : "${roomNo}",
-					userNo : "${loginUser.userNo}"
-				},
-				success : function(result) {
-					if(result == 0) {
-						clearInterval(interval);
-						clearInterval(interval2);
-						var modalAnswer = confirm("상대가 채팅방을 떠났습니다.\n채팅 후기를 남기시겠습니까?");
-						if(modalAnswer == true) {
-							$("#review-Modal").modal();
-						}
-						else {
-							location.href = "/catchmind";
-						}
-						
-					}
-					else {
-						
-					}
-				},
-				error : function() {
-					console.log("chatroom ajax problem");
-				}
-			});
-		}
-		
-		function setRoomTime() {
-			$.ajax({
-				url : "setRoomTime.ch",
-				data : {
-					roomNo : "${roomNo}"
-				},
-				success : function(result) {
-					chatPage = 1;
-					console.log("인터벌 설정 완료");
-					signalFromChat;
-					signalFromChatRoom;
-					interval = setInterval(signalFromChat, 2000);
-					interval2 = setInterval(signalFromChatRoom, 5000);
-				},
-				error : function() {
-					console.log("setRoomTime ajax problem");
-				}
-			});
-		}
-		
 	</script>
-	<!--
+
 	<div class="chat-outer">
 		<div class="chat-back">
 			<div class="back-icon">
@@ -530,7 +331,6 @@ div {
 				$("#profile-report").click(function() {
 					location.href = "report.ch?userNo=${profile.userNo}";
 				});
-				var profileNo = ${profile.userNo};
 			</script>
 		</div>
 		<div class="chat-window">
@@ -550,35 +350,25 @@ div {
 
 	</div>
 
-	-->
 
-	
 	<!-- The Modal -->
-	<!--
 	<div class="modal fade" id="review-Modal">
 		<div class="modal-dialog">
 			<div class="reviewModal">
 				<img src="${ profile.pic }" class="review-profile">
-				<span class="btn-close" style="float:right; padding-right: 70px;"><h1>&times;</h1></span>
 				<div style="padding-top: 170px;"> 
-				
 					<h5 style="text-align: left; padding-left: 70px;"><b>
 							<spna style="font-size: 30px;">캔디현우</spna>님과의 대화는 어떠셨나요?</b></h5><br>
 					
-					<input type="radio" name="reviewType" id="charming" value="CHARMING">
-						<label for="charming" class="btn-review"> 💟 매력적이에요 </label>
-					<input type="radio" name="reviewType" id="kind" value="KIND">
-						<label for="kind" class="btn-review">친절해요 💚</label><br>
 					
-					<input type="radio" name="reviewType" id="warmhearted" value="WARMHEARTED">
-						<label for="warmhearted" class="btn-review">따뜻해요 💞</label>
-					<input type="radio" name="reviewType" id="rapid" value="RAPID">
-						<label for="rapid" class="btn-review">⚡ 답장이 빨라요</label><br>
+					<input type="button" class="btn-review reviewType" value="💟 매력적이에요">
+					<input type="button" class="btn-review reviewType" value="친절해요 💚"><br>
 
-					<input type="radio" name="reviewType" id="happy" value="HAPPY">
-						<label for="happy" class="btn-review">대화가 즐거워요 😄</label>
-					<input type="radio" name="reviewType" id="love" value="LOVE">
-						<label for="love" class="btn-review">갖고싶어요 💝</label><br clear="both">
+					<input type="button" class="btn-review reviewType" value="따뜻해요 💞">
+					<input type="button" class="btn-review reviewType" value="⚡ 답장이 빨라요"><br>
+
+					<input type="button" class="btn-review reviewType" value="대화가 즐거워요 😄">
+					<input type="button" class="btn-review reviewType" value="갖고싶어요 💝"><br>
 
 					<input type="submit" class="btn btn-secondary" value="보내기">
 				</div>
@@ -587,36 +377,19 @@ div {
 			</div>
 		</div>
 	</div>
-	-->
 
 	<script>
 		$(document).ready(function(){
 		    $("#chat-review").click(function(){
-				$("#review-Modal").modal();
+		        $("#review-Modal").modal();
 		    });
+		});
 
-			$(".btn-close").click(function(){
-			$("#review-Modal").modal("hide");
-		});
-		
-		});
-		
-		
-	
-		
 	</script>
 
 	<script>
 		
-		var client;
-	
 		$(function() {
-			
-			var chatTimeVar;
-			var sock = new SockJS("http://192.168.40.23:8006/catchmind/chat");
-			client = Stomp.over(sock);
-			var roomNo = ${roomNo};
-			var enterString = "${loginUser.nickname}님이 입장하셨습니다.";
 			
 			$("#chat-send").click(function() {
 				var contents = $("#chat-text").val();
@@ -630,7 +403,10 @@ div {
 					);
 				$("#chat-text").val("");
 			});
-			
+			var chatTimeVar;
+			var sock = new SockJS("http://192.168.40.23:8006/catchmind/chat");
+			var client = Stomp.over(sock);
+			var roomNo = ${roomNo};
 			client.connect({}, function() {
 	
 				client.subscribe('/subscribe/' + roomNo, function(chat) {
@@ -638,20 +414,18 @@ div {
 					var content = JSON.parse(chat.body);
 					var chatResult = $("#chat-text-list").html();
 					
-					// 내가 쓴거
 					if(chatResult == "") {
 						chatTimeVar = "";
 					}
 					else{
-						if(chatResult.substr(-46, 1) != '>'){
-							chatTimeVar = chatResult.substr(-48, 5);
+						if(chatResult.substr(-23, 1) != 'p'){
+							chatTimeVar = chatResult.substr(-25, 4);
 						}
 					}
 					
 					// console.log(chatTimeVar);
 					
 					if(content.writer == "${loginUser.userNo}"){
-						/*
 						chatResult += "<li class='writer-side'>"
 							+ "<div class='chat-body'>"
                 			+ 		"<div class='chat-message'>"
@@ -665,37 +439,8 @@ div {
                 			+		"</div>"
 		            		+	"</div>"
 		            		+ "</li>";
-						*/
-
-						chatResult += "<li>"
-									+ "<div style='background-color: #FAD961; background-image: linear-gradient(270deg, #FAD961 0%, #ff9151 100%); box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0,0,0,0.3) 0px 8px 16px -8px, rgba(0,0,0,0.024) 0px -6px 16px -6px; width: fit-content; max-width: 350px; padding: 12px; border-radius: 20px 0px 20px 20px; color: white; margin-bottom: 10px; float: right; margin-right: 30px;'>"
-									+ content.chatContent
-									+ "</div>";
-						
-						if((content.chatTime.substr(8,2) + ":" + content.chatTime.substr(10,2)) != chatTimeVar) {
-                			chatResult += "<div style='float:right; margin-right:10px;'>" + content.chatTime.substr(8,2) + ":" + content.chatTime.substr(10,2) + "</div>";
-                		}
-						
-						chatResult += "<div style='clear: both;'></div>"
-                    				+ "</li>";
-						
 					}
-					
-					// 남이 쓴거
 					else {
-
-						chatResult += "<li>"
-									+ "<div style='background-color: #ffaea2; box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0,0,0,0.3) 0px 8px 16px -8px, rgba(0,0,0,0.024) 0px -6px 16px -6px; background-image: linear-gradient(90deg, #ffaea2 0%, #ff6e90 55%, #ff728c 100%); width: fit-content; max-width: 350px; padding: 12px; border-radius: 0px 20px 20px 20px; color: white; float: left; margin-bottom: 10px;'>"
-									+ content.chatContent
-									+ "</div>";
-						
-						if((content.chatTime.substr(8,2) + ":" + content.chatTime.substr(10,2)) != chatTimeVar) {
-                			chatResult += "<div style='float:left; margin-left:10px;'>" + content.chatTime.substr(8,2) + ":" + content.chatTime.substr(10,2) + "</div>";
-                		}
-						
-						chatResult += "<div style='clear: both;'></div>"
-                    				+ "</li>";
-						/*
 						chatResult += "<li class='received-side'>"
 							+ "<div class='chat-body'>"
                 			+ 		"<div class='chat-message'>"
@@ -709,7 +454,6 @@ div {
                 			+		"</div>"
 		            		+	"</div>"
 		            		+ "</li>";
-						*/
 					}
 					
 					$("#chat-text-list").html(chatResult);
@@ -718,18 +462,25 @@ div {
 				
 				client.send('/fromServer/' + roomNo, {},
 					JSON.stringify({
-						chatContent : enterString,
+						chatContent : "님이 입장하셨습니다.",
 						writer : ${loginUser.userNo}
 					})
 				);
 	
 			});
 			
+			client.disconnect(function() {
+				client.send('/fromServer/' + roomNo, {},
+					JSON.stringify({
+						chatContent : "님이 퇴장하셨습니다.",
+						writer : ${loginUser.userNo}
+					}))
+			});
+	
 		});
 		
+		
 	</script>
-
-
 
 
 	<jsp:include page="../common/footer.jsp" />

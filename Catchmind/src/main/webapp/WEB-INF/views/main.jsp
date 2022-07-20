@@ -128,6 +128,12 @@
             height: 500px;
             
         }
+        .swiper-button-next{
+            margin-right: 30px;
+        }
+        .swiper-button-prev{
+            margin-left: 10px;
+        }
 
         /* 미디어쿼리 (반응형 웹)
          @media screen and (max-width:780px),(max-height:500px) {
@@ -184,7 +190,7 @@
                 <div class="text-wrap" id="catchArea" style="text-align: left;"><br>
                     <p style="color:rgb(255, 242, 0);">지금 바로 나의 운명의 상대를 찾고싶다면?</p>
                     <h2 style="color:rgb(255, 242, 0);">CATCH
-                        <input type="button" class="btn-main" style="background-color: rgb(255, 242, 0);" value="채팅 상대 둘러보기"><br>&nbsp;MIND 
+                        <input type="button" class="btn-main" style="background-color: rgb(255, 242, 0);" value="채팅 상대 둘러보기" onclick="matchGo()"><br>&nbsp;MIND 
                        
                     </h2>
                 </div>
@@ -272,7 +278,7 @@
                     쾌적한 이용환경을 만들어 드릴게요 :)<br><br>
                     
                     지금 바로 나의 운명의 상대를 찾고 싶다면? <br><br>
-                <input type="button" class="btn-main" value="채팅 상대 둘러보기">
+                <input type="button" class="btn-main" value="채팅 상대 둘러보기" onclick="matchGo()">
                 </td>
             </tr>
             </table>
@@ -321,6 +327,11 @@
         // MBTI TEST로 이동
         function mbtiGo(){
             location.href = 'mbtiTest.te';
+        }
+
+        // MATCH LIST로 이동
+        function matchGo(){
+            location.href = 'matchList.ch';
         }
        
     </script>

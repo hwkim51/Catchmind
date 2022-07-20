@@ -112,11 +112,20 @@
 		WHERE USER_ID = #{userId}
 	</update>
 	
-	<!-- 회원상태 탈퇴 (update) : 수빈 -->
+	<!-- 회원상태 탈퇴 (update) : 수빈
 	<update id="deleteMember" parameterType="string">
 		UPDATE TB_MEMBER
 		SET STATUS = '1'
 		WHERE USER_ID = #{userId}
+	</update>
+	-->
+	
+	<!-- 회원상태 탈퇴 (update) : 정인 -->
+	<update id="deleteMember" parameterType="member">
+		UPDATE TB_MEMBER
+		   SET STATUS = 1
+		 WHERE USER_ID = #{userId}
+		   AND USER_PWD = #{userPwd}
 	</update>
 	
 	<!-- 회원가입(insert) : 수빈 -->
@@ -294,7 +303,7 @@
 		   SET PARTNER = 0
 		 WHERE USER_ID = #{userId}
 	</update>
-
+	
 	<select id="checkBlocked" parameterType="block" resultType="_int">
 		SELECT COUNT(*)
 		FROM TB_BLOCK
