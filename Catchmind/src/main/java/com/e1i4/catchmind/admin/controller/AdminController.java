@@ -20,8 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.e1i4.catchmind.admin.model.service.AdminService;
 import com.e1i4.catchmind.board.model.vo.Catch;
+import com.e1i4.catchmind.board.model.vo.Like;
 import com.e1i4.catchmind.board.model.vo.Post;
+import com.e1i4.catchmind.board.model.vo.Reply;
+import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
+import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.common.template.Pagination;
 import com.e1i4.catchmind.faq.model.vo.Faq;
@@ -468,5 +472,88 @@ public class AdminController {
 		}
 	}
 	
+	// 게시판 신고 내역 전체 조회(유진)
+	@RequestMapping("reportList.ad")
+	public String selectReportList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.selectReportCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 5;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Report> list = adminService.selectReportList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "admin/reportListView";
+	}
 	
+	//에브리타임 신고글 상세 조회
+	@RequestMapping("detailPost.ad")
+	public ModelAndView detailPostReport(int reportNo, ModelAndView mv) {
+		
+		Post p = adminService.detailPostReport(reportNo);
+		Attach a = adminService.selectFile(reportNo);
+		ArrayList<Reply> rlist = adminService.selectReplyList(reportNo);
+		
+		mv.addObject("a", a);
+		mv.addObject("rlist", rlist);
+		mv.addObject("p", p).setViewName("admin/reportDetailView");
+		return mv;
+	}
+	
+	//에브리타임 신고된 게시글 삭제 처리
+	@RequestMapping("deletePo.ad")
+	public String deletePost(int reportNo, Model model, HttpSession session) {
+		
+		int result = adminService.deletePost(reportNo);
+		if(result > 0) {
+			session.setAttribute("alertMsg", "신고된 게시글 처리 완료");
+			return "redirect:reportList.ad";
+		}
+		else {
+			model.addAttribute("errorMsg", "처리 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	/*
+	@RequestMapping("detailCatch.ad")
+	public ModelAndView detailCatchReport(int reportNo, ModelAndView mv) {
+		
+		Catch c = adminService.detailCatchReport(reportNo);
+		Attach a = adminService.selectFileTop(reportNo);
+		
+		mv.addObject("a", a);
+		mv.addObject("c", c).setViewName("admin/reportCatchDetailView");
+		return mv;
+	}
+	
+	@RequestMapping("detail.ca")
+	public ModelAndView detailCatch(int cno, ModelAndView mv, HttpSession session) {
+		int result = adminService.increaseCatchCount(cno);
+		if((session.getAttribute("loginUser"))!=null) {
+			Like like = new Like();
+			like.setLikeUser(((Member)session.getAttribute("loginUser")).getUserNo());
+			like.setCatchNo(cno);
+			int llist = adminService.selectLike(like);
+			mv.addObject("llist", llist);
+		}
+		if(result>0) {
+			Catch c = adminService.selectCatch(cno);
+			ArrayList<Attach> alist = adminService.selectFiles(cno);
+			int l = adminService.likeCount(cno);
+			
+			mv.addObject("l", l);
+			mv.addObject("alist", alist);
+			mv.addObject("c", c).setViewName("board/catchDetailView");
+			return mv;
+		} else {
+			mv.addObject("errorMsg", "상세조회 요청에 실패하였습니다.").setViewName("common/errorPage");
+			return mv;
+		}
+	}
+	*/
 }

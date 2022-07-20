@@ -317,12 +317,15 @@
 	  
 	  
 	  <script>
+      //-관리자:신고 테스트(유진) : data 부분에 내용 추가 
 	  function reportRep() {
       		$.ajax({
       			url : "report.all",
       			data : {
       				repContent : $("#repContent").val(),
       				catchNo : ${ c.catchNo },
+              postNo : 0, // 추가(유진)
+              replyNo : 0 // 추가(유진)
       			},
       			success : function(result) {
       				if(result == "success") {

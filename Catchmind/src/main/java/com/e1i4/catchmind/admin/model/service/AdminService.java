@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import com.e1i4.catchmind.board.model.vo.Board;
 import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
+import com.e1i4.catchmind.board.model.vo.Reply;
+import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
+import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.faq.model.vo.Faq;
 import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
@@ -83,4 +86,17 @@ public interface AdminService {
 	int recoverCatch(int catchNo);
 
 	int deleteCatch(int catchNo);
+	
+	int selectReportCount();
+	
+	ArrayList<Report> selectReportList(PageInfo pi);
+	
+	Post detailPostReport(int postNo);
+	
+	Attach selectFile(int attPost);
+	
+	ArrayList<Reply> selectReplyList(int postNo);
+	
+	Catch detailCatchReport(int catchNo);
+	
 }

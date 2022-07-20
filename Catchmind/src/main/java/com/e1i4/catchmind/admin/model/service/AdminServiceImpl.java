@@ -10,7 +10,10 @@ import com.e1i4.catchmind.admin.model.dao.AdminDao;
 import com.e1i4.catchmind.board.model.vo.Board;
 import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
+import com.e1i4.catchmind.board.model.vo.Reply;
+import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
+import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.faq.model.vo.Faq;
 import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
@@ -199,5 +202,35 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int deleteCatch(int catchNo) {
 		return adminDao.deleteCatch(sqlSession, catchNo);
+	}
+
+	@Override
+	public int selectReportCount() {
+		return adminDao.selectReportCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Report> selectReportList(PageInfo pi) {
+		return adminDao.selectReportList(sqlSession, pi);
+	}
+
+	@Override
+	public Post detailPostReport(int postNo) {
+		return adminDao.detailPostReport(sqlSession, postNo);
+	}
+
+	@Override
+	public Attach selectFile(int attPost) {
+		return adminDao.selectFile(sqlSession, attPost);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReplyList(int postNo) {
+		return adminDao.selectReplyList(sqlSession, postNo);
+	}
+
+	@Override
+	public Catch detailCatchReport(int catchNo) {
+		return adminDao.detailCatchReport(sqlSession, catchNo);
 	}
 }
