@@ -129,7 +129,12 @@
                     	<input type="hidden" name="mbtiResult" value="${ testResult.mbtiResult }">
                     	<button type="submit" class="btn-yes">YES</button>
                     </form>
-                    <button type="button" class="btn-no" data-dismiss="modal">NO</button>
+                    <button type="button" class="btn-no" id="noModal" data-dismiss="modal">NO</button>
+                    <script>
+                    	$("#noModal").click(function() {
+                    		$(location).attr('href', "/catchmind");
+                    	});
+                    </script>
                 </div>
             </div>
         </div>

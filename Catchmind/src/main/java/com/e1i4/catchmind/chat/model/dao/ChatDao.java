@@ -32,6 +32,8 @@ public class ChatDao {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("userNo1", userNo1);
 		map.put("userNo2", userNo2);
+		System.out.println(userNo1);
+		System.out.println(userNo2);
 		
 		return sqlSession.selectOne("chatMapper.createRoomNo", map);
 		

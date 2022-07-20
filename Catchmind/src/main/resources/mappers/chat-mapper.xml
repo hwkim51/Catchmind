@@ -21,7 +21,7 @@
 	
 	<insert id="createRoomNo" parameterType="HashMap">
 		INSERT INTO CHATROOMS
-		VALUES(SEQ_CRNO.NEXTVAL, #{userNo1}, #{userNo2}, SYSDATE)
+		VALUES(SEQ_CRNO.NEXTVAL, #{userNo1}, #{userNo2}, SYSDATE, SYSDATE)
 	</insert>
 	
 	<update id="chatRequest" parameterType="HashMap">
