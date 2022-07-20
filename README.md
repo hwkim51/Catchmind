@@ -73,7 +73,7 @@ CatchMind는 온라인 매칭 사이트입니다.
 [![erdCloud](https://github.com/hwkim51/Catchmind/blob/main/Catchmind/src/main/webapp/resources/images/github_erd.png)](https://www.erdcloud.com/d/ZnijePXH3dzBNR6xg)
 #### 구현을 위한 참고 자료로 실제 구현된 결과물과 다를 수 있음.
 
-## 사이트 소개(구현완료 후 추가할 예정)
+## 사이트 소개
 ![1](https://github.com/hwkim51/Catchmind/blob/main/Catchmind/src/main/webapp/resources/images/github(1).png)  
 ![2](https://github.com/hwkim51/Catchmind/blob/main/Catchmind/src/main/webapp/resources/images/github(2).png)  
 ![3](https://github.com/hwkim51/Catchmind/blob/main/Catchmind/src/main/webapp/resources/images/github(3).png)  
