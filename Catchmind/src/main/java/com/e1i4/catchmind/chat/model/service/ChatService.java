@@ -24,4 +24,12 @@ public interface ChatService {
 	void insertChat(Chat chat);
 	
 	int chatReport(ChatReport cr);
+	
+	int signalFromChatRoom(int roomNo, int userNo);
+	
+	HashMap getRoomTimes(int roomNo);
+	
+	void clearRoom(int roomNo);
+	
+	int setRoomTime(int roomNo);
 }

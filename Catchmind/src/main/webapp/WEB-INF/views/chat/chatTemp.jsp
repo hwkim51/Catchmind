@@ -237,15 +237,16 @@ div {
 		});
 		
 		var interval;
-		
+		var interval2
+		var roomTime = 0;
+		var roomNo = "${roomNo};"
 		$(function() {
-			
-			signalFromChat;
-			
-			interval = setInterval(signalFromChat, 2000);
+			chatPage = 1;
+			setRoomTime();
 		});
 		
 		function signalFromChat() {
+			console.log("챗시그널");
 			$.ajax({
         		url : "signalFromChat.me",
         		data : {
@@ -254,10 +255,61 @@ div {
         		success : function(result){
         		},
         		error : function(){
-        			console.log("header ajax problem");
+        			console.log("chatsignal ajax problem");
         		}
         	});
 
+		}
+		
+		function signalFromChatRoom() {
+			console.log("챗룸시그널");
+			$.ajax({
+				url : "signalFromChatRoom.ch",
+				data : {
+					roomNo : "${roomNo}",
+					userNo : "${loginUser.userNo}"
+				},
+				success : function(result) {
+					if(result == 0) {
+						clearInterval(interval);
+						clearInterval(interval2);
+						var modalAnswer = confirm("상대가 채팅방을 떠났습니다.\n채팅 후기를 남기시겠습니까?");
+						if(modalAnswer == true) {
+							$("#review-Modal").modal();
+						}
+						else {
+							location.href = "/catchmind";
+						}
+						
+					}
+					else {
+						
+					}
+				},
+				error : function() {
+					console.log("chatroom ajax problem");
+				}
+			});
+		}
+		
+		function setRoomTime() {
+			$.ajax({
+				url : "setRoomTime.ch",
+				data : {
+					roomNo : "${roomNo}"
+				},
+				success : function(result) {
+					chatPage = 1;
+					console.log("인터벌 설정 완료");
+					signalFromChat;
+					signalFromChatRoom;
+					interval = setInterval(signalFromChat, 2000);
+					interval2 = setInterval(signalFromChatRoom, 5000);
+				},
+				error : function() {
+					console.log("setRoomTime ajax problem");
+				}
+			});
 		}
 		
 	</script>
@@ -308,6 +360,7 @@ div {
 				$("#profile-report").click(function() {
 					location.href = "report.ch?userNo=${profile.userNo}";
 				});
+				var profileNo = ${profile.userNo};
 			</script>
 		</div>
 		<div class="chat-window">
@@ -348,7 +401,14 @@ div {
 
 	<script>
 		
+		var client;
+	
 		$(function() {
+			
+			var chatTimeVar;
+			var sock = new SockJS("http://192.168.40.23:8006/catchmind/chat");
+			client = Stomp.over(sock);
+			var roomNo = ${roomNo};
 			
 			$("#chat-send").click(function() {
 				var contents = $("#chat-text").val();
@@ -362,10 +422,7 @@ div {
 					);
 				$("#chat-text").val("");
 			});
-			var chatTimeVar;
-			var sock = new SockJS("http://192.168.40.23:8006/catchmind/chat");
-			var client = Stomp.over(sock);
-			var roomNo = ${roomNo};
+			
 			client.connect({}, function() {
 	
 				client.subscribe('/subscribe/' + roomNo, function(chat) {
@@ -428,16 +485,7 @@ div {
 	
 			});
 			
-			client.disconnect(function() {
-				client.send('/fromServer/' + roomNo, {},
-					JSON.stringify({
-						chatContent : "님이 퇴장하셨습니다.",
-						writer : ${loginUser.userNo}
-					}))
-			});
-	
 		});
-		
 		
 	</script>
 

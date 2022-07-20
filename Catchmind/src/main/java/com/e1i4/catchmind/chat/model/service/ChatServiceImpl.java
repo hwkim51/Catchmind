@@ -71,4 +71,24 @@ public class ChatServiceImpl implements ChatService {
 	public int chatReport(ChatReport cr) {
 		return chatDao.chatReport(sqlSession, cr);
 	}
+
+	@Override
+	public int signalFromChatRoom(int roomNo, int userNo) {
+		return chatDao.signalFromChatRoom(sqlSession, roomNo, userNo);
+	}
+
+	@Override
+	public HashMap getRoomTimes(int roomNo) {
+		return chatDao.getRoomTimes(sqlSession, roomNo);
+	}
+
+	@Override
+	public void clearRoom(int roomNo) {
+		chatDao.clearRoom(sqlSession, roomNo);
+	}
+
+	@Override
+	public int setRoomTime(int roomNo) {
+		return chatDao.setRoomTime(sqlSession, roomNo);
+	}
 }

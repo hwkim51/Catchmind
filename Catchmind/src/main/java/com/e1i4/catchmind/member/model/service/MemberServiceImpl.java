@@ -197,6 +197,12 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.blockMember(sqlSession, b);
 	}
 
+	@Override
+	public int checkBlocked(Block b) {
+		return memberDao.checkBlocked(sqlSession, b);
+	}
+
+	
 
 	
 	

@@ -168,4 +168,8 @@ public class MemberDao {
 	public int deleteCouple(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.deleteCouple", m);
 	}
+	
+	public int checkBlocked(SqlSessionTemplate sqlSession, Block b) {
+		return sqlSession.selectOne("memberMapper.checkBlocked", b);
+	}
 }

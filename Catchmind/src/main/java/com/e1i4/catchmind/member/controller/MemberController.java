@@ -471,7 +471,6 @@ public class MemberController {
 		
 		int userNo1 = Integer.parseInt(userNo);
 		int result = memberService.loginSignal(userNo1);
-		
 		int roomNo = 0;
 		if(result > 0) {
 			
@@ -484,7 +483,21 @@ public class MemberController {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("chatClaimFrom", m);
 				map.put("roomNoWith", roomNo);
-				return map;
+				
+					Block b = new Block();
+					b.setUserNo(userNo1);
+					b.setBlockedUser(userNo2);
+					int checkBlocked = memberService.checkBlocked(b);
+					
+					if(checkBlocked == 0) {
+						return map;
+					}
+					else {
+						chatService.cancelRequest(userNo1);
+						return null;
+					}
+				
+				
 			}
 		}
 		

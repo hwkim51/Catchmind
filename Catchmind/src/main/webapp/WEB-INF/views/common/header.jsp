@@ -342,6 +342,7 @@
                 
     
         function loginSignal() {
+        	console.log("loginSignal");
         	if(chatPage == 0){
         		$.ajax({
             		url : "loginSignal.me",
@@ -353,7 +354,7 @@
             				
             				clearInterval(interval);
             				// console.log(result.chatClaimFrom.userNo); 
-            				// console.log(result.roomNoWith); 
+            				// console.log(result.roomNoWith);
             				var answer = confirm(result.chatClaimFrom.nickname + "님으로부터 채팅 요청이 들어왔습니다.\n" + "채팅 요청에 응하시겠습니까?");
             				
             					

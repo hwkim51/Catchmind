@@ -294,5 +294,11 @@
 		   SET PARTNER = 0
 		 WHERE USER_ID = #{userId}
 	</update>
-	
+
+	<select id="checkBlocked" parameterType="block" resultType="_int">
+		SELECT COUNT(*)
+		FROM TB_BLOCK
+		WHERE USER_NO = #{userNo}
+		AND BLOCKED_USER = #{blockedUser}
+	</select>
 </mapper>

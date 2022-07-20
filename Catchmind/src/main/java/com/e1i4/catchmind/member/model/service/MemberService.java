@@ -94,4 +94,6 @@ public interface MemberService {
 	
 	// 마이페이지 - 커플 삭제 서비스(update)
 	int deleteCouple(Member m);
+	
+	int checkBlocked(Block b);
 }
