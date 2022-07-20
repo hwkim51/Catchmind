@@ -12,235 +12,27 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <title>이야기 나누기</title>
 <style>
-/*
-div {
-	border: 1px solid red;
-	box-sizing: border-box;
-	margin: 0px;
-	padding: 0px;
-}
-
-.chat-outer {
-	width: 100vw;
-	margin: auto;
-}
-
-.chat-back {
-	width: 170px;
-	height: 100%;
-	float: left;
-	margin-left: 15px;
-}
-
-.chat-profile {
-	width: 350px;
-	height: 100%;
-	float: left;
-	padding-top: 50px;
-	margin-right: 15px;
-}
-
-.chat-window {
-	width: 750px;
-	height: 100%;
-	float: left;
-	padding-left: 10px;
-	border-left: 1px solid lightgrey;
-}
-
-#back-icon {
-	width: 40px;
-}
-
-.chat-profile>div {
-	width: 100%;
-}
-
-#profile-pic {
-	height: 230px;
-}
-
-#profile-pic>img {
-	width: 200px;
-	height: 200px;
-	border-radius: 70%;
-	object-fit: cover;
-	margin-top: 15px;
-}
-
-#profile-nickname {
-	height: 70px;
-}
-
-#profile-nickname>span {
-	font-size: 50px;
-	font-weight: bolder;
-}
-
-#profile-mbti {
-	height: 40px;
-}
-
-#profile-mbti>span {
-	font-size: 25px;
-}
-
-#profile-introduction {
-	height: 150px;
-}
-
-#profile-introduction>span {
-	font-size: 12px;
-}
-
-#profile-midline {
-	width: 270px;
-}
-
-#profile-review {
-	height: 50px;
-	text-align: center;
-	line-height: 25px;
-}
-
-#chat-review {
-	width: 270px;
-	height: 30px;
-	border: none;
-	background-color: rgba(0, 0, 139, 0.642);
-	color: white;
-	border-radius: 5px;
-}
-
-#chat-review:hover {
-	background-color: white;
-	border: 2px solid rgba(0, 0, 139, 0.642);
-	color: black;
-}
-
-#profile-btns {
-	height: 50px;
-	text-align: center;
-	line-height: 30px;
-}
-
-#profile-block {
-	width: 122px;
-	height: 30px;
-	border: none;
-	background-color: lightgrey;
-	border-radius: 5px;
-}
-
-#profile-report {
-	width: 122px;
-	height: 30px;
-	border: none;
-	background-color: lightgrey;
-	border-radius: 5px;
-}
-
-.modal-dialog {
-	background-color: rgb(232, 230, 230);
-	border-radius: 70px !important;
-	margin-top: 15vh !important;
-}
-
-.review-profile {
-	position:absolute;
-	left: 100px;
-	width: 200px;
-	height: 200px;
-	border-radius: 70%;
-	background-color: green;
-	margin-top: -40px;
-	margin-left: -40px;
-	object-fit : cover;
-}
-
-#chat-area {
-	height: 600px;
-}
-
-.received-side {
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	background: #5a99ee;
-	padding: 10px 20px;
-	position: relative;
-	display: inline-block;
-	align-items: right;
-}
-
-.writer-side {
-	-webkit-border-radius: 50px;
-	-moz-border-radius: 50px;
-	border-radius: 50px;
-	background: orange;
-	padding: 10px 20px;
-	position: relative;
-	display: inline-block;
-	align-items: right;
-}
-
-#chat-attachment {
-	height: 50px;
-}
-
-#chat-input {
-	height: 100px;
-}
-
-#chat-text {
-	width: 670px;
-	height: 80px;
-	margin-top: 7px;
-	resize: none;
-}
-
-#chat-send {
-	float: right;
-	height: 80px;
-	width: 60px;
-	border: 0px;
-	background-color: orange;
-	color: white;
-	border-radius: 5px;
-	margin-top: 7px;
-}
-
-#bottom {
-	height: 200px;
-	width: 100vw;
-	display: block;
-	float: bottom;
-}
-
-#chat-text-list {
-	list-style-type: none;
-}
-*/
 	#chat-input {
 		height: 100px;
 	}
 
 	#chat-text {
 		margin-top: 7px;
-		margin-left : 15px;
+		margin-left : 10px;
 		resize: none;
-		width: 510px; height: 90px; background-color: white; border: 1px solid gray; border-radius: 7px; float: left;
+		width: 510px; height: 80px; background-color: white; border: 1px solid gray; border-radius: 7px; float: left;
 		-ms-overflow-style: none;
 	}
 	#chat-send {
-		float: right;
-		height: 90px;
+		float: left;
+		height: 80px;
 		width: 65px;
 		border: 0px;
 		background-color: orange;
 		color: white;
 		border-radius: 5px;
 		margin-top: 7px;
+		margin-left : 5px;
 	}
 	.profile-img {
         width: 200px;
@@ -349,9 +141,10 @@ div {
 		background-color: white;
 		border-radius: 50px;
 		margin: auto;
-		top: 20px;
+		top: 40px;
 		width: 600px !important;
-		height: 350px;
+		height: 330px;
+		padding-left : 25px;
 	}
 	.modal-content *{
 		border: none;
@@ -376,6 +169,7 @@ div {
 	}
 	.btn-sendReview{
 	background-color: white;
+	border-radius : 5px;
 	}
 	input[type="radio"]:checked + label, .btn-review:hover{
 		background-color: rgb(255, 123, 0) !important;
@@ -391,11 +185,12 @@ div {
 		text-align: center;
 		max-width: 700px !important;
 		width: 640px !important;
-		height: 400px;
+		height: 430px;
 	}
 	.modal-footer{
 		height: 80px;
 		cursor: pointer;
+		padding-top : 0px;
 	}
 	.review-profile {
 		position:absolute;
@@ -408,6 +203,61 @@ div {
 		margin-left: -80px;
 		object-fit : cover;
 	}
+	
+	.close {
+		padding-top : 0px;
+	}
+	
+	#id01 {
+		position : absolute;
+		z-index : 500;
+		left : 40vw;
+		top : 25vh;
+	}
+	
+     .w3-modal-content{
+      top: 200px;
+      width: 400px;
+      height: 260px;
+      background-color : lightgrey;
+      border-radius : 5px;
+     }
+      .w3-orange{
+        width: 100%;
+        height: 40px;
+        background-color : orange;
+        border-radius : 5px;
+      }
+      .w3-container>span{
+      	margin-right : 10px;
+      	margin-top : 5px;
+      }
+      .w3-container>span:hover{
+      background-color: transparent !important;
+      cursor : pointer;
+      } /* 모달창 내에 취소박스 배경색 적용 */
+      .w3-container>textarea{
+      margin:15px 10px;
+      width:90%;
+      height:140px;
+      resize:none;
+      outline:none;
+      margin-left : 17px;
+      border-radius : 5px;
+      padding : 10px;
+      } /* 모달창 내에 사유 입력 스타일 */
+      .w3-container>button{
+      border:none;
+      margin-bottom: 10px;
+      background-color:orange;
+      } /* 모달창 내에 제출 스타일 */
+      #reply_Area .report-box{
+      font-size: 7px;
+      } /* 댓글의 신고하기 크기설정 */
+      
+      #reportBtn {
+      	margin-left : 160px;
+      }
 
 </style>
 </head>
@@ -430,7 +280,7 @@ div {
 	<div style="width: 1000px; height: 650px; margin: auto;">
 
         <!-- 채팅 상대 프로필 -->
-        <div style="width: 400px; height: 650px; background-color: azure; float: left;" align="center">
+        <div style="width: 400px; height: 650px; border-radius : 5px; background: linear-gradient(to bottom, rgb(253, 167, 86), white); float: left;" align="center">
             <c:choose>
         		<c:when test="${ profile.pic eq null }">
         			<img class="profile-img" src="resources/images/pic.png">
@@ -443,16 +293,16 @@ div {
             <div class="user-nickname">${profile.nickname}</div>
             <div class="user-message" id="user-message" align="left">${profile.profile}</div>
             <hr style="width: 220px;">
-            <button type="button" class="btn btn-sm" id="chat-review" style="width: 200px; background-color: rgb(91, 124, 208); color: white; margin-bottom: 10px; display: block;">상대 후기 남기기</button>
-            <button type="button" class="btn btn-sm" id="profile-block" style="width: 90px; background-color: lightgrey; color: white; margin-right: 15px;">차단</button>
-            <button type="button" class="btn btn-sm" id="profile-report" style="width: 90px; background-color: lightgrey; color: white;">신고</button>
+            <button type="button" class="btn btn-sm" id="chat-review" style="width: 220px; background-color: rgb(91, 124, 208); color: white; margin-bottom: 10px; display: block;">상대 후기 남기기</button>
+            <button type="button" class="btn btn-sm" id="profile-block" style="width: 100px; background-color: lightgrey; color: white; margin-right: 15px;">차단</button>
+            <button type="button" class="btn btn-sm" id="profile-report" style="width: 100px; background-color: lightgrey; color: white;">신고</button>
             
             <script>
 				$("#profile-block").click(function() {
 					location.href = "block.ch?userNo=${profile.userNo}";
 				});
 				$("#profile-report").click(function() {
-					location.href = "report.ch?userNo=${profile.userNo}";
+					$("#id01").css("display", "block");
 				});
 				var profileNo = ${profile.userNo};
 			</script>
@@ -555,6 +405,24 @@ div {
 		</div>
 
 	</div>
+	
+	<!-- The Modal -->
+	<div id="id01" class="w3-modal" style='display:none;'>
+	    <div class="w3-modal-content w3-animate-zoom">
+	        <header class="w3-container w3-orange">
+	            <span onclick="document.getElementById('id01').style.display='none'"
+	            class="w3-button w3-display-topright" style='float:right;'>&times;</span>
+	            <h5 style="font-family: 'IBM Plex Sans KR', sans-serif;
+                          padding:10px;">🚨 REPORT </h5>
+	        </header>
+	    <div class="w3-container">
+            <textarea id="reportedFor" name="reportedFor" 
+            style="font-family: 'IBM Plex Sans KR', sans-serif;" placeholder="신고사유를 작성해주세요" required></textarea>
+            <br>
+            <button id="reportBtn" onclick="chatReport();" style="border-radius: 5px; font-family: 'IBM Plex Sans KR', sans-serif;">신고접수</button>
+	    </div>
+	  </div>
+	  </div>
 
 
 	<script>
@@ -583,6 +451,26 @@ div {
 				}
 			});
 		}
+		
+		function chatReport() {
+      		$.ajax({
+      			url : "report.ch",
+      			data : {
+      				reportedFor : $("#reportedFor").val(),
+      				userNo : ${ profile.userNo },
+              		reportedFrom : ${ loginUser.userNo }
+            	},              
+      			success : function(result) {
+      				if(result == 1) {
+      					alert("신고가 접수되었습니다.!");
+      					$("#id01").css("display", "none");
+      				}
+      			},
+      			error : function() {
+      				console.log("chat report ajax problem");
+      			}
+      		});
+  		}
 
 		chatPage = 1;
 		$(function() {

@@ -87,7 +87,7 @@
 	
 	<insert id="chatReport" parameterType="chatReport">
 		INSERT INTO CHAT_REPORT
-		VALUES (#{uesrNo}, #{reportedFrom}, #{reportedFor})
+		VALUES (#{userNo}, #{reportedFrom}, #{reportedFor})
 	</insert>
 	
 	<insert id="insertChatClaim" parameterType="_int">

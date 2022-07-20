@@ -148,17 +148,25 @@ public class ChatController {
     	return chatService.chatAgreed(userNo, userNo2);
     }
     
-    @RequestMapping("report.ch")
-    public String chatReport(ChatReport cr, Model model) {
+    @ResponseBody
+    @RequestMapping(value="report.ch", produces="application/json; charset=UTF-8")
+    public int chatReport(ChatReport cr, Model model) {
     	int result = chatService.chatReport(cr);
     	chatService.cancelRequest(cr.getReportedFrom());
-    	if(result > 0) {
-    		model.addAttribute("alertMsg", "성공적으로 신고되었습니다.");
+    	Block b = new Block();
+		b.setUserNo(cr.getReportedFrom());
+		b.setBlockedUser(cr.getUserNo());
+		int blockResult = memberService.blockMember(b);
+		Follow f = new Follow();
+		f.setFoUser(cr.getReportedFrom());
+		f.setFoedUser(cr.getUserNo());
+		memberService.unfollowMember(f);		
+    	if((result * blockResult) > 0) {
+    		return 1;
     	}
     	else {
-    		model.addAttribute("alertMsg", "신고에 실패했습니다.");
+    		return 0;
     	}
-    	return "common/main";
     }
     
     @RequestMapping("block.ch")
@@ -229,5 +237,4 @@ public class ChatController {
     	return result;
     	
     }
-
 }
