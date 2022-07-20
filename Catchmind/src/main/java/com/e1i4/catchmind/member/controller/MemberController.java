@@ -134,7 +134,25 @@ public class MemberController {
 		int count = memberService.nicknameCheck(nickname);
 		return (count>0)? "NNNNN" : "NNNNY"; 
 	}
-		
+	
+	// 이메일 중복체크(select) : 수빈
+	@ResponseBody
+	@RequestMapping(value="emailCheck.me", produces="text/html; charset=UTF-8")
+	public String emailCheck(String email) {
+		int count = memberService.emailCheck(email);
+		return (count>0)? "NNNNN" : "NNNNY"; 
+	}
+	
+	// 휴대폰 중복체크(select) : 수빈
+	@ResponseBody
+	@RequestMapping(value="phoneCheck.me", produces="text/html; charset=UTF-8")
+	public String phoneCheck(String phone) {
+		System.out.println(phone);
+		int count = memberService.phoneCheck(phone);
+		return (count>0)? "NNNNN" : "NNNNY"; 
+	}
+	
+	
 	// 아이디 찾기 페이지로 이동 : 수빈
 	@RequestMapping(value="findIdPage.me")
 	public String findIdPage() {	

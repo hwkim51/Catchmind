@@ -83,6 +83,20 @@
  		 WHERE NICKNAME = #{nickname}
  	</select>
  	
+ 	<!-- 이메일 중복체크 서비스(select) : 수빈 -->
+ 	<select id="emailCheck" parameterType="string" resultType="_int">
+ 		SELECT COUNT(*)
+ 		  FROM TB_MEMBER
+ 		 WHERE EMAIL = #{email}
+ 	</select>
+ 	
+ 	<!-- 휴대폰 중복체크 서비스(select) : 수빈 -->
+ 	<select id="phoneCheck" parameterType="string" resultType="_int">
+ 		SELECT COUNT(*)
+ 		  FROM TB_MEMBER
+ 		 WHERE PHONE = #{phone}
+ 	</select>
+ 	
 	<select id="selectMemberCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM TB_MEMBER
@@ -112,13 +126,13 @@
 		WHERE USER_ID = #{userId}
 	</update>
 	
-	<!-- 회원상태 탈퇴 (update) : 수빈
-	<update id="deleteMember" parameterType="string">
+	<!-- 회원상태 탈퇴 (update) : 수빈-->
+	<update id="deleteMemberAccount" parameterType="string">
 		UPDATE TB_MEMBER
 		SET STATUS = '1'
 		WHERE USER_ID = #{userId}
 	</update>
-	-->
+	
 	
 	<!-- 회원상태 탈퇴 (update) : 정인 -->
 	<update id="deleteMember" parameterType="member">

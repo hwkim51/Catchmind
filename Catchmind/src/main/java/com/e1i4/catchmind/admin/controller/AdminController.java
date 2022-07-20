@@ -72,9 +72,9 @@ public class AdminController {
 	
 	// 회원관리 - 회원탈퇴 처리  : 수빈
 	@RequestMapping("deleteMember.ad")
-	public String deleteMember(String userId, HttpSession session) {
+	public String deleteMemberAccount(String userId, HttpSession session) {
 		
-		int result = adminService.deleteMember(userId);
+		int result = adminService.deleteMemberAccount(userId);
 		
 		if(result > 0) {
 			session.setAttribute("alertMsg", "'ID : "+userId+"'는 탈퇴 처리되었습니다.");
