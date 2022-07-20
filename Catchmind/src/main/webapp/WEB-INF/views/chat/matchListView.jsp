@@ -445,7 +445,7 @@ var swiper = new Swiper('.swiper-container', {
 	    modifier: 1,
 	    slideShadows : true
 	  },
-	  loop: true
+	  loop: false
 	});
 	</script>
 	
