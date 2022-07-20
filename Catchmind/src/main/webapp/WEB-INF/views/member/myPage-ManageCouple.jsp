@@ -141,7 +141,16 @@
 
 			<c:forEach var="c" items="${ cList }">
 	            <div class="coupleRequestMem-area">
-	                <img class="coupleRequest-img" src="${ c.pic }">
+	            	<c:choose>
+		        		<c:when test="${ c.pic eq null }">
+		        			<img class="coupleRequest-img" src="resources/images/pic.png">
+		        		</c:when>
+		        		<c:otherwise>      
+		        			<img class="coupleRequest-img" src="${ c.pic }">
+		        		</c:otherwise>
+		        	</c:choose>
+		        	
+	                
 	                <div class="coupleRequest-infoArea">
 	                    <font class="coupleRequest-name" align="left">${ c.nickname }</font>
         				<input style="width: 50px" type="hidden" name="partner" value="${ c.userNo }">

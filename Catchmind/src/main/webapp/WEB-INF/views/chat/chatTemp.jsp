@@ -361,6 +361,7 @@
 					var content = JSON.parse(chat.body);
 					var chatResult = $("#chat-text-list").html();
 					
+					// 내가 쓴거
 					if(content.writer == "${loginUser.userNo}"){
 						chatResult += "<li class='writer-side'>"
 							+ "<div class='chat-body'>"
@@ -371,6 +372,8 @@
             				+	"</div>"
             				+ "</li>";
 					}
+					
+					// 남이 쓴거
 					else {
 						chatResult += "<li>"
 							+ "<div class='received-side'>"

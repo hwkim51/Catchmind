@@ -472,7 +472,7 @@ public class MemberController {
 		}
 		
 		 return null;
-		*/
+	
 	}
 	
 	@ResponseBody
@@ -702,5 +702,26 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
+	
+	// 마이페이지 - 회원 탈퇴
+	@RequestMapping("deleteMember")
+	public String deleteMember(Member m, HttpSession session, Model model) {
+		
+		int result = memberService.deleteMember(m);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "지금까지 캐치마인드를 이용해주셔서 감사합니다.");
+			session.removeAttribute("loginUser");
+			
+			return "main";
+			
+		} else {
+			model.addAttribute("errorMsg", "회원 탈퇴 실패");
+			
+			return "common/errorPage";
+		}
+	}
+		
 	
 }

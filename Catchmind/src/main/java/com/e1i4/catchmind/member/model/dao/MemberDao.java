@@ -153,4 +153,9 @@ public class MemberDao {
 	public int deleteCouple(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.deleteCouple", m);
 	}
+	
+	// 마이페이지 - 회원 탈퇴 서비스(update)
+	public int deleteMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.deleteMember", m);
+	}
 }
