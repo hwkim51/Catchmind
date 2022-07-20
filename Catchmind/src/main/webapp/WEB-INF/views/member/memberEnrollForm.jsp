@@ -235,8 +235,8 @@
 
             <label for="phone">* 휴대폰번호 : </label>
             <input type="text" id="phone1" class="phone" name="phone" value="010" maxlength="3" readonly>
-            -<input type="text" id="phone2" class="phone" name="phone" maxlength="4">
-            -<input type="text" id="phone3" class="phone" name="phone" maxlength="4"><br>
+            -<input type="text" id="phone2" class="phone phoneNull" name="phone" maxlength="4">
+            -<input type="text" id="phone3" class="phone phoneNull" name="phone" maxlength="4"><br>
                 <div class="check_font" id="phone_check" style="padding-left:90px;">본인 인증이 가능한 번호만 유효합니다.</div>
 
             <label for="email">* EMAIL : </label>
@@ -427,12 +427,12 @@
                         data : {phone : $phone[0].value + '-' + $phone[1].value + '-' + $phone[2].value },
                         success : function(result){
                             if(result=="NNNNN"){
-                                $(".phone").val('');
+                                $(".phoneNull").val('');
                                 $("#phone_check").css("color","red").text("이미 가입된 휴대폰 번호입니다.");
                             }
                             else{
                                 if( !regExpPhone.test($phone[1].value) || !regExpPhone.test($phone[2].value) ){
-                                    $(".phone").val('');
+                                    $(".phoneNull").val('');
                                     $("#phone_check").css("color","red").text("유효한 휴대폰 번호가 아닙니다. 다시 입력해 주세요.");
                                 }
                                 else{
