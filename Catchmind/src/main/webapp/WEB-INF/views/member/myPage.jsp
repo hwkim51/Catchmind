@@ -689,7 +689,7 @@
         			<!-- 회원 탈퇴 모달 바디 -->
         			<div class="modal-body">
         				<form action="deleteMember" id="deleteMember" method="post">
-        					<div style="font-size: 18px; width: 310px; margin-bottom: 10px" align="left">
+        					<div style="font-size: 18px; font-family: 'IBM Plex Sans KR', sans-serif; width: 310px; margin-bottom: 10px" align="left">
         						안전한 회원탈퇴를 위해, <br>
         						비밀번호를 확인해주세요.
         					</div>
