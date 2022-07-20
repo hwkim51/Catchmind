@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.e1i4.catchmind.admin.model.dao.AdminDao;
-import com.e1i4.catchmind.board.model.vo.Board;
 import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
 import com.e1i4.catchmind.board.model.vo.Reply;
@@ -167,11 +166,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int selectPostCount() {
 		return adminDao.selectPostCount(sqlSession);
-	}
-
-	@Override
-	public ArrayList<Post> selectPostList(PageInfo pi) {
-		return adminDao.selectPostList(sqlSession, pi);
 	}
 
 	@Override

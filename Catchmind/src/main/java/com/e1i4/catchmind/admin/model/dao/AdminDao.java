@@ -87,7 +87,7 @@ public class AdminDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("catchboardMapper.selectCatchBoardList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectadCatchList", null, rowBounds);
 		
 	}
 	
@@ -96,7 +96,7 @@ public class AdminDao {
 	}
 	
 	public int selectCatchBoardCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("catchboardMapper.selectCatchBoardCount");
+		return sqlSession.selectOne("boardMapper.selectCatchListCount");
 	}
 	
 	public ArrayList<Inquiry> selectInquiryList(SqlSessionTemplate sqlSession, PageInfo pi) {
