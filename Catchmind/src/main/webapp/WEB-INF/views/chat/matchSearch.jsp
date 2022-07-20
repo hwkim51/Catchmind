@@ -401,13 +401,14 @@ input[type="number"]::-webkit-inner-spin-button {
                             </select>
                             </div> <!-- user-mbti -->
                             <form id="matchFilter" action="searchList.ma">
-                           <input type="hidden" name="mbti" id="updateMbti"><br>
+                            <span class="subTitle">MBTI : </span>
+                           <input name="mbti" id="updateMbti" placeholder="${m.mbti }" style="margin:0px;" readonly><br>
                             <span class="subTitle">키 : </span>
-                                <input type="number" class="search_height" name="hlow" id="hlow" placeholder="이상" style="margin-left: 10px;"> - &nbsp; &nbsp;<input type="number" class="search_height" name="hhigh" id="hhigh" placeholder="이하"><br>
-                            <span class="subTitle">나이 : </span><input type="number" class="search_age" name="alow" id="alow" placeholder="이상"> - &nbsp; &nbsp;<input type="number" class="search_age" name="ahigh" id="ahigh" placeholder="이하"><br>
+                                <input type="number" class="search_height" name="hlow" id="hlow" placeholder="${m.hlow }" style="margin-left: 10px;"> - &nbsp; &nbsp;<input type="number" class="search_height" name="hhigh" id="hhigh" placeholder="${m.hhigh }"><br>
+                            <span class="subTitle">나이 : </span><input type="number" class="search_age" name="alow" id="alow" placeholder="${m.alow }"> - &nbsp; &nbsp;<input type="number" class="search_age" name="ahigh" id="ahigh" placeholder="${m.ahigh }"><br>
                             <button type="submit" id="searchbtn" class="btn-matchSearch">S E A R C H 🔍</button>
                             
-                            <div id ="info">CATCHMIND는<br>최상의 상대 찾기를<br> 위해 검색 후 검색만을 지원합니다.</div>
+                            <div id ="info">CATCHMIND는<br>최상의 상대 찾기를<br> 위한 알고리즘을<br> 지원합니다.</div>
                             </form>
                             <form action="matchList.ch">
                             <button type="submit" id="searchbtn" class="btn-matchSearch">뒤로 가기</button>

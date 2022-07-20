@@ -120,7 +120,7 @@ public class MatchController {
 			if (!(hhigh.equals(""))) {
 				m.setHhigh(Integer.parseInt(hhigh));
 			} else {
-				m.setHhigh(500);
+				m.setHhigh(250);
 			}
 			if (!(alow.equals(""))) {
 				m.setAlow(Integer.parseInt(alow));
@@ -130,10 +130,10 @@ public class MatchController {
 			if (!(ahigh.equals(""))) {
 				m.setAhigh(Integer.parseInt(ahigh));
 			} else {
-				m.setAhigh(500);
+				m.setAhigh(100);
 			}
 			ArrayList<Member> result = mdao.searchList1(sqlSession, m);
-
+			model.addAttribute("m", m);
 			model.addAttribute("mlist", result);
 			
 			return "chat/matchSearch";
@@ -160,7 +160,7 @@ public class MatchController {
 				m.setAhigh(500);
 			}
 			ArrayList<Member> result = mdao.searchList2(sqlSession, m);
-
+			model.addAttribute("m", m);
 			model.addAttribute("mlist", result);
 			
 			return "chat/matchSearch";
