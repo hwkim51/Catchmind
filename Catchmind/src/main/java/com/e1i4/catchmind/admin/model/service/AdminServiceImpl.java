@@ -227,4 +227,9 @@ public class AdminServiceImpl implements AdminService {
 	public Catch detailCatchReport(int catchNo) {
 		return adminDao.detailCatchReport(sqlSession, catchNo);
 	}
+
+	@Override
+	public int deleteMemberAccount(String userId) {
+		return adminDao.deleteMemberAccount(sqlSession, userId);
+	}
 }

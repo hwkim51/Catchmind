@@ -177,4 +177,12 @@ public class MemberDao {
 	public int checkBlocked(SqlSessionTemplate sqlSession, Block b) {
 		return sqlSession.selectOne("memberMapper.checkBlocked", b);
 	}
+
+	public int emailCheck(SqlSessionTemplate sqlSession, String email) {
+		return sqlSession.selectOne("memberMapper.emailCheck", email);
+	}
+
+	public int phoneCheck(SqlSessionTemplate sqlSession, String phone) {
+		return sqlSession.selectOne("memberMapper.phoneCheck", phone);
+	}
 }
