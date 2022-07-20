@@ -110,14 +110,14 @@ public class ChatController {
 				int requestResult = chatService.checkRequest(userNo);
 				
 				if(requestResult == 0) {
-					model.addAttribute("alertMsg", "상대가 채팅 신청을 거부했습니다.");
+					// model.addAttribute("alertMsg", "상대가 채팅 신청을 거부했습니다.");
 					return 0;
 				}
 				else if(requestResult == requestTo) {
 					return chatService.getRoomNo(userNo, requestTo);
 				}
 				else {
-					model.addAttribute("alertMsg", "상대가 채팅할 수 있는 상태가 아닙니다.");
+					// model.addAttribute("alertMsg", "상대가 채팅할 수 있는 상태가 아닙니다.");
 					return -3;
 				}
 				

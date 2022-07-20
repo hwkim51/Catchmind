@@ -82,4 +82,9 @@
 		INSERT INTO CHAT_REPORT
 		VALUES (#{uesrNo}, #{reportedFrom}, #{reportedFor})
 	</insert>
+	
+	<insert id="insertChatClaim" parameterType="_int">
+		INSERT INTO CHATCLAIM
+		VALUES (#{userNo}, 0)
+	</insert>
 </mapper>

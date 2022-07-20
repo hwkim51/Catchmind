@@ -342,56 +342,59 @@
                 
     
         function loginSignal() {
-        	$.ajax({
-        		url : "loginSignal.me",
-        		data : {
-        			userNo : "${loginUser.userNo}"
-        		},
-        		success : function(result){
-        			if(result != "") {
-        				
-        				clearInterval(interval);
-        				// console.log(result.chatClaimFrom.userNo); 
-        				// console.log(result.roomNoWith); 
-        				var answer = confirm(result.chatClaimFrom.nickname + "님으로부터 채팅 요청이 들어왔습니다.\n" + "채팅 요청에 응하시겠습니까?");
-        				
-        					
-        				if(answer == true) {
-        					$.ajax({
-        						url : "chatAgreed.ch",
-        						type : "POST",
-        						data : {
-        							userNo : "${loginUser.userNo}",
-        							userNo2 : result.chatClaimFrom.userNo
-        						},
-        						success : function(data){
-        							location.replace("/catchmind/chat.do?roomNo=" + result.roomNoWith);
-        						},
-        						error : function() {
-        							console.log("header ajax2 problem");
-        						}
-        					});
-        				}
-        				else {
-        					$.ajax({
-        						url : "cancelRequest.ch",
-        						data : {
-        							userNo : "${loginUser.userNo}"
-        						},
-        						success : function(result){
-        							interval = setInterval(loginSignal, 2000);
-        						},
-        						error : function() {
-        							console.log("header ajax2 problem");
-        						}
-        					});
-        				}
-        			}
-        		},
-        		error : function(){
-        			console.log("header ajax problem");
-        		}
-        	});
+        	if(chatPage == 0){
+        		$.ajax({
+            		url : "loginSignal.me",
+            		data : {
+            			userNo : "${loginUser.userNo}"
+            		},
+            		success : function(result){
+            			if(result != "") {
+            				
+            				clearInterval(interval);
+            				// console.log(result.chatClaimFrom.userNo); 
+            				// console.log(result.roomNoWith); 
+            				var answer = confirm(result.chatClaimFrom.nickname + "님으로부터 채팅 요청이 들어왔습니다.\n" + "채팅 요청에 응하시겠습니까?");
+            				
+            					
+            				if(answer == true) {
+            					$.ajax({
+            						url : "chatAgreed.ch",
+            						type : "POST",
+            						data : {
+            							userNo : "${loginUser.userNo}",
+            							userNo2 : result.chatClaimFrom.userNo
+            						},
+            						success : function(data){
+            							location.replace("/catchmind/chat.do?roomNo=" + result.roomNoWith);
+            						},
+            						error : function() {
+            							console.log("header ajax2 problem");
+            						}
+            					});
+            				}
+            				else {
+            					$.ajax({
+            						url : "cancelRequest.ch",
+            						data : {
+            							userNo : "${loginUser.userNo}"
+            						},
+            						success : function(result){
+            							interval = setInterval(loginSignal, 2000);
+            						},
+            						error : function() {
+            							console.log("header ajax2 problem");
+            						}
+            					});
+            				}
+            			}
+            		},
+            		error : function(){
+            			console.log("header ajax problem");
+            		}
+            	});
+        	}
+        	
 
         }
 
