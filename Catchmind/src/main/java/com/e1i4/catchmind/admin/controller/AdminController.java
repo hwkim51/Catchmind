@@ -436,7 +436,7 @@ public class AdminController {
 	public String selectPostList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 		
 		int listCount = adminService.selectPostCount();
-		System.out.println(listCount);
+		// System.out.println(listCount);
 		
 		int pageLimit = 10;
 		int boardLimit = 5;
@@ -444,7 +444,7 @@ public class AdminController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		ArrayList<Post> list = adminService.selectPostList(pi);
-		System.out.println(list);
+		// System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		

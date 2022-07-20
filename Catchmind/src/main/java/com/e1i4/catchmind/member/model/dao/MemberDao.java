@@ -53,7 +53,7 @@ public class MemberDao {
 	// 비밀번호 찾기 - 변경 서비스(update)
 	public int changePwd(SqlSessionTemplate sqlSession, Member m) {
 		
-		System.out.println("DAO: " + sqlSession.update("memberMapper.changePwd", m));
+		// System.out.println("DAO: " + sqlSession.update("memberMapper.changePwd", m));
 		
 		return sqlSession.update("memberMapper.changePwd", m);
 	}

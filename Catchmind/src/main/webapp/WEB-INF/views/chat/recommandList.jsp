@@ -292,7 +292,7 @@ input[type="number"]::-webkit-inner-spin-button {
 		                    <img src="${ m.pic }" alt="프로필 사진">
 	                    </c:when>
 	                    <c:otherwise>
-		                    <img src="http://www.billking.co.kr/index/skin/board/basic_support/img/noimage.gif" alt="프로필 사진">
+		                    <img src="resources/images/pic.png" alt="프로필 사진">
 	                    </c:otherwise>
 	                    </c:choose>
 		                </div>
