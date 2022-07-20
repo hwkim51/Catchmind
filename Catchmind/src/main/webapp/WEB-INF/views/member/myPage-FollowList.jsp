@@ -202,17 +202,37 @@
     // 대화하기
      $(document).on("click", "#chatButton", function(event){
     	//console.log($(this).next().next().text());
-    	chatPage == 1;
+    	chatPage = 1;
     	alert("상대에게 채팅 신청 메시지를 보냈습니다.\n 잠시 기다려 주세요.");
     	$.ajax({
     		url : "sendRequest.ch",
-    		data : {},
+    		data : {
+    			userNo : ${loginUser.userNo},
+    			requestTo : $(this).next().text()
+    		},
     		success : function(data) {
     			if(data > 0) {
     				alert("상대가 채팅 신청을 수락하였습니다.");
-    				location.href("/chat.do?roomNo=" + data);
+    				location.href = "/catchmind/chat.do?roomNo=" + data;
     			}
     			else {
+    				
+    				if (data == -1) {
+    					alert("상대가 이미 다른 상대와 채팅 중입니다.");
+    				}
+    				else if (data == -2) {
+    					alert("상대가 다른 상대의 채팅 신청을 고민하고 있습니다.");
+    				}
+    				else if (data == -3) {
+    					alert("상대가 채팅할 수 있는 상태가 아닙니다.");
+    				}
+    				else if (data == -4) {
+    					alert("상대가 채팅할 수 있는 상태가 아닙니다.");
+    				}
+    				else if (data == 0) {
+    					alert("상대가 채팅 신청을 거부했습니다.");
+    				}
+    				
     				chatPage = 0;
     				interval = setInterval(loginSignal, 2000);
     			}

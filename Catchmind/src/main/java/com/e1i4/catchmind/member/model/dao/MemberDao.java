@@ -42,7 +42,12 @@ public class MemberDao {
 
 	// 회원가입 서비스(insert)
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.insert("memberMapper.insertMember", m);
+		
+		int result = sqlSession.insert("memberMapper.insertMember", m);
+		String userId = m.getUserId();
+		int userNo = Integer.parseInt(String.valueOf(sqlSession.selectOne("memberMapper.selectMemberById", userId)));
+		sqlSession.insert("chatMapper.insertChatClaim", userNo);
+		return result;
 	}
 
 	// 비밀번호 찾기 - 변경 서비스(update)

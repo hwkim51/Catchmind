@@ -16,7 +16,7 @@
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
 	.mbtiResult-area {
         width: 1200px;
-        height: 750px;
+        height: 1100px;
         margin: auto;
         margin-bottom: 80px;
     }
@@ -48,6 +48,7 @@
     .mbtiResult-btn {
         background-color: orange !important;
         color: white !important;
+        height: 45px;
         width: 250px;
         border-radius: 20px !important;
         font-family: 'IBM Plex Sans KR', sans-serif;
@@ -80,6 +81,9 @@
         border-radius: 10px;
         border: none;
     }
+    .btn-yes:hover, .btn-no:hover{
+        opacity: 0.7;
+    }
  
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -91,12 +95,14 @@
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	
+    <hr>
     <div class="mbtiResult-area" align="center" data-aos="fade-up" data-aos-duration="1000">
         <img class="mbtiResult-img" src="${ testResult.mbtiImg }">
         <div class="mbtiResult-title" data-aos="fade-up" data-aos-duration="1000">${ testResult.mbtiTitle }</div>
         <div class="mbtiResult-mbti" data-aos="fade-up" data-aos-duration="1000">${ testResult.mbtiResult }</div>
         <div class="mbtiResult-content" align="left" data-aos="fade-up" data-aos-duration="1000">${ testResult.mbtiContent }</div>
-        <button class="btn mbtiResult-btn" data-toggle="modal" data-target="#mbtiResultModal" data-aos="fade-up" data-aos-duration="1000">확인</button>
+        <button class="btn mbtiResult-btn" data-toggle="modal" data-target="#mbtiResultModal" data-aos="fade-up" data-aos-duration="1000">MBTI 업데이트</button>
+        <br><br><br>
     </div>
 
     <div class="modal" id="mbtiResultModal">
@@ -105,13 +111,13 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">내 MBTI 업데이트</h4>
+                    <h4 class="modal-title">나의 MBTI 업데이트</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                	나의 MBTI 정보를 업데이트 하시겠습니까?<br><br>
+                	회원 정보에 나의 MBTI를 업데이트 하시겠습니까?<br><br>
                     <h1 style="text-align: center; font-size: 100px;">🤔<br></h1>
                 </div>
 
@@ -128,7 +134,6 @@
             </div>
         </div>
     </div>
-    
     <jsp:include page="../common/footer.jsp"/>
     
     <script>

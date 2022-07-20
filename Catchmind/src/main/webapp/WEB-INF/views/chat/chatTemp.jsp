@@ -236,8 +236,8 @@ div {
 			}
 		});
 		
-		// var interval;
-		/*
+		var interval;
+		
 		$(function() {
 			
 			signalFromChat;
@@ -259,7 +259,7 @@ div {
         	});
 
 		}
-		*/
+		
 	</script>
 
 	<div class="chat-outer">
@@ -361,10 +361,9 @@ div {
 						})
 					);
 				$("#chat-text").val("");
-	
 			});
 			var chatTimeVar;
-			var sock = new SockJS("http://localhost:8006/catchmind/chat");
+			var sock = new SockJS("http://192.168.40.23:8006/catchmind/chat");
 			var client = Stomp.over(sock);
 			var roomNo = ${roomNo};
 			client.connect({}, function() {
@@ -427,6 +426,14 @@ div {
 					})
 				);
 	
+			});
+			
+			client.disconnect(function() {
+				client.send('/fromServer/' + roomNo, {},
+					JSON.stringify({
+						chatContent : "님이 퇴장하셨습니다.",
+						writer : ${loginUser.userNo}
+					}))
 			});
 	
 		});
