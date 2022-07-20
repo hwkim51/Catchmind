@@ -282,7 +282,14 @@ input[type="number"]::-webkit-inner-spin-button {
 		        <div class="outter">
 		            <div class="card">
 		                <div class="imgBx">
+		                <c:choose>
+		                <c:when test="${ not empty m.pic }">
 		                    <img src="${ m.pic }" alt="프로필 사진">
+	                    </c:when>
+	                    <c:otherwise>
+		                    <img src="http://www.billking.co.kr/index/skin/board/basic_support/img/noimage.gif" alt="프로필 사진">
+	                    </c:otherwise>
+	                    </c:choose>
 		                </div>
 		                <div class="content">
 		                    <div class="details">
