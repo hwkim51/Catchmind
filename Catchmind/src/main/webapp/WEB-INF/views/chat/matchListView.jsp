@@ -216,7 +216,11 @@ width:80px;
 .sub_menu .search_age{
 width:80px;
 }
-
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 </style>
 </head>
 <body>
@@ -267,6 +271,8 @@ width:80px;
 		</div>
 		</div>
     </div>
+    
+    <!-- #################### 필터 구역 #################### -->
 					    <div class="sub_menu">
 					    <div class="user-mbti">
                             <c:set var="userMBTI" value="${ loginUser.mbti }" />
@@ -343,9 +349,11 @@ width:80px;
                             <input name="mbti" id="updateMbti">
                             <input type="number" class="search_height" name="hlow" id="hlow" placeholder="이상"> ~ <input type="number" class="search_height" name="hhigh" id="hhigh" placeholder="이하">
                             <input type="number" class="search_age" name="alow" id="alow" placeholder="이상"> ~ <input type="number" class="search_age" name="ahigh" id="ahigh" placeholder="이하">
-                            <button type="submit">검색</button>
+                            <button type="submit" id="searchbtn">검색</button>
                             </form>
     						</div> <!-- sub_menu -->
+    						
+    						<!-- #################### 필터 구역 #################### -->
     							<script>
                                 /* 변경된 MBTI 추출 */
                                 $(function() {
@@ -421,20 +429,28 @@ var swiper = new Swiper('.swiper-container', {
 			}
 		});
 	}
-	
-	function searchList() {
-		$.ajax({
-			url: "searchList.ma",
-			data: {mbti:$("#updateMbti").val(),
-				hlow:$("#hlow").val(),
-				hhigh:$("#hhigh").val(),
-				alow:$("#alow").val(),
-				ahigh:$("#ahigh").val()},
-				success : function(result) {
-                    
-                }
-		});
-	}
 	</script>
+	
+	<script>
+	$( document ).ready( function() {
+        $( '#hlow, #hhigh, #alow, #ahigh' ).change( function() {
+          var a = $( '#hlow' ).val();
+          var b = $( '#hhigh' ).val();
+          var c = $( '#alow' ).val();
+          var d = $( '#ahigh' ).val();
+          a=Number(a);
+          b=Number(b);
+          c=Number(c);
+          d=Number(d);
+          if(a>b||c>d) {
+        	  document.getElementById("searchbtn").disabled = true;
+          } else {
+        	  document.getElementById("searchbtn").disabled = false;
+          }
+        });
+      } );
+	</script>
+	
+	
 </body>
 </html>

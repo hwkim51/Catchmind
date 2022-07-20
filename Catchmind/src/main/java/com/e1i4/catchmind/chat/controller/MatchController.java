@@ -72,6 +72,7 @@ public class MatchController {
 	
 	@RequestMapping(value="searchList.ma", produces="text/html; charset=UTF-8;")
 	public String searchList(String mbti, String hlow, String hhigh, String alow, String ahigh, HttpSession session, Model model) {
+		if((Member) session.getAttribute("loginUser")!= null) {
 		SearchMatch m = new SearchMatch();
 		m.setGender(((Member) session.getAttribute("loginUser")).getGender());
 		m.setUserNo(((Member) session.getAttribute("loginUser")).getUserNo());
@@ -137,7 +138,10 @@ public class MatchController {
 			
 			return "chat/matchListView2";
 		}
-		
+		} else {
+			session.setAttribute("alertMsg", "로그인 후 이용가능합니다.");
+			return "main";
+		}
 		
 	}
 }
