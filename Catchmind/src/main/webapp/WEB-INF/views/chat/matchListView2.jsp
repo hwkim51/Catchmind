@@ -228,12 +228,17 @@ margin: 20px 2px 0px 12px;
     font-size: 14px;
     appearance: none;
 }
+.sub_menu .search_height{
+width:80px;
+}
+.sub_menu .search_age{
+width:80px;
+}
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
 #matchFilter input{
     margin-bottom: 20px;
     width: 40px;
@@ -277,7 +282,14 @@ input[type="number"]::-webkit-inner-spin-button {
 		        <div class="outter">
 		            <div class="card">
 		                <div class="imgBx">
+		                <c:choose>
+		                <c:when test="${ not empty m.pic }">
 		                    <img src="${ m.pic }" alt="프로필 사진">
+	                    </c:when>
+	                    <c:otherwise>
+		                    <img src="http://www.billking.co.kr/index/skin/board/basic_support/img/noimage.gif" alt="프로필 사진">
+	                    </c:otherwise>
+	                    </c:choose>
 		                </div>
 		                <div class="content">
 		                    <div class="details">
@@ -307,91 +319,92 @@ input[type="number"]::-webkit-inner-spin-button {
     </div>
     
     <!-- #################### 필터 구역 #################### -->
-    <div class="sub_menu_wrap">
-        <div class="sub_menu">
-        <div class="user-mbti">
-            <h5><b> * MATCH FILTER </b></h5><hr>
-            
-            <span class="subTitle">MBTI 선택 : &nbsp;</span>
-            <c:set var="userMBTI" value="${ loginUser.mbti }" />
-            <select id="EI">
-                <c:choose>
-                    <c:when test="${ fn:contains(userMBTI, 'E') }">
-                        <option value="E" selected>E</option>
-                        <option value="I">I</option>
-                    </c:when>
-                    <c:when test="${ fn:contains(userMBTI, 'I') }">
-                        <option value="E">E</option>
-                        <option value="I" selected>I</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option value="" disabled selected>M</option>
-                        <option value="E">E</option>
-                        <option value="I">I</option>
-                    </c:otherwise>
-                </c:choose>
-            </select>
-            <select id="SN">
-                <c:choose>
-                    <c:when test="${ fn:contains(userMBTI, 'S') }">
-                        <option value="S" selected>S</option>
-                        <option value="N">N</option>
-                    </c:when>
-                    <c:when test="${ fn:contains(userMBTI, 'N') }">
-                        <option value="S">S</option>
-                        <option value="N" selected>N</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option value="" disabled selected>B</option>
-                        <option value="S">S</option>
-                        <option value="N">N</option>
-                    </c:otherwise>
-                </c:choose>
-            </select>
-            <select id="TF">
-                <c:choose>
-                    <c:when test="${ fn:contains(userMBTI, 'T') }">
-                        <option value="T" selected>T</option>
-                        <option value="F">F</option>
-                    </c:when>
-                    <c:when test="${ fn:contains(userMBTI, 'F') }">
-                        <option value="T">T</option>
-                        <option value="F" selected>F</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option value="" disabled selected>T</option>
-                        <option value="T">T</option>
-                        <option value="F">F</option>
-                    </c:otherwise>
-                </c:choose>
-            </select>
-            <select id="JP">
-                <c:choose>
-                    <c:when test="${ fn:contains(userMBTI, 'J') }">
-                        <option value="J" selected>J</option>
-                        <option value="P">P</option>
-                    </c:when>
-                    <c:when test="${ fn:contains(userMBTI, 'P') }">
-                        <option value="J">J</option>
-                        <option value="P" selected>P</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option value="" disabled selected>I</option>
-                        <option value="J">J</option>
-                        <option value="P">P</option>
-                    </c:otherwise>
-                </c:choose>
-            </select>
-            </div> <!-- user-mbti -->
-            <form id="matchFilter" action="searchList.ma">
-           <input type="hidden" name="mbti" id="updateMbti"><br>
-            <span class="subTitle">키 : </span>
-                <input type="number" class="search_height" name="hlow" id="hlow" placeholder="이상" style="margin-left: 10px;"> - &nbsp; &nbsp;<input type="number" class="search_height" name="hhigh" id="hhigh" placeholder="이하"><br>
-            <span class="subTitle">나이 : </span><input type="number" class="search_age" name="alow" id="alow" placeholder="이상"> - &nbsp; &nbsp;<input type="number" class="search_age" name="ahigh" id="ahigh" placeholder="이하"><br>
-            <button type="submit" id="searchbtn" class="btn-matchSearch">S E A R C H 🔍</button>
-            </form>
-            </div> <!-- sub_menu -->
-        </div>
+        <div class="sub_menu_wrap">
+					    <div class="sub_menu">
+					    <div class="user-mbti">
+                            <h5><b> * MATCH FILTER </b></h5><hr>
+                            
+                            <span class="subTitle">MBTI 선택 : &nbsp;</span>
+                            <c:set var="userMBTI" value="${ loginUser.mbti }" />
+                            <select id="EI">
+                                <c:choose>
+                                    <c:when test="${ fn:contains(userMBTI, 'E') }">
+                                        <option value="E" selected>E</option>
+                                        <option value="I">I</option>
+                                    </c:when>
+                                    <c:when test="${ fn:contains(userMBTI, 'I') }">
+                                        <option value="E">E</option>
+                                        <option value="I" selected>I</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="" disabled selected>M</option>
+                                        <option value="E">E</option>
+                                        <option value="I">I</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </select>
+                            <select id="SN">
+                                <c:choose>
+                                    <c:when test="${ fn:contains(userMBTI, 'S') }">
+                                        <option value="S" selected>S</option>
+                                        <option value="N">N</option>
+                                    </c:when>
+                                    <c:when test="${ fn:contains(userMBTI, 'N') }">
+                                        <option value="S">S</option>
+                                        <option value="N" selected>N</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="" disabled selected>B</option>
+                                        <option value="S">S</option>
+                                        <option value="N">N</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </select>
+                            <select id="TF">
+                                <c:choose>
+                                    <c:when test="${ fn:contains(userMBTI, 'T') }">
+                                        <option value="T" selected>T</option>
+                                        <option value="F">F</option>
+                                    </c:when>
+                                    <c:when test="${ fn:contains(userMBTI, 'F') }">
+                                        <option value="T">T</option>
+                                        <option value="F" selected>F</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="" disabled selected>T</option>
+                                        <option value="T">T</option>
+                                        <option value="F">F</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </select>
+                            <select id="JP">
+                                <c:choose>
+                                    <c:when test="${ fn:contains(userMBTI, 'J') }">
+                                        <option value="J" selected>J</option>
+                                        <option value="P">P</option>
+                                    </c:when>
+                                    <c:when test="${ fn:contains(userMBTI, 'P') }">
+                                        <option value="J">J</option>
+                                        <option value="P" selected>P</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="" disabled selected>I</option>
+                                        <option value="J">J</option>
+                                        <option value="P">P</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </select>
+                            </div> <!-- user-mbti -->
+                            <form id="matchFilter" action="searchList.ma">
+                           <input type="hidden" name="mbti" id="updateMbti"><br>
+                            <span class="subTitle">키 : </span>
+                                <input type="number" class="search_height" name="hlow" id="hlow" placeholder="이상" style="margin-left: 10px;"> - &nbsp; &nbsp;<input type="number" class="search_height" name="hhigh" id="hhigh" placeholder="이하"><br>
+                            <span class="subTitle">나이 : </span><input type="number" class="search_age" name="alow" id="alow" placeholder="이상"> - &nbsp; &nbsp;<input type="number" class="search_age" name="ahigh" id="ahigh" placeholder="이하"><br>
+                            <button type="submit" id="searchbtn" class="btn-matchSearch">S E A R C H 🔍</button>
+                            </form>
+    						</div> <!-- sub_menu -->
+                        </div>
+    						
     						<!-- #################### 필터 구역 #################### -->
     							<script>
                                 /* 변경된 MBTI 추출 */
