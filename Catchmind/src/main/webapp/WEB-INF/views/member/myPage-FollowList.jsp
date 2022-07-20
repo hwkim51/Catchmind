@@ -27,10 +27,10 @@
     #followTable{
         width:85%;
         margin: auto;
+        margin-left: 20px;
         text-align: center;
-        /*border: 1px solid green;*/
         border-collapse: separate;
-        border-spacing: 0 25px;
+        border-spacing: 0 30px;
     }
 
     #followTable tr{
@@ -38,7 +38,7 @@
     }
 
     #followTable td{
-        background-color: lightgray;
+        background-color: rgb(229, 229, 229);
         font-size: medium;
         font-weight: 500;
     }
@@ -136,10 +136,10 @@
     							   resultStr += "<img class='profile' src='"+ result[i].pic +"'>"
     						   }
     						   else if(result[i].pic == null && result[i].recentLogout != null){ //사진 없고 접속 중 x
-    							   resultStr += "<img class='profile' src='resources/images/user.png' style='filter:brightness(0.4); border: 1px solid #e0e1e2;'>"
+    							   resultStr += "<img class='profile' src='resources/images/user.png' style='filter:brightness(0.4);'>"
     						   }
     						   else{ //사진 없고 접속 중
-    							   resultStr += "<img class='profile' src='resources/images/user.png' style='border: 1px solid #e0e1e2;'>"
+    							   resultStr += "<img class='profile' src='resources/images/user.png'>"
     						   }
     				resultStr +=    "</th>"
                     		   +    "<td>"+ result[i].mbti +"</td>"
