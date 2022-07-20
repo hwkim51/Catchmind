@@ -15,7 +15,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&display=swap');
     .qArea {
-        margin-top: 80px;
+        margin-top: 60px;
     }
 
     .qNum {
@@ -91,8 +91,8 @@
         transition-delay: 1.8s;
     }
     .testBackImg1{
-        position: absolute;
-        top: 200px;
+        position: relative;
+        top: -158px;
         left: 150px;
     }
     .testBackImg2{
@@ -114,6 +114,12 @@
         position: absolute;
         top: 140px;
         left: 980px;
+    }
+    .testBackImg6 {
+    	position: absolute;
+	    left: 770px;
+	    top: -66px;
+	    height: 250px;
     }
     .homelogo{
         width: 100vw;
@@ -140,7 +146,7 @@
 
 <body>
     <a href="/catchmind/">
-        <div class="homelogo">CATCHMIND<hr></div>
+        <div class="homelogo">CATCHMIND</div>
     </a>
    
     <div id="question" class="carousel slide" data-ride="carousel" data-interval="0">
@@ -150,8 +156,7 @@
                 <div class="qNum" align="left">Q1</div>
                 <div class="qText" align="left" data-aos="fade-left" data-aos-duration="800">
                     <div>데이트가 없는</div>
-                    <div>주말에 나는
-                    </div>
+                    <div>주말에 나는</div>
                     <img src='./resources/images/mbti1.png' class='testBackImg1' width="320px;" height="200px;">
                 </div>
                 <div class="options" align="center">
@@ -206,7 +211,7 @@
                     <div>연인이 집에</div>
                     <div>놀러온다고 했을 때 나는</div>
                 </div>
-                <img src='./resources/images/mbti4.png' class='testBackImg4' style="top: 90px !important; left: 920px;" width="350px;" height="330px;">
+                <img src='./resources/images/mbti4.png' class='testBackImg4' style="top: 70px !important; left: 920px;" width="300px;" height="350px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="P">
                         OK 콜! 얼른 와~
@@ -274,7 +279,7 @@
                     <div>상사한테 지적 당해</div>
                     <div>우울한 애인에게 나는</div>
                 </div>
-                <img src='./resources/images/mbti8.png' class='testBackImg2' style="left: 750px;" width="320px;" height="200px;">
+                <img src='./resources/images/mbti8.png' class='testBackImg2' style="left: 750px; top: -26px" width="330px;" height="210px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="T">
                         "다음에는 이런 식으로 해보면 어떨까?"
@@ -291,7 +296,7 @@
                     <div>연인에게 줄</div>
                     <div>선물을 고르게 된 나는</div>
                 </div>
-                <img src='./resources/images/mbti9.png' class='testBackImg5' width="400px;" height="330px;">
+                <img src='./resources/images/mbti9.png' class='testBackImg5' width="390px;" height="330px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="S">
                     	평소 애인이 필요했던 실용적인 선물
@@ -308,7 +313,7 @@
                     <div>연인에게 노래를</div>
                     <div>추천해줄 때 나는</div>
                 </div>
-                <img src='./resources/images/mbti10.png' class='testBackImg5' style="top:-30px;" width="450px;" height="500px;">
+                <img src='./resources/images/mbti10.png' class='testBackImg5' style="top:-20px;" width="430px;" height="450px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="S">
                         "가사보다 멜로디" 멜로디가 좋은 노래
@@ -325,6 +330,7 @@
                     <div>애인과 여행을</div>
                     <div>떠나게 된 나는</div>
                 </div>
+                <img src='./resources/images/mbti11.png' class="testBackImg6">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="P">
                     	숙소 예약! 계획 끝! 여행 시작
@@ -341,7 +347,7 @@
                     <div>애인과의 약속에</div>
                     <div>지각했을 때 나는</div>
                 </div>
-                <img src='./resources/images/mbti12.png' class='testBackImg2' style="left: 750px;" width="320px;" height="200px;">
+                <img src='./resources/images/mbti12.png' class='testBackImg2' style="left: 720px;" width="320px;" height="200px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="pause" value="T">
                     	구구절절 늦은 이유를 설명한다

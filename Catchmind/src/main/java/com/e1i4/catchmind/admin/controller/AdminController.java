@@ -73,9 +73,9 @@ public class AdminController {
 	
 	// 회원관리 - 회원탈퇴 처리  : 수빈
 	@RequestMapping("deleteMember.ad")
-	public String deleteMember(String userId, HttpSession session) {
+	public String deleteMemberAccount(String userId, HttpSession session) {
 		
-		int result = adminService.deleteMember(userId);
+		int result = adminService.deleteMemberAccount(userId);
 		
 		if(result > 0) {
 			session.setAttribute("alertMsg", "'ID : "+userId+"'는 탈퇴 처리되었습니다.");
@@ -109,24 +109,6 @@ public class AdminController {
 		
 		model.addAttribute("updateMem", updateMem);
 		return "admin/memberListView";
-	}
-	
-	@RequestMapping("boardList.ad")
-	public String selectBoardList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
-				
-		int listCount = adminService.selectBoardCount();
-		
-		int pageLimit = 10;
-		int boardLimit = 5;
-		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-		
-		ArrayList<Board> list = adminService.selectBoardList(pi);
-		
-		model.addAttribute("list", list);
-		model.addAttribute("pi", pi);
-		
-		return "admin/boardListView";
 	}
 	
 	@RequestMapping("catchList.ad")
@@ -455,7 +437,7 @@ public class AdminController {
 	public String selectPostList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 		
 		int listCount = adminService.selectPostCount();
-		System.out.println(listCount);
+		// System.out.println(listCount);
 		
 		int pageLimit = 10;
 		int boardLimit = 5;
@@ -463,7 +445,7 @@ public class AdminController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		ArrayList<Post> list = adminService.selectPostList(pi);
-		System.out.println(list);
+		// System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		

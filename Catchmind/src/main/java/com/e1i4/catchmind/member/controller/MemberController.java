@@ -59,11 +59,9 @@ public class MemberController {
 		
 		String partner = ((Member)session.getAttribute("loginUser")).getPartner();
 		
-		System.out.println("커플 회원 아이디" + partner);
 		// 커플 회원 정보 조회
 		Member coupleMem = memberService.selectCoupleInfo(partner);
 		session.setAttribute("coupleMem", coupleMem);
-		System.out.println("커플 정보" + coupleMem);
 		
 		return "member/myPage";
 	}
@@ -134,7 +132,25 @@ public class MemberController {
 		int count = memberService.nicknameCheck(nickname);
 		return (count>0)? "NNNNN" : "NNNNY"; 
 	}
-		
+	
+	// 이메일 중복체크(select) : 수빈
+	@ResponseBody
+	@RequestMapping(value="emailCheck.me", produces="text/html; charset=UTF-8")
+	public String emailCheck(String email) {
+		int count = memberService.emailCheck(email);
+		return (count>0)? "NNNNN" : "NNNNY"; 
+	}
+	
+	// 휴대폰 중복체크(select) : 수빈
+	@ResponseBody
+	@RequestMapping(value="phoneCheck.me", produces="text/html; charset=UTF-8")
+	public String phoneCheck(String phone) {
+		// System.out.println(phone);
+		int count = memberService.phoneCheck(phone);
+		return (count>0)? "NNNNN" : "NNNNY"; 
+	}
+	
+	
 	// 아이디 찾기 페이지로 이동 : 수빈
 	@RequestMapping(value="findIdPage.me")
 	public String findIdPage() {	
@@ -541,7 +557,7 @@ public class MemberController {
 	@RequestMapping(value="originPwdCheck.me", produces="text/html; charset=UTF-8")
 	public String originPwdCheck(String checkOriginPwd) {
 		
-		System.out.println(checkOriginPwd);
+		// System.out.println(checkOriginPwd);
 		
 		int count = memberService.originPwdCheck(checkOriginPwd);
 		
@@ -552,7 +568,7 @@ public class MemberController {
 	@RequestMapping("infoUpdatePwd.me")
 	public String infoUpdatePwd(Member m, HttpSession session, Model model) {
 		
-		System.out.println("비밀번호 업데이트" + m);
+		// System.out.println("비밀번호 업데이트" + m);
 		
 		int result = memberService.infoUpdatePwd(m);
 		
@@ -609,11 +625,11 @@ public class MemberController {
 		m.setUserNo(userNo);
 		m.setPartner(partner);
 		
-		System.out.println(m);
+		// System.out.println(m);
 		
 		// 커플 요청 리스트
 		ArrayList<Member> list = memberService.selectRequestList(m);
-		System.out.println("커플관리 페이지" + list);
+		// System.out.println("커플관리 페이지" + list);
 		
 		model.addAttribute("cList", list);
 		
@@ -674,7 +690,7 @@ public class MemberController {
 	@RequestMapping("acceptCouple.me")
 	public String acceptCouple(Member m, HttpSession session, Model model) {
 		
-		System.out.println("커플 수우락" + m);
+		// System.out.println("커플 수우락" + m);
 		
 		int result = memberService.updateCoupleId(m);
 		
@@ -698,7 +714,7 @@ public class MemberController {
 	@RequestMapping("refuseCouple.me")
 	public String refuseCouple(Member m, HttpSession session, Model model) {
 		
-		System.out.println("커플 거절" + m);
+		// System.out.println("커플 거절" + m);
 		
 		int result = memberService.refuseCouple(m);
 		
@@ -793,7 +809,7 @@ public class MemberController {
 			b.setUserNo(user);
 			b.setBlockedUser(userNo);
 			int result = memberService.blockMember(b);
-			System.out.println(result);
+			// System.out.println(result);
 			if(result > 0) {
 				model.addAttribute("alertMsg", "차단 성공");
 				return "chat/matchListView";

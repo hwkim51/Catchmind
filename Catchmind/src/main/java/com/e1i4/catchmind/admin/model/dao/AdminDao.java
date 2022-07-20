@@ -52,6 +52,10 @@ public class AdminDao {
 		
 	}
 	
+	public int deleteMemberAccount(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.update("memberMapper.deleteMemberAccount", userId);
+	}
+	
 	public int recoverMember(SqlSessionTemplate sqlSession, String userId) {
 		
 		return sqlSession.update("memberMapper.recoverMember", userId);

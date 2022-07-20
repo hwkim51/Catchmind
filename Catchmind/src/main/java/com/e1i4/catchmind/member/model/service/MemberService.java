@@ -96,4 +96,8 @@ public interface MemberService {
 	int deleteCouple(Member m);
 	
 	int checkBlocked(Block b);
+
+	int emailCheck(String email);
+
+	int phoneCheck(String phone);
 }

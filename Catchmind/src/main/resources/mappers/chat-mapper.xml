@@ -67,11 +67,11 @@
 	</select>
 	
 	<select id="getChatLog" parameterType="_int" resultMap="chatResultSet">
-		SELECT NICKNAME AS "USER_NO", CHAT_CONTENT, CHAT_TIME
+		SELECT ROOM_NO, NICKNAME AS "USER_NO", CHAT_CONTENT, CHAT_TIME
 		FROM TB_CHAT
 		JOIN TB_MEMBER USING (USER_NO)
 		WHERE ROOM_NO = #{roomNo}
-		ORDER BY CHAT_TIME DESC
+		ORDER BY CHAT_TIME ASC
 	</select>
 	
 	<select id="checkRequest" parameterType="_int" resultType="_int">

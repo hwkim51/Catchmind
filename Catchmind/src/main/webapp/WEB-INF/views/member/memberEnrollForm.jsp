@@ -234,15 +234,14 @@
                 <div class="check_font"></div>
 
             <label for="phone">* 휴대폰번호 : </label>
-            <input type="text" id="phone1" name="phone" value="010" maxlength="3" readonly>
-            -<input type="text" id="phone2" name="phone" maxlength="4">
-            -<input type="text" id="phone3" name="phone" maxlength="4"><br>
-                <div class="check_font"></div>
+            <input type="text" id="phone1" class="phone" name="phone" value="010" maxlength="3" readonly>
+            -<input type="text" id="phone2" class="phone phoneNull" name="phone" maxlength="4">
+            -<input type="text" id="phone3" class="phone phoneNull" name="phone" maxlength="4"><br>
+                <div class="check_font" id="phone_check" style="padding-left:90px;">본인 인증이 가능한 번호만 유효합니다.</div>
 
             <label for="email">* EMAIL : </label>
             <input type="email" id="email" name="email"><br>
-                <div class="check_font"></div>
-                <div class="check_font"></div>
+                <div class="check_font" id="email_check">회원정보 찾기에 사용되니 바르게 입력해주세요.</div>
 
             <input type="button" id="btn-terms2" class="btn-terms" value="NEXT &nbsp;> ">
         </div>
@@ -420,23 +419,63 @@
                 }
             }) 
             
-            // * 휴대폰번호 유효성 체크 
+            // * 휴대폰번호 중복 체크 & 유효성 체크 
             $phone.blur(function(){
                 if($phone[1].value != '' && $phone[2].value != ''){
-                    if(!regExpPhone.test($phone[1].value) || !regExpPhone.test($phone[2].value) ){
-                        alertify.alert("회원가입 안내","유효한 휴대폰 번호가 아닙니다. 다시 입력해 주세요.");
-                    }}
+                    $.ajax({
+                        url : 'phoneCheck.me',
+                        data : {phone : $phone[0].value + '-' + $phone[1].value + '-' + $phone[2].value },
+                        success : function(result){
+                            if(result=="NNNNN"){
+                                $(".phoneNull").val('');
+                                $("#phone_check").css("color","red").text("이미 가입된 휴대폰 번호입니다.");
+                            }
+                            else{
+                                if( !regExpPhone.test($phone[1].value) || !regExpPhone.test($phone[2].value) ){
+                                    $(".phoneNull").val('');
+                                    $("#phone_check").css("color","red").text("유효한 휴대폰 번호가 아닙니다. 다시 입력해 주세요.");
+                                }
+                                else{
+                                    $("#phone_check").css("color","green").text("확인되었습니다.");
+                                    $("#btn-terms2").prop("disabled",false); 
+                                }
+                            }
+                            },
+                        error : function(){
+                            console.log("이메일 중복체크 ajax 통신 실패");
+                        }
+                  }); 
+                } 
             });
    
-            // * 이메일 유효성 체크
+            // * 이메일 중복 체크 & 유효성 체크
             $email.blur(function(){
-                if( $email.val().length >= 1 &&  !regExpEmail.test($email.val())){
-                        alertify.alert("회원가입 안내","유효한 이메일이 아닙니다. 다시 입력해 주세요.");
-                        document.getElementById("email").value="";
-                }
-                else{
-                    $("#btn-terms2").prop("disabled",false);
-                }
+                if( $email.val().length >= 1){
+                  $.ajax({
+                    url:'emailCheck.me',
+                    data: {email : $email.val()},
+                    success : function(result){
+                        console.log("email : " + email);
+                        if(result =="NNNNN"){
+                            $("#email_check").css("color","red").text("이미 가입된 이메일입니다.");
+                            document.getElementById("email").value="";
+                        }
+                        else{
+                            if(!regExpEmail.test($email.val())){
+                                $("#email_check").css("color","red").text("유효한 이메일 형식이 아닙니다.");
+                                document.getElementById("email").value="";
+                            }
+                            else{
+                                $("#email_check").css("color","green").text("확인되었습니다.");
+                                $("#btn-terms2").prop("disabled",false);
+                            }
+                        }
+                    },
+                    error : function(){
+                                console.log("이메일 중복체크 ajax 통신 실패");
+                    }
+                  }); 
+                } 
             });
             // * MBTI 유효성 체크 
             $mbti.blur(function(){
@@ -461,7 +500,7 @@
                                 console.log("result : "+result);
                                 if(result =="NNNNN"){
                                     $("#nickname_check").css("color","red").text("이미 사용중인 닉네임입니다.");
-                                    $("#btn-terms3").prop("disabled",true); 
+                                    document.getElementById("nickname").value="";
                                 } else{
                                     $("#nickname_check").css("color","green").text("사용 가능한 닉네임입니다.");
                                     $("#btn-terms3").prop("disabled",false); 

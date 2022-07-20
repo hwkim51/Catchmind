@@ -26,6 +26,8 @@ public interface AdminService {
 	
 	int deleteMember(String userId);
 	
+	int deleteMemberAccount(String userId);
+	
 	int recoverMember(String userId);
 	
 	Member updateMember(Member m);

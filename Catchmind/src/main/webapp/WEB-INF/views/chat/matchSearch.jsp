@@ -152,6 +152,7 @@
     display: flex;
     justify-content: space-between;
     margin:  20px 0;
+    transform:translateY(-5px);
 }
 /* 게시글, 팔로워, 팔로잉 모양 스타일 */
 
@@ -204,17 +205,17 @@
 /* message 버튼 스타일 */
 .sub_menu_wrap{
 position:fixed;
-top: 210px;
+top: 160px;
 margin: 0px 15px 0px 25px;
 width: 180px;
-height: 320px;
+height: 465px;
 background: linear-gradient(to right, rgb(236, 3, 194) 10%, orange);
 border-radius: 10px;
 }
 .sub_menu{
 position:absolute;
 width: 160px;
-height:280px;
+height:425px;
 border-radius: 15px;
 background-color: white;
 padding: 20px 0px 0px 15px;
@@ -243,6 +244,10 @@ input[type="number"]::-webkit-inner-spin-button {
     margin-bottom: 20px;
     width: 40px;
     font-size: 14px;
+}
+#matchFilter #info{
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 .btn-matchSearch{
     font-size: 14px;
@@ -396,11 +401,17 @@ input[type="number"]::-webkit-inner-spin-button {
                             </select>
                             </div> <!-- user-mbti -->
                             <form id="matchFilter" action="searchList.ma">
-                           <input type="hidden" name="mbti" id="updateMbti"><br>
+                            <span class="subTitle">MBTI : </span>
+                           <input name="mbti" id="updateMbti" placeholder="${m.mbti }" style="margin:0px;" readonly><br>
                             <span class="subTitle">키 : </span>
-                                <input type="number" class="search_height" name="hlow" id="hlow" placeholder="이상" style="margin-left: 10px;"> - &nbsp; &nbsp;<input type="number" class="search_height" name="hhigh" id="hhigh" placeholder="이하"><br>
-                            <span class="subTitle">나이 : </span><input type="number" class="search_age" name="alow" id="alow" placeholder="이상"> - &nbsp; &nbsp;<input type="number" class="search_age" name="ahigh" id="ahigh" placeholder="이하"><br>
+                                <input type="number" class="search_height" name="hlow" id="hlow" placeholder="${m.hlow }" style="margin-left: 10px;"> - &nbsp; &nbsp;<input type="number" class="search_height" name="hhigh" id="hhigh" placeholder="${m.hhigh }"><br>
+                            <span class="subTitle">나이 : </span><input type="number" class="search_age" name="alow" id="alow" placeholder="${m.alow }"> - &nbsp; &nbsp;<input type="number" class="search_age" name="ahigh" id="ahigh" placeholder="${m.ahigh }"><br>
                             <button type="submit" id="searchbtn" class="btn-matchSearch">S E A R C H 🔍</button>
+                            
+                            <div id ="info">CATCHMIND는<br>최상의 상대 찾기를<br> 위한 알고리즘을<br> 지원합니다.</div>
+                            </form>
+                            <form action="matchList.ch">
+                            <button type="submit" id="searchbtn" class="btn-matchSearch">뒤로 가기</button>
                             </form>
     						</div> <!-- sub_menu -->
                         </div>
@@ -480,6 +491,9 @@ var swiper = new Swiper('.swiper-container', {
 				}
 			}
 		});
+	}
+	function listBack() {
+		window.history.back();
 	}
 	</script>
 	

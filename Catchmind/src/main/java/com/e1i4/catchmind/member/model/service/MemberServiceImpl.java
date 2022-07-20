@@ -202,6 +202,16 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.checkBlocked(sqlSession, b);
 	}
 
+	@Override
+	public int emailCheck(String email) {
+		return memberDao.emailCheck(sqlSession, email);
+	}
+
+	@Override
+	public int phoneCheck(String phone) {
+		return memberDao.phoneCheck(sqlSession, phone);
+	}
+
 	
 
 	

@@ -386,7 +386,7 @@
 		            	<div class="user-message" id="couple-message" align="left">
 			            	<c:choose>
 			            		<c:when test="${ coupleMem.profile eq null }">
-			            			나만의 상태메세지를 작성해주세요
+			            			아직 커플이 아닙니다
 			            		</c:when>
 			            		<c:otherwise>
 			            			${ coupleMem.profile }
