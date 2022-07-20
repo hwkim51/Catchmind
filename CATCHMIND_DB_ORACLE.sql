@@ -567,7 +567,7 @@ INSERT INTO TB_FAQ(FAQ_NO, FAQ_TITLE, FAQ_CONTENT)
 VALUES(SEQ_FNO.NEXTVAL, '회원 탈퇴는 어떻게 하나요?', '마이 페이지에서 탈퇴하기 버튼을 클릭하여 탈퇴 가능합니다.');
 -------------------------------------- MBTI --------------------------------------
 CREATE TABLE MBTI (
-    MBTI VARCHAR2(255) PRIMARY KEY,
+    MBTI VARCHAR2(255),
     MBTI_WITH VARCHAR2(255) NOT NULL,
     SCORE NUMBER NOT NULL
 );
