@@ -24,11 +24,12 @@
  		<result column="LATITUDE" property="latitude"/>
  	</resultMap>
 
-	<select id="matchList" parameterType="member" resultMap="memberResultSet">
+	<select id="selectMatchList" parameterType="member" resultMap="memberResultSet">
 		SELECT *
-		FROM TB_MEMBER A
-		WHERE GENDER != #{gender} AND STATUS = 0 AND A.USER_NO != 1
-		ORDER BY A.USER_NO DESC
+		FROM TB_MEMBER M
+		WHERE M.USER_NO != 1 AND GENDER != #{gender}
+		AND M.USER_NO NOT IN (SELECT BLOCKED_USER FROM TB_BLOCK WHERE TB_BLOCK.USER_NO=#{userNo})
+		ORDER BY M.USER_NO DESC
 	</select>
 	
 	<insert id="insertBlock" parameterType="block">

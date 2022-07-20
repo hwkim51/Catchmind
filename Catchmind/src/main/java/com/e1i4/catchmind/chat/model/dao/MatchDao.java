@@ -14,7 +14,7 @@ public class MatchDao {
 
 	public ArrayList<Member> matchList(SqlSessionTemplate sqlSession, Member m) {
 		
-		return (ArrayList) sqlSession.selectList("matchMapper.matchList", m);
+		return (ArrayList) sqlSession.selectList("matchMapper.selectMatchList", m);
 	}
 
 	public int insertBlock(SqlSessionTemplate sqlSession, Block b) {
