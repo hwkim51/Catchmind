@@ -1,6 +1,7 @@
 package com.e1i4.catchmind.chat.model.vo;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

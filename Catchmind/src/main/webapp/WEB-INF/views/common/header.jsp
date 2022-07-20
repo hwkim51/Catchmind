@@ -335,14 +335,13 @@
 	        		interval = setInterval(loginSignal, 2000);
 	        	}
 	        	else {				
-					console.log("비로그인");
+					console.log("loginSignal 멈춤");
 	        	}
         	}
         });
                 
     
         function loginSignal() {
-        	console.log("하이");
         	$.ajax({
         		url : "loginSignal.me",
         		data : {
@@ -352,8 +351,8 @@
         			if(result != "") {
         				
         				clearInterval(interval);
-        				console.log(result.chatClaimFrom.userNo); 
-        				console.log(result.roomNoWith); 
+        				// console.log(result.chatClaimFrom.userNo); 
+        				// console.log(result.roomNoWith); 
         				var answer = confirm(result.chatClaimFrom.nickname + "님으로부터 채팅 요청이 들어왔습니다.\n" + "채팅 요청에 응하시겠습니까?");
         				
         					
@@ -388,7 +387,6 @@
         					});
         				}
         			}
-        			console.log("다시 인터벌 시작");
         		},
         		error : function(){
         			console.log("header ajax problem");
