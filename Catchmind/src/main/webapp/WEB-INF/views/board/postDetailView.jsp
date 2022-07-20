@@ -428,8 +428,10 @@
       			data : {
       				repContent : $("#repContent").val(),
       				postNo : ${ p.postNo },
-      				replyNo : $("#replyNo").val(),
-      			},
+      				catchNo : 0, //추가(유진)
+              replyNo : ($("#replyNo").val() == "")? 0 : $("#replyNo").val() //댓글 여부 판별식(유진)
+            },
+              
       			success : function(result) {
       				if(result == "success") {
       					location.reload();

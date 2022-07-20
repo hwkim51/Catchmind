@@ -397,5 +397,14 @@
 		WHERE CATCH_NO =#{catchNo}
 	</update>
 	
+	<select id="selectReportCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM TB_REPORT
+	</select>
+	
+	<select id="selectReportList" resultMap="reportResultMap">
+		SELECT * 
+		FROM TB_REPORT 
+	</select>
 	
 </mapper>

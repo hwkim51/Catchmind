@@ -323,6 +323,8 @@
       			data : {
       				repContent : $("#repContent").val(),
       				catchNo : ${ c.catchNo },
+              postNo : 0, // 추가(유진)
+              replyNo : 0 // 추가(유진)
       			},
       			success : function(result) {
       				if(result == "success") {

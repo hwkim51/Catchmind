@@ -9,7 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.e1i4.catchmind.board.model.vo.Board;
 import com.e1i4.catchmind.board.model.vo.Catch;
 import com.e1i4.catchmind.board.model.vo.Post;
+import com.e1i4.catchmind.board.model.vo.Reply;
+import com.e1i4.catchmind.board.model.vo.Report;
 import com.e1i4.catchmind.catchboard.model.vo.CatchBoard;
+import com.e1i4.catchmind.common.model.vo.Attach;
 import com.e1i4.catchmind.common.model.vo.PageInfo;
 import com.e1i4.catchmind.faq.model.vo.Faq;
 import com.e1i4.catchmind.inquiry.model.vo.Inquiry;
@@ -228,5 +231,33 @@ public class AdminDao {
 
 	public int deleteCatch(SqlSessionTemplate sqlSession, int catchNo) {
 		return sqlSession.update("boardMapper.deletefncCatch", catchNo);
+	}
+	
+	public int selectReportCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectReportCount");
+	}
+	
+	public ArrayList<Report> selectReportList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReportList", null, rowBounds);
+	}
+	
+	public Post detailPostReport(SqlSessionTemplate sqlSession, int postNo) {
+		return sqlSession.selectOne("boardMapper.selectPost", postNo);
+	}
+	
+	public Attach selectFile(SqlSessionTemplate sqlSession, int attPost) {
+		return sqlSession.selectOne("boardMapper.selectFile", attPost);
+	}
+	
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int postNo) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", postNo);
+	}
+	
+	public Catch detailCatchReport(SqlSessionTemplate sqlSession, int catchNo) {
+		return sqlSession.selectOne("boardMapper.selectCatch", catchNo);
 	}
 }
