@@ -203,12 +203,13 @@
      $(document).on("click", "#chatButton", function(event){
     	//console.log($(this).next().next().text());
     	chatPage = 1;
+    	console.log("클릭");
     	alert("상대에게 채팅 신청 메시지를 보냈습니다.\n 잠시 기다려 주세요.");
     	$.ajax({
     		url : "sendRequest.ch",
     		data : {
     			userNo : ${loginUser.userNo},
-    			requestTo : $(this).next().text()
+    			requestTo : $(this).next().next().text()
     		},
     		success : function(data) {
     			if(data > 0) {

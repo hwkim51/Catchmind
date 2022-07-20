@@ -325,8 +325,6 @@
 		           				data : {replyNo : $(this).prev().prev().val()},
 		           			 	success : function(result) {
 		            				if(result == "success") {
-
-		            					console.log($("#rno").val());
 		            					location.reload();
 		            					window.alert("댓글이 삭제되었습니다!");
 		            				} else {

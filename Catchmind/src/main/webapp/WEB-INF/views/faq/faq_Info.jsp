@@ -44,7 +44,7 @@ body{
 }
 #btn1:hover{
     color: white;
-    background: linear-gradient(to right, rgb(236, 3, 194) 10%, orange);
+    background: linear-gradient( rgb(236, 3, 194) 10%, orange);
 }
 #faqImg{
     position: absolute;

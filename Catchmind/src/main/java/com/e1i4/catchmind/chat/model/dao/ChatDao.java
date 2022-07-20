@@ -3,6 +3,7 @@ package com.e1i4.catchmind.chat.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -93,6 +94,35 @@ public class ChatDao {
 	
 	public int chatReport(SqlSessionTemplate sqlSession, ChatReport cr) {
 		return sqlSession.insert("chatMapper.chatReport", cr);
+	}
+	
+	public int signalFromChatRoom(SqlSessionTemplate sqlSession, int roomNo, int userNo) {
+		HashMap map = sqlSession.selectOne("chatMapper.getUsers", roomNo);
+		if(userNo == Integer.parseInt(String.valueOf(map.get("USER_NO1")))) {
+			sqlSession.update("chatMapper.signalFromChatRoom1", roomNo);
+			return 1;
+		}
+		else {
+			sqlSession.update("chatMapper.signalFromChatRoom2", roomNo);
+			return 2;
+		}
+		
+	}
+	
+	public HashMap getRoomTimes(SqlSessionTemplate sqlSession, int roomNo) {
+		return sqlSession.selectOne("chatMapper.getRoomTimes", roomNo);
+	}
+	
+	public void clearRoom(SqlSession sqlSession, int roomNo) {
+		HashMap map = sqlSession.selectOne("chatMapper.getUsers", roomNo);
+		int userNo = Integer.parseInt(String.valueOf(map.get("USER_NO1")));
+		sqlSession.update("chatMapper.cancelRequest", userNo);
+		userNo = Integer.parseInt(String.valueOf(map.get("USER_NO2")));
+		sqlSession.update("chatMapper.cancelRequest", userNo);
+	}
+	
+	public int setRoomTime(SqlSession sqlSession, int roomNo) {
+		return sqlSession.update("chatMapper.setRoomTime", roomNo);
 	}
 	
 }

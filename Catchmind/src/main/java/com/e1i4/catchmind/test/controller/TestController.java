@@ -34,7 +34,7 @@ public class TestController {
 		
 		if(mbtiResult.equals("ESTP")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ESTP_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ESTP_ResultImg.png", 
 						 		  "브레이크 고장 난 8톤 트럭", 
 						 		  "ESTP",
 						 		  
@@ -52,7 +52,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("ESTJ")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ESTJ_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ESTJ_ResultImg.png", 
 						 		  "연애도 글로 배웠습니다... 갓선비", 
 						 		  "ESTJ", 
 
@@ -68,7 +68,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("ESFP")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ESFP_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ESFP_ResultImg.png", 
 						 		  "사랑에 빠지는 시간 3초면 OK, 금사빠", 
 						 		  "ESFP", 
 
@@ -85,7 +85,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("ESFJ")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ESFJ_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ESFJ_ResultImg.png", 
 								  "자발적 을의 연애 집사스타일", 
 								  "ESFJ", 
 								  
@@ -102,7 +102,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("ENFP")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ENFP_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ENFP_ResultImg.png", 
 								  "사랑을 찾아다니는 피터팬", 
 								  "ENFP", 
 						 
@@ -119,7 +119,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("ENFJ")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ENFJ_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ENFJ_ResultImg.png", 
 						 		  "쿠크다스 멘탈 연애 치어리더", 
 						 		  "ENFJ", 
 						 		  
@@ -137,7 +137,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("ENTP")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ENTP_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ENTP_ResultImg.png", 
 								  "노빠꾸 직진 연애불도저", 
 								  "ENTP", 
 						
@@ -155,7 +155,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("ENTJ")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ENTJ_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ENTJ_ResultImg.png", 
 						 		  "인내심 바닥난 연애CEO", 
 						 		  "ENTJ", 
 						 
@@ -174,7 +174,7 @@ public class TestController {
 				
 		} else if(mbtiResult.equals("ISTJ")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ISTJ_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ISTJ_ResultImg.png", 
 								  "리액션 고장난 연애봇", 
 								  "ISTJ", 
 								  
@@ -192,7 +192,7 @@ public class TestController {
 						
 		} else if(mbtiResult.equals("ISTP")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ISTP_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ISTP_ResultImg.png", 
 								  "개쌍마이웨이 연애주의자", 
 								  "ISTP", 
 								  
@@ -210,7 +210,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("ISFJ")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ISFJ_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ISFJ_ResultImg.png", 
 								  "뒤끝 오지는 사랑집착꾼", 
 								  "ISFJ", 
 								  
@@ -228,7 +228,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("ISFP")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ISFP_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ISFP_ResultImg.png", 
 								  "귀차니즘 만렙 프로긍정러", 
 								  "ISFP", 
 								  
@@ -245,7 +245,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("INFJ")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/INFJ_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/INFJ_ResultImg.png", 
 								  "겉바속촉 연애꿈나무", 
 								  "INFJ", 
 								  
@@ -262,7 +262,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("INFP")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/INFP_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/INFP_ResultImg.png", 
 								  "망상에 사는 프로 연애 철벽러", 
 								  "INFP", 
 								  
@@ -279,7 +279,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("INTJ")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/INTJ_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/INTJ_ResultImg.png", 
 						 		  "고집만렙 연애분석가", 
 						 		  "INTJ", 
 						 		  
@@ -296,7 +296,7 @@ public class TestController {
 			
 		} else if(mbtiResult.equals("INTP")) {
 			
-			testResult = new Test("./resources/images/mbtiResult/ESTP_ResultImg.jpg", 
+			testResult = new Test("./resources/images/mbtiResult/ESTP_ResultImg.png", 
 						 		  "연애성공률 1% 나르시스트", 
 						 		  "INTP", 
 						 		  

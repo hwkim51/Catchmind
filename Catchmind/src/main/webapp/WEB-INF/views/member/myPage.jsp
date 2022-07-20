@@ -52,7 +52,8 @@
     }
     
     #profileModal .modal-header, #addressModal .modal-header,
-    #coupleUserModal .modal-header, #withdrawModal .modal-header {
+    #coupleUserModal .modal-header, #withdrawModal .modal-header,
+    #updatePwdModal .modal-header {
         border-bottom: none !important;
     }
 
@@ -189,10 +190,19 @@
         text-align: center;
     }
 
-    .profile-updateBtn, .searchAddress-btn, .info-updateBtn, #addressConfirm, .couple-deleteBtn {
+    .profile-updateBtn, .searchAddress-btn, .info-updateBtn, #addressConfirm, .couple-deleteBtn, .updatePwd-btn,
+    .deleteMem-btn {
         background-color: orange !important;
         color: white !important;
         margin: auto;
+    }
+    
+    .deleteMem-btn {
+    	margin: 15px 0px 0px 0px;
+    }
+    
+    .updatePwd-btn {
+    	margin: 15px 0px 0px 0px;
     }
     
     .couple-deleteBtn {
@@ -233,7 +243,7 @@
 <!-- 아이콘 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <!-- 카카오 지도 -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=956802711dedb458183bf488112a9357&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77749acda3a6480214504c82f0f3e2fe&libraries=services"></script>
 </head>
 <body>
 
@@ -262,7 +272,15 @@
         			<img class="profile-img" src="${ loginUser.pic }">
         		</c:otherwise>
         	</c:choose>
-            <div class="user-mbti">${ loginUser.mbti }</div>
+            <div class="user-mbti">
+            	<c:choose>
+            		<c:when test="${ loginUser.mbti eq '0'}">
+            		</c:when>
+            		<c:otherwise>
+            			${ loginUser.mbti }
+            		</c:otherwise>
+            	</c:choose>
+            </div>
             <div class="user-nickname">
             	${ loginUser.nickname } 
                 <font id="user-age">
@@ -270,7 +288,7 @@
                 	<script>
                 		$(function() {
                 			// 회원의 생일이 null이 아닌 경우만 나이 추출
-                			if(${loginUser.birthDay} != null) {
+                			if("${ loginUser.birthDay }" != "") {
                 				var now = new Date().getFullYear(); // 현재 년도
                     			
                     			var birthDay = "${ loginUser.birthDay }"; 
@@ -349,7 +367,7 @@
 			                	<script>
 			                		$(function() {
 			                			// 회원의 생일이 null이 아닌 경우만 나이 추출
-			                			if(${coupleMem.birthDay} != null) {
+			                			if("${coupleMem.birthDay}" != "") {
 			                				var now = new Date().getFullYear(); // 현재 년도
 			                    			
 			                    			var birthDay = "${ coupleMem.birthDay }"; 
@@ -632,14 +650,14 @@
 	                    </td>
 	                </tr>
 	                <tr>
-	                    <td>주소</td>
+	                    <td>주변 역</td>
 	                    <td>
 	                    	<input type="text" class="form-control" name="address" value="${ address }" readonly>
 	                    	<input type="hidden" class="form-control" name="latitude" value="${ loginUser.latitude }">
 	                    	<input type="hidden" class="form-control" name="longitude" value="${ loginUser.longitude }">
 	                    </td>
 	                    <td width="110px" align="right">
-	                        <button type="button" class="btn findAddress-btn" data-toggle="modal" data-target="#addressModal" onclick="resizeMap()">주소 찾기</button>
+	                        <button type="button" class="btn findAddress-btn" data-toggle="modal" data-target="#addressModal" onclick="resizeMap()">주변 역 찾기</button>
 	                    </td>
 	                </tr>
 	                <tr>
@@ -660,7 +678,7 @@
         
         <!-- 회원 탈퇴 모달 -->
         <div class="modal" id="withdrawModal">
-        	<div class="modal-dialog">
+        	<div class="modal-dialog"> 
         		<div class="modal-content">
         		
         			<!-- 회원 탈퇴 모달 헤더 -->
@@ -668,33 +686,49 @@
         				<button type="button" class="close" data-dismiss="modal">&times;</button>
         			</div>
         			
-        			<!-- 회원 탈퇴 모달 헤더 -->
+        			<!-- 회원 탈퇴 모달 바디 -->
         			<div class="modal-body">
-        				<table border="1">
-        					<tr>
-        						<td colspan="2">안전한 회원탈퇴를 위해, 비밀번호를 확인해주세요.</td>
-        					</tr>
-        					<tr>
-        						<td>아이디</td>
-        						<td>
-        							<input type="text" class="form-control" name="userId" value="${ loginUser.userId }" readonly>
-        						</td>
-        					</tr>
-        					<tr>
-        						<td>비밀번호</td>
-        						<td>
-        							<input type="text" class="form-control" name="userPwd">
-        						</td>
-        					</tr>
-        				
-        				</table>
-        			
+        				<form action="deleteMember" id="deleteMember" method="post">
+        					<div style="font-size: 18px; font-family: 'IBM Plex Sans KR', sans-serif; width: 310px; margin-bottom: 10px" align="left">
+        						안전한 회원탈퇴를 위해, <br>
+        						비밀번호를 확인해주세요.
+        					</div>
+	        				<table>
+	        					<tr>
+	        						<td width="80" height="40">아이디</td>
+	        						<td width="230">
+	        							<input type="hidden" name="userId" value="${ loginUser.userId }">
+	        							<div>${ loginUser.userId }</div>
+	        						</td>
+	        					</tr>
+	        					<tr>
+	        						<td>비밀번호</td>
+	        						<td>
+	        							<input type="text" class="form-control" name="userPwd">
+	        						</td>
+	        					</tr>
+	        				</table>
+	                        <input type="button" class="btn deleteMem-btn" value="탈퇴하기">
+                        </form>
         			</div>
-        		
         		</div>
-        	</div>
+            </div>
         </div>
-        
+        <script>
+        	$(function() {
+        		$(".deleteMem-btn").click(function() {
+        			
+        			var inputUserPwd = $("#withdrawModal input[name=userPwd]").val();
+        			var userPwd = "${ loginUser.userPwd }";
+        			
+        			if(inputUserPwd != userPwd) {
+        				alert("비밀번호를 다시 확인해주세요.");	
+        			} else {
+        				$("#deleteMember").submit();
+        			}
+        		});
+        	});
+        </script>
         <!-- 비밀번호 수정 모달 -->
         <div class="modal" id="updatePwdModal">
         	<div class="modal-dialog">
@@ -709,14 +743,24 @@
         			<div class="modal-body">
         				<form action="infoUpdatePwd.me" method="post" id="infoChangePwdForm">
 	        				<input type="hidden" class="form-control" name="userId" value="${ loginUser.userId }">
-	        				<!-- 기존 비밀번호 입력 -->
-	        				<input type="text" class="form-control" name="originPwd">
-	        				<div id="checkOriginPwd" style="font-size:0.8em; display:none;"></div>
-	        				
-	        				<!-- 변경할 비밀번호 입력 -->
-	        				<input type="text" class="form-control" id="userPwd" name="userPwd" readonly>
-	        				<div id="checkUpdatePwd" style="font-size:0.8em; display:none;"></div>
-	        				<input type="submit" class="btn" value="비밀번호 변경">
+	        				<table>
+	        					<!-- 기존 비밀번호 입력 -->
+	        					<tr>
+	        						<td width="130">기존 비밀번호</td>
+	        						<td>
+	        							<input type="text" class="form-control" name="originPwd" style="width: 280px;">
+	        						</td>
+	        					</tr>
+	        					<!-- 변경할 비밀번호 입력 -->
+	        					<tr>
+	        						<td>변경할 비밀번호</td>
+	        						<td>
+	        							<input type="text" class="form-control" id="userPwd" name="userPwd" style="width: 280px" readonly>
+	        							<div id="checkUpdatePwd" style="font-size:0.8em; display:none;"></div>
+	        						</td>
+	        					</tr>
+	        				</table>
+	        				<input type="submit" class="btn updatePwd-btn" value="비밀번호 변경">
         				</form>
         			</div>
         			<script>
@@ -738,10 +782,6 @@
 			        					success : function(result) {
 			        						
 			        						if(result == "NNNNY") { // 기존 비밀번호 일치
-			        							
-			        							// 비밀번호 변경 허용 메세지 출력
-			        							$("#checkOriginPwd").show();
-			        							$("#checkOriginPwd").css("color", "blue").text("기존 비밀번호와 일치합니다. 변경할 비밀번호를 아래에 입력해 주세요.");
 			        							
 			        							// 수정할 비밀번호 입력칸 활성화
 			        							changePwd.attr("readonly", false);
@@ -807,14 +847,13 @@
         				
                         <form onsubmit="searchAddress(); return false;">
                             <div class="input-group mb-3" style="width: 400px;">
-                                <input type="text" class="form-control" id="keyword" placeholder="주소를 입력하세요">
+                                <input type="text" class="form-control" id="keyword" placeholder="주변 역을 입력하세요">
                                 <div class="input-group-append">
                                   <button type="submit" class="btn searchAddress-btn">검색</button>
                                 </div>
                             </div>
                         </form>
-        				<p id="result"></p>
-        				<div id="map" style="width: 100%; height: 500px; margin-bottom: 20px;"></div>
+        				<div id="map" style="width: 100%; height: 450px; margin-bottom: 20px;"></div>
 
                         <button class="btn" id="addressConfirm">확인</button>
 
@@ -835,7 +874,7 @@
                             function resizeMap() {
                                 var mapContainer = document.getElementById('map');
                                 mapContainer.style.width = '100%';
-                                mapContainer.style.height = '500px';
+                                mapContainer.style.height = '450px';
 
                                 setTimeout(function(){ map.relayout(); }, 0);
                             }
@@ -902,8 +941,8 @@
                                     addressLat = marker.getPosition().getLat(); // 클릭한 마커의 위도
                                     addressLng = marker.getPosition().getLng(); // 클릭한 마커의 경도
                                     
-                                    var message = '클릭한 위치의 위도는 ' + addressLat + ' 이고, ';
-                                        message += '경도는 ' + addressLng + ' 입니다';
+                                    // var message = '클릭한 위치의 위도는 ' + addressLat + ' 이고, ';
+                                    //     message += '경도는 ' + addressLng + ' 입니다';
                                         
                                     var resultDiv = document.getElementById('result');
                                     resultDiv.innerHTML = message;
@@ -915,7 +954,7 @@
                             $(function() {
 
                                 $("#addressConfirm").click(function() {
-                                    if(confirm(placeName + "을 주소로 지정하시겠습니까?")) { // 주소 확인
+                                    if(confirm(placeName + "을 주변 역으로 지정하시겠습니까?")) { // 주소 확인
                                         $("#addressModal").modal('hide');
                                     	$("input[name=address]").val(placeName);
                                     	$("input[name=latitude]").val(addressLat);

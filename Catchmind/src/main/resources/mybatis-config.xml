@@ -23,6 +23,7 @@
 		<typeAlias type="com.e1i4.catchmind.board.model.vo.Like" alias="like"/>
 		<typeAlias type="com.e1i4.catchmind.chat.model.vo.Chat" alias="chat" />
 		<typeAlias type="com.e1i4.catchmind.chat.model.vo.ChatReport" alias="chatReport" />
+		<typeAlias type="com.e1i4.catchmind.chat.model.vo.SearchMatch" alias="searchMatch" />
 	</typeAliases>
 	
 	<mappers>

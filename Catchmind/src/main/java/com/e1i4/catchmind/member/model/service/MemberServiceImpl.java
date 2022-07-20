@@ -47,8 +47,8 @@ public class MemberServiceImpl implements MemberService  {
 
 	// 회원 탈퇴 서비스 (update)
 	@Override
-	public int deleteMember(String userId) {
-		return 0;
+	public int deleteMember(Member m) {
+		return memberDao.deleteMember(sqlSession, m);
 	}
 
 	// 회원정보수정서비스 (update)
@@ -197,6 +197,12 @@ public class MemberServiceImpl implements MemberService  {
 		return memberDao.blockMember(sqlSession, b);
 	}
 
+	@Override
+	public int checkBlocked(Block b) {
+		return memberDao.checkBlocked(sqlSession, b);
+	}
+
+	
 
 	
 	

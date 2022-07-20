@@ -45,7 +45,7 @@ public class MemberDao {
 		
 		int result = sqlSession.insert("memberMapper.insertMember", m);
 		String userId = m.getUserId();
-		int userNo = Integer.parseInt(String.valueOf(sqlSession.selectOne("memberMapper.selectMemberById", userId)));
+		int userNo = (Integer)sqlSession.selectOne("memberMapper.selectMemberById", userId);
 		sqlSession.insert("chatMapper.insertChatClaim", userNo);
 		return result;
 	}
@@ -167,5 +167,14 @@ public class MemberDao {
 	// 마이페이지 - 커플 삭제 서비스(update)
 	public int deleteCouple(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.deleteCouple", m);
+	}
+	
+	// 마이페이지 - 회원 탈퇴 서비스(update)
+	public int deleteMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.deleteMember", m);
+	}
+	
+	public int checkBlocked(SqlSessionTemplate sqlSession, Block b) {
+		return sqlSession.selectOne("memberMapper.checkBlocked", b);
 	}
 }

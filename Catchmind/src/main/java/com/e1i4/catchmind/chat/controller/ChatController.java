@@ -23,6 +23,7 @@ import com.e1i4.catchmind.chat.model.vo.Chat;
 import com.e1i4.catchmind.chat.model.vo.ChatReport;
 import com.e1i4.catchmind.member.model.service.MemberService;
 import com.e1i4.catchmind.member.model.vo.Block;
+import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
  
 @Controller
@@ -161,8 +162,12 @@ public class ChatController {
 			b.setBlockedUser(userNo);
 			int result = memberService.blockMember(b);
 			if(result > 0) {
+				Follow f = new Follow();
+				f.setFoUser(user);
+				f.setFoedUser(userNo);
+				memberService.unfollowMember(f);
 				model.addAttribute("alertMsg", "차단 성공");
-				return "common/main";
+				return "main";
 			} else {
 				
 				model.addAttribute("errorMsg", "차단 실패");
@@ -173,5 +178,45 @@ public class ChatController {
 			return "redirect:/";
 		}
 	}
+    
+    @ResponseBody
+    @RequestMapping("signalFromChatRoom.ch")
+    public int signalFromChatRoom(String roomNo, String userNo) {
+    	int roomNoTemp = Integer.parseInt(roomNo);
+    	int userNoTemp = Integer.parseInt(userNo);
+    	int result = chatService.signalFromChatRoom(roomNoTemp, userNoTemp);
+    	HashMap map = chatService.getRoomTimes(roomNoTemp);
+    	Long recentTime;
+    	if(result == 1) {
+    		recentTime = ((Date)map.get("ROOMTIME2")).getTime();
+    	}
+    	else {
+    		recentTime = ((Date)map.get("ROOMTIME1")).getTime();
+    	}
+    	// Long recentLogout = getRecentLogout().getTime();
+		// System.out.println("recentTime : " + recentTime);
+		
+		Long sysdateTime = new Date().getTime();
+		// System.out.println("sysdateTime : " + sysdateTime);
+		
+		long timediff = sysdateTime - recentTime;
+		// System.out.println("timediff :" + timediff);
+		
+		if(timediff > 10000){
+			chatService.clearRoom(roomNoTemp);
+			return 0;
+		} else {
+			return 1;
+		}
+    }
+    
+    @ResponseBody
+    @RequestMapping("setRoomTime.ch")
+    public int setRoomTime(String roomNo) {
+    	int roomNoTemp = Integer.parseInt(roomNo);
+    	int result = chatService.setRoomTime(roomNoTemp);
+    	return result;
+    	
+    }
 
 }

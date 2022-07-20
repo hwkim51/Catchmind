@@ -471,7 +471,6 @@ public class MemberController {
 		
 		int userNo1 = Integer.parseInt(userNo);
 		int result = memberService.loginSignal(userNo1);
-		
 		int roomNo = 0;
 		if(result > 0) {
 			
@@ -484,7 +483,21 @@ public class MemberController {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("chatClaimFrom", m);
 				map.put("roomNoWith", roomNo);
-				return map;
+				
+					Block b = new Block();
+					b.setUserNo(userNo1);
+					b.setBlockedUser(userNo2);
+					int checkBlocked = memberService.checkBlocked(b);
+					
+					if(checkBlocked == 0) {
+						return map;
+					}
+					else {
+						chatService.cancelRequest(userNo1);
+						return null;
+					}
+				
+				
 			}
 		}
 		
@@ -720,6 +733,26 @@ public class MemberController {
 		}
 	}
 	
+	// 마이페이지 - 회원 탈퇴
+	@RequestMapping("deleteMember")
+	public String deleteMember(Member m, HttpSession session, Model model) {
+		
+		int result = memberService.deleteMember(m);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "지금까지 캐치마인드를 이용해주셔서 감사합니다.");
+			session.removeAttribute("loginUser");
+			
+			return "main";
+			
+		} else {
+			model.addAttribute("errorMsg", "회원 탈퇴 실패");
+			
+			return "common/errorPage";
+		}
+	}
+		
 	//팔로우하는 메소드(유진)
 	@RequestMapping("follow.me")
 	public String followMember(int userNo, 

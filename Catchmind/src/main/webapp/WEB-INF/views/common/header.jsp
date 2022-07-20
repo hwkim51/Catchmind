@@ -297,7 +297,6 @@
         var membericon = document.querySelector("#membericon");
         
         function myPage(){
-        	console.log("마이페이지");
             if("${loginUser}" != ""){
             	/* myPage 이동 시 회원의 userId, userPwd 데이터 전달 */
             	var form = document.createElement('form');
@@ -353,7 +352,7 @@
             				
             				clearInterval(interval);
             				// console.log(result.chatClaimFrom.userNo); 
-            				// console.log(result.roomNoWith); 
+            				// console.log(result.roomNoWith);
             				var answer = confirm(result.chatClaimFrom.nickname + "님으로부터 채팅 요청이 들어왔습니다.\n" + "채팅 요청에 응하시겠습니까?");
             				
             					
