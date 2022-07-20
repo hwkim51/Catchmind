@@ -71,14 +71,14 @@
 	<select id="searchList1" parameterType="searchMatch" resultMap="memberResultSet">
 		SELECT *
 		FROM TB_MEMBER M
-		WHERE M.USER_NO != 1 AND GENDER != #{gender} AND HEIGHT BETWEEN #{hlow} AND #{hhigh} AND TO_NUMBER(SUBSTR(SYSDATE,1,2))-TO_NUMBER(SUBSTR(BIRTHDAY,1,2))+1 BETWEEN #{alow} AND #{ahigh}
+		WHERE M.USER_NO != 1 AND GENDER != #{gender} AND HEIGHT BETWEEN #{hlow} AND #{hhigh} AND TO_NUMBER(SUBSTR(SYSDATE,1,2))-TO_NUMBER(SUBSTR(BIRTHDAY,1,2))+100 BETWEEN #{alow} AND #{ahigh}
 		AND M.USER_NO NOT IN (SELECT BLOCKED_USER FROM TB_BLOCK WHERE TB_BLOCK.USER_NO= #{userNo})
 		ORDER BY M.USER_NO DESC
 	</select>
 		<select id="searchList2" parameterType="searchMatch" resultMap="memberResultSet">
 		SELECT *
 		FROM TB_MEMBER M
-		WHERE M.USER_NO != 1 AND GENDER != #{gender} AND HEIGHT BETWEEN #{hlow} AND #{hhigh} AND TO_NUMBER(SUBSTR(SYSDATE,1,2))-TO_NUMBER(SUBSTR(BIRTHDAY,1,2))+1 BETWEEN #{alow} AND #{ahigh} AND MBTI = #{mbti}
+		WHERE M.USER_NO != 1 AND GENDER != #{gender} AND HEIGHT BETWEEN #{hlow} AND #{hhigh} AND TO_NUMBER(SUBSTR(SYSDATE,1,2))-TO_NUMBER(SUBSTR(BIRTHDAY,1,2))+100 BETWEEN #{alow} AND #{ahigh} AND MBTI = #{mbti}
 		AND M.USER_NO NOT IN (SELECT BLOCKED_USER FROM TB_BLOCK WHERE TB_BLOCK.USER_NO= #{userNo})
 		ORDER BY M.USER_NO DESC
 	</select>
