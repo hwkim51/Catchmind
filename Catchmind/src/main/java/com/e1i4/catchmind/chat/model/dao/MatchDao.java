@@ -13,9 +13,17 @@ import com.e1i4.catchmind.member.model.vo.Member;
 @Repository
 public class MatchDao {
 
-	public ArrayList<Member> matchList(SqlSessionTemplate sqlSession, Member m) {
+	public ArrayList<Member> matchList3(SqlSessionTemplate sqlSession, Member m) {
 		
-		return (ArrayList) sqlSession.selectList("matchMapper.selectMatchList", m);
+		return (ArrayList) sqlSession.selectList("matchMapper.selectMatchList3", m);
+	}
+	public ArrayList<Member> matchList2(SqlSessionTemplate sqlSession, Member m) {
+		
+		return (ArrayList) sqlSession.selectList("matchMapper.selectMatchList2", m);
+	}
+	public ArrayList<Member> matchList1(SqlSessionTemplate sqlSession, Member m) {
+		
+		return (ArrayList) sqlSession.selectList("matchMapper.selectMatchList1", m);
 	}
 
 	public int insertBlock(SqlSessionTemplate sqlSession, Block b) {

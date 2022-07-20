@@ -1,6 +1,10 @@
 package com.e1i4.catchmind.chat.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +20,6 @@ import com.e1i4.catchmind.chat.model.vo.SearchMatch;
 import com.e1i4.catchmind.member.model.vo.Block;
 import com.e1i4.catchmind.member.model.vo.Follow;
 import com.e1i4.catchmind.member.model.vo.Member;
-import com.google.gson.Gson;
 
 @Controller
 public class MatchController {
@@ -32,12 +35,28 @@ public class MatchController {
 	public String matchList(HttpSession session, Model model) {
 		
 		if((Member) session.getAttribute("loginUser")!= null) {
-		Member m = (Member) session.getAttribute("loginUser");
-		ArrayList<Member> result = mdao.matchList(sqlSession, m);
-		
-		model.addAttribute("mlist", result);
-		
-		return "chat/matchListView";
+			Member m = (Member) session.getAttribute("loginUser");
+			ArrayList<Member> result = mdao.matchList3(sqlSession, m);
+			List<Map.Entry<Member, Double>> sortedResult = sortByDistance(result, m);
+			ArrayList<Member> mlist = new ArrayList<>();
+			for(Map.Entry<Member, Double> map : sortedResult) {
+				mlist.add(map.getKey());
+			}
+
+			result = mdao.matchList2(sqlSession, m);
+			sortedResult = sortByDistance(result, m);
+			for(Map.Entry<Member, Double> map : sortedResult) {
+				mlist.add(map.getKey());
+			}
+
+			result = mdao.matchList1(sqlSession, m);
+			sortedResult = sortByDistance(result, m);
+			for(Map.Entry<Member, Double> map : sortedResult) {
+				mlist.add(map.getKey());
+			}		
+			model.addAttribute("mlist", mlist);
+			
+			return "chat/matchListView";
 		} else {
 			session.setAttribute("alertMsg", "로그인 후 이용가능합니다.");
 			return "main";
@@ -143,5 +162,38 @@ public class MatchController {
 			return "main";
 		}
 		
+	}
+	
+	public List<Map.Entry<Member, Double>> sortByDistance(ArrayList<Member> result, Member m) {
+		
+		Map<Member, Double> map = new HashMap<>();
+		
+		for(Member tempMember : result) {
+			map.put(tempMember, getDistance(tempMember, m));
+		}
+		
+		List<Map.Entry<Member, Double>> entryList = new LinkedList<>(map.entrySet());
+		entryList.sort(Map.Entry.comparingByValue());
+		return entryList;
+	};
+	
+	public double getDistance(Member distanceTo, Member m) {
+		
+		final double RADIUS = 6372.8;
+		
+		double mlat = m.getLatitude();
+		double mlon = m.getLongitude();
+		double distanceToLat = distanceTo.getLatitude();
+		double distanceToLon = distanceTo.getLongitude();
+		
+		double latDiff = Math.toRadians(distanceToLat - mlat);
+        double lonDiff = Math.toRadians(distanceToLon - mlon);
+        
+        mlat = Math.toRadians(mlat);
+        distanceToLat = Math.toRadians(distanceToLat);        
+		
+        double result = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(latDiff / 2),2) + Math.pow(Math.sin(lonDiff / 2),2) * Math.cos(mlat) * Math.cos(distanceToLat)));
+        
+		return RADIUS * result;
 	}
 }

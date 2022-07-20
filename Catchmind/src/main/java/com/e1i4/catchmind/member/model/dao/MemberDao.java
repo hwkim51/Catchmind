@@ -45,7 +45,7 @@ public class MemberDao {
 		
 		int result = sqlSession.insert("memberMapper.insertMember", m);
 		String userId = m.getUserId();
-		int userNo = Integer.parseInt(String.valueOf(sqlSession.selectOne("memberMapper.selectMemberById", userId)));
+		int userNo = (Integer)sqlSession.selectOne("memberMapper.selectMemberById", userId);
 		sqlSession.insert("chatMapper.insertChatClaim", userNo);
 		return result;
 	}

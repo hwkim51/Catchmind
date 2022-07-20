@@ -233,7 +233,7 @@
 <!-- 아이콘 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <!-- 카카오 지도 -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=956802711dedb458183bf488112a9357&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77749acda3a6480214504c82f0f3e2fe&libraries=services"></script>
 </head>
 <body>
 
@@ -902,8 +902,8 @@
                                     addressLat = marker.getPosition().getLat(); // 클릭한 마커의 위도
                                     addressLng = marker.getPosition().getLng(); // 클릭한 마커의 경도
                                     
-                                    var message = '클릭한 위치의 위도는 ' + addressLat + ' 이고, ';
-                                        message += '경도는 ' + addressLng + ' 입니다';
+                                    // var message = '클릭한 위치의 위도는 ' + addressLat + ' 이고, ';
+                                    //     message += '경도는 ' + addressLng + ' 입니다';
                                         
                                     var resultDiv = document.getElementById('result');
                                     resultDiv.innerHTML = message;

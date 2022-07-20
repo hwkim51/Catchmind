@@ -24,11 +24,30 @@
  		<result column="LATITUDE" property="latitude"/>
  	</resultMap>
 
-	<select id="selectMatchList" parameterType="member" resultMap="memberResultSet">
+	<select id="selectMatchList3" parameterType="member" resultMap="memberResultSet">
 		SELECT *
 		FROM TB_MEMBER M
 		WHERE M.USER_NO != 1 AND GENDER != #{gender}
 		AND M.USER_NO NOT IN (SELECT BLOCKED_USER FROM TB_BLOCK WHERE TB_BLOCK.USER_NO=#{userNo})
+		AND M.MBTI IN (SELECT MBTI_WITH FROM MBTI WHERE SCORE = 3 AND MBTI = #{mbti})
+		ORDER BY M.USER_NO DESC
+	</select>
+	
+	<select id="selectMatchList2" parameterType="member" resultMap="memberResultSet">
+		SELECT *
+		FROM TB_MEMBER M
+		WHERE M.USER_NO != 1 AND GENDER != #{gender}
+		AND M.USER_NO NOT IN (SELECT BLOCKED_USER FROM TB_BLOCK WHERE TB_BLOCK.USER_NO=#{userNo})
+		AND M.MBTI IN (SELECT MBTI_WITH FROM MBTI WHERE SCORE = 2 AND MBTI = #{mbti})
+		ORDER BY M.USER_NO DESC
+	</select>
+	
+	<select id="selectMatchList1" parameterType="member" resultMap="memberResultSet">
+		SELECT *
+		FROM TB_MEMBER M
+		WHERE M.USER_NO != 1 AND GENDER != #{gender}
+		AND M.USER_NO NOT IN (SELECT BLOCKED_USER FROM TB_BLOCK WHERE TB_BLOCK.USER_NO=#{userNo})
+		AND M.MBTI IN (SELECT MBTI_WITH FROM MBTI WHERE SCORE = 1 AND MBTI = #{mbti})
 		ORDER BY M.USER_NO DESC
 	</select>
 	
