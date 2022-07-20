@@ -23,7 +23,7 @@
 
     .mbtiResult-img {
         width: 500px;
-        margin-top: 50px;
+        margin-top: 40px;
     }
 
     .mbtiResult-title {
@@ -95,7 +95,6 @@
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	
-    <hr>
     <div class="mbtiResult-area" align="center" data-aos="fade-up" data-aos-duration="1000">
         <img class="mbtiResult-img" src="${ testResult.mbtiImg }">
         <div class="mbtiResult-title" data-aos="fade-up" data-aos-duration="1000">${ testResult.mbtiTitle }</div>

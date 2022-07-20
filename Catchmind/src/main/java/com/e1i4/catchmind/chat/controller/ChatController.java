@@ -44,6 +44,7 @@ public class ChatController {
         if(chat.getRoomNo() != 0) {
         	chatService.insertChat(chat);
         }
+        chat.setChatTime(chat.getChatTime().substring(8, 10) + ":" + chat.getChatTime().substring(10, 12));
         return chat;
     }
     
@@ -53,6 +54,16 @@ public class ChatController {
     	HashMap map = chatService.getUsers(roomNo);
     	model.addAttribute("users", map);
     	ArrayList<Chat> list = chatService.getChatLog(roomNo);
+    	for(int i = 1; i < list.size(); i++) {
+    		if(list.get(i).getChatTime().substring(8, 12).equals(list.get(i-1).getChatTime().substring(8, 12))) {
+    			list.get(i-1).setChatTime("");
+    		}
+    	}
+    	for(int i = 0; i < list.size(); i++) {
+    		if(!list.get(i).getChatTime().equals("")) {
+    			list.get(i).setChatTime(list.get(i).getChatTime().substring(8, 10) + ":" +list.get(i).getChatTime().substring(10, 12));
+    		}
+    	}
     	model.addAttribute("chatlist", list);
     	return "chat/chatTemp";
     }
