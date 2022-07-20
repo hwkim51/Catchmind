@@ -269,12 +269,12 @@
 	
 	<insert id="blockMember" parameterType="block">
 		INSERT INTO TB_BLOCK(USER_NO, BLOCKED_USER)
-			SELECT #{userNo}, #{blockedUser} 
-			  FROM dual
-			 WHERE NOT EXISTS (SELECT USER_NO, BLOCKED_USER 
-			                     FROM TB_BLOCK 
-			                    WHERE USER_NO = #{userNo} 
-			                      AND BLOCKED_USER = #{blockedUser})
+		SELECT #{userNo}, #{blockedUser} 
+		  FROM dual
+		 WHERE NOT EXISTS (SELECT USER_NO, BLOCKED_USER 
+			                 FROM TB_BLOCK 
+			                WHERE USER_NO = #{userNo} 
+			                  AND BLOCKED_USER = #{blockedUser})
 	</insert>
 	
 	<select id="selectCoupleInfo" parameterType="string" resultMap="memberResultSet">
@@ -288,4 +288,5 @@
 		   SET PARTNER = 0
 		 WHERE USER_ID = #{userId}
 	</update>
+	
 </mapper>

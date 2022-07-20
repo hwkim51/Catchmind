@@ -734,16 +734,17 @@ public class MemberController {
 			
 			int result = memberService.followMember(f);
 			if(result > 0) {
-				
+				session.setAttribute("alertMsg", "해당 회원을 팔로우합니다.");
 				return "chat/matchListView";
 			} else {
 				
-				model.addAttribute("errorMsg", "팔로우 실패");
-				return "common/errorPage";
+				session.setAttribute("alertMsg", "이미 팔로우한 회원입니다.");
+				return "chat/matchListView";
 			}
 		}
 		else {
-			return "redirect:/";
+			model.addAttribute("errorMsg", "팔로우 실패");
+			return "common/errorPage";
 		}
 	}
 	

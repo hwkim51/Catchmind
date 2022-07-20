@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Catchmind</title>
+<title>CATCHMIND | 캐치마인드</title>
 <style>
     body{
         margin:auto;
@@ -76,6 +76,12 @@
         height : 100%;
         line-height : 50px;
     }
+    
+    .block-empty{
+    	text-align: center;
+    	padding-top: 40px;
+    	padding-right: 100px;    	
+    }
     </style>
 </head>
 <body>
@@ -100,34 +106,41 @@
     <div class="content">
         <div class="innerContent">
             <table align="center" id="blockTable">
-                <tbody>
-                <c:forEach var="bl" items="${list }"> 
-                    <tr>
-                    	<th class="box" style="background: white;">
-		           			<c:choose>
-		           			<c:when test="${empty bl.pic }">
-		                        <img class="profile" src="resources/images/user.png">
-		                    </c:when>
-		                    <c:otherwise>
-		                    	<img class="profile" src="${bl.pic }">
-		                    </c:otherwise>   
-		                    </c:choose> 
-		                </th>
-                    	<td>${bl.mbti }</td>
-	                    <td>${bl.nickname }</td>
-	                    <c:choose>
-		                    <c:when test="${empty bl.profile }">
-		                   	 	<td>작성된 소개 글이 없어요!</td>
-		                    </c:when>
-		                    <c:otherwise>
-		                    	<td>${bl.profile }</td>
-		                    </c:otherwise>
-	                    </c:choose>
-                    	<td id="blButton"><a class="btn btn-dark">차단 취소</a></td>
-                    	<td class="blno" style="visibility: hidden; display:none;">${bl.userNo }</td>
-                	</tr>
-                </c:forEach>
-                </tbody>
+              <tbody>
+                <c:choose>
+                	<c:when test="${not empty list}">
+		                <c:forEach var="bl" items="${list }"> 
+		                    <tr>
+		                    	<th class="box" style="background: white;">
+				           			<c:choose>
+				           			<c:when test="${empty bl.pic }">
+				                        <img class="profile" src="resources/images/user.png">
+				                    </c:when>
+				                    <c:otherwise>
+				                    	<img class="profile" src="${bl.pic }">
+				                    </c:otherwise>   
+				                    </c:choose> 
+				                </th>
+		                    	<td>${bl.mbti }</td>
+			                    <td>${bl.nickname }</td>
+			                    <c:choose>
+				                    <c:when test="${empty bl.profile }">
+				                   	 	<td>작성된 소개 글이 없어요!</td>
+				                    </c:when>
+				                    <c:otherwise>
+				                    	<td>${bl.profile }</td>
+				                    </c:otherwise>
+			                    </c:choose>
+		                    	<td id="blButton"><a class="btn btn-dark">차단 취소</a></td>
+		                    	<td class="blno" style="visibility: hidden; display:none;">${bl.userNo }</td>
+		                	</tr>
+		                </c:forEach>
+		            </c:when>
+		            <c:otherwise>
+		            	<div class="block-empty"><b> 차단한 회원이 없습니다. 🙅‍♂️</b></div>
+		            </c:otherwise>
+                </c:choose>
+              </tbody>
             </table>
         </div>
     </div>
