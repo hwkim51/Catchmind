@@ -367,6 +367,7 @@ values (SEQ_NNO.NEXTVAL,'NEW 캐치마인더를 찾습니다 (2022.07.15 ~ 2022.
 INSERT INTO TB_NOTICE 
 values (SEQ_NNO.NEXTVAL,'캐치마인드랑 차박 떠나자! (2022.07.17 ~ 2022.07.20) | 종료',
 '"캐치마인드랑 1박 2일 차박 여행 떠나자 ! "
+
 ◆ 여름 밤, 1박 2일 차박 여행 이벤트
 - 이벤트 기간 : 2022.07.17 ~ 2022.07.20
 - 이벤트 대상 : CATCHMIND 회원 전체
@@ -380,6 +381,7 @@ CATCHMIND와 함께 1박 2일 로맨틱 정선 여행 떠나고
 INSERT INTO TB_NOTICE 
 values (SEQ_NNO.NEXTVAL,'리뷰 남기고 스타벅스 기프티콘 받자 ! (2022.07.17 ~ 2022.07.17) | 종료',
 '"캐치마인드 리뷰를 부탁해 ! "
+
 ◆ 7월 17일 단 하루 캐치마인드 리뷰남기고 상품 받자
 - 이벤트 상품 : 스타벅스 기프티콘 1만원 상당 ( 총 30명 )
 - 이벤트 기간 : 2022.07.17 ~ 2022.07.17
@@ -393,6 +395,7 @@ INSERT INTO TB_NOTICE
 values (SEQ_NNO.NEXTVAL,'미리미리 가을준비 AUTUMN? (2022.07.17 ~ 2022.09.30) | 진행중',
 '"동네 친구 사귀기도 이제는 캐치마인드! "
 미리미리 가을 준비 하기 AUTUMN?
+
 ◆ 인연 찾기 부터 옷장 준비까지 캐치마인드가 도와드립니다.
 - 이벤트 기간 : 2022.07.17 ~ 2022.09.30
 - 이벤트 상품 : 무신사 이용권 10만원 상당 ( 총 1명 )
@@ -407,6 +410,7 @@ INSERT INTO TB_NOTICE
 values (SEQ_NNO.NEXTVAL,'캐치마인드 여름 이벤트(2022.07.15 ~ 2022.07.30) | 진행중',
 '"[연애의 발견] 게시판에 커플 후기 작성하고 여름 휴가 가자 !"
 무더운 7월, 더위를 시원하게 날려 줄 여름 이벤트를 진행합니다.
+
 ◆ 캐치마인드 여름 이벤트 안내
 - 이벤트 기간 : 2022.07.15 ~ 2022.07.30
 - 이벤트 대상 : CATCHMIND 회원 전체
@@ -636,6 +640,69 @@ Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (8,0);
 Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (9,0);
 Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (10,0);
 Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (11,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (12,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (13,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (14,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (15,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (16,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (17,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (18,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (19,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (20,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (21,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (22,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (23,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (24,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (25,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (26,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (27,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (28,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (29,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (30,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (31,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (32,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (33,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (34,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (35,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (36,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (37,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (38,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (39,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (40,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (41,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (42,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (43,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (44,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (45,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (46,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (47,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (48,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (49,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (50,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (51,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (52,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (53,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (54,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (55,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (56,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (57,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (58,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (59,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (60,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (61,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (62,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (63,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (64,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (65,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (66,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (67,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (68,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (69,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (70,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (71,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (72,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (73,0);
+Insert into CHATCLAIM (USER_NO,CLAIM_FROM) values (74,0);
 -------------------------------------- CHATROOMS --------------------------------------
   CREATE TABLE CHATROOMS (
    	ROOM_NO NUMBER, 
