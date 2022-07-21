@@ -223,7 +223,80 @@ CREATE TABLE TB_CHAT_REVIEW (
     HAPPY NUMBER DEFAULT 0,
     LOVE NUMBER DEFAULT 0
 );
-ALTER TABLE TB_CHAT_REVIEW ADD CONSTRAINT FK_REVIEW_NO FOREIGN KEY(REVIEW_NO) REFERENCES TB_MEMBER(USER_NO);
+
+
+Insert into TB_CHAT_REVIEW values (2,2,4,7,2,1,2);
+Insert into TB_CHAT_REVIEW values (3,3,2,1,4,3,2);
+Insert into TB_CHAT_REVIEW values (4,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (5,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (6,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (7,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (8,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (9,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (10,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (11,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (12,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (13,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (14,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (15,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (16,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (17,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (18,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (19,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (20,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (21,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (22,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (23,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (24,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (25,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (26,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (27,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (28,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (29,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (30,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (31,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (32,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (33,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (34,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (35,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (36,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (37,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (38,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (39,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (40,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (41,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (42,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (43,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (44,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (45,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (46,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (47,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (48,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (49,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (50,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (51,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (52,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (53,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (54,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (55,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (56,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (57,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (58,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (59,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (60,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (61,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (62,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (63,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (64,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (65,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (66,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (67,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (68,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (69,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (70,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (71,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (72,0,0,0,0,0,0);
+Insert into TB_CHAT_REVIEW values (73,0,0,0,0,0,0);
 -------------------------------------- TB_CHAT --------------------------------------
 CREATE TABLE TB_CHAT (
     CHAT_CONTENT VARCHAR2(3000 BYTE), 
@@ -236,8 +309,6 @@ CREATE TABLE TB_BLOCK (
     USER_NO NUMBER,
     BLOCKED_USER NUMBER
 );
-ALTER TABLE TB_BLOCK ADD CONSTRAINT FK_USER_NO FOREIGN KEY(USER_NO) REFERENCES TB_MEMBER(USER_NO);
-ALTER TABLE TB_BLOCK ADD CONSTRAINT FK_BLOCKED_USER FOREIGN KEY(BLOCKED_USER) REFERENCES TB_MEMBER(USER_NO);
 -------------------------------------- CHAT_REPORT --------------------------------------
 CREATE TABLE CHAT_REPORT (
     USER_NO NUMBER, 
@@ -249,8 +320,6 @@ CREATE TABLE TB_FOLLOW (
     FO_USER NUMBER,
     FOED_USER NUMBER
 );
-ALTER TABLE TB_FOLLOW ADD CONSTRAINT FK_FO_USER FOREIGN KEY(FO_USER) REFERENCES TB_MEMBER(USER_NO);
-ALTER TABLE TB_FOLLOW ADD CONSTRAINT FK_FOED_USER FOREIGN KEY(FOED_USER) REFERENCES TB_MEMBER(USER_NO);
 -------------------------------------- TB_QA --------------------------------------
 CREATE TABLE TB_QA (
     QA_NO NUMBER,
@@ -262,7 +331,7 @@ CREATE TABLE TB_QA (
     Q_WRITER NUMBER,
     Q_ANSWERYN VARCHAR2(1) DEFAULT 'N' --답변여부 컬럼 추가(유진)
 );
-ALTER TABLE TB_QA ADD CONSTRAINT FK_Q_WRITER FOREIGN KEY(Q_WRITER) REFERENCES TB_MEMBER(USER_NO);
+
 -------------------------------------- TB_POST --------------------------------------
 CREATE TABLE TB_POST (
     POST_NO NUMBER,
@@ -290,7 +359,7 @@ VALUES(SEQ_PNO.NEXTVAL, 'BTS사랑해!!!!!', '미쳤다 너무 사랑해 진짜 
 INSERT INTO TB_POST
 VALUES(SEQ_PNO.NEXTVAL, '낭만을 아는 고양이 있나??', '밤 바다의 해변을 나와 같이 걸어줄 아기고양이있는가?', SYSDATE, 273, 'Y', 7);
 COMMENT ON COLUMN TB_POST.POST_STATUS IS 'CHECK(Y,N), Y:게시중, N:게시내림';
-ALTER TABLE TB_POST ADD CONSTRAINT FK_POST_WRITER FOREIGN KEY(POST_WRITER) REFERENCES TB_MEMBER(USER_NO);
+
 -------------------------------------- TB_NOTICE --------------------------------------
 CREATE TABLE TB_NOTICE (
     NOTICE_NO NUMBER,
@@ -463,14 +532,13 @@ Insert into TB_CATCH values (SEQ_CNO.NEXTVAL,'스타필드 안성 가배도 카�
 녹차 덕후로써 아주 만족💚',to_date('22/07/20','RR/MM/DD'),516,'Y',11);
 
 COMMENT ON COLUMN TB_CATCH.CATCH_STATUS IS 'CHECK(Y,N), Y:게시중, N:게시내림';
-ALTER TABLE TB_CATCH ADD CONSTRAINT FK_CATCH_WRITER FOREIGN KEY(CATCH_WRITER) REFERENCES TB_MEMBER(USER_NO);
+
 -------------------------------------- TB_LIKE --------------------------------------
 CREATE TABLE TB_LIKE (
     CATCH_NO NUMBER,
     LIKE_USER NUMBER
 );
-ALTER TABLE TB_LIKE ADD CONSTRAINT FK_CATCH_NO FOREIGN KEY(CATCH_NO) REFERENCES TB_CATCH(CATCH_NO);
-ALTER TABLE TB_LIKE ADD CONSTRAINT FK_LIKE_USER FOREIGN KEY(LIKE_USER) REFERENCES TB_MEMBER(USER_NO);
+
 -------------------------------------- TB_REPORT --------------------------------------
 CREATE TABLE TB_REPORT (
   REP_CONTENT VARCHAR2(1000),
@@ -478,8 +546,7 @@ CREATE TABLE TB_REPORT (
   POST_NO NUMBER DEFAULT 0,
   REPLY_NO NUMBER DEFAULT 0
   );
-ALTER TABLE TB_REPORT ADD CONSTRAINT FK_RE_CATCH_NO FOREIGN KEY(CATCH_NO) REFERENCES TB_CATCH(CATCH_NO);
-ALTER TABLE TB_REPORT ADD CONSTRAINT FK_POST_NO FOREIGN KEY(POST_NO) REFERENCES TB_POST(POST_NO);
+
 -------------------------------------- TB_REPLY --------------------------------------
 CREATE TABLE TB_REPLY (
     REPLY_NO NUMBER,
@@ -490,8 +557,7 @@ CREATE TABLE TB_REPLY (
     REPLY_POST NUMBER
 );
 COMMENT ON COLUMN TB_REPLY.STATUS IS 'CHECK(Y,N), Y:게시중, N:삭제';
-ALTER TABLE TB_REPLY ADD CONSTRAINT FK_REPLY_WRITER FOREIGN KEY(REPLY_WRITER) REFERENCES TB_MEMBER(USER_NO);
-ALTER TABLE TB_REPLY ADD CONSTRAINT FK_REPLY_POST FOREIGN KEY(REPLY_POST) REFERENCES TB_POST(POST_NO);
+
 -------------------------------------- TB_ATTACHMENT --------------------------------------
 CREATE TABLE TB_ATTACHMENT (
     ATT_NO NUMBER,
@@ -541,10 +607,6 @@ Insert into TB_ATTACHMENT values (SEQ_ANO.NEXTVAL,'293585777_575292977591771_470
 Insert into TB_ATTACHMENT values (SEQ_ANO.NEXTVAL,'293614959_459528195597670_2388247776958163434_n.webp','resources/images/upfiles/CatchMind_2022072019335066346.webp',null,null,9);
 Insert into TB_ATTACHMENT values (SEQ_ANO.NEXTVAL,'293634903_791587071859609_8467189034561628702_n.webp','resources/images/upfiles/CatchMind_2022072019335057918.webp',null,null,9);
 
-
-ALTER TABLE TB_ATTACHMENT ADD CONSTRAINT FK_ATT_NOTICE FOREIGN KEY(ATT_NOTICE) REFERENCES TB_NOTICE(NOTICE_NO);
-ALTER TABLE TB_ATTACHMENT ADD CONSTRAINT FK_ATT_POST FOREIGN KEY(ATT_POST) REFERENCES TB_POST(POST_NO);
-ALTER TABLE TB_ATTACHMENT ADD CONSTRAINT FK_ATT_CATCH FOREIGN KEY(ATT_CATCH) REFERENCES TB_CATCH(CATCH_NO);
 -------------------------------------- TB_FAQ --------------------------------------
 CREATE TABLE TB_FAQ (
     FAQ_NO NUMBER,
