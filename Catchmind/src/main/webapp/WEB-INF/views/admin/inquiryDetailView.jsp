@@ -194,7 +194,7 @@ div{
                          <c:otherwise>
                              <tr class="wrap_rep">
                                   <th class="rep_count">답변(0)</th>
-                                  <td class="rep_content">작성된 댓글이 없습니다.</td>
+                                  <td class="rep_content">관리자가 문의 검토 중입니다.</td>
                               </tr>
                          </c:otherwise>
                       </c:choose>

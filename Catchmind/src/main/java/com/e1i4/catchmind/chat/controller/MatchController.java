@@ -133,6 +133,13 @@ public class MatchController {
 				m.setAhigh(100);
 			}
 			ArrayList<Member> result = mdao.searchList1(sqlSession, m);
+			for(int i = 0; i < result.size(); i++) {
+				Member mTemp = result.get(i);
+				if(!((21-Integer.parseInt(String.valueOf(mTemp.getBirthDay().substring(2, 4)))) > Integer.parseInt(String.valueOf(alow)) || (21-Integer.parseInt(String.valueOf(mTemp.getBirthDay().substring(2, 4)))) < Integer.parseInt(String.valueOf(ahigh)))) {
+					result.set(i, null);
+				}
+				result.remove(null);
+			}
 			model.addAttribute("m", m);
 			model.addAttribute("mlist", result);
 			
@@ -160,6 +167,13 @@ public class MatchController {
 				m.setAhigh(500);
 			}
 			ArrayList<Member> result = mdao.searchList2(sqlSession, m);
+			for(int i = 0; i < result.size(); i++) {
+				Member mTemp = result.get(i);
+				if(!((21-Integer.parseInt(String.valueOf(mTemp.getBirthDay().substring(2, 4)))) > Integer.parseInt(String.valueOf(alow)) || (21-Integer.parseInt(String.valueOf(mTemp.getBirthDay().substring(2, 4)))) < Integer.parseInt(String.valueOf(ahigh)))) {
+					result.set(i, null);
+				}
+				result.remove(null);
+			}
 			model.addAttribute("m", m);
 			model.addAttribute("mlist", result);
 			
