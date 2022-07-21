@@ -97,12 +97,12 @@
     }
     .testBackImg2{
         position: absolute;
-        top: -16px;
+        top: -21px;
         left: 670px;
     }
     .testBackImg3{
         position: absolute;
-        top: 14px;
+        top: 10px;
         left: 810px;
     }
     .testBackImg4{
@@ -118,7 +118,7 @@
     .testBackImg6 {
     	position: absolute;
 	    left: 770px;
-	    top: -66px;
+	    top: -71px;
 	    height: 250px;
     }
     .homelogo{
@@ -262,7 +262,7 @@
                     <div>데이트 중 길에서</div>
                     <div>연인의 친구를 만난다면 나는</div>
                 </div>
-                <img src='./resources/images/mbti7.png' class='testBackImg2' style="left: 800px;" width="230px;" height="200px;">
+                <img src='./resources/images/mbti7.png' class='testBackImg2' style="left: 790px;" width="230px;" height="200px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="E">
                     	우리는 모두 친구! 친구가 된다
@@ -279,7 +279,7 @@
                     <div>상사한테 지적 당해</div>
                     <div>우울한 애인에게 나는</div>
                 </div>
-                <img src='./resources/images/mbti8.png' class='testBackImg2' style="left: 750px; top: -26px" width="330px;" height="210px;">
+                <img src='./resources/images/mbti8.png' class='testBackImg2' style="left: 750px; top: -30px" width="330px;" height="210px;">
                 <div class="options" align="center">
                     <div class="option" href="#question" data-slide="next" value="T">
                         "다음에는 이런 식으로 해보면 어떨까?"

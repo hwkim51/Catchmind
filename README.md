@@ -63,6 +63,9 @@ CatchMind는 온라인 매칭 사이트입니다.
 > Framework  
 ![spring](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
 ![Mybatis](https://img.shields.io/badge/mybatis-000000?style=for-the-badge&logo=mybatis&logoColor=white)  
+> Display Settings  
+Display Resolution : 1920 * 1080  
+Scale and layout : 125%
 ### 첨부된 SQL문을 실행한 후에 프로젝트를 실행하여야 정상적인 환경에서 감상이 가능합니다.
 
 ## UML
@@ -70,7 +73,7 @@ CatchMind는 온라인 매칭 사이트입니다.
 #### 구현을 위한 참고 자료로 실제 구현된 결과물과 다를 수 있음.
 
 ## erdCloud
-[![erdCloud](https://github.com/hwkim51/Catchmind/blob/main/Catchmind/src/main/webapp/resources/images/github_erd.png)](https://www.erdcloud.com/d/ZnijePXH3dzBNR6xg)
+[![erdCloud](https://github.com/hwkim51/Catchmind/blob/main/Catchmind/src/main/webapp/resources/images/github_erd.png)](https://www.erdcloud.com/d/SATcjFrWwEMvSGuXy)
 #### 구현을 위한 참고 자료로 실제 구현된 결과물과 다를 수 있음.
 
 ## 사이트 소개
