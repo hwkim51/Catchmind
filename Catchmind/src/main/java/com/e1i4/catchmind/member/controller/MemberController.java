@@ -702,7 +702,7 @@ public class MemberController {
 			
 			session.setAttribute("loginUser", updateMem);
 			
-			session.setAttribute("alertMsg", "커플 수락했슴둥~");
+			session.setAttribute("alertMsg", "커플 수락💖");
 			
 			return "redirect:myCouple.me";
 			
