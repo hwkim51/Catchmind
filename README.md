@@ -62,7 +62,8 @@ CatchMind는 온라인 매칭 사이트입니다.
 ![gson](https://img.shields.io/badge/gson-000000?style=for-the-badge&logo=gson&logoColor=white)  
 > Framework  
 ![spring](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-![Mybatis](https://img.shields.io/badge/mybatis-000000?style=for-the-badge&logo=mybatis&logoColor=white)  
+![Mybatis](https://img.shields.io/badge/mybatis-000000?style=for-the-badge&logo=mybatis&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=Bootstrap&logoColor=white)  
 > Display Settings  
 Display Resolution : 1920 * 1080  
 Scale and layout : 125%
