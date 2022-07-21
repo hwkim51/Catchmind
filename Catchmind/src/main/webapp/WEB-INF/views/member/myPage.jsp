@@ -464,7 +464,7 @@
                     <!-- 프로필 수정 모달 바디 -->
                     <div class="modal-body">
 
-                        <form action="updateProfile.me" method="post" enctype="multipart/form-data">
+                        <form action="updateProfile.me" id="updateProfileForm" method="post" enctype="multipart/form-data">
                         	<input type="hidden" name="userId" value="${ loginUser.userId }">
                         	<input type="hidden" name="userPwd" value="${ loginUser.userPwd }">
                         	
@@ -612,11 +612,46 @@
                                     var m = $(".update-message").text();
                                     
                                     $(".update-message").text($.trim(m));
+                                    
+                                    $("#profileModal .profile-updateBtn").click(function() {
+                                    	var updateNickname = $("input[name=nickname]").val();
+                                    	
+                                    	if(updateNickname == "") {
+                                    		alert('닉네임을 입력해주세요!');
+                                    		
+                                    		return;
+                                    	} else {
+                                    		
+                                    		$.ajax({
+                                    			url: "nicknameCheck.me",
+                                    			data : {nickname : $("input[name=nickname]").val()},
+                                    			success : function(result){
+                                                    if(result =="NNNNN"){
+                                                    	
+                                                    	var updateNickname = $("input[name=nickname]").val();
+                                                    	var userNickname = '${ loginUser.nickname}';
+                                                    	
+                                                    	if(updateNickname != userNickname) {
+                                                        	alert('이미 사용 중인 닉네임 입니다!');
+                                                    	} else {
+                                                        	$("#updateProfileForm").submit();
+                                                    	}
+                                                    	
+                                                    } else{ 
+                                                    	$("#updateProfileForm").submit();
+                                                    }
+                                                },
+                                                error : function(){
+                                                    console.log("닉네임 중복체크 ajax 통신 실패");
+                                                }
+                                    		});
+                                    	}
+                                    });
                                 });
                             </script>
                             
                             <!-- 프로필 수정 버튼 -->
-                            <input type="submit" class="btn profile-updateBtn" value="수정하기">
+                            <input type="button" class="btn profile-updateBtn" value="수정하기">
                         </form>
 
                     </div>
@@ -624,8 +659,9 @@
         	</div>
         </div>
 		
+		<!-- 회원 정보 -->
         <div class="myPageInfo-area" align="center">
-        	<form action="updateInfo.me" method="post">
+        	<form action="updateInfo.me" id="updateInfoForm" method="post">
 	            <table id="myPage-info">
 	                <tr>
 	                    <td width="100px">ID</td>
@@ -664,7 +700,7 @@
 	                <tr>
 	                    <td>전화번호</td>
 	                    <td>
-	                    	<input type="text" class="form-control" value="${ loginUser.phone }" name="phone">
+	                    	<input type="text" class="form-control" value="${ loginUser.phone }" name="phone" placeholder="- 포함 입력해주세요">
 	                    </td>
 	                </tr>
 	                <tr>
@@ -693,12 +729,36 @@
 	                <tr>
 	                    <td><div class="withdrawFont" data-toggle="modal" data-target="#withdrawModal">회원탈퇴 ></div></td>
 	                    <td align="center">
-	                    	<input type="submit" class="btn info-updateBtn" value="수정하기">
+	                    	<input type="button" class="btn info-updateBtn" value="수정하기">
 	                    </td>
 	                </tr>
 	            </table>
 	    	</form>
         </div>
+        
+        <script>
+        	$(function() {
+        		// 휴대폰 번호, 이메일 유효성 체크
+        		$(".myPageInfo-area .info-updateBtn").click(function() {
+        			var phoneNum = $("input[name=phone]").val();
+        			var patternPhone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
+        			
+        			if(!patternPhone.test(phoneNum)) {
+        				alert('핸드폰 번호를 확인해주세요!');
+        				return;
+        			}
+        			
+        			var emailAddr = $("input[name=email]").val();
+        			var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+        			
+        			if(!regExpEmail.test(emailAddr)) {
+        				alert('올바르지 않은 메일 형식입니다!');
+        				return;
+        			}
+        		});
+        	});
+        	
+        </script>
         
         <!-- 회원 탈퇴 모달 -->
         <div class="modal" id="withdrawModal">
