@@ -410,7 +410,7 @@
 		            	<div class="user-message" id="couple-message" align="left">
 			            	<c:choose>
 			            		<c:when test="${ coupleMem.profile eq null }">
-			            			아직 커플이 아닙니다
+			            			작성된 상태글이 없어요
 			            		</c:when>
 			            		<c:otherwise>
 			            			${ coupleMem.profile }
