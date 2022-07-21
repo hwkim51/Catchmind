@@ -621,30 +621,7 @@
                                     		
                                     		return;
                                     	} else {
-                                    		
-                                    		$.ajax({
-                                    			url: "nicknameCheck.me",
-                                    			data : {nickname : $("input[name=nickname]").val()},
-                                    			success : function(result){
-                                                    if(result =="NNNNN"){
-                                                    	
-                                                    	var updateNickname = $("input[name=nickname]").val();
-                                                    	var userNickname = '${ loginUser.nickname}';
-                                                    	
-                                                    	if(updateNickname != userNickname) {
-                                                        	alert('이미 사용 중인 닉네임 입니다!');
-                                                    	} else {
-                                                        	$("#updateProfileForm").submit();
-                                                    	}
-                                                    	
-                                                    } else{ 
-                                                    	$("#updateProfileForm").submit();
-                                                    }
-                                                },
-                                                error : function(){
-                                                    console.log("닉네임 중복체크 ajax 통신 실패");
-                                                }
-                                    		});
+                                    		$("#updateProfileForm").submit();
                                     	}
                                     });
                                 });
@@ -755,6 +732,8 @@
         				alert('올바르지 않은 메일 형식입니다!');
         				return;
         			}
+        			
+        			$("#updateInfoForm").submit();
         		});
         	});
         	
