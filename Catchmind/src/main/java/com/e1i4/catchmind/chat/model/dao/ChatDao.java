@@ -35,7 +35,8 @@ public class ChatDao {
 		// System.out.println(userNo1);
 		// System.out.println(userNo2);
 		
-		return sqlSession.selectOne("chatMapper.createRoomNo", map);
+		sqlSession.insert("chatMapper.createRoomNo", map);
+		return sqlSession.selectOne("chatMapper.getRoomNo", map);
 		
 	}
 	
